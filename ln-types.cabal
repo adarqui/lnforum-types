@@ -1,0 +1,143 @@
+name:                ln-types
+version:             0.1.0.40
+synopsis:            leuron types
+description:         leuron types
+license:             MIT
+license-file:        LICENSE
+author:              Andrew Darqui
+maintainer:          andrew.darqui@gmail.com
+category:            System
+build-type:          Simple
+cabal-version:       >=1.10
+
+Flag dev
+    Description:   Turn on development settings, like auto-reload templates.
+    Default:       False
+
+Flag library-only
+    Description:   Build for use with "yesod devel"
+    Default:       False
+
+library
+  exposed-modules:     LN.T
+                       LN.T.Internal.Types
+                       LN.T.Internal.JSON
+                       LN.T.Api
+                       LN.T.Api.Request
+                       LN.T.Api.Response
+                       LN.T.Board
+                       LN.T.Board.Request
+                       LN.T.Board.Response
+                       LN.T.Board.Stat
+                       LN.T.Bucket
+                       LN.T.Bucket.Request
+                       LN.T.Bucket.Response
+                       LN.T.Bucket.Stat
+                       LN.T.Count
+                       LN.T.Count.Response
+                       LN.T.DepList
+                       LN.T.Empty
+                       LN.T.Error
+                       LN.T.Forum
+                       LN.T.Forum.Request
+                       LN.T.Forum.Response
+                       LN.T.Forum.Stat
+                       LN.T.GenericPretty
+                       LN.T.Leuron
+                       LN.T.Leuron.Request
+                       LN.T.Leuron.Response
+                       LN.T.Leuron.Stat
+                       LN.T.Like
+                       LN.T.Me
+                       LN.T.Organization
+                       LN.T.Organization.Profile
+                       LN.T.Organization.Request
+                       LN.T.Organization.Response
+                       LN.T.Organization.Settings
+                       LN.T.Organization.Settings.Request
+                       LN.T.Organization.Settings.Response
+                       LN.T.Organization.Stat
+                       LN.T.Param
+                       LN.T.PatternSynonyms
+                       LN.T.Pack.Organization
+                       LN.T.Pack.Team
+                       LN.T.Pack.User
+                       LN.T.Pack.Me
+                       LN.T.Pack.Sanitized.User
+                       LN.T.Pack.Forum
+                       LN.T.Pack.Board
+                       LN.T.Pack.Thread
+                       LN.T.Pack.ThreadPost
+                       LN.T.Pack.Resource
+                       LN.T.Pack.Leuron
+                       LN.T.Pm
+                       LN.T.Pm.Request
+                       LN.T.Pm.Response
+                       LN.T.PmIn
+                       LN.T.PmIn.Request
+                       LN.T.PmIn.Response
+                       LN.T.PmOut
+                       LN.T.PmOut.Request
+                       LN.T.PmOut.Response
+                       LN.T.Prelude
+                       LN.T.Profile
+                       LN.T.Profile.Request
+                       LN.T.Profile.Response
+                       LN.T.Reminder
+                       LN.T.Reminder.Request
+                       LN.T.Reminder.Response
+                       LN.T.Reminder.Stat
+                       LN.T.Resource
+                       LN.T.Resource.Request
+                       LN.T.Resource.Response
+                       LN.T.Resource.Stat
+                       LN.T.Schema
+                       LN.T.SharedTypes
+                       LN.T.Size
+                       LN.T.Splits
+                       LN.T.Style
+                       LN.T.Substitutions
+                       LN.T.Team
+                       LN.T.Team.Request
+                       LN.T.Team.Response
+                       LN.T.Team.Stat
+                       LN.T.Test
+                       LN.T.Time
+                       LN.T.Thread
+                       LN.T.Thread.Request
+                       LN.T.Thread.Response
+                       LN.T.Thread.Stat
+                       LN.T.ThreadPost
+                       LN.T.ThreadPost.Request
+                       LN.T.ThreadPost.Response
+                       LN.T.ThreadPost.Stat
+                       LN.T.ThreadPost.Like.Request
+                       LN.T.ThreadPost.Like.Response
+                       LN.T.ThreadPost.Like.Stat
+                       LN.T.User
+                       LN.T.User.Profile
+                       LN.T.User.Request
+                       LN.T.User.Response
+                       LN.T.User.Sanitized
+                       LN.T.User.Sanitized.Response
+                       LN.T.User.Sanitized.Stat
+                       LN.T.User.Settings
+                       LN.T.User.Settings.Request
+                       LN.T.User.Settings.Response
+                       LN.T.User.Stat
+                       LN.T.Version
+                       LN.T.Visibility
+                       LN.T.Workout
+                       LN.T.Workout.Request
+                       LN.T.Workout.Response
+                       LN.T.Workout.Stat
+  build-depends:       base >=4.8 && <4.9, aeson, text, transformers, GenericPretty >= 1.2.1, time, haskell-api-helpers
+  hs-source-dirs:      src
+  default-language:    Haskell2010
+  ghc-options:         -Wall -fno-warn-orphans
+  default-extensions:  OverloadedStrings
+                       DeriveGeneric
+                       DeriveAnyClass
+                       RecordWildCards
+                       DisambiguateRecordFields
+                       NamedFieldPuns
