@@ -1053,8 +1053,8 @@ instance ToJSON LikeOpt where
     [ "tag" .= "Neutral"
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (DontLike ) = object $
-    [ "tag" .= "DontLike"
+  toJSON (Dislike ) = object $
+    [ "tag" .= "Dislike"
     , "contents" .= ([] :: [Text])
     ]
 
@@ -1069,8 +1069,8 @@ instance FromJSON LikeOpt where
       "Neutral" -> do
         return Neutral
 
-      "DontLike" -> do
-        return DontLike
+      "Dislike" -> do
+        return Dislike
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 

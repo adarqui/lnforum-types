@@ -17,7 +17,7 @@ import           LN.T.Prelude
 data LikeOpt
   = Like
   | Neutral
-  | DontLike
+  | Dislike
   deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -25,11 +25,11 @@ data LikeOpt
 likeOptToScore :: LikeOpt -> Int
 likeOptToScore Like = 1
 likeOptToScore Neutral = 0
-likeOptToScore DontLike = (-1)
+likeOptToScore Dislike = (-1)
 
 
 
 likeOptToScore64 :: LikeOpt -> Int64
 likeOptToScore64 Like = 1
 likeOptToScore64 Neutral = 0
-likeOptToScore64 DontLike = (-1)
+likeOptToScore64 Dislike = (-1)
