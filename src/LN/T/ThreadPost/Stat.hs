@@ -16,6 +16,7 @@ import           LN.T.Prelude
 data ThreadPostStatResponse = ThreadPostStatResponse {
   threadPostStatResponseThreadPostId :: Int64,
   threadPostStatResponseLikes        :: Int64,
+  threadPostStatResponseNeutral      :: Int64,
   threadPostStatResponseDislikes     :: Int64,
   threadPostStatResponseStarred      :: Int64,
   threadPostStatResponseViews        :: Int64
