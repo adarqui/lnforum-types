@@ -18,7 +18,7 @@ data ThreadPostStatResponse = ThreadPostStatResponse {
   threadPostStatResponseLikes        :: Int64,
   threadPostStatResponseNeutral      :: Int64,
   threadPostStatResponseDislikes     :: Int64,
-  threadPostStatResponseStarred      :: Int64,
+  threadPostStatResponseStars        :: Int64,
   threadPostStatResponseViews        :: Int64
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
