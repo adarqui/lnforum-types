@@ -43,6 +43,8 @@ data Param
   | ByThreadPostName       Text
   | ByThreadPostLikeId     Int64
   | ByThreadPostLikesIds   [Int64]
+  | ByThreadPostStarId     Int64
+  | ByThreadPostStarsIds   [Int64]
   | ByBucketId             Int64
   | ByResourceId           Int64
   | ByResourcesIds         [Int64]
@@ -95,6 +97,8 @@ data ParamTag
   | ParamTag_ByThreadPostName
   | ParamTag_ByThreadPostLikeId
   | ParamTag_ByThreadPostLikesIds
+  | ParamTag_ByThreadPostStarId
+  | ParamTag_ByThreadPostStarsIds
   | ParamTag_ByBucketId
   | ParamTag_ByResourceId
   | ParamTag_ByResourcesIds
@@ -147,6 +151,8 @@ instance QueryParam Param where
   qp (ByThreadPostName thread_post_name) = tuple "thread_post_name" (T.unpack thread_post_name)
   qp (ByThreadPostLikeId like_id)        = tuple "thread_post_like_id" (show like_id)
   qp (ByThreadPostLikesIds likes_ids)    = tuple "thread_post_likes_ids" (show likes_ids)
+  qp (ByThreadPostStarId star_id)        = tuple "thread_post_star_id" (show star_id)
+  qp (ByThreadPostStarsIds stars_ids)    = tuple "thread_post_stars_ids" (show stars_ids)
   qp (ByBucketId bucket_id)              = tuple "bucket_id" (show bucket_id)
   qp (ByResourceId resource_id)          = tuple "resource_id" (show resource_id)
   qp (ByResourcesIds resources_ids)      = tuple "resources_ids" (show resources_ids)
@@ -272,6 +278,8 @@ instance Show ParamTag where
   show ParamTag_ByThreadPostName       = "thread_post_name"
   show ParamTag_ByThreadPostLikeId     = "thread_post_like_id"
   show ParamTag_ByThreadPostLikesIds   = "thread_post_likes_ids"
+  show ParamTag_ByThreadPostStarId     = "thread_post_star_id"
+  show ParamTag_ByThreadPostStarsIds   = "thread_post_stars_ids"
   show ParamTag_ByBucketId             = "bucket_id"
   show ParamTag_ByResourceId           = "resource_id"
   show ParamTag_ByResourcesIds         = "resources_ids"
