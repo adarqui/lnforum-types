@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.43
+version:             0.1.0.44
 synopsis:            leuron types
 description:         leuron types
 license:             MIT
@@ -114,6 +114,9 @@ library
                        LN.T.ThreadPost.Like.Request
                        LN.T.ThreadPost.Like.Response
                        LN.T.ThreadPost.Like.Stat
+                       LN.T.ThreadPost.Star.Request
+                       LN.T.ThreadPost.Star.Response
+                       LN.T.ThreadPost.Star.Stat
                        LN.T.User
                        LN.T.User.Profile
                        LN.T.User.Request

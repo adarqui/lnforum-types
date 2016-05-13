@@ -95,6 +95,9 @@ import           LN.T.ThreadPost.Stat                as A
 import           LN.T.ThreadPost.Like.Request        as A
 import           LN.T.ThreadPost.Like.Response       as A
 import           LN.T.ThreadPost.Like.Stat           as A
+import           LN.T.ThreadPost.Star.Request        as A
+import           LN.T.ThreadPost.Star.Response       as A
+import           LN.T.ThreadPost.Star.Stat           as A
 import           LN.T.Time                           as A
 import           LN.T.User                           as A
 import           LN.T.User.Profile                   as A
