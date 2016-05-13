@@ -3258,7 +3258,7 @@ instance ToJSON ThreadPostStatResponse where
     , "likes" .= threadPostStatResponseLikes
     , "neutral" .= threadPostStatResponseNeutral
     , "dislikes" .= threadPostStatResponseDislikes
-    , "starred" .= threadPostStatResponseStarred
+    , "stars" .= threadPostStatResponseStars
     , "views" .= threadPostStatResponseViews
     ]
 
@@ -3269,14 +3269,14 @@ instance FromJSON ThreadPostStatResponse where
     threadPostStatResponseLikes <- o .: "likes"
     threadPostStatResponseNeutral <- o .: "neutral"
     threadPostStatResponseDislikes <- o .: "dislikes"
-    threadPostStatResponseStarred <- o .: "starred"
+    threadPostStatResponseStars <- o .: "stars"
     threadPostStatResponseViews <- o .: "views"
     return $ ThreadPostStatResponse {
       threadPostStatResponseThreadPostId = threadPostStatResponseThreadPostId,
       threadPostStatResponseLikes = threadPostStatResponseLikes,
       threadPostStatResponseNeutral = threadPostStatResponseNeutral,
       threadPostStatResponseDislikes = threadPostStatResponseDislikes,
-      threadPostStatResponseStarred = threadPostStatResponseStarred,
+      threadPostStatResponseStars = threadPostStatResponseStars,
       threadPostStatResponseViews = threadPostStatResponseViews
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
@@ -3407,6 +3407,104 @@ instance FromJSON ThreadPostLikeStatResponses where
     threadPostLikeStatResponses <- o .: "thread_post_like_stat_responses"
     return $ ThreadPostLikeStatResponses {
       threadPostLikeStatResponses = threadPostLikeStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ThreadPostStarRequest where
+  toJSON ThreadPostStarRequest{..} = object $
+    [ "tag" .= "ThreadPostStarRequest"
+    , "reason" .= threadPostStarRequestReason
+    ]
+
+
+instance FromJSON ThreadPostStarRequest where
+  parseJSON (Object o) = do
+    threadPostStarRequestReason <- o .: "reason"
+    return $ ThreadPostStarRequest {
+      threadPostStarRequestReason = threadPostStarRequestReason
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ThreadPostStarResponse where
+  toJSON ThreadPostStarResponse{..} = object $
+    [ "tag" .= "ThreadPostStarResponse"
+    , "id" .= threadPostStarResponseId
+    , "thread_post_id" .= threadPostStarResponseThreadPostId
+    , "user_id" .= threadPostStarResponseUserId
+    , "reason" .= threadPostStarResponseReason
+    , "created_at" .= threadPostStarResponseCreatedAt
+    , "modified_at" .= threadPostStarResponseModifiedAt
+    ]
+
+
+instance FromJSON ThreadPostStarResponse where
+  parseJSON (Object o) = do
+    threadPostStarResponseId <- o .: "id"
+    threadPostStarResponseThreadPostId <- o .: "thread_post_id"
+    threadPostStarResponseUserId <- o .: "user_id"
+    threadPostStarResponseReason <- o .: "reason"
+    threadPostStarResponseCreatedAt <- o .: "created_at"
+    threadPostStarResponseModifiedAt <- o .: "modified_at"
+    return $ ThreadPostStarResponse {
+      threadPostStarResponseId = threadPostStarResponseId,
+      threadPostStarResponseThreadPostId = threadPostStarResponseThreadPostId,
+      threadPostStarResponseUserId = threadPostStarResponseUserId,
+      threadPostStarResponseReason = threadPostStarResponseReason,
+      threadPostStarResponseCreatedAt = threadPostStarResponseCreatedAt,
+      threadPostStarResponseModifiedAt = threadPostStarResponseModifiedAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ThreadPostStarResponses where
+  toJSON ThreadPostStarResponses{..} = object $
+    [ "tag" .= "ThreadPostStarResponses"
+    , "thread_post_star_responses" .= threadPostStarResponses
+    ]
+
+
+instance FromJSON ThreadPostStarResponses where
+  parseJSON (Object o) = do
+    threadPostStarResponses <- o .: "thread_post_star_responses"
+    return $ ThreadPostStarResponses {
+      threadPostStarResponses = threadPostStarResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ThreadPostStarStatResponse where
+  toJSON ThreadPostStarStatResponse{..} = object $
+    [ "tag" .= "ThreadPostStarStatResponse"
+    , "id" .= threadPostStarStatResponseId
+    , "stars" .= threadPostStarStatResponseStars
+    ]
+
+
+instance FromJSON ThreadPostStarStatResponse where
+  parseJSON (Object o) = do
+    threadPostStarStatResponseId <- o .: "id"
+    threadPostStarStatResponseStars <- o .: "stars"
+    return $ ThreadPostStarStatResponse {
+      threadPostStarStatResponseId = threadPostStarStatResponseId,
+      threadPostStarStatResponseStars = threadPostStarStatResponseStars
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ThreadPostStarStatResponses where
+  toJSON ThreadPostStarStatResponses{..} = object $
+    [ "tag" .= "ThreadPostStarStatResponses"
+    , "thread_post_star_stat_responses" .= threadPostStarStatResponses
+    ]
+
+
+instance FromJSON ThreadPostStarStatResponses where
+  parseJSON (Object o) = do
+    threadPostStarStatResponses <- o .: "thread_post_star_stat_responses"
+    return $ ThreadPostStarStatResponses {
+      threadPostStarStatResponses = threadPostStarStatResponses
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
