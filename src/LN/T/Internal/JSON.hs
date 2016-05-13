@@ -3256,6 +3256,7 @@ instance ToJSON ThreadPostStatResponse where
     [ "tag" .= "ThreadPostStatResponse"
     , "thread_post_id" .= threadPostStatResponseThreadPostId
     , "likes" .= threadPostStatResponseLikes
+    , "neutral" .= threadPostStatResponseNeutral
     , "dislikes" .= threadPostStatResponseDislikes
     , "starred" .= threadPostStatResponseStarred
     , "views" .= threadPostStatResponseViews
@@ -3266,12 +3267,14 @@ instance FromJSON ThreadPostStatResponse where
   parseJSON (Object o) = do
     threadPostStatResponseThreadPostId <- o .: "thread_post_id"
     threadPostStatResponseLikes <- o .: "likes"
+    threadPostStatResponseNeutral <- o .: "neutral"
     threadPostStatResponseDislikes <- o .: "dislikes"
     threadPostStatResponseStarred <- o .: "starred"
     threadPostStatResponseViews <- o .: "views"
     return $ ThreadPostStatResponse {
       threadPostStatResponseThreadPostId = threadPostStatResponseThreadPostId,
       threadPostStatResponseLikes = threadPostStatResponseLikes,
+      threadPostStatResponseNeutral = threadPostStatResponseNeutral,
       threadPostStatResponseDislikes = threadPostStatResponseDislikes,
       threadPostStatResponseStarred = threadPostStatResponseStarred,
       threadPostStatResponseViews = threadPostStatResponseViews
