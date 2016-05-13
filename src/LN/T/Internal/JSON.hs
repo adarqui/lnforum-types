@@ -3856,6 +3856,7 @@ instance ToJSON ThreadPostPackResponse where
     , "user" .= threadPostPackResponseUser
     , "stat" .= threadPostPackResponseStat
     , "like" .= threadPostPackResponseLike
+    , "star" .= threadPostPackResponseStar
     ]
 
 
@@ -3865,11 +3866,13 @@ instance FromJSON ThreadPostPackResponse where
     threadPostPackResponseUser <- o .: "user"
     threadPostPackResponseStat <- o .: "stat"
     threadPostPackResponseLike <- o .: "like"
+    threadPostPackResponseStar <- o .: "star"
     return $ ThreadPostPackResponse {
       threadPostPackResponseThreadPost = threadPostPackResponseThreadPost,
       threadPostPackResponseUser = threadPostPackResponseUser,
       threadPostPackResponseStat = threadPostPackResponseStat,
-      threadPostPackResponseLike = threadPostPackResponseLike
+      threadPostPackResponseLike = threadPostPackResponseLike,
+      threadPostPackResponseStar = threadPostPackResponseStar
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
