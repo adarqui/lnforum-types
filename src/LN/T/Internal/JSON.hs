@@ -1331,6 +1331,14 @@ instance ToJSON Param where
     [ "tag" .= "ByThreadPostLikesIds"
     , "contents" .= toJSON x0
     ]
+  toJSON (ByThreadPostStarId x0) = object $
+    [ "tag" .= "ByThreadPostStarId"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByThreadPostStarsIds x0) = object $
+    [ "tag" .= "ByThreadPostStarsIds"
+    , "contents" .= toJSON x0
+    ]
   toJSON (ByBucketId x0) = object $
     [ "tag" .= "ByBucketId"
     , "contents" .= toJSON x0
@@ -1525,6 +1533,14 @@ instance FromJSON Param where
         x0 <- o .: "contents"
         ByThreadPostLikesIds <$> parseJSON x0
 
+      "ByThreadPostStarId" -> do
+        x0 <- o .: "contents"
+        ByThreadPostStarId <$> parseJSON x0
+
+      "ByThreadPostStarsIds" -> do
+        x0 <- o .: "contents"
+        ByThreadPostStarsIds <$> parseJSON x0
+
       "ByBucketId" -> do
         x0 <- o .: "contents"
         ByBucketId <$> parseJSON x0
@@ -1717,6 +1733,14 @@ instance ToJSON ParamTag where
     [ "tag" .= "ParamTag_ByThreadPostLikesIds"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (ParamTag_ByThreadPostStarId ) = object $
+    [ "tag" .= "ParamTag_ByThreadPostStarId"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByThreadPostStarsIds ) = object $
+    [ "tag" .= "ParamTag_ByThreadPostStarsIds"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (ParamTag_ByBucketId ) = object $
     [ "tag" .= "ParamTag_ByBucketId"
     , "contents" .= ([] :: [Text])
@@ -1882,6 +1906,12 @@ instance FromJSON ParamTag where
 
       "ParamTag_ByThreadPostLikesIds" -> do
         return ParamTag_ByThreadPostLikesIds
+
+      "ParamTag_ByThreadPostStarId" -> do
+        return ParamTag_ByThreadPostStarId
+
+      "ParamTag_ByThreadPostStarsIds" -> do
+        return ParamTag_ByThreadPostStarsIds
 
       "ParamTag_ByBucketId" -> do
         return ParamTag_ByBucketId
