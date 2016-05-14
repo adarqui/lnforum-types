@@ -31,6 +31,12 @@ import           LN.T.Leuron                         as A
 import           LN.T.Leuron.Request                 as A
 import           LN.T.Leuron.Response                as A
 import           LN.T.Leuron.Stat                    as A
+import           LN.T.Leuron.Like.Request            as A
+import           LN.T.Leuron.Like.Response           as A
+import           LN.T.Leuron.Like.Stat               as A
+import           LN.T.Leuron.Star.Request            as A
+import           LN.T.Leuron.Star.Response           as A
+import           LN.T.Leuron.Star.Stat               as A
 import           LN.T.Like                           as A
 import           LN.T.Me                             as A
 import           LN.T.Organization                   as A
@@ -74,6 +80,12 @@ import           LN.T.Resource                       as A
 import           LN.T.Resource.Request               as A
 import           LN.T.Resource.Response              as A
 import           LN.T.Resource.Stat                  as A
+import           LN.T.Resource.Like.Request          as A
+import           LN.T.Resource.Like.Response         as A
+import           LN.T.Resource.Like.Stat             as A
+import           LN.T.Resource.Star.Request          as A
+import           LN.T.Resource.Star.Response         as A
+import           LN.T.Resource.Star.Stat             as A
 import           LN.T.Schema                         as A
 import           LN.T.SharedTypes                    as A
 import           LN.T.Size                           as A

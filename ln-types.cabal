@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.45
+version:             0.1.0.46
 synopsis:            leuron types
 description:         leuron types
 license:             MIT
@@ -47,6 +47,12 @@ library
                        LN.T.Leuron.Request
                        LN.T.Leuron.Response
                        LN.T.Leuron.Stat
+                       LN.T.Leuron.Like.Request
+                       LN.T.Leuron.Like.Response
+                       LN.T.Leuron.Like.Stat
+                       LN.T.Leuron.Star.Request
+                       LN.T.Leuron.Star.Response
+                       LN.T.Leuron.Star.Stat
                        LN.T.Like
                        LN.T.Me
                        LN.T.Organization
@@ -70,6 +76,7 @@ library
                        LN.T.Pack.ThreadPost
                        LN.T.Pack.Resource
                        LN.T.Pack.Leuron
+--                       LN.T.Pack.Life
                        LN.T.Pm
                        LN.T.Pm.Request
                        LN.T.Pm.Response
@@ -91,6 +98,12 @@ library
                        LN.T.Resource.Request
                        LN.T.Resource.Response
                        LN.T.Resource.Stat
+                       LN.T.Resource.Like.Request
+                       LN.T.Resource.Like.Response
+                       LN.T.Resource.Like.Stat
+                       LN.T.Resource.Star.Request
+                       LN.T.Resource.Star.Response
+                       LN.T.Resource.Star.Stat
                        LN.T.Schema
                        LN.T.SharedTypes
                        LN.T.Size
