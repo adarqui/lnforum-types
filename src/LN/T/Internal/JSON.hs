@@ -3024,6 +3024,7 @@ instance ToJSON ResourceStatResponse where
   toJSON ResourceStatResponse{..} = object $
     [ "tag" .= "ResourceStatResponse"
     , "resource_id" .= resourceStatResponseResourceId
+    , "leurons" .= resourceStatResponseLeurons
     , "likes" .= resourceStatResponseLikes
     , "neutral" .= resourceStatResponseNeutral
     , "dislikes" .= resourceStatResponseDislikes
@@ -3035,6 +3036,7 @@ instance ToJSON ResourceStatResponse where
 instance FromJSON ResourceStatResponse where
   parseJSON (Object o) = do
     resourceStatResponseResourceId <- o .: "resource_id"
+    resourceStatResponseLeurons <- o .: "leurons"
     resourceStatResponseLikes <- o .: "likes"
     resourceStatResponseNeutral <- o .: "neutral"
     resourceStatResponseDislikes <- o .: "dislikes"
@@ -3042,6 +3044,7 @@ instance FromJSON ResourceStatResponse where
     resourceStatResponseViews <- o .: "views"
     return $ ResourceStatResponse {
       resourceStatResponseResourceId = resourceStatResponseResourceId,
+      resourceStatResponseLeurons = resourceStatResponseLeurons,
       resourceStatResponseLikes = resourceStatResponseLikes,
       resourceStatResponseNeutral = resourceStatResponseNeutral,
       resourceStatResponseDislikes = resourceStatResponseDislikes,
