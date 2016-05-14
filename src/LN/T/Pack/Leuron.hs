@@ -9,6 +9,8 @@ module LN.T.Pack.Leuron (
 
 import           LN.T.Leuron.Response
 import           LN.T.Leuron.Stat
+import           LN.T.Leuron.Like.Response
+import           LN.T.Leuron.Star.Response
 import           LN.T.Prelude
 import           LN.T.User.Sanitized.Response
 
@@ -17,9 +19,9 @@ import           LN.T.User.Sanitized.Response
 data LeuronPackResponse = LeuronPackResonse {
   leuronPackResponseLeuron :: LeuronResponse,
   leuronPackResponseUser   :: UserSanitizedResponse,
-  leuronPackResponseStat   :: LeuronStatResponse
-  --leuronPackResponseLike :: Maybe LeuronLikeResponse
-  --leuronPackResponseStar :: Maybe LeuronStarResponse
+  leuronPackResponseStat   :: LeuronStatResponse,
+  leuronPackResponseLike   :: Maybe LeuronLikeResponse,
+  leuronPackResponseStar   :: Maybe LeuronStarResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

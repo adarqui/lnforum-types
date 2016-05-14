@@ -636,6 +636,264 @@ instance FromJSON LeuronResponses where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON LeuronStatResponse where
+  toJSON LeuronStatResponse{..} = object $
+    [ "tag" .= "LeuronStatResponse"
+    , "leuron_id" .= leuronStatResponseLeuronId
+    , "likes" .= leuronStatResponseLikes
+    , "neutral" .= leuronStatResponseNeutral
+    , "dislikes" .= leuronStatResponseDislikes
+    , "stars" .= leuronStatResponseStars
+    , "views" .= leuronStatResponseViews
+    ]
+
+
+instance FromJSON LeuronStatResponse where
+  parseJSON (Object o) = do
+    leuronStatResponseLeuronId <- o .: "leuron_id"
+    leuronStatResponseLikes <- o .: "likes"
+    leuronStatResponseNeutral <- o .: "neutral"
+    leuronStatResponseDislikes <- o .: "dislikes"
+    leuronStatResponseStars <- o .: "stars"
+    leuronStatResponseViews <- o .: "views"
+    return $ LeuronStatResponse {
+      leuronStatResponseLeuronId = leuronStatResponseLeuronId,
+      leuronStatResponseLikes = leuronStatResponseLikes,
+      leuronStatResponseNeutral = leuronStatResponseNeutral,
+      leuronStatResponseDislikes = leuronStatResponseDislikes,
+      leuronStatResponseStars = leuronStatResponseStars,
+      leuronStatResponseViews = leuronStatResponseViews
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronStatResponses where
+  toJSON LeuronStatResponses{..} = object $
+    [ "tag" .= "LeuronStatResponses"
+    , "leuron_stat_responses" .= leuronStatResponses
+    ]
+
+
+instance FromJSON LeuronStatResponses where
+  parseJSON (Object o) = do
+    leuronStatResponses <- o .: "leuron_stat_responses"
+    return $ LeuronStatResponses {
+      leuronStatResponses = leuronStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronLikeRequest where
+  toJSON LeuronLikeRequest{..} = object $
+    [ "tag" .= "LeuronLikeRequest"
+    , "opt" .= leuronLikeRequestOpt
+    , "reason" .= leuronLikeRequestReason
+    ]
+
+
+instance FromJSON LeuronLikeRequest where
+  parseJSON (Object o) = do
+    leuronLikeRequestOpt <- o .: "opt"
+    leuronLikeRequestReason <- o .: "reason"
+    return $ LeuronLikeRequest {
+      leuronLikeRequestOpt = leuronLikeRequestOpt,
+      leuronLikeRequestReason = leuronLikeRequestReason
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronLikeResponse where
+  toJSON LeuronLikeResponse{..} = object $
+    [ "tag" .= "LeuronLikeResponse"
+    , "id" .= leuronLikeResponseId
+    , "leuron_id" .= leuronLikeResponseLeuronId
+    , "user_id" .= leuronLikeResponseUserId
+    , "opt" .= leuronLikeResponseOpt
+    , "score" .= leuronLikeResponseScore
+    , "reason" .= leuronLikeResponseReason
+    , "created_at" .= leuronLikeResponseCreatedAt
+    , "modified_at" .= leuronLikeResponseModifiedAt
+    ]
+
+
+instance FromJSON LeuronLikeResponse where
+  parseJSON (Object o) = do
+    leuronLikeResponseId <- o .: "id"
+    leuronLikeResponseLeuronId <- o .: "leuron_id"
+    leuronLikeResponseUserId <- o .: "user_id"
+    leuronLikeResponseOpt <- o .: "opt"
+    leuronLikeResponseScore <- o .: "score"
+    leuronLikeResponseReason <- o .: "reason"
+    leuronLikeResponseCreatedAt <- o .: "created_at"
+    leuronLikeResponseModifiedAt <- o .: "modified_at"
+    return $ LeuronLikeResponse {
+      leuronLikeResponseId = leuronLikeResponseId,
+      leuronLikeResponseLeuronId = leuronLikeResponseLeuronId,
+      leuronLikeResponseUserId = leuronLikeResponseUserId,
+      leuronLikeResponseOpt = leuronLikeResponseOpt,
+      leuronLikeResponseScore = leuronLikeResponseScore,
+      leuronLikeResponseReason = leuronLikeResponseReason,
+      leuronLikeResponseCreatedAt = leuronLikeResponseCreatedAt,
+      leuronLikeResponseModifiedAt = leuronLikeResponseModifiedAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronLikeResponses where
+  toJSON LeuronLikeResponses{..} = object $
+    [ "tag" .= "LeuronLikeResponses"
+    , "leuron_like_responses" .= leuronLikeResponses
+    ]
+
+
+instance FromJSON LeuronLikeResponses where
+  parseJSON (Object o) = do
+    leuronLikeResponses <- o .: "leuron_like_responses"
+    return $ LeuronLikeResponses {
+      leuronLikeResponses = leuronLikeResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronLikeStatResponse where
+  toJSON LeuronLikeStatResponse{..} = object $
+    [ "tag" .= "LeuronLikeStatResponse"
+    , "id" .= leuronLikeStatResponseId
+    , "score" .= leuronLikeStatResponseScore
+    , "like" .= leuronLikeStatResponseLike
+    , "dislike" .= leuronLikeStatResponseDislike
+    ]
+
+
+instance FromJSON LeuronLikeStatResponse where
+  parseJSON (Object o) = do
+    leuronLikeStatResponseId <- o .: "id"
+    leuronLikeStatResponseScore <- o .: "score"
+    leuronLikeStatResponseLike <- o .: "like"
+    leuronLikeStatResponseDislike <- o .: "dislike"
+    return $ LeuronLikeStatResponse {
+      leuronLikeStatResponseId = leuronLikeStatResponseId,
+      leuronLikeStatResponseScore = leuronLikeStatResponseScore,
+      leuronLikeStatResponseLike = leuronLikeStatResponseLike,
+      leuronLikeStatResponseDislike = leuronLikeStatResponseDislike
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronLikeStatResponses where
+  toJSON LeuronLikeStatResponses{..} = object $
+    [ "tag" .= "LeuronLikeStatResponses"
+    , "leuron_like_stat_responses" .= leuronLikeStatResponses
+    ]
+
+
+instance FromJSON LeuronLikeStatResponses where
+  parseJSON (Object o) = do
+    leuronLikeStatResponses <- o .: "leuron_like_stat_responses"
+    return $ LeuronLikeStatResponses {
+      leuronLikeStatResponses = leuronLikeStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronStarRequest where
+  toJSON LeuronStarRequest{..} = object $
+    [ "tag" .= "LeuronStarRequest"
+    , "reason" .= leuronStarRequestReason
+    ]
+
+
+instance FromJSON LeuronStarRequest where
+  parseJSON (Object o) = do
+    leuronStarRequestReason <- o .: "reason"
+    return $ LeuronStarRequest {
+      leuronStarRequestReason = leuronStarRequestReason
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronStarResponse where
+  toJSON LeuronStarResponse{..} = object $
+    [ "tag" .= "LeuronStarResponse"
+    , "id" .= leuronStarResponseId
+    , "leuron_id" .= leuronStarResponseLeuronId
+    , "user_id" .= leuronStarResponseUserId
+    , "reason" .= leuronStarResponseReason
+    , "created_at" .= leuronStarResponseCreatedAt
+    , "modified_at" .= leuronStarResponseModifiedAt
+    ]
+
+
+instance FromJSON LeuronStarResponse where
+  parseJSON (Object o) = do
+    leuronStarResponseId <- o .: "id"
+    leuronStarResponseLeuronId <- o .: "leuron_id"
+    leuronStarResponseUserId <- o .: "user_id"
+    leuronStarResponseReason <- o .: "reason"
+    leuronStarResponseCreatedAt <- o .: "created_at"
+    leuronStarResponseModifiedAt <- o .: "modified_at"
+    return $ LeuronStarResponse {
+      leuronStarResponseId = leuronStarResponseId,
+      leuronStarResponseLeuronId = leuronStarResponseLeuronId,
+      leuronStarResponseUserId = leuronStarResponseUserId,
+      leuronStarResponseReason = leuronStarResponseReason,
+      leuronStarResponseCreatedAt = leuronStarResponseCreatedAt,
+      leuronStarResponseModifiedAt = leuronStarResponseModifiedAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronStarResponses where
+  toJSON LeuronStarResponses{..} = object $
+    [ "tag" .= "LeuronStarResponses"
+    , "leuron_star_responses" .= leuronStarResponses
+    ]
+
+
+instance FromJSON LeuronStarResponses where
+  parseJSON (Object o) = do
+    leuronStarResponses <- o .: "leuron_star_responses"
+    return $ LeuronStarResponses {
+      leuronStarResponses = leuronStarResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronStarStatResponse where
+  toJSON LeuronStarStatResponse{..} = object $
+    [ "tag" .= "LeuronStarStatResponse"
+    , "id" .= leuronStarStatResponseId
+    , "stars" .= leuronStarStatResponseStars
+    ]
+
+
+instance FromJSON LeuronStarStatResponse where
+  parseJSON (Object o) = do
+    leuronStarStatResponseId <- o .: "id"
+    leuronStarStatResponseStars <- o .: "stars"
+    return $ LeuronStarStatResponse {
+      leuronStarStatResponseId = leuronStarStatResponseId,
+      leuronStarStatResponseStars = leuronStarStatResponseStars
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronStarStatResponses where
+  toJSON LeuronStarStatResponses{..} = object $
+    [ "tag" .= "LeuronStarStatResponses"
+    , "leuron_star_stat_responses" .= leuronStarStatResponses
+    ]
+
+
+instance FromJSON LeuronStarStatResponses where
+  parseJSON (Object o) = do
+    leuronStarStatResponses <- o .: "leuron_star_stat_responses"
+    return $ LeuronStarStatResponses {
+      leuronStarStatResponses = leuronStarStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON LeuronData where
   toJSON (LnFact x0) = object $
     [ "tag" .= "LnFact"
@@ -2762,6 +3020,264 @@ instance FromJSON ResourceResponses where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON ResourceStatResponse where
+  toJSON ResourceStatResponse{..} = object $
+    [ "tag" .= "ResourceStatResponse"
+    , "resource_id" .= resourceStatResponseResourceId
+    , "likes" .= resourceStatResponseLikes
+    , "neutral" .= resourceStatResponseNeutral
+    , "dislikes" .= resourceStatResponseDislikes
+    , "stars" .= resourceStatResponseStars
+    , "views" .= resourceStatResponseViews
+    ]
+
+
+instance FromJSON ResourceStatResponse where
+  parseJSON (Object o) = do
+    resourceStatResponseResourceId <- o .: "resource_id"
+    resourceStatResponseLikes <- o .: "likes"
+    resourceStatResponseNeutral <- o .: "neutral"
+    resourceStatResponseDislikes <- o .: "dislikes"
+    resourceStatResponseStars <- o .: "stars"
+    resourceStatResponseViews <- o .: "views"
+    return $ ResourceStatResponse {
+      resourceStatResponseResourceId = resourceStatResponseResourceId,
+      resourceStatResponseLikes = resourceStatResponseLikes,
+      resourceStatResponseNeutral = resourceStatResponseNeutral,
+      resourceStatResponseDislikes = resourceStatResponseDislikes,
+      resourceStatResponseStars = resourceStatResponseStars,
+      resourceStatResponseViews = resourceStatResponseViews
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceStatResponses where
+  toJSON ResourceStatResponses{..} = object $
+    [ "tag" .= "ResourceStatResponses"
+    , "resource_stat_responses" .= resourceStatResponses
+    ]
+
+
+instance FromJSON ResourceStatResponses where
+  parseJSON (Object o) = do
+    resourceStatResponses <- o .: "resource_stat_responses"
+    return $ ResourceStatResponses {
+      resourceStatResponses = resourceStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceLikeRequest where
+  toJSON ResourceLikeRequest{..} = object $
+    [ "tag" .= "ResourceLikeRequest"
+    , "opt" .= resourceLikeRequestOpt
+    , "reason" .= resourceLikeRequestReason
+    ]
+
+
+instance FromJSON ResourceLikeRequest where
+  parseJSON (Object o) = do
+    resourceLikeRequestOpt <- o .: "opt"
+    resourceLikeRequestReason <- o .: "reason"
+    return $ ResourceLikeRequest {
+      resourceLikeRequestOpt = resourceLikeRequestOpt,
+      resourceLikeRequestReason = resourceLikeRequestReason
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceLikeResponse where
+  toJSON ResourceLikeResponse{..} = object $
+    [ "tag" .= "ResourceLikeResponse"
+    , "id" .= resourceLikeResponseId
+    , "resource_id" .= resourceLikeResponseResourceId
+    , "user_id" .= resourceLikeResponseUserId
+    , "opt" .= resourceLikeResponseOpt
+    , "score" .= resourceLikeResponseScore
+    , "reason" .= resourceLikeResponseReason
+    , "created_at" .= resourceLikeResponseCreatedAt
+    , "modified_at" .= resourceLikeResponseModifiedAt
+    ]
+
+
+instance FromJSON ResourceLikeResponse where
+  parseJSON (Object o) = do
+    resourceLikeResponseId <- o .: "id"
+    resourceLikeResponseResourceId <- o .: "resource_id"
+    resourceLikeResponseUserId <- o .: "user_id"
+    resourceLikeResponseOpt <- o .: "opt"
+    resourceLikeResponseScore <- o .: "score"
+    resourceLikeResponseReason <- o .: "reason"
+    resourceLikeResponseCreatedAt <- o .: "created_at"
+    resourceLikeResponseModifiedAt <- o .: "modified_at"
+    return $ ResourceLikeResponse {
+      resourceLikeResponseId = resourceLikeResponseId,
+      resourceLikeResponseResourceId = resourceLikeResponseResourceId,
+      resourceLikeResponseUserId = resourceLikeResponseUserId,
+      resourceLikeResponseOpt = resourceLikeResponseOpt,
+      resourceLikeResponseScore = resourceLikeResponseScore,
+      resourceLikeResponseReason = resourceLikeResponseReason,
+      resourceLikeResponseCreatedAt = resourceLikeResponseCreatedAt,
+      resourceLikeResponseModifiedAt = resourceLikeResponseModifiedAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceLikeResponses where
+  toJSON ResourceLikeResponses{..} = object $
+    [ "tag" .= "ResourceLikeResponses"
+    , "resource_like_responses" .= resourceLikeResponses
+    ]
+
+
+instance FromJSON ResourceLikeResponses where
+  parseJSON (Object o) = do
+    resourceLikeResponses <- o .: "resource_like_responses"
+    return $ ResourceLikeResponses {
+      resourceLikeResponses = resourceLikeResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceLikeStatResponse where
+  toJSON ResourceLikeStatResponse{..} = object $
+    [ "tag" .= "ResourceLikeStatResponse"
+    , "id" .= resourceLikeStatResponseId
+    , "score" .= resourceLikeStatResponseScore
+    , "like" .= resourceLikeStatResponseLike
+    , "dislike" .= resourceLikeStatResponseDislike
+    ]
+
+
+instance FromJSON ResourceLikeStatResponse where
+  parseJSON (Object o) = do
+    resourceLikeStatResponseId <- o .: "id"
+    resourceLikeStatResponseScore <- o .: "score"
+    resourceLikeStatResponseLike <- o .: "like"
+    resourceLikeStatResponseDislike <- o .: "dislike"
+    return $ ResourceLikeStatResponse {
+      resourceLikeStatResponseId = resourceLikeStatResponseId,
+      resourceLikeStatResponseScore = resourceLikeStatResponseScore,
+      resourceLikeStatResponseLike = resourceLikeStatResponseLike,
+      resourceLikeStatResponseDislike = resourceLikeStatResponseDislike
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceLikeStatResponses where
+  toJSON ResourceLikeStatResponses{..} = object $
+    [ "tag" .= "ResourceLikeStatResponses"
+    , "resource_like_stat_responses" .= resourceLikeStatResponses
+    ]
+
+
+instance FromJSON ResourceLikeStatResponses where
+  parseJSON (Object o) = do
+    resourceLikeStatResponses <- o .: "resource_like_stat_responses"
+    return $ ResourceLikeStatResponses {
+      resourceLikeStatResponses = resourceLikeStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceStarRequest where
+  toJSON ResourceStarRequest{..} = object $
+    [ "tag" .= "ResourceStarRequest"
+    , "reason" .= resourceStarRequestReason
+    ]
+
+
+instance FromJSON ResourceStarRequest where
+  parseJSON (Object o) = do
+    resourceStarRequestReason <- o .: "reason"
+    return $ ResourceStarRequest {
+      resourceStarRequestReason = resourceStarRequestReason
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceStarResponse where
+  toJSON ResourceStarResponse{..} = object $
+    [ "tag" .= "ResourceStarResponse"
+    , "id" .= resourceStarResponseId
+    , "resource_id" .= resourceStarResponseResourceId
+    , "user_id" .= resourceStarResponseUserId
+    , "reason" .= resourceStarResponseReason
+    , "created_at" .= resourceStarResponseCreatedAt
+    , "modified_at" .= resourceStarResponseModifiedAt
+    ]
+
+
+instance FromJSON ResourceStarResponse where
+  parseJSON (Object o) = do
+    resourceStarResponseId <- o .: "id"
+    resourceStarResponseResourceId <- o .: "resource_id"
+    resourceStarResponseUserId <- o .: "user_id"
+    resourceStarResponseReason <- o .: "reason"
+    resourceStarResponseCreatedAt <- o .: "created_at"
+    resourceStarResponseModifiedAt <- o .: "modified_at"
+    return $ ResourceStarResponse {
+      resourceStarResponseId = resourceStarResponseId,
+      resourceStarResponseResourceId = resourceStarResponseResourceId,
+      resourceStarResponseUserId = resourceStarResponseUserId,
+      resourceStarResponseReason = resourceStarResponseReason,
+      resourceStarResponseCreatedAt = resourceStarResponseCreatedAt,
+      resourceStarResponseModifiedAt = resourceStarResponseModifiedAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceStarResponses where
+  toJSON ResourceStarResponses{..} = object $
+    [ "tag" .= "ResourceStarResponses"
+    , "resource_star_responses" .= resourceStarResponses
+    ]
+
+
+instance FromJSON ResourceStarResponses where
+  parseJSON (Object o) = do
+    resourceStarResponses <- o .: "resource_star_responses"
+    return $ ResourceStarResponses {
+      resourceStarResponses = resourceStarResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceStarStatResponse where
+  toJSON ResourceStarStatResponse{..} = object $
+    [ "tag" .= "ResourceStarStatResponse"
+    , "id" .= resourceStarStatResponseId
+    , "stars" .= resourceStarStatResponseStars
+    ]
+
+
+instance FromJSON ResourceStarStatResponse where
+  parseJSON (Object o) = do
+    resourceStarStatResponseId <- o .: "id"
+    resourceStarStatResponseStars <- o .: "stars"
+    return $ ResourceStarStatResponse {
+      resourceStarStatResponseId = resourceStarStatResponseId,
+      resourceStarStatResponseStars = resourceStarStatResponseStars
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourceStarStatResponses where
+  toJSON ResourceStarStatResponses{..} = object $
+    [ "tag" .= "ResourceStarStatResponses"
+    , "resource_star_stat_responses" .= resourceStarStatResponses
+    ]
+
+
+instance FromJSON ResourceStarStatResponses where
+  parseJSON (Object o) = do
+    resourceStarStatResponses <- o .: "resource_star_stat_responses"
+    return $ ResourceStarStatResponses {
+      resourceStarStatResponses = resourceStarStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON Size where
   toJSON (XSmall ) = object $
     [ "tag" .= "XSmall"
@@ -3919,6 +4435,82 @@ instance FromJSON ThreadPostPackResponses where
     threadPostPackResponses <- o .: "thread_post_pack_responses"
     return $ ThreadPostPackResponses {
       threadPostPackResponses = threadPostPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourcePackResponse where
+  toJSON ResourcePackResonse{..} = object $
+    [ "tag" .= "ResourcePackResponse"
+    , "resource" .= resourcePackResponseResource
+    , "user" .= resourcePackResponseUser
+    , "stat" .= resourcePackResponseStat
+    ]
+
+
+instance FromJSON ResourcePackResponse where
+  parseJSON (Object o) = do
+    resourcePackResponseResource <- o .: "resource"
+    resourcePackResponseUser <- o .: "user"
+    resourcePackResponseStat <- o .: "stat"
+    return $ ResourcePackResonse {
+      resourcePackResponseResource = resourcePackResponseResource,
+      resourcePackResponseUser = resourcePackResponseUser,
+      resourcePackResponseStat = resourcePackResponseStat
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ResourcePackResponses where
+  toJSON ResourcePackResponses{..} = object $
+    [ "tag" .= "ResourcePackResponses"
+    , "resource_pack_responses" .= resourcePackResponses
+    ]
+
+
+instance FromJSON ResourcePackResponses where
+  parseJSON (Object o) = do
+    resourcePackResponses <- o .: "resource_pack_responses"
+    return $ ResourcePackResponses {
+      resourcePackResponses = resourcePackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronPackResponse where
+  toJSON LeuronPackResonse{..} = object $
+    [ "tag" .= "LeuronPackResponse"
+    , "leuron" .= leuronPackResponseLeuron
+    , "user" .= leuronPackResponseUser
+    , "stat" .= leuronPackResponseStat
+    ]
+
+
+instance FromJSON LeuronPackResponse where
+  parseJSON (Object o) = do
+    leuronPackResponseLeuron <- o .: "leuron"
+    leuronPackResponseUser <- o .: "user"
+    leuronPackResponseStat <- o .: "stat"
+    return $ LeuronPackResonse {
+      leuronPackResponseLeuron = leuronPackResponseLeuron,
+      leuronPackResponseUser = leuronPackResponseUser,
+      leuronPackResponseStat = leuronPackResponseStat
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronPackResponses where
+  toJSON LeuronPackResponses{..} = object $
+    [ "tag" .= "LeuronPackResponses"
+    , "leuron_pack_responses" .= leuronPackResponses
+    ]
+
+
+instance FromJSON LeuronPackResponses where
+  parseJSON (Object o) = do
+    leuronPackResponses <- o .: "leuron_pack_responses"
+    return $ LeuronPackResponses {
+      leuronPackResponses = leuronPackResponses
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
