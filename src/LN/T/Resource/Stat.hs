@@ -13,6 +13,7 @@ import           LN.T.Prelude
 
 data ResourceStatResponse = ResourceStatResponse {
   resourceStatResponseResourceId :: Int64,
+  resourceStatResponseLeurons    :: Int64,
   resourceStatResponseLikes      :: Int64,
   resourceStatResponseNeutral    :: Int64,
   resourceStatResponseDislikes   :: Int64,
