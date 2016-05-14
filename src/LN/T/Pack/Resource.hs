@@ -16,7 +16,7 @@ import           LN.T.User.Sanitized.Response
 
 
 
-data ResourcePackResponse = ResourcePackResonse {
+data ResourcePackResponse = ResourcePackResponse {
   resourcePackResponseResource :: ResourceResponse,
   resourcePackResponseUser     :: UserSanitizedResponse,
   resourcePackResponseStat     :: ResourceStatResponse,

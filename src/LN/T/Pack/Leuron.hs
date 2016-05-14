@@ -16,7 +16,7 @@ import           LN.T.User.Sanitized.Response
 
 
 
-data LeuronPackResponse = LeuronPackResonse {
+data LeuronPackResponse = LeuronPackResponse {
   leuronPackResponseLeuron :: LeuronResponse,
   leuronPackResponseUser   :: UserSanitizedResponse,
   leuronPackResponseStat   :: LeuronStatResponse,

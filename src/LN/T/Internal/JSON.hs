@@ -4440,7 +4440,7 @@ instance FromJSON ThreadPostPackResponses where
 
 
 instance ToJSON ResourcePackResponse where
-  toJSON ResourcePackResonse{..} = object $
+  toJSON ResourcePackResponse{..} = object $
     [ "tag" .= "ResourcePackResponse"
     , "resource" .= resourcePackResponseResource
     , "user" .= resourcePackResponseUser
@@ -4457,7 +4457,7 @@ instance FromJSON ResourcePackResponse where
     resourcePackResponseStat <- o .: "stat"
     resourcePackResponseLike <- o .: "like"
     resourcePackResponseStar <- o .: "star"
-    return $ ResourcePackResonse {
+    return $ ResourcePackResponse {
       resourcePackResponseResource = resourcePackResponseResource,
       resourcePackResponseUser = resourcePackResponseUser,
       resourcePackResponseStat = resourcePackResponseStat,
@@ -4484,7 +4484,7 @@ instance FromJSON ResourcePackResponses where
 
 
 instance ToJSON LeuronPackResponse where
-  toJSON LeuronPackResonse{..} = object $
+  toJSON LeuronPackResponse{..} = object $
     [ "tag" .= "LeuronPackResponse"
     , "leuron" .= leuronPackResponseLeuron
     , "user" .= leuronPackResponseUser
@@ -4501,7 +4501,7 @@ instance FromJSON LeuronPackResponse where
     leuronPackResponseStat <- o .: "stat"
     leuronPackResponseLike <- o .: "like"
     leuronPackResponseStar <- o .: "star"
-    return $ LeuronPackResonse {
+    return $ LeuronPackResponse {
       leuronPackResponseLeuron = leuronPackResponseLeuron,
       leuronPackResponseUser = leuronPackResponseUser,
       leuronPackResponseStat = leuronPackResponseStat,
