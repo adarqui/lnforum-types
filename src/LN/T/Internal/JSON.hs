@@ -4445,6 +4445,8 @@ instance ToJSON ResourcePackResponse where
     , "resource" .= resourcePackResponseResource
     , "user" .= resourcePackResponseUser
     , "stat" .= resourcePackResponseStat
+    , "like" .= resourcePackResponseLike
+    , "star" .= resourcePackResponseStar
     ]
 
 
@@ -4453,10 +4455,14 @@ instance FromJSON ResourcePackResponse where
     resourcePackResponseResource <- o .: "resource"
     resourcePackResponseUser <- o .: "user"
     resourcePackResponseStat <- o .: "stat"
+    resourcePackResponseLike <- o .: "like"
+    resourcePackResponseStar <- o .: "star"
     return $ ResourcePackResonse {
       resourcePackResponseResource = resourcePackResponseResource,
       resourcePackResponseUser = resourcePackResponseUser,
-      resourcePackResponseStat = resourcePackResponseStat
+      resourcePackResponseStat = resourcePackResponseStat,
+      resourcePackResponseLike = resourcePackResponseLike,
+      resourcePackResponseStar = resourcePackResponseStar
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -4483,6 +4489,8 @@ instance ToJSON LeuronPackResponse where
     , "leuron" .= leuronPackResponseLeuron
     , "user" .= leuronPackResponseUser
     , "stat" .= leuronPackResponseStat
+    , "like" .= leuronPackResponseLike
+    , "star" .= leuronPackResponseStar
     ]
 
 
@@ -4491,10 +4499,14 @@ instance FromJSON LeuronPackResponse where
     leuronPackResponseLeuron <- o .: "leuron"
     leuronPackResponseUser <- o .: "user"
     leuronPackResponseStat <- o .: "stat"
+    leuronPackResponseLike <- o .: "like"
+    leuronPackResponseStar <- o .: "star"
     return $ LeuronPackResonse {
       leuronPackResponseLeuron = leuronPackResponseLeuron,
       leuronPackResponseUser = leuronPackResponseUser,
-      leuronPackResponseStat = leuronPackResponseStat
+      leuronPackResponseStat = leuronPackResponseStat,
+      leuronPackResponseLike = leuronPackResponseLike,
+      leuronPackResponseStar = leuronPackResponseStar
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
