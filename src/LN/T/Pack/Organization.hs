@@ -12,10 +12,12 @@ import           LN.T.Organization
 import           LN.T.Organization.Response
 import           LN.T.Organization.Stat
 import           LN.T.Prelude
+import           LN.T.User.Sanitized.Response
 
 
 
 data OrganizationPackResponse = OrganizationPackResponse {
+  organizationPackResponseUser             :: UserSanitizedResponse,
   organizationPackResponseOrganization     :: OrganizationResponse,
   organizationPackResponseOrganizationStat :: OrganizationStatResponse
 --  organizationPackResponseOrganizationProfile :: ProfileResponse
