@@ -21,6 +21,7 @@ import           LN.T.Count                          as A
 import           LN.T.Count.Response                 as A
 import           LN.T.DepList                        as A
 import           LN.T.Empty                          as A
+import           LN.T.Entity                         as A
 import           LN.T.Error                          as A
 import           LN.T.Forum                          as A
 import           LN.T.Forum.Request                  as A
@@ -38,6 +39,9 @@ import           LN.T.Leuron.Star.Request            as A
 import           LN.T.Leuron.Star.Response           as A
 import           LN.T.Leuron.Star.Stat               as A
 import           LN.T.Like                           as A
+import           LN.T.Like.Request                   as A
+import           LN.T.Like.Response                  as A
+import           LN.T.Like.Stat                      as A
 import           LN.T.Me                             as A
 import           LN.T.Organization                   as A
 import           LN.T.Organization.Profile           as A
@@ -91,6 +95,10 @@ import           LN.T.SharedTypes                    as A
 import           LN.T.Size                           as A
 import           LN.T.Splits                         as A ()
 import           LN.T.Substitutions                  as A ()
+import           LN.T.Star                           as A
+import           LN.T.Star.Request                   as A
+import           LN.T.Star.Response                  as A
+import           LN.T.Star.Stat                      as A
 import           LN.T.Team                           as A
 import           LN.T.Team.Request                   as A
 import           LN.T.Team.Response                  as A
