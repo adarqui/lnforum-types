@@ -3811,6 +3811,38 @@ instance FromJSON TeamResponses where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON TeamStatResponse where
+  toJSON TeamStatResponse{..} = object $
+    [ "tag" .= "TeamStatResponse"
+    , "members" .= teamStatResponseMembers
+    ]
+
+
+instance FromJSON TeamStatResponse where
+  parseJSON (Object o) = do
+    teamStatResponseMembers <- o .: "members"
+    return $ TeamStatResponse {
+      teamStatResponseMembers = teamStatResponseMembers
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamStatResponses where
+  toJSON TeamStatResponses{..} = object $
+    [ "tag" .= "TeamStatResponses"
+    , "team_stat_responses" .= teamStatResponses
+    ]
+
+
+instance FromJSON TeamStatResponses where
+  parseJSON (Object o) = do
+    teamStatResponses <- o .: "team_stat_responses"
+    return $ TeamStatResponses {
+      teamStatResponses = teamStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON TestRequest where
   toJSON TestRequest{..} = object $
     [ "tag" .= "TestRequest"
@@ -4621,6 +4653,193 @@ instance FromJSON Visibility where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON OrganizationPackResponse where
+  toJSON OrganizationPackResponse{..} = object $
+    [ "tag" .= "OrganizationPackResponse"
+    , "user" .= organizationPackResponseUser
+    , "organization" .= organizationPackResponseOrganization
+    , "organization_stat" .= organizationPackResponseOrganizationStat
+    ]
+
+
+instance FromJSON OrganizationPackResponse where
+  parseJSON (Object o) = do
+    organizationPackResponseUser <- o .: "user"
+    organizationPackResponseOrganization <- o .: "organization"
+    organizationPackResponseOrganizationStat <- o .: "organization_stat"
+    return $ OrganizationPackResponse {
+      organizationPackResponseUser = organizationPackResponseUser,
+      organizationPackResponseOrganization = organizationPackResponseOrganization,
+      organizationPackResponseOrganizationStat = organizationPackResponseOrganizationStat
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON OrganizationPackResponses where
+  toJSON OrganizationPackResponses{..} = object $
+    [ "tag" .= "OrganizationPackResponses"
+    , "organization_pack_responses" .= organizationPackResponses
+    ]
+
+
+instance FromJSON OrganizationPackResponses where
+  parseJSON (Object o) = do
+    organizationPackResponses <- o .: "organization_pack_responses"
+    return $ OrganizationPackResponses {
+      organizationPackResponses = organizationPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamPackResponse where
+  toJSON TeamPackResponse{..} = object $
+    [ "tag" .= "TeamPackResponse"
+    , "user" .= teamPackResponseUser
+    , "team" .= teamPackResponseTeam
+    , "team_stat" .= teamPackResponseTeamStat
+    ]
+
+
+instance FromJSON TeamPackResponse where
+  parseJSON (Object o) = do
+    teamPackResponseUser <- o .: "user"
+    teamPackResponseTeam <- o .: "team"
+    teamPackResponseTeamStat <- o .: "team_stat"
+    return $ TeamPackResponse {
+      teamPackResponseUser = teamPackResponseUser,
+      teamPackResponseTeam = teamPackResponseTeam,
+      teamPackResponseTeamStat = teamPackResponseTeamStat
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamPackResponses where
+  toJSON TeamPackResponses{..} = object $
+    [ "tag" .= "TeamPackResponses"
+    , "team_pack_responses" .= teamPackResponses
+    ]
+
+
+instance FromJSON TeamPackResponses where
+  parseJSON (Object o) = do
+    teamPackResponses <- o .: "team_pack_responses"
+    return $ TeamPackResponses {
+      teamPackResponses = teamPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON UserPackResponse where
+  toJSON UserPackResponse{..} = object $
+    [ "tag" .= "UserPackResponse"
+    , "user" .= userPackResponseUser
+    , "user_stat" .= userPackResponseUserStat
+    , "user_profile" .= userPackResponseUserProfile
+    ]
+
+
+instance FromJSON UserPackResponse where
+  parseJSON (Object o) = do
+    userPackResponseUser <- o .: "user"
+    userPackResponseUserStat <- o .: "user_stat"
+    userPackResponseUserProfile <- o .: "user_profile"
+    return $ UserPackResponse {
+      userPackResponseUser = userPackResponseUser,
+      userPackResponseUserStat = userPackResponseUserStat,
+      userPackResponseUserProfile = userPackResponseUserProfile
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON UserPackResponses where
+  toJSON UserPackResponses{..} = object $
+    [ "tag" .= "UserPackResponses"
+    , "user_pack_responses" .= userPackResponses
+    ]
+
+
+instance FromJSON UserPackResponses where
+  parseJSON (Object o) = do
+    userPackResponses <- o .: "user_pack_responses"
+    return $ UserPackResponses {
+      userPackResponses = userPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON UserSanitizedPackResponse where
+  toJSON UserSanitizedPackResponse{..} = object $
+    [ "tag" .= "UserSanitizedPackResponse"
+    , "user" .= userSanitizedPackResponseUser
+    , "user_stat" .= userSanitizedPackResponseUserStat
+    , "user_profile" .= userSanitizedPackResponseUserProfile
+    ]
+
+
+instance FromJSON UserSanitizedPackResponse where
+  parseJSON (Object o) = do
+    userSanitizedPackResponseUser <- o .: "user"
+    userSanitizedPackResponseUserStat <- o .: "user_stat"
+    userSanitizedPackResponseUserProfile <- o .: "user_profile"
+    return $ UserSanitizedPackResponse {
+      userSanitizedPackResponseUser = userSanitizedPackResponseUser,
+      userSanitizedPackResponseUserStat = userSanitizedPackResponseUserStat,
+      userSanitizedPackResponseUserProfile = userSanitizedPackResponseUserProfile
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON UserSanitizedPackResponses where
+  toJSON UserSanitizedPackResponses{..} = object $
+    [ "tag" .= "UserSanitizedPackResponses"
+    , "user_sanitized_pack_responses" .= userSanitizedPackResponses
+    ]
+
+
+instance FromJSON UserSanitizedPackResponses where
+  parseJSON (Object o) = do
+    userSanitizedPackResponses <- o .: "user_sanitized_pack_responses"
+    return $ UserSanitizedPackResponses {
+      userSanitizedPackResponses = userSanitizedPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ForumPackResponse where
+  toJSON ForumPackResponse{..} = object $
+    [ "tag" .= "ForumPackResponse"
+    , "forum" .= forumPackResponseForum
+    , "stat" .= forumPackResponseStat
+    ]
+
+
+instance FromJSON ForumPackResponse where
+  parseJSON (Object o) = do
+    forumPackResponseForum <- o .: "forum"
+    forumPackResponseStat <- o .: "stat"
+    return $ ForumPackResponse {
+      forumPackResponseForum = forumPackResponseForum,
+      forumPackResponseStat = forumPackResponseStat
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON ForumPackResponses where
+  toJSON ForumPackResponses{..} = object $
+    [ "tag" .= "ForumPackResponses"
+    , "forum_pack_responses" .= forumPackResponses
+    ]
+
+
+instance FromJSON ForumPackResponses where
+  parseJSON (Object o) = do
+    forumPackResponses <- o .: "forum_pack_responses"
+    return $ ForumPackResponses {
+      forumPackResponses = forumPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON BoardPackResponse where
   toJSON BoardPackResponse{..} = object $
     [ "tag" .= "BoardPackResponse"
@@ -4661,41 +4880,6 @@ instance FromJSON BoardPackResponses where
     boardPackResponses <- o .: "board_pack_responses"
     return $ BoardPackResponses {
       boardPackResponses = boardPackResponses
-    }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
-
-
-instance ToJSON OrganizationPackResponse where
-  toJSON OrganizationPackResponse{..} = object $
-    [ "tag" .= "OrganizationPackResponse"
-    , "organization" .= organizationPackResponseOrganization
-    , "organization_stat" .= organizationPackResponseOrganizationStat
-    ]
-
-
-instance FromJSON OrganizationPackResponse where
-  parseJSON (Object o) = do
-    organizationPackResponseOrganization <- o .: "organization"
-    organizationPackResponseOrganizationStat <- o .: "organization_stat"
-    return $ OrganizationPackResponse {
-      organizationPackResponseOrganization = organizationPackResponseOrganization,
-      organizationPackResponseOrganizationStat = organizationPackResponseOrganizationStat
-    }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
-
-
-instance ToJSON OrganizationPackResponses where
-  toJSON OrganizationPackResponses{..} = object $
-    [ "tag" .= "OrganizationPackResponses"
-    , "organization_pack_responses" .= organizationPackResponses
-    ]
-
-
-instance FromJSON OrganizationPackResponses where
-  parseJSON (Object o) = do
-    organizationPackResponses <- o .: "organization_pack_responses"
-    return $ OrganizationPackResponses {
-      organizationPackResponses = organizationPackResponses
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -4872,82 +5056,6 @@ instance FromJSON LeuronPackResponses where
     leuronPackResponses <- o .: "leuron_pack_responses"
     return $ LeuronPackResponses {
       leuronPackResponses = leuronPackResponses
-    }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
-
-
-instance ToJSON UserPackResponse where
-  toJSON UserPackResponse{..} = object $
-    [ "tag" .= "UserPackResponse"
-    , "user" .= userPackResponseUser
-    , "user_stat" .= userPackResponseUserStat
-    , "user_profile" .= userPackResponseUserProfile
-    ]
-
-
-instance FromJSON UserPackResponse where
-  parseJSON (Object o) = do
-    userPackResponseUser <- o .: "user"
-    userPackResponseUserStat <- o .: "user_stat"
-    userPackResponseUserProfile <- o .: "user_profile"
-    return $ UserPackResponse {
-      userPackResponseUser = userPackResponseUser,
-      userPackResponseUserStat = userPackResponseUserStat,
-      userPackResponseUserProfile = userPackResponseUserProfile
-    }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
-
-
-instance ToJSON UserPackResponses where
-  toJSON UserPackResponses{..} = object $
-    [ "tag" .= "UserPackResponses"
-    , "user_pack_responses" .= userPackResponses
-    ]
-
-
-instance FromJSON UserPackResponses where
-  parseJSON (Object o) = do
-    userPackResponses <- o .: "user_pack_responses"
-    return $ UserPackResponses {
-      userPackResponses = userPackResponses
-    }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
-
-
-instance ToJSON UserSanitizedPackResponse where
-  toJSON UserSanitizedPackResponse{..} = object $
-    [ "tag" .= "UserSanitizedPackResponse"
-    , "user" .= userSanitizedPackResponseUser
-    , "user_stat" .= userSanitizedPackResponseUserStat
-    , "user_profile" .= userSanitizedPackResponseUserProfile
-    ]
-
-
-instance FromJSON UserSanitizedPackResponse where
-  parseJSON (Object o) = do
-    userSanitizedPackResponseUser <- o .: "user"
-    userSanitizedPackResponseUserStat <- o .: "user_stat"
-    userSanitizedPackResponseUserProfile <- o .: "user_profile"
-    return $ UserSanitizedPackResponse {
-      userSanitizedPackResponseUser = userSanitizedPackResponseUser,
-      userSanitizedPackResponseUserStat = userSanitizedPackResponseUserStat,
-      userSanitizedPackResponseUserProfile = userSanitizedPackResponseUserProfile
-    }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
-
-
-instance ToJSON UserSanitizedPackResponses where
-  toJSON UserSanitizedPackResponses{..} = object $
-    [ "tag" .= "UserSanitizedPackResponses"
-    , "user_sanitized_pack_responses" .= userSanitizedPackResponses
-    ]
-
-
-instance FromJSON UserSanitizedPackResponses where
-  parseJSON (Object o) = do
-    userSanitizedPackResponses <- o .: "user_sanitized_pack_responses"
-    return $ UserSanitizedPackResponses {
-      userSanitizedPackResponses = userSanitizedPackResponses
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
