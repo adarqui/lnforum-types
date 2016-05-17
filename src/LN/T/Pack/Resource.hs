@@ -18,7 +18,7 @@ import           LN.T.User.Sanitized.Response
 
 data ResourcePackResponse = ResourcePackResponse {
   resourcePackResponseResource   :: ResourceResponse,
-  resourcePackREsponseResourceId :: Int64,
+  resourcePackResponseResourceId :: Int64,
   resourcePackResponseUser       :: UserSanitizedResponse,
   resourcePackResponseUserId     :: Int64,
   resourcePackResponseStat       :: ResourceStatResponse,
