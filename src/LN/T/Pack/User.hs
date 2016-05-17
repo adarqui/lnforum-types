@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Pack.User (
   UserPackResponse (..),
@@ -16,9 +15,9 @@ import           LN.T.User.Sanitized.Stat
 
 
 data UserPackResponse = UserPackResponse {
-  userPackResponseUser        :: UserResponse,
-  userPackResponseUserStat    :: UserSanitizedStatResponse,
-  userPackResponseUserProfile :: ProfileResponse
+  userPackResponseUser    :: UserResponse,
+  userPackResponseStat    :: UserSanitizedStatResponse,
+  userPackResponseProfile :: ProfileResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

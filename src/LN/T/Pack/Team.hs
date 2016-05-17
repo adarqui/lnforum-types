@@ -7,7 +7,9 @@ module LN.T.Pack.Team (
 
 
 
+import           LN.T.Like.Response
 import           LN.T.Prelude
+import           LN.T.Star.Response
 import           LN.T.Team
 import           LN.T.Team.Response
 import           LN.T.Team.Stat
@@ -17,9 +19,13 @@ import           LN.T.User.Sanitized.Response
 
 data TeamPackResponse = TeamPackResponse {
 --  teamPackResponseOrganization ?
-  teamPackResponseUser     :: UserSanitizedResponse,
-  teamPackResponseTeam     :: TeamResponse,
-  teamPackResponseTeamStat :: TeamStatResponse
+  teamPackResponseUser   :: UserSanitizedResponse,
+  teamPackResponseUserId :: Int64,
+  teamPackResponseTeam   :: TeamResponse,
+  teamPackResponseTeamId :: Int64,
+  teamPackResponseStat   :: TeamStatResponse,
+  teamPackResponseLike   :: Maybe LikeResponse,
+  teamPackResponseStar   :: Maybe StarResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

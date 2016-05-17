@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Pack.Leuron (
   LeuronPackResponse (..),
@@ -9,19 +9,21 @@ module LN.T.Pack.Leuron (
 
 import           LN.T.Leuron.Response
 import           LN.T.Leuron.Stat
-import           LN.T.Leuron.Like.Response
-import           LN.T.Leuron.Star.Response
+import           LN.T.Like.Response
 import           LN.T.Prelude
+import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
 
 
 
 data LeuronPackResponse = LeuronPackResponse {
-  leuronPackResponseLeuron :: LeuronResponse,
-  leuronPackResponseUser   :: UserSanitizedResponse,
-  leuronPackResponseStat   :: LeuronStatResponse,
-  leuronPackResponseLike   :: Maybe LeuronLikeResponse,
-  leuronPackResponseStar   :: Maybe LeuronStarResponse
+  leuronPackResponseLeuron   :: LeuronResponse,
+  leuronPackResponseLeuronId :: Int64,
+  leuronPackResponseUser     :: UserSanitizedResponse,
+  leuronPackResponseUserId   :: Int64,
+  leuronPackResponseStat     :: LeuronStatResponse,
+  leuronPackResponseLike     :: Maybe LikeResponse,
+  leuronPackResponseStar     :: Maybe StarResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

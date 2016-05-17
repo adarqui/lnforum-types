@@ -1,7 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
-
--- WARNING: Assumes Sanitized
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Pack.Sanitized.User (
   UserSanitizedPackResponse (..),
@@ -10,17 +7,23 @@ module LN.T.Pack.Sanitized.User (
 
 
 
+import           LN.T.Like.Response
 import           LN.T.Prelude
 import           LN.T.Profile.Response
+import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
 import           LN.T.User.Sanitized.Stat
 
 
 
 data UserSanitizedPackResponse = UserSanitizedPackResponse {
-  userSanitizedPackResponseUser        :: UserSanitizedResponse,
-  userSanitizedPackResponseUserStat    :: UserSanitizedStatResponse,
-  userSanitizedPackResponseUserProfile :: ProfileResponse
+  userSanitizedPackResponseUser      :: UserSanitizedResponse,
+  userSanitizedPackResponseUserId    :: Int64,
+  userSanitizedPackResponseProfile   :: ProfileResponse,
+  userSanitizedPackResponseProfileId :: Int64,
+  userSanitizedPackResponseStat      :: UserSanitizedStatResponse,
+  userSanitizedPackResponseLike      :: Maybe LikeResponse,
+  userSanitizedPackResponseStar      :: Maybe StarResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

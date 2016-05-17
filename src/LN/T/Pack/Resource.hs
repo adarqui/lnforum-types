@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveAnyClass #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Pack.Resource (
   ResourcePackResponse (..),
@@ -7,21 +7,23 @@ module LN.T.Pack.Resource (
 
 
 
+import           LN.T.Like.Response
 import           LN.T.Prelude
 import           LN.T.Resource.Response
 import           LN.T.Resource.Stat
-import           LN.T.Resource.Like.Response
-import           LN.T.Resource.Star.Response
+import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
 
 
 
 data ResourcePackResponse = ResourcePackResponse {
-  resourcePackResponseResource :: ResourceResponse,
-  resourcePackResponseUser     :: UserSanitizedResponse,
-  resourcePackResponseStat     :: ResourceStatResponse,
-  resourcePackResponseLike     :: Maybe ResourceLikeResponse,
-  resourcePackResponseStar     :: Maybe ResourceStarResponse
+  resourcePackResponseResource   :: ResourceResponse,
+  resourcePackREsponseResourceId :: Int64,
+  resourcePackResponseUser       :: UserSanitizedResponse,
+  resourcePackResponseUserId     :: Int64,
+  resourcePackResponseStat       :: ResourceStatResponse,
+  resourcePackResponseLike       :: Maybe LikeResponse,
+  resourcePackResponseStar       :: Maybe StarResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

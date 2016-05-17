@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Pack.Thread (
   ThreadPackResponse (..),
@@ -8,7 +7,9 @@ module LN.T.Pack.Thread (
 
 
 
+import           LN.T.Like.Response
 import           LN.T.Prelude
+import           LN.T.Star.Response
 import           LN.T.Thread.Response
 import           LN.T.Thread.Stat
 import           LN.T.ThreadPost.Response
@@ -18,8 +19,12 @@ import           LN.T.User.Sanitized.Response
 
 data ThreadPackResponse = ThreadPackResponse {
   threadPackResponseThread               :: ThreadResponse,
-  threadPackResponseThreadUser           :: UserSanitizedResponse,
-  threadPackResponseThreadStat           :: ThreadStatResponse,
+  threadPackResponseThreadId             :: Int64,
+  threadPackResponseUser                 :: UserSanitizedResponse,
+  threadPackResponseUserId               :: Int64,
+  threadPackResponseStat                 :: ThreadStatResponse,
+  threadPackResponseLike                 :: Maybe LikeResponse,
+  threadPackResponseStar                 :: Maybe StarResponse,
   threadPackResponseLatestThreadPost     :: Maybe ThreadPostResponse,
   threadPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
