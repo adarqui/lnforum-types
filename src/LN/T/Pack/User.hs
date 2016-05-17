@@ -15,9 +15,11 @@ import           LN.T.User.Sanitized.Stat
 
 
 data UserPackResponse = UserPackResponse {
-  userPackResponseUser    :: UserResponse,
-  userPackResponseStat    :: UserSanitizedStatResponse,
-  userPackResponseProfile :: ProfileResponse
+  userPackResponseUser      :: UserResponse,
+  userPackResponseUserId    :: Int64,
+  userPackResponseStat      :: UserSanitizedStatResponse,
+  userPackResponseProfile   :: ProfileResponse,
+  userPackResponseProfileId :: Int64
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
