@@ -15,7 +15,7 @@ import           LN.T.User
 
 data StarResponse = StarResponse {
   starResponseId         :: Int64,
-  starResponseEntity     :: Entity,
+  starResponseEntity     :: Ent,
   starResponseUserId     :: Int64,
   starResponseReason     :: Maybe Text,
   starResponseCreatedAt  :: Maybe UTCTime,

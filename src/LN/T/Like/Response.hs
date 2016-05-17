@@ -16,7 +16,7 @@ import           LN.T.User
 
 data LikeResponse = LikeResponse {
   likeResponseId         :: Int64,
-  likeResponseEntity     :: Entity,
+  likeResponseEntity     :: Ent,
   likeResponseUserId     :: Int64,
   likeResponseOpt        :: LikeOpt,
   likeResponseScore      :: Int,

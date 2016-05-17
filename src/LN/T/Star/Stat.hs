@@ -12,7 +12,7 @@ import           LN.T.Prelude
 
 data StarStatResponse = StarStatResponse {
   starStatResponseId     :: Int64,
-  starStatResponseEntity :: Entity,
+  starStatResponseEntity :: Ent,
   starStatResponseStars  :: Int64
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 

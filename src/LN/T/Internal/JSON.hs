@@ -391,7 +391,7 @@ instance FromJSON EmptyResponses where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
-instance ToJSON Entity where
+instance ToJSON Ent where
   toJSON (Ent_Organization ) = object $
     [ "tag" .= "Ent_Organization"
     , "contents" .= ([] :: [Text])
@@ -462,7 +462,7 @@ instance ToJSON Entity where
     ]
 
 
-instance FromJSON Entity where
+instance FromJSON Ent where
   parseJSON (Object o) = do
     tag <- o .: "tag"
     case tag of
