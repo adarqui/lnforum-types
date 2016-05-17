@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveAnyClass    #-}
 
 module LN.T.Entity (
-  Entity (..)
+  Ent (..)
 ) where
 
 
@@ -10,7 +10,7 @@ import           LN.T.Prelude
 
 
 
-data Entity
+data Ent
   = Ent_Organization
   | Ent_Team
   | Ent_User
