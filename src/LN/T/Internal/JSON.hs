@@ -866,7 +866,8 @@ instance ToJSON LikeResponse where
   toJSON LikeResponse{..} = object $
     [ "tag" .= "LikeResponse"
     , "id" .= likeResponseId
-    , "entity" .= likeResponseEntity
+    , "ent" .= likeResponseEnt
+    , "ent_id" .= likeResponseEntId
     , "user_id" .= likeResponseUserId
     , "opt" .= likeResponseOpt
     , "score" .= likeResponseScore
@@ -879,7 +880,8 @@ instance ToJSON LikeResponse where
 instance FromJSON LikeResponse where
   parseJSON (Object o) = do
     likeResponseId <- o .: "id"
-    likeResponseEntity <- o .: "entity"
+    likeResponseEnt <- o .: "ent"
+    likeResponseEntId <- o .: "ent_id"
     likeResponseUserId <- o .: "user_id"
     likeResponseOpt <- o .: "opt"
     likeResponseScore <- o .: "score"
@@ -888,7 +890,8 @@ instance FromJSON LikeResponse where
     likeResponseModifiedAt <- o .: "modified_at"
     return $ LikeResponse {
       likeResponseId = likeResponseId,
-      likeResponseEntity = likeResponseEntity,
+      likeResponseEnt = likeResponseEnt,
+      likeResponseEntId = likeResponseEntId,
       likeResponseUserId = likeResponseUserId,
       likeResponseOpt = likeResponseOpt,
       likeResponseScore = likeResponseScore,

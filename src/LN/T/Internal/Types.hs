@@ -32,7 +32,8 @@ import           LN.T.Leuron                         as A
 import           LN.T.Leuron.Request                 as A
 import           LN.T.Leuron.Response                as A
 import           LN.T.Leuron.Stat                    as A
-import           LN.T.Like                           as A
+-- TODO FIXME: can't export LikeOpt because it conflicts with ln-yesod's Like entity
+-- import           LN.T.Like                           as A
 import           LN.T.Like.Request                   as A
 import           LN.T.Like.Response                  as A
 import           LN.T.Like.Stat                      as A
