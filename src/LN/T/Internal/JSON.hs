@@ -4124,20 +4124,26 @@ instance ToJSON UserPackResponse where
   toJSON UserPackResponse{..} = object $
     [ "tag" .= "UserPackResponse"
     , "user" .= userPackResponseUser
+    , "user_id" .= userPackResponseUserId
     , "stat" .= userPackResponseStat
     , "profile" .= userPackResponseProfile
+    , "profile_id" .= userPackResponseProfileId
     ]
 
 
 instance FromJSON UserPackResponse where
   parseJSON (Object o) = do
     userPackResponseUser <- o .: "user"
+    userPackResponseUserId <- o .: "user_id"
     userPackResponseStat <- o .: "stat"
     userPackResponseProfile <- o .: "profile"
+    userPackResponseProfileId <- o .: "profile_id"
     return $ UserPackResponse {
       userPackResponseUser = userPackResponseUser,
+      userPackResponseUserId = userPackResponseUserId,
       userPackResponseStat = userPackResponseStat,
-      userPackResponseProfile = userPackResponseProfile
+      userPackResponseProfile = userPackResponseProfile,
+      userPackResponseProfileId = userPackResponseProfileId
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -4415,7 +4421,7 @@ instance ToJSON ResourcePackResponse where
   toJSON ResourcePackResponse{..} = object $
     [ "tag" .= "ResourcePackResponse"
     , "resource" .= resourcePackResponseResource
-    , "resource_pack_response_resource_id" .= resourcePackREsponseResourceId
+    , "resource_id" .= resourcePackResponseResourceId
     , "user" .= resourcePackResponseUser
     , "user_id" .= resourcePackResponseUserId
     , "stat" .= resourcePackResponseStat
@@ -4427,7 +4433,7 @@ instance ToJSON ResourcePackResponse where
 instance FromJSON ResourcePackResponse where
   parseJSON (Object o) = do
     resourcePackResponseResource <- o .: "resource"
-    resourcePackREsponseResourceId <- o .: "resource_pack_response_resource_id"
+    resourcePackResponseResourceId <- o .: "resource_id"
     resourcePackResponseUser <- o .: "user"
     resourcePackResponseUserId <- o .: "user_id"
     resourcePackResponseStat <- o .: "stat"
@@ -4435,7 +4441,7 @@ instance FromJSON ResourcePackResponse where
     resourcePackResponseStar <- o .: "star"
     return $ ResourcePackResponse {
       resourcePackResponseResource = resourcePackResponseResource,
-      resourcePackREsponseResourceId = resourcePackREsponseResourceId,
+      resourcePackResponseResourceId = resourcePackResponseResourceId,
       resourcePackResponseUser = resourcePackResponseUser,
       resourcePackResponseUserId = resourcePackResponseUserId,
       resourcePackResponseStat = resourcePackResponseStat,
