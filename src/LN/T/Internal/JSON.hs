@@ -1277,15 +1277,15 @@ instance FromJSON Card where
 instance ToJSON DCard where
   toJSON DCard{..} = object $
     [ "tag" .= "DCard"
-    , "dcard_front" .= dcardFront
-    , "dcard_back" .= dcardBack
+    , "front" .= dcardFront
+    , "back" .= dcardBack
     ]
 
 
 instance FromJSON DCard where
   parseJSON (Object o) = do
-    dcardFront <- o .: "dcard_front"
-    dcardBack <- o .: "dcard_back"
+    dcardFront <- o .: "front"
+    dcardBack <- o .: "back"
     return $ DCard {
       dcardFront = dcardFront,
       dcardBack = dcardBack
@@ -1296,15 +1296,15 @@ instance FromJSON DCard where
 instance ToJSON DCardX where
   toJSON DCardX{..} = object $
     [ "tag" .= "DCardX"
-    , "dcardx_front" .= dcardxFront
-    , "dcardx_back" .= dcardxBack
+    , "front" .= dcardxFront
+    , "back" .= dcardxBack
     ]
 
 
 instance FromJSON DCardX where
   parseJSON (Object o) = do
-    dcardxFront <- o .: "dcardx_front"
-    dcardxBack <- o .: "dcardx_back"
+    dcardxFront <- o .: "front"
+    dcardxBack <- o .: "back"
     return $ DCardX {
       dcardxFront = dcardxFront,
       dcardxBack = dcardxBack
@@ -1454,15 +1454,15 @@ instance FromJSON LinearDemo where
 instance ToJSON QA where
   toJSON QA{..} = object $
     [ "tag" .= "QA"
-    , "qa_question" .= qaQuestion
-    , "qa_answer" .= qaAnswer
+    , "question" .= qaQuestion
+    , "answer" .= qaAnswer
     ]
 
 
 instance FromJSON QA where
   parseJSON (Object o) = do
-    qaQuestion <- o .: "qa_question"
-    qaAnswer <- o .: "qa_answer"
+    qaQuestion <- o .: "question"
+    qaAnswer <- o .: "answer"
     return $ QA {
       qaQuestion = qaQuestion,
       qaAnswer = qaAnswer
