@@ -29,6 +29,7 @@ module LN.T.Leuron (
 --  LeuronGrammar (..),
 --  LeuronOptions (..),
   leuronTypeToText,
+  tyLeuronTypeToText,
 ) where
 
 
@@ -188,6 +189,7 @@ data TyLeuron
   | TyLnQA
   | TyLnExamples
   | TyLnEmpty
+  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
@@ -210,3 +212,25 @@ leuronTypeToText ld =
     (LnQA _)         -> "QA"
     LnExamples       -> "Examples"
     LnEmpty          -> "Empty"
+
+
+
+tyLeuronTypeToText :: TyLeuron -> Text
+tyLeuronTypeToText ld =
+  case ld of
+    TyLnFact       -> "Fact"
+    TyLnFactList   -> "FactList"
+    TyLnCard       -> "Card"
+    TyLnDCard      -> "DCard"
+    TyLnDCardX     -> "DCardX"
+    TyLnSynonym    -> "Synonym"
+    TyLnAcronym    -> "Acronym"
+    TyLnAntonym    -> "Antonym"
+    TyLnTemplate   -> "Template"
+    TyLnImageAssociation -> "ImageAssociation"
+    TyLnLinearDemo -> "LinearDemo"
+    TyLnTable      -> "Table"
+    TyLnScript     -> "Script"
+    TyLnQA         -> "QA"
+    TyLnExamples   -> "Examples"
+    TyLnEmpty      -> "Empty"

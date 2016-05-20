@@ -1098,6 +1098,128 @@ instance FromJSON LeuronData where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON TyLeuron where
+  toJSON (TyLnFact ) = object $
+    [ "tag" .= "TyLnFact"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnFactList ) = object $
+    [ "tag" .= "TyLnFactList"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnCard ) = object $
+    [ "tag" .= "TyLnCard"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnDCard ) = object $
+    [ "tag" .= "TyLnDCard"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnDCardX ) = object $
+    [ "tag" .= "TyLnDCardX"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnAcronym ) = object $
+    [ "tag" .= "TyLnAcronym"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnSynonym ) = object $
+    [ "tag" .= "TyLnSynonym"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnAntonym ) = object $
+    [ "tag" .= "TyLnAntonym"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnTemplate ) = object $
+    [ "tag" .= "TyLnTemplate"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnImageAssociation ) = object $
+    [ "tag" .= "TyLnImageAssociation"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnLinearDemo ) = object $
+    [ "tag" .= "TyLnLinearDemo"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnTable ) = object $
+    [ "tag" .= "TyLnTable"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnScript ) = object $
+    [ "tag" .= "TyLnScript"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnQA ) = object $
+    [ "tag" .= "TyLnQA"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnExamples ) = object $
+    [ "tag" .= "TyLnExamples"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyLnEmpty ) = object $
+    [ "tag" .= "TyLnEmpty"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON TyLeuron where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "TyLnFact" -> do
+        return TyLnFact
+
+      "TyLnFactList" -> do
+        return TyLnFactList
+
+      "TyLnCard" -> do
+        return TyLnCard
+
+      "TyLnDCard" -> do
+        return TyLnDCard
+
+      "TyLnDCardX" -> do
+        return TyLnDCardX
+
+      "TyLnAcronym" -> do
+        return TyLnAcronym
+
+      "TyLnSynonym" -> do
+        return TyLnSynonym
+
+      "TyLnAntonym" -> do
+        return TyLnAntonym
+
+      "TyLnTemplate" -> do
+        return TyLnTemplate
+
+      "TyLnImageAssociation" -> do
+        return TyLnImageAssociation
+
+      "TyLnLinearDemo" -> do
+        return TyLnLinearDemo
+
+      "TyLnTable" -> do
+        return TyLnTable
+
+      "TyLnScript" -> do
+        return TyLnScript
+
+      "TyLnQA" -> do
+        return TyLnQA
+
+      "TyLnExamples" -> do
+        return TyLnExamples
+
+      "TyLnEmpty" -> do
+        return TyLnEmpty
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON Fact where
   toJSON Fact{..} = object $
     [ "tag" .= "Fact"
