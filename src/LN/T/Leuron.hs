@@ -4,6 +4,7 @@
 module LN.T.Leuron (
   module A,
   LeuronData (..),
+  TyLeuron (..),
   Fact (..),
   FactList (..),
   Card (..),
@@ -167,6 +168,26 @@ data LeuronData
   | LnExamples
   | LnEmpty
   deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+
+
+
+data TyLeuron
+  = TyLnFact
+  | TyLnFactList
+  | TyLnCard
+  | TyLnDCard
+  | TyLnDCardX
+  | TyLnAcronym
+  | TyLnSynonym
+  | TyLnAntonym
+  | TyLnTemplate
+  | TyLnImageAssociation
+  | TyLnLinearDemo
+  | TyLnTable
+  | TyLnScript
+  | TyLnQA
+  | TyLnExamples
+  | TyLnEmpty
 
 
 
