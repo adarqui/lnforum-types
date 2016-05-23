@@ -9,6 +9,7 @@ module LN.T.Pack.Leuron (
 
 import           LN.T.Leuron.Response
 import           LN.T.Leuron.Stat
+import           LN.T.LeuronTraining.Response
 import           LN.T.Like.Response
 import           LN.T.Prelude
 import           LN.T.Star.Response
@@ -21,6 +22,7 @@ data LeuronPackResponse = LeuronPackResponse {
   leuronPackResponseLeuronId :: Int64,
   leuronPackResponseUser     :: UserSanitizedResponse,
   leuronPackResponseUserId   :: Int64,
+  leuronPackResponseTraining :: LeuronTrainingResponse,
   leuronPackResponseStat     :: LeuronStatResponse,
   leuronPackResponseLike     :: Maybe LikeResponse,
   leuronPackResponseStar     :: Maybe StarResponse
