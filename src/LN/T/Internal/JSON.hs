@@ -4732,6 +4732,7 @@ instance ToJSON LeuronPackResponse where
     , "leuron_id" .= leuronPackResponseLeuronId
     , "user" .= leuronPackResponseUser
     , "user_id" .= leuronPackResponseUserId
+    , "training" .= leuronPackResponseTraining
     , "stat" .= leuronPackResponseStat
     , "like" .= leuronPackResponseLike
     , "star" .= leuronPackResponseStar
@@ -4744,6 +4745,7 @@ instance FromJSON LeuronPackResponse where
     leuronPackResponseLeuronId <- o .: "leuron_id"
     leuronPackResponseUser <- o .: "user"
     leuronPackResponseUserId <- o .: "user_id"
+    leuronPackResponseTraining <- o .: "training"
     leuronPackResponseStat <- o .: "stat"
     leuronPackResponseLike <- o .: "like"
     leuronPackResponseStar <- o .: "star"
@@ -4752,6 +4754,7 @@ instance FromJSON LeuronPackResponse where
       leuronPackResponseLeuronId = leuronPackResponseLeuronId,
       leuronPackResponseUser = leuronPackResponseUser,
       leuronPackResponseUserId = leuronPackResponseUserId,
+      leuronPackResponseTraining = leuronPackResponseTraining,
       leuronPackResponseStat = leuronPackResponseStat,
       leuronPackResponseLike = leuronPackResponseLike,
       leuronPackResponseStar = leuronPackResponseStar
