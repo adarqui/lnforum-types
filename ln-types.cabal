@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.56
+version:             0.1.0.57
 synopsis:            leuron types
 description:         leuron types
 license:             MIT
@@ -48,6 +48,10 @@ library
                        LN.T.Leuron.Request
                        LN.T.Leuron.Response
                        LN.T.Leuron.Stat
+                       LN.T.LeuronTraining
+                       LN.T.LeuronTraining.Request
+                       LN.T.LeuronTraining.Response
+                       LN.T.LeuronTraining.Stat
                        LN.T.Like
                        LN.T.Like.Request
                        LN.T.Like.Response

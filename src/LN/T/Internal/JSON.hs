@@ -812,6 +812,139 @@ instance FromJSON LeuronStatResponses where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON LeuronTrainingSummary where
+  toJSON (LTS_View ) = object $
+    [ "tag" .= "LTS_View"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (LTS_Know ) = object $
+    [ "tag" .= "LTS_Know"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (LTS_DontKnow ) = object $
+    [ "tag" .= "LTS_DontKnow"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (LTS_DontCare ) = object $
+    [ "tag" .= "LTS_DontCare"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON LeuronTrainingSummary where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "LTS_View" -> do
+        return LTS_View
+
+      "LTS_Know" -> do
+        return LTS_Know
+
+      "LTS_DontKnow" -> do
+        return LTS_DontKnow
+
+      "LTS_DontCare" -> do
+        return LTS_DontCare
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronTrainingRequest where
+  toJSON LeuronTrainingRequest{..} = object $
+    [ "tag" .= "LeuronTrainingRequest"
+    , "style" .= leuronTrainingRequestStyle
+    ]
+
+
+instance FromJSON LeuronTrainingRequest where
+  parseJSON (Object o) = do
+    leuronTrainingRequestStyle <- o .: "style"
+    return $ LeuronTrainingRequest {
+      leuronTrainingRequestStyle = leuronTrainingRequestStyle
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronTrainingResponse where
+  toJSON LeuronTrainingResponse{..} = object $
+    [ "tag" .= "LeuronTrainingResponse"
+    , "id" .= leuronTrainingResponseId
+    , "user_id" .= leuronTrainingResponseUserId
+    , "leuron_id" .= leuronTrainingResponseLeuronId
+    , "summary" .= leuronTrainingResponseSummary
+    , "created_at" .= leuronTrainingResponseCreatedAt
+    , "modified_at" .= leuronTrainingResponseModifiedAt
+    ]
+
+
+instance FromJSON LeuronTrainingResponse where
+  parseJSON (Object o) = do
+    leuronTrainingResponseId <- o .: "id"
+    leuronTrainingResponseUserId <- o .: "user_id"
+    leuronTrainingResponseLeuronId <- o .: "leuron_id"
+    leuronTrainingResponseSummary <- o .: "summary"
+    leuronTrainingResponseCreatedAt <- o .: "created_at"
+    leuronTrainingResponseModifiedAt <- o .: "modified_at"
+    return $ LeuronTrainingResponse {
+      leuronTrainingResponseId = leuronTrainingResponseId,
+      leuronTrainingResponseUserId = leuronTrainingResponseUserId,
+      leuronTrainingResponseLeuronId = leuronTrainingResponseLeuronId,
+      leuronTrainingResponseSummary = leuronTrainingResponseSummary,
+      leuronTrainingResponseCreatedAt = leuronTrainingResponseCreatedAt,
+      leuronTrainingResponseModifiedAt = leuronTrainingResponseModifiedAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronTrainingResponses where
+  toJSON LeuronTrainingResponses{..} = object $
+    [ "tag" .= "LeuronTrainingResponses"
+    , "leuron_training_responses" .= leuronTrainingResponses
+    ]
+
+
+instance FromJSON LeuronTrainingResponses where
+  parseJSON (Object o) = do
+    leuronTrainingResponses <- o .: "leuron_training_responses"
+    return $ LeuronTrainingResponses {
+      leuronTrainingResponses = leuronTrainingResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronTrainingStatResponse where
+  toJSON LeuronTrainingStatResponse{..} = object $
+    [ "tag" .= "LeuronTrainingStatResponse"
+    , "leuron_training_id" .= leuronTrainingStatResponseLeuronTrainingId
+    ]
+
+
+instance FromJSON LeuronTrainingStatResponse where
+  parseJSON (Object o) = do
+    leuronTrainingStatResponseLeuronTrainingId <- o .: "leuron_training_id"
+    return $ LeuronTrainingStatResponse {
+      leuronTrainingStatResponseLeuronTrainingId = leuronTrainingStatResponseLeuronTrainingId
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON LeuronTrainingStatResponses where
+  toJSON LeuronTrainingStatResponses{..} = object $
+    [ "tag" .= "LeuronTrainingStatResponses"
+    , "leuron_training_stat_responses" .= leuronTrainingStatResponses
+    ]
+
+
+instance FromJSON LeuronTrainingStatResponses where
+  parseJSON (Object o) = do
+    leuronTrainingStatResponses <- o .: "leuron_training_stat_responses"
+    return $ LeuronTrainingStatResponses {
+      leuronTrainingStatResponses = leuronTrainingStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON LikeOpt where
   toJSON (Like ) = object $
     [ "tag" .= "Like"

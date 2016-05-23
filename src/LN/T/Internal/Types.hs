@@ -32,6 +32,10 @@ import           LN.T.Leuron                         as A
 import           LN.T.Leuron.Request                 as A
 import           LN.T.Leuron.Response                as A
 import           LN.T.Leuron.Stat                    as A
+import           LN.T.LeuronTraining                 as A
+import           LN.T.LeuronTraining.Request         as A
+import           LN.T.LeuronTraining.Response        as A
+import           LN.T.LeuronTraining.Stat            as A
 import           LN.T.Like                           as A
 import           LN.T.Like.Request                   as A
 import           LN.T.Like.Response                  as A
