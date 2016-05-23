@@ -853,15 +853,15 @@ instance FromJSON LeuronTrainingSummary where
 instance ToJSON LeuronTrainingRequest where
   toJSON LeuronTrainingRequest{..} = object $
     [ "tag" .= "LeuronTrainingRequest"
-    , "style" .= leuronTrainingRequestStyle
+    , "summary" .= leuronTrainingRequestSummary
     ]
 
 
 instance FromJSON LeuronTrainingRequest where
   parseJSON (Object o) = do
-    leuronTrainingRequestStyle <- o .: "style"
+    leuronTrainingRequestSummary <- o .: "summary"
     return $ LeuronTrainingRequest {
-      leuronTrainingRequestStyle = leuronTrainingRequestStyle
+      leuronTrainingRequestSummary = leuronTrainingRequestSummary
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 

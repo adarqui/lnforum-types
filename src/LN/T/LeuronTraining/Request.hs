@@ -13,7 +13,7 @@ import           LN.T.Prelude
 
 
 data LeuronTrainingRequest = LeuronTrainingRequest {
-  leuronTrainingRequestStyle :: LeuronTrainingSummary
+  leuronTrainingRequestSummary :: LeuronTrainingSummary
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
