@@ -817,6 +817,10 @@ instance ToJSON LeuronTrainingSummary where
     [ "tag" .= "LTS_View"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (LTS_Skip ) = object $
+    [ "tag" .= "LTS_Skip"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (LTS_Know ) = object $
     [ "tag" .= "LTS_Know"
     , "contents" .= ([] :: [Text])
@@ -829,6 +833,10 @@ instance ToJSON LeuronTrainingSummary where
     [ "tag" .= "LTS_DontCare"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (LTS_Protest ) = object $
+    [ "tag" .= "LTS_Protest"
+    , "contents" .= ([] :: [Text])
+    ]
 
 
 instance FromJSON LeuronTrainingSummary where
@@ -838,6 +846,9 @@ instance FromJSON LeuronTrainingSummary where
       "LTS_View" -> do
         return LTS_View
 
+      "LTS_Skip" -> do
+        return LTS_Skip
+
       "LTS_Know" -> do
         return LTS_Know
 
@@ -846,6 +857,9 @@ instance FromJSON LeuronTrainingSummary where
 
       "LTS_DontCare" -> do
         return LTS_DontCare
+
+      "LTS_Protest" -> do
+        return LTS_Protest
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
