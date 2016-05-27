@@ -829,6 +829,10 @@ instance ToJSON LeuronTrainingSummary where
     [ "tag" .= "LTS_DontKnow"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (LTS_DontUnderstand ) = object $
+    [ "tag" .= "LTS_DontUnderstand"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (LTS_DontCare ) = object $
     [ "tag" .= "LTS_DontCare"
     , "contents" .= ([] :: [Text])
@@ -854,6 +858,9 @@ instance FromJSON LeuronTrainingSummary where
 
       "LTS_DontKnow" -> do
         return LTS_DontKnow
+
+      "LTS_DontUnderstand" -> do
+        return LTS_DontUnderstand
 
       "LTS_DontCare" -> do
         return LTS_DontCare
@@ -3212,6 +3219,44 @@ instance FromJSON ResourceType where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON TyResourceType where
+  toJSON (TyISBN13 ) = object $
+    [ "tag" .= "TyISBN13"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyISBN10 ) = object $
+    [ "tag" .= "TyISBN10"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyISBN ) = object $
+    [ "tag" .= "TyISBN"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TyURL ) = object $
+    [ "tag" .= "TyURL"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON TyResourceType where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "TyISBN13" -> do
+        return TyISBN13
+
+      "TyISBN10" -> do
+        return TyISBN10
+
+      "TyISBN" -> do
+        return TyISBN
+
+      "TyURL" -> do
+        return TyURL
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON ResourceRequest where
   toJSON ResourceRequest{..} = object $
     [ "tag" .= "ResourceRequest"
@@ -3446,6 +3491,30 @@ instance FromJSON Splits where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON TySplits where
+  toJSON (TySplitA ) = object $
+    [ "tag" .= "TySplitA"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TySplitNone ) = object $
+    [ "tag" .= "TySplitNone"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON TySplits where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "TySplitA" -> do
+        return TySplitA
+
+      "TySplitNone" -> do
+        return TySplitNone
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON Substitutions where
   toJSON (SubsExpr x0 x1) = object $
     [ "tag" .= "SubsExpr"
@@ -3484,6 +3553,44 @@ instance FromJSON Substitutions where
       "SubsBoth" -> do
         [x0, x1] <- o .: "contents"
         SubsBoth <$> parseJSON x0 <*> parseJSON x1
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TySubstitutions where
+  toJSON (TySubsExpr ) = object $
+    [ "tag" .= "TySubsExpr"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TySubsOneOf ) = object $
+    [ "tag" .= "TySubsOneOf"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TySubsAllOf ) = object $
+    [ "tag" .= "TySubsAllOf"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (TySubsBoth ) = object $
+    [ "tag" .= "TySubsBoth"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON TySubstitutions where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "TySubsExpr" -> do
+        return TySubsExpr
+
+      "TySubsOneOf" -> do
+        return TySubsOneOf
+
+      "TySubsAllOf" -> do
+        return TySubsAllOf
+
+      "TySubsBoth" -> do
+        return TySubsBoth
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
