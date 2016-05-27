@@ -3236,6 +3236,10 @@ instance ToJSON TyResourceType where
     [ "tag" .= "TyURL"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (TySourceNone ) = object $
+    [ "tag" .= "TySourceNone"
+    , "contents" .= ([] :: [Text])
+    ]
 
 
 instance FromJSON TyResourceType where
@@ -3253,6 +3257,9 @@ instance FromJSON TyResourceType where
 
       "TyURL" -> do
         return TyURL
+
+      "TySourceNone" -> do
+        return TySourceNone
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 

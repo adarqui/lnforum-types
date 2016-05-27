@@ -31,4 +31,5 @@ data TyResourceType
   | TyISBN10
   | TyISBN
   | TyURL
+  | TySourceNone
   deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
