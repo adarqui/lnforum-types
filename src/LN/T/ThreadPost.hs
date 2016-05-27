@@ -4,6 +4,7 @@
 
 module LN.T.ThreadPost (
   PostData (..),
+  TyPostData (..)
 ) where
 
 
@@ -19,4 +20,15 @@ data PostData
   | PostDataCode     Text Text
   | PostDataOther    Text Text
   | PostDataEmpty
+  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+
+
+
+data TyPostData
+  = TyPostDataRaw
+  | TyPostDataMarkdown
+  | TyPostDataBBCode
+  | TyPostDataCode
+  | TyPostDataOther
+  | TyPostDataEmpty
   deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

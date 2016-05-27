@@ -2,7 +2,8 @@
 {-# LANGUAGE RecordWildCards #-}
 
 module LN.T.Substitutions (
-  Substitutions (..)
+  Substitutions (..),
+  TySubstitutions (..)
 ) where
 
 
@@ -16,4 +17,13 @@ data Substitutions
   | SubsOneOf [Text]
   | SubsAllOf [Text]
   | SubsBoth Substitutions Substitutions
+  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+
+
+
+data TySubstitutions
+  = TySubsExpr
+  | TySubsOneOf
+  | TySubsAllOf
+  | TySubsBoth
   deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

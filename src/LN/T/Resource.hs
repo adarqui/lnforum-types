@@ -1,8 +1,8 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 module LN.T.Resource (
   ResourceType (..),
+  TyResourceType (..)
 ) where
 
 
@@ -11,8 +11,8 @@ import           LN.T.Prelude
 
 
 
-data ResourceType =
-    ISBN13 Text
+data ResourceType
+  = ISBN13 Text
   | ISBN10 Text
   | ISBN Text
   | URL Text
@@ -22,4 +22,13 @@ data ResourceType =
   | Song Text Text
   | Paper Text
   -}
+  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+
+
+
+data TyResourceType
+  = TyISBN13
+  | TyISBN10
+  | TyISBN
+  | TyURL
   deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
