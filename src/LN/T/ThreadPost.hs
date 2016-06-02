@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveAnyClass      #-}
-{-# LANGUAGE RecordWildCards     #-}
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.ThreadPost (
   PostData (..),
