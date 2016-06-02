@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Thread.Request (
   ThreadRequest (..),
@@ -9,7 +8,6 @@ module LN.T.Thread.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Thread
 
 
 
@@ -18,16 +16,20 @@ data ThreadRequest = ThreadRequest {
   threadRequestDescription :: Maybe Text,
   threadRequestSticky      :: Bool,
   threadRequestLocked      :: Bool,
-  threadRequestPoll        :: Maybe Text
+  threadRequestPoll        :: Maybe Text,
+  threadRequestIcon        :: Maybe Text,
+  threadRequestTags        :: [Text]
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultThreadRequest :: ThreadRequest
 defaultThreadRequest = ThreadRequest {
-  threadRequestName = "",
+  threadRequestName        = "",
   threadRequestDescription = Nothing,
-  threadRequestSticky = False,
-  threadRequestLocked = False,
-  threadRequestPoll = Nothing
+  threadRequestSticky      = False,
+  threadRequestLocked      = False,
+  threadRequestPoll        = Nothing,
+  threadRequestIcon        = Nothing,
+  threadRequestTags        = []
 }

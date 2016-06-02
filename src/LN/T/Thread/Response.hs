@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Thread.Response (
   ThreadResponse (..),
@@ -9,7 +8,6 @@ module LN.T.Thread.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Thread
 
 
 
@@ -22,6 +20,8 @@ data ThreadResponse = ThreadResponse {
   threadResponseSticky      :: Bool,
   threadResponseLocked      :: Bool,
   threadResponsePoll        :: Maybe Text,
+  threadResponseIcon        :: Maybe Text,
+  threadResponseTags        :: [Text],
   threadResponseCreatedAt   :: Maybe UTCTime,
   threadResponseModifiedBy  :: Maybe Int64,
   threadResponseModifiedAt  :: Maybe UTCTime,
