@@ -3800,10 +3800,10 @@ instance ToJSON TeamRequest where
     [ "tag" .= "TeamRequest"
     , "name" .= teamRequestName
     , "description" .= teamRequestDescription
-    , "team_membership" .= teamMembership
-    , "team_icon" .= teamIcon
-    , "team_tags" .= teamTags
-    , "team_visibility" .= teamVisibility
+    , "membership" .= teamRequestMembership
+    , "icon" .= teamRequestIcon
+    , "tags" .= teamRequestTags
+    , "visibility" .= teamRequestVisibility
     ]
 
 
@@ -3811,17 +3811,17 @@ instance FromJSON TeamRequest where
   parseJSON (Object o) = do
     teamRequestName <- o .: "name"
     teamRequestDescription <- o .: "description"
-    teamMembership <- o .: "team_membership"
-    teamIcon <- o .: "team_icon"
-    teamTags <- o .: "team_tags"
-    teamVisibility <- o .: "team_visibility"
+    teamRequestMembership <- o .: "membership"
+    teamRequestIcon <- o .: "icon"
+    teamRequestTags <- o .: "tags"
+    teamRequestVisibility <- o .: "visibility"
     return $ TeamRequest {
       teamRequestName = teamRequestName,
       teamRequestDescription = teamRequestDescription,
-      teamMembership = teamMembership,
-      teamIcon = teamIcon,
-      teamTags = teamTags,
-      teamVisibility = teamVisibility
+      teamRequestMembership = teamRequestMembership,
+      teamRequestIcon = teamRequestIcon,
+      teamRequestTags = teamRequestTags,
+      teamRequestVisibility = teamRequestVisibility
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
