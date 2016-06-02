@@ -83,6 +83,8 @@ instance ToJSON BoardRequest where
     [ "tag" .= "BoardRequest"
     , "name" .= boardRequestName
     , "description" .= boardRequestDescription
+    , "icon" .= boardRequestIcon
+    , "tags" .= boardRequestTags
     ]
 
 
@@ -90,9 +92,13 @@ instance FromJSON BoardRequest where
   parseJSON (Object o) = do
     boardRequestName <- o .: "name"
     boardRequestDescription <- o .: "description"
+    boardRequestIcon <- o .: "icon"
+    boardRequestTags <- o .: "tags"
     return $ BoardRequest {
       boardRequestName = boardRequestName,
-      boardRequestDescription = boardRequestDescription
+      boardRequestDescription = boardRequestDescription,
+      boardRequestIcon = boardRequestIcon,
+      boardRequestTags = boardRequestTags
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -106,6 +112,8 @@ instance ToJSON BoardResponse where
     , "parent_id" .= boardResponseParentId
     , "name" .= boardResponseName
     , "description" .= boardResponseDescription
+    , "icon" .= boardResponseIcon
+    , "tags" .= boardResponseTags
     , "created_at" .= boardResponseCreatedAt
     , "modified_by" .= boardResponseModifiedBy
     , "modified_at" .= boardResponseModifiedAt
@@ -120,6 +128,8 @@ instance FromJSON BoardResponse where
     boardResponseParentId <- o .: "parent_id"
     boardResponseName <- o .: "name"
     boardResponseDescription <- o .: "description"
+    boardResponseIcon <- o .: "icon"
+    boardResponseTags <- o .: "tags"
     boardResponseCreatedAt <- o .: "created_at"
     boardResponseModifiedBy <- o .: "modified_by"
     boardResponseModifiedAt <- o .: "modified_at"
@@ -130,6 +140,8 @@ instance FromJSON BoardResponse where
       boardResponseParentId = boardResponseParentId,
       boardResponseName = boardResponseName,
       boardResponseDescription = boardResponseDescription,
+      boardResponseIcon = boardResponseIcon,
+      boardResponseTags = boardResponseTags,
       boardResponseCreatedAt = boardResponseCreatedAt,
       boardResponseModifiedBy = boardResponseModifiedBy,
       boardResponseModifiedAt = boardResponseModifiedAt
@@ -525,6 +537,9 @@ instance ToJSON ForumRequest where
     [ "tag" .= "ForumRequest"
     , "name" .= forumRequestName
     , "description" .= forumRequestDescription
+    , "icon" .= forumRequestIcon
+    , "tags" .= forumRequestTags
+    , "visibility" .= forumRequestVisibility
     ]
 
 
@@ -532,9 +547,15 @@ instance FromJSON ForumRequest where
   parseJSON (Object o) = do
     forumRequestName <- o .: "name"
     forumRequestDescription <- o .: "description"
+    forumRequestIcon <- o .: "icon"
+    forumRequestTags <- o .: "tags"
+    forumRequestVisibility <- o .: "visibility"
     return $ ForumRequest {
       forumRequestName = forumRequestName,
-      forumRequestDescription = forumRequestDescription
+      forumRequestDescription = forumRequestDescription,
+      forumRequestIcon = forumRequestIcon,
+      forumRequestTags = forumRequestTags,
+      forumRequestVisibility = forumRequestVisibility
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -547,6 +568,9 @@ instance ToJSON ForumResponse where
     , "org_id" .= forumResponseOrgId
     , "name" .= forumResponseName
     , "description" .= forumResponseDescription
+    , "icon" .= forumResponseIcon
+    , "tags" .= forumResponseTags
+    , "visibility" .= forumResponseVisibility
     , "created_at" .= forumResponseCreatedAt
     , "modified_by" .= forumResponseModifiedBy
     , "modified_at" .= forumResponseModifiedAt
@@ -560,6 +584,9 @@ instance FromJSON ForumResponse where
     forumResponseOrgId <- o .: "org_id"
     forumResponseName <- o .: "name"
     forumResponseDescription <- o .: "description"
+    forumResponseIcon <- o .: "icon"
+    forumResponseTags <- o .: "tags"
+    forumResponseVisibility <- o .: "visibility"
     forumResponseCreatedAt <- o .: "created_at"
     forumResponseModifiedBy <- o .: "modified_by"
     forumResponseModifiedAt <- o .: "modified_at"
@@ -569,6 +596,9 @@ instance FromJSON ForumResponse where
       forumResponseOrgId = forumResponseOrgId,
       forumResponseName = forumResponseName,
       forumResponseDescription = forumResponseDescription,
+      forumResponseIcon = forumResponseIcon,
+      forumResponseTags = forumResponseTags,
+      forumResponseVisibility = forumResponseVisibility,
       forumResponseCreatedAt = forumResponseCreatedAt,
       forumResponseModifiedBy = forumResponseModifiedBy,
       forumResponseModifiedAt = forumResponseModifiedAt
@@ -1646,6 +1676,44 @@ instance FromJSON Table where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON Membership where
+  toJSON (Membership_InviteOnly ) = object $
+    [ "tag" .= "Membership_InviteOnly"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Membership_RequestInvite ) = object $
+    [ "tag" .= "Membership_RequestInvite"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Membership_Join ) = object $
+    [ "tag" .= "Membership_Join"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Membership_Locked ) = object $
+    [ "tag" .= "Membership_Locked"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON Membership where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "Membership_InviteOnly" -> do
+        return Membership_InviteOnly
+
+      "Membership_RequestInvite" -> do
+        return Membership_RequestInvite
+
+      "Membership_Join" -> do
+        return Membership_Join
+
+      "Membership_Locked" -> do
+        return Membership_Locked
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON OrganizationRequest where
   toJSON OrganizationRequest{..} = object $
     [ "tag" .= "OrganizationRequest"
@@ -1654,6 +1722,10 @@ instance ToJSON OrganizationRequest where
     , "company" .= organizationRequestCompany
     , "location" .= organizationRequestLocation
     , "email" .= organizationRequestEmail
+    , "membership" .= organizationRequestMembership
+    , "tags" .= organizationRequestTags
+    , "icon" .= organizationRequestIcon
+    , "visibility" .= organizationRequestVisibility
     ]
 
 
@@ -1664,12 +1736,20 @@ instance FromJSON OrganizationRequest where
     organizationRequestCompany <- o .: "company"
     organizationRequestLocation <- o .: "location"
     organizationRequestEmail <- o .: "email"
+    organizationRequestMembership <- o .: "membership"
+    organizationRequestTags <- o .: "tags"
+    organizationRequestIcon <- o .: "icon"
+    organizationRequestVisibility <- o .: "visibility"
     return $ OrganizationRequest {
       organizationRequestName = organizationRequestName,
       organizationRequestDescription = organizationRequestDescription,
       organizationRequestCompany = organizationRequestCompany,
       organizationRequestLocation = organizationRequestLocation,
-      organizationRequestEmail = organizationRequestEmail
+      organizationRequestEmail = organizationRequestEmail,
+      organizationRequestMembership = organizationRequestMembership,
+      organizationRequestTags = organizationRequestTags,
+      organizationRequestIcon = organizationRequestIcon,
+      organizationRequestVisibility = organizationRequestVisibility
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -1685,6 +1765,10 @@ instance ToJSON OrganizationResponse where
     , "location" .= organizationResponseLocation
     , "email" .= organizationResponseEmail
     , "email_md5" .= organizationResponseEmailMD5
+    , "membership" .= organizationResponseMembership
+    , "icon" .= organizationResponseIcon
+    , "tags" .= organizationResponseTags
+    , "visibility" .= organizationResponseVisibility
     , "created_at" .= organizationResponseCreatedAt
     , "modified_by" .= organizationResponseModifiedBy
     , "modified_at" .= organizationResponseModifiedAt
@@ -1701,6 +1785,10 @@ instance FromJSON OrganizationResponse where
     organizationResponseLocation <- o .: "location"
     organizationResponseEmail <- o .: "email"
     organizationResponseEmailMD5 <- o .: "email_md5"
+    organizationResponseMembership <- o .: "membership"
+    organizationResponseIcon <- o .: "icon"
+    organizationResponseTags <- o .: "tags"
+    organizationResponseVisibility <- o .: "visibility"
     organizationResponseCreatedAt <- o .: "created_at"
     organizationResponseModifiedBy <- o .: "modified_by"
     organizationResponseModifiedAt <- o .: "modified_at"
@@ -1713,6 +1801,10 @@ instance FromJSON OrganizationResponse where
       organizationResponseLocation = organizationResponseLocation,
       organizationResponseEmail = organizationResponseEmail,
       organizationResponseEmailMD5 = organizationResponseEmailMD5,
+      organizationResponseMembership = organizationResponseMembership,
+      organizationResponseIcon = organizationResponseIcon,
+      organizationResponseTags = organizationResponseTags,
+      organizationResponseVisibility = organizationResponseVisibility,
       organizationResponseCreatedAt = organizationResponseCreatedAt,
       organizationResponseModifiedBy = organizationResponseModifiedBy,
       organizationResponseModifiedAt = organizationResponseModifiedAt
@@ -3708,6 +3800,10 @@ instance ToJSON TeamRequest where
     [ "tag" .= "TeamRequest"
     , "name" .= teamRequestName
     , "description" .= teamRequestDescription
+    , "team_membership" .= teamMembership
+    , "team_icon" .= teamIcon
+    , "team_tags" .= teamTags
+    , "team_visibility" .= teamVisibility
     ]
 
 
@@ -3715,9 +3811,17 @@ instance FromJSON TeamRequest where
   parseJSON (Object o) = do
     teamRequestName <- o .: "name"
     teamRequestDescription <- o .: "description"
+    teamMembership <- o .: "team_membership"
+    teamIcon <- o .: "team_icon"
+    teamTags <- o .: "team_tags"
+    teamVisibility <- o .: "team_visibility"
     return $ TeamRequest {
       teamRequestName = teamRequestName,
-      teamRequestDescription = teamRequestDescription
+      teamRequestDescription = teamRequestDescription,
+      teamMembership = teamMembership,
+      teamIcon = teamIcon,
+      teamTags = teamTags,
+      teamVisibility = teamVisibility
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -3730,6 +3834,10 @@ instance ToJSON TeamResponse where
     , "org_id" .= teamResponseOrgId
     , "name" .= teamResponseName
     , "description" .= teamResponseDescription
+    , "membership" .= teamResponseMembership
+    , "icon" .= teamResponseIcon
+    , "tags" .= teamResponseTags
+    , "visibility" .= teamResponseVisibility
     , "created_at" .= teamResponseCreatedAt
     , "modified_by" .= teamResponseModifiedBy
     , "modified_at" .= teamResponseModifiedAt
@@ -3743,6 +3851,10 @@ instance FromJSON TeamResponse where
     teamResponseOrgId <- o .: "org_id"
     teamResponseName <- o .: "name"
     teamResponseDescription <- o .: "description"
+    teamResponseMembership <- o .: "membership"
+    teamResponseIcon <- o .: "icon"
+    teamResponseTags <- o .: "tags"
+    teamResponseVisibility <- o .: "visibility"
     teamResponseCreatedAt <- o .: "created_at"
     teamResponseModifiedBy <- o .: "modified_by"
     teamResponseModifiedAt <- o .: "modified_at"
@@ -3752,6 +3864,10 @@ instance FromJSON TeamResponse where
       teamResponseOrgId = teamResponseOrgId,
       teamResponseName = teamResponseName,
       teamResponseDescription = teamResponseDescription,
+      teamResponseMembership = teamResponseMembership,
+      teamResponseIcon = teamResponseIcon,
+      teamResponseTags = teamResponseTags,
+      teamResponseVisibility = teamResponseVisibility,
       teamResponseCreatedAt = teamResponseCreatedAt,
       teamResponseModifiedBy = teamResponseModifiedBy,
       teamResponseModifiedAt = teamResponseModifiedAt
@@ -3875,6 +3991,8 @@ instance ToJSON ThreadRequest where
     , "sticky" .= threadRequestSticky
     , "locked" .= threadRequestLocked
     , "poll" .= threadRequestPoll
+    , "icon" .= threadRequestIcon
+    , "tags" .= threadRequestTags
     ]
 
 
@@ -3885,12 +4003,16 @@ instance FromJSON ThreadRequest where
     threadRequestSticky <- o .: "sticky"
     threadRequestLocked <- o .: "locked"
     threadRequestPoll <- o .: "poll"
+    threadRequestIcon <- o .: "icon"
+    threadRequestTags <- o .: "tags"
     return $ ThreadRequest {
       threadRequestName = threadRequestName,
       threadRequestDescription = threadRequestDescription,
       threadRequestSticky = threadRequestSticky,
       threadRequestLocked = threadRequestLocked,
-      threadRequestPoll = threadRequestPoll
+      threadRequestPoll = threadRequestPoll,
+      threadRequestIcon = threadRequestIcon,
+      threadRequestTags = threadRequestTags
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -3906,6 +4028,8 @@ instance ToJSON ThreadResponse where
     , "sticky" .= threadResponseSticky
     , "locked" .= threadResponseLocked
     , "poll" .= threadResponsePoll
+    , "icon" .= threadResponseIcon
+    , "tags" .= threadResponseTags
     , "created_at" .= threadResponseCreatedAt
     , "modified_by" .= threadResponseModifiedBy
     , "modified_at" .= threadResponseModifiedAt
@@ -3923,6 +4047,8 @@ instance FromJSON ThreadResponse where
     threadResponseSticky <- o .: "sticky"
     threadResponseLocked <- o .: "locked"
     threadResponsePoll <- o .: "poll"
+    threadResponseIcon <- o .: "icon"
+    threadResponseTags <- o .: "tags"
     threadResponseCreatedAt <- o .: "created_at"
     threadResponseModifiedBy <- o .: "modified_by"
     threadResponseModifiedAt <- o .: "modified_at"
@@ -3936,6 +4062,8 @@ instance FromJSON ThreadResponse where
       threadResponseSticky = threadResponseSticky,
       threadResponseLocked = threadResponseLocked,
       threadResponsePoll = threadResponsePoll,
+      threadResponseIcon = threadResponseIcon,
+      threadResponseTags = threadResponseTags,
       threadResponseCreatedAt = threadResponseCreatedAt,
       threadResponseModifiedBy = threadResponseModifiedBy,
       threadResponseModifiedAt = threadResponseModifiedAt,
