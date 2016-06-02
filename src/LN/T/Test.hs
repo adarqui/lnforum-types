@@ -1,28 +1,15 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Test (
   TestRequest (..),
   TestResponse (..),
   TestResponses (..),
-  defaultTestRequest,
-  testName,
-  testsName,
+  defaultTestRequest
 ) where
 
 
 
 import           LN.T.Prelude
-
-
-
-testName :: IsString a => a
-testName = "test"
-
-
-
-testsName :: IsString a => a
-testsName = "tests"
 
 
 

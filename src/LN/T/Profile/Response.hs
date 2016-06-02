@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Profile.Response (
   ProfileResponse (..),
@@ -10,14 +8,14 @@ module LN.T.Profile.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Time
 import           LN.T.Profile
+import           LN.T.Time
 
 
 
 data ProfileResponse = ProfileResponse {
   profileResponseId         :: Int64,
-  profileResponseEntityId     :: Int64,
+  profileResponseEntityId   :: Int64,
   profileResponseGender     :: ProfileGender,
   profileResponseBirthdate  :: UTCTime,
   profileResponseWebsite    :: Maybe Text,

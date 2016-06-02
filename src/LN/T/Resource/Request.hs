@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Resource.Request (
   ResourceRequest (..),
@@ -33,14 +32,14 @@ data ResourceRequest = ResourceRequest {
 
 defaultResourceRequest :: ResourceRequest
 defaultResourceRequest = ResourceRequest {
-  resourceRequestTitle = "",
-  resourceRequestDescription = "",
-  resourceRequestSource = URL "not found",
-  resourceRequestAuthor = Nothing,
+  resourceRequestTitle         = "",
+  resourceRequestDescription   = "",
+  resourceRequestSource        = URL "not found",
+  resourceRequestAuthor        = Nothing,
   resourceRequestPrerequisites = [],
-  resourceRequestCategories = [],
-  resourceRequestVisibility = Public,
-  resourceRequestCounter = 0,
-  resourceRequestVersion = Nothing,
-  resourceRequestUrls = Nothing
+  resourceRequestCategories    = [],
+  resourceRequestVisibility    = Public,
+  resourceRequestCounter       = 0,
+  resourceRequestVersion       = Nothing,
+  resourceRequestUrls          = Nothing
 }

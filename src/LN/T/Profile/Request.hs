@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveAnyClass    #-}
-{-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE RecordWildCards   #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Profile.Request (
   ProfileRequest (..),
@@ -30,7 +28,7 @@ defaultProfileRequest :: ProfileRequest
 defaultProfileRequest = ProfileRequest {
   profileRequestGender = defaultProfileGender,
   profileRequestBirthdate = defaultUTCTime,
-  profileRequestWebsite = Nothing,
-  profileRequestLocation = Nothing,
+  profileRequestWebsite   = Nothing,
+  profileRequestLocation  = Nothing,
   profileRequestSignature = Nothing
 }

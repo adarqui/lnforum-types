@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.PmIn.Request (
   PmInRequest (..),
@@ -23,7 +22,7 @@ data PmInRequest = PmInRequest {
 
 defaultPmInRequest :: PmInRequest
 defaultPmInRequest = PmInRequest {
-  pmInRequestLabel = Nothing,
-  pmInRequestIsRead = False,
+  pmInRequestLabel     = Nothing,
+  pmInRequestIsRead    = False,
   pmInRequestIsStarred = False
 }

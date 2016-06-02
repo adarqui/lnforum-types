@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Workout.Request (
   WorkoutRequest (..),
@@ -23,7 +22,7 @@ data WorkoutRequest = WorkoutRequest {
 
 defaultWorkoutRequest :: WorkoutRequest
 defaultWorkoutRequest = WorkoutRequest {
-  workoutRequestData = WorkoutEmpty,
-  workoutRequestTitle = Nothing,
+  workoutRequestData        = WorkoutEmpty,
+  workoutRequestTitle       = Nothing,
   workoutRequestDescription = Nothing
 }
