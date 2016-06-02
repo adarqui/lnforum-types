@@ -1,6 +1,3 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
-
 module LN.T.Api (
   apiPrefix
 ) where

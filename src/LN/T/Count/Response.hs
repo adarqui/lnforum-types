@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Count.Response (
   CountResponse (..),
@@ -9,7 +8,6 @@ module LN.T.Count.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Count
 
 
 

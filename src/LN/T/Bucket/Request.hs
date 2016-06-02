@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Bucket.Request (
   BucketRequest (..),
@@ -9,7 +8,6 @@ module LN.T.Bucket.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Bucket
 
 
 

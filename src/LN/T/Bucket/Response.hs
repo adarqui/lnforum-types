@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric  #-}
 
 module LN.T.Bucket.Response (
   BucketResponse (..),
@@ -8,7 +7,6 @@ module LN.T.Bucket.Response (
 
 
 
-import           LN.T.Bucket
 import           LN.T.Prelude
 
 

@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Api.Response (
   ApiResponse (..),
@@ -8,7 +7,6 @@ module LN.T.Api.Response (
 
 
 
-import           LN.T.Api
 import           LN.T.Prelude
 
 
