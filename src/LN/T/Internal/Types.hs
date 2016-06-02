@@ -41,6 +41,7 @@ import           LN.T.Like.Request                   as A
 import           LN.T.Like.Response                  as A
 import           LN.T.Like.Stat                      as A
 import           LN.T.Me                             as A
+import           LN.T.Membership                     as A
 import           LN.T.Organization                   as A
 import           LN.T.Organization.Profile           as A
 import           LN.T.Organization.Request           as A

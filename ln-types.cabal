@@ -57,6 +57,7 @@ library
                        LN.T.Like.Response
                        LN.T.Like.Stat
                        LN.T.Me
+                       LN.T.Membership
                        LN.T.Organization
                        LN.T.Organization.Profile
                        LN.T.Organization.Request

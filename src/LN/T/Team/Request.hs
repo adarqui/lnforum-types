@@ -8,7 +8,7 @@ module LN.T.Team.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Team
+import           LN.T.Membership
 import           LN.T.Visibility
 
 
@@ -16,10 +16,10 @@ import           LN.T.Visibility
 data TeamRequest = TeamRequest {
   teamRequestName        :: Text,
   teamRequestDescription :: Maybe Text,
-  teamMembership         :: TeamMembership,
-  teamVisibility         :: Visibility,
+  teamMembership         :: Membership,
+  teamIcon               :: Maybe Text,
   teamTags               :: [Text],
-  teamIcon               :: Maybe Text
+  teamVisibility         :: Visibility
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -28,8 +28,8 @@ defaultTeamRequest :: TeamRequest
 defaultTeamRequest = TeamRequest {
   teamRequestName        = "",
   teamRequestDescription = Nothing,
-  teamMembership         = TeamMembership_Join,
-  teamVisibility         = Public,
+  teamMembership         = Membership_Join,
+  teamIcon               = Nothing,
   teamTags               = [],
-  teamIcon               = Nothing
+  teamVisibility         = Public
 }

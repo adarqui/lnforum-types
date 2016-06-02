@@ -9,7 +9,8 @@ module LN.T.Organization.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Organization
+import           LN.T.Membership
+import           LN.T.Visibility
 
 
 
@@ -18,16 +19,24 @@ data OrganizationRequest = OrganizationRequest {
   organizationRequestDescription :: Maybe Text,
   organizationRequestCompany     :: Text,
   organizationRequestLocation    :: Text,
-  organizationRequestEmail       :: Text
+  organizationRequestEmail       :: Text,
+  organizationRequestMembership  :: Membership,
+  organizationRequestTags        :: [Text],
+  organizationRequestIcon        :: Maybe Text,
+  organizationRequestVisibility  :: Visibility
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultOrganizationRequest :: OrganizationRequest
 defaultOrganizationRequest = OrganizationRequest {
-  organizationRequestName = "",
+  organizationRequestName        = "",
   organizationRequestDescription = Nothing,
-  organizationRequestCompany = "",
-  organizationRequestLocation = "",
-  organizationRequestEmail = ""
+  organizationRequestCompany     = "",
+  organizationRequestLocation    = "",
+  organizationRequestEmail       = "",
+  organizationRequestMembership  = Membership_Join,
+  organizationRequestIcon        = Nothing,
+  organizationRequestTags        = [],
+  organizationRequestVisibility  = Public
 }

@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Organization.Response (
   OrganizationResponse (..),
@@ -9,7 +8,8 @@ module LN.T.Organization.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Organization
+import           LN.T.Membership
+import           LN.T.Visibility
 
 
 
@@ -22,6 +22,10 @@ data OrganizationResponse = OrganizationResponse {
   organizationResponseLocation    :: Text,
   organizationResponseEmail       :: Text,
   organizationResponseEmailMD5    :: Text,
+  organizationResponseMembership  :: Membership,
+  organizationResponseIcon        :: Maybe Text,
+  organizationResponseTags        :: [Text],
+  organizationResponseVisibility  :: Visibility,
   organizationResponseCreatedAt   :: Maybe UTCTime,
   organizationResponseModifiedBy  :: Maybe Int64,
   organizationResponseModifiedAt  :: Maybe UTCTime

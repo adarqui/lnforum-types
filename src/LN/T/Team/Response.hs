@@ -8,7 +8,7 @@ module LN.T.Team.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Team
+import           LN.T.Membership
 import           LN.T.Visibility
 
 
@@ -19,10 +19,10 @@ data TeamResponse = TeamResponse {
   teamResponseOrgId       :: Int64,
   teamResponseName        :: Text,
   teamResponseDescription :: Maybe Text,
-  teamResponseMembership  :: TeamMembership,
-  teamResponseVisibility  :: Visibility,
-  teamResponseTags        :: [Text],
+  teamResponseMembership  :: Membership,
   teamResponseIcon        :: Maybe Text,
+  teamResponseTags        :: [Text],
+  teamResponseVisibility  :: Visibility,
   teamResponseCreatedAt   :: Maybe UTCTime,
   teamResponseModifiedBy  :: Maybe Int64,
   teamResponseModifiedAt  :: Maybe UTCTime
