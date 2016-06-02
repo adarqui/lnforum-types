@@ -1,6 +1,4 @@
-{-# LANGUAGE DeriveAnyClass      #-}
-{-# LANGUAGE RecordWildCards     #-}
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.ThreadPost.Request (
   ThreadPostRequest (..),
@@ -25,8 +23,8 @@ data ThreadPostRequest = ThreadPostRequest {
 
 defaultThreadPostRequest :: ThreadPostRequest
 defaultThreadPostRequest = ThreadPostRequest {
-  threadPostRequestTitle = Nothing,
-  threadPostRequestBody = PostDataEmpty,
-  threadPostRequestTags = [],
+  threadPostRequestTitle       = Nothing,
+  threadPostRequestBody        = PostDataEmpty,
+  threadPostRequestTags        = [],
   threadPostRequestPrivateTags = []
 }
