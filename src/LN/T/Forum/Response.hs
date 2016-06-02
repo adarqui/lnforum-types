@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Forum.Response (
   ForumResponse (..),
@@ -9,7 +8,7 @@ module LN.T.Forum.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Forum
+import           LN.T.Visibility
 
 
 
@@ -19,6 +18,9 @@ data ForumResponse = ForumResponse {
   forumResponseOrgId       :: Int64,
   forumResponseName        :: Text,
   forumResponseDescription :: Maybe Text,
+  forumResponseIcon        :: Maybe Text,
+  forumResponseTags        :: [Text],
+  forumResponseVisibility  :: Visibility,
   forumResponseCreatedAt   :: Maybe UTCTime,
   forumResponseModifiedBy  :: Maybe Int64,
   forumResponseModifiedAt  :: Maybe UTCTime
