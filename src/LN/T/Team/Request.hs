@@ -16,10 +16,10 @@ import           LN.T.Visibility
 data TeamRequest = TeamRequest {
   teamRequestName        :: Text,
   teamRequestDescription :: Maybe Text,
-  teamMembership         :: Membership,
-  teamIcon               :: Maybe Text,
-  teamTags               :: [Text],
-  teamVisibility         :: Visibility
+  teamRequestMembership  :: Membership,
+  teamRequestIcon        :: Maybe Text,
+  teamRequestTags        :: [Text],
+  teamRequestVisibility  :: Visibility
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -28,8 +28,8 @@ defaultTeamRequest :: TeamRequest
 defaultTeamRequest = TeamRequest {
   teamRequestName        = "",
   teamRequestDescription = Nothing,
-  teamMembership         = Membership_Join,
-  teamIcon               = Nothing,
-  teamTags               = [],
-  teamVisibility         = Public
+  teamRequestMembership  = Membership_Join,
+  teamRequestIcon        = Nothing,
+  teamRequestTags        = [],
+  teamRequestVisibility  = Public
 }
