@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Board.Request (
   BoardRequest (..),
@@ -9,19 +8,22 @@ module LN.T.Board.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Board
 
 
 
 data BoardRequest = BoardRequest {
   boardRequestName        :: Text,
-  boardRequestDescription :: Maybe Text
+  boardRequestDescription :: Maybe Text,
+  boardRequestIcon        :: Maybe Text,
+  boardRequestTags        :: [Text]
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultBoardRequest :: BoardRequest
 defaultBoardRequest = BoardRequest {
-  boardRequestName = "",
-  boardRequestDescription = Nothing
+  boardRequestName        = "",
+  boardRequestDescription = Nothing,
+  boardRequestIcon        = Nothing,
+  boardRequestTags        = []
 }

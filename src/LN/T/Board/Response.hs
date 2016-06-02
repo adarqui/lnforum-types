@@ -1,5 +1,4 @@
-{-# LANGUAGE DeriveAnyClass  #-}
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Board.Response (
   BoardResponse (..),
@@ -9,7 +8,6 @@ module LN.T.Board.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Board
 
 
 
@@ -20,6 +18,8 @@ data BoardResponse = BoardResponse {
   boardResponseParentId    :: Maybe Int64,
   boardResponseName        :: Text,
   boardResponseDescription :: Maybe Text,
+  boardResponseIcon        :: Maybe Text,
+  boardResponseTags        :: [Text],
   boardResponseCreatedAt   :: Maybe UTCTime,
   boardResponseModifiedBy  :: Maybe Int64,
   boardResponseModifiedAt  :: Maybe UTCTime
