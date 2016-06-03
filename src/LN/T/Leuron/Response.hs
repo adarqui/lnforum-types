@@ -30,7 +30,7 @@ data LeuronResponse = LeuronResponse {
   leuronResponseCategories    :: DepList Text,
   leuronResponseSplits        :: Maybe [Splits],
   leuronResponseSubstitutions :: Maybe [Substitutions],
-  leuronResponseTags          :: Maybe [Text],
+  leuronResponseTags          :: [Text],
   leuronResponseStyle         :: Maybe [Text],
   leuronResponseCreatedAt     :: Maybe UTCTime,
   leuronResponseModifiedAt    :: Maybe UTCTime
