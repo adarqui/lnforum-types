@@ -3369,6 +3369,8 @@ instance ToJSON ResourceRequest where
     , "counter" .= resourceRequestCounter
     , "version" .= resourceRequestVersion
     , "urls" .= resourceRequestUrls
+    , "icon" .= resourceRequestIcon
+    , "tags" .= resourceRequestTags
     ]
 
 
@@ -3384,6 +3386,8 @@ instance FromJSON ResourceRequest where
     resourceRequestCounter <- o .: "counter"
     resourceRequestVersion <- o .: "version"
     resourceRequestUrls <- o .: "urls"
+    resourceRequestIcon <- o .: "icon"
+    resourceRequestTags <- o .: "tags"
     return $ ResourceRequest {
       resourceRequestTitle = resourceRequestTitle,
       resourceRequestDescription = resourceRequestDescription,
@@ -3394,7 +3398,9 @@ instance FromJSON ResourceRequest where
       resourceRequestVisibility = resourceRequestVisibility,
       resourceRequestCounter = resourceRequestCounter,
       resourceRequestVersion = resourceRequestVersion,
-      resourceRequestUrls = resourceRequestUrls
+      resourceRequestUrls = resourceRequestUrls,
+      resourceRequestIcon = resourceRequestIcon,
+      resourceRequestTags = resourceRequestTags
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -3414,6 +3420,8 @@ instance ToJSON ResourceResponse where
     , "counter" .= resourceResponseCounter
     , "version" .= resourceResponseVersion
     , "urls" .= resourceResponseUrls
+    , "icon" .= resourceResponseIcon
+    , "tags" .= resourceResponseTags
     , "created_at" .= resourceResponseCreatedAt
     , "modified_at" .= resourceResponseModifiedAt
     ]
@@ -3433,6 +3441,8 @@ instance FromJSON ResourceResponse where
     resourceResponseCounter <- o .: "counter"
     resourceResponseVersion <- o .: "version"
     resourceResponseUrls <- o .: "urls"
+    resourceResponseIcon <- o .: "icon"
+    resourceResponseTags <- o .: "tags"
     resourceResponseCreatedAt <- o .: "created_at"
     resourceResponseModifiedAt <- o .: "modified_at"
     return $ ResourceResponse {
@@ -3448,6 +3458,8 @@ instance FromJSON ResourceResponse where
       resourceResponseCounter = resourceResponseCounter,
       resourceResponseVersion = resourceResponseVersion,
       resourceResponseUrls = resourceResponseUrls,
+      resourceResponseIcon = resourceResponseIcon,
+      resourceResponseTags = resourceResponseTags,
       resourceResponseCreatedAt = resourceResponseCreatedAt,
       resourceResponseModifiedAt = resourceResponseModifiedAt
     }

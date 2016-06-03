@@ -28,6 +28,8 @@ data ResourceResponse = ResourceResponse {
   resourceResponseCounter       :: Int,
   resourceResponseVersion       :: Maybe Text,
   resourceResponseUrls          :: Maybe [Text],
+  resourceResponseIcon          :: Maybe Text,
+  resourceResponseTags          :: [Text],
   resourceResponseCreatedAt     :: Maybe UTCTime,
   resourceResponseModifiedAt    :: Maybe UTCTime
   -- resourceResponseActivityAt :: Maybe UTCTime -- TODO

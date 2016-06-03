@@ -25,7 +25,9 @@ data ResourceRequest = ResourceRequest {
   resourceRequestVisibility    :: Visibility,
   resourceRequestCounter       :: Int,
   resourceRequestVersion       :: Maybe Text,
-  resourceRequestUrls          :: Maybe [Text]
+  resourceRequestUrls          :: Maybe [Text],
+  resourceRequestIcon          :: Maybe Text,
+  resourceRequestTags          :: [Text]
  } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -41,5 +43,7 @@ defaultResourceRequest = ResourceRequest {
   resourceRequestVisibility    = Public,
   resourceRequestCounter       = 0,
   resourceRequestVersion       = Nothing,
-  resourceRequestUrls          = Nothing
+  resourceRequestUrls          = Nothing,
+  resourceRequestIcon          = Nothing,
+  resourceRequestTags          = []
 }

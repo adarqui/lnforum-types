@@ -27,7 +27,7 @@ data LeuronRequest = LeuronRequest {
   leuronRequestCategories    :: DepList Text,
   leuronRequestSplits        :: Maybe [Splits],
   leuronRequestSubstitutions :: Maybe [Substitutions],
-  leuronRequestTags          :: Maybe [Text],
+  leuronRequestTags          :: [Text],
   leuronRequestStyle         :: Maybe [Text]
 --  leuronRequestSpecificTo    :: Maybe Text,
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
@@ -36,22 +36,22 @@ data LeuronRequest = LeuronRequest {
 
 defaultLeuronRequest :: LeuronRequest
 defaultLeuronRequest = LeuronRequest {
-  leuronRequestData = LnEmpty,
-  leuronRequestTitle = Nothing,
-  leuronRequestDescription = Nothing,
--- leuronRequestGrammar = Nothing,
-  leuronRequestSection = Nothing,
-  leuronRequestPage = Nothing,
+  leuronRequestData          = LnEmpty,
+  leuronRequestTitle         = Nothing,
+  leuronRequestDescription   = Nothing,
+-- leuronRequestGrammar      = Nothing,
+  leuronRequestSection       = Nothing,
+  leuronRequestPage          = Nothing,
 -- leuronRequestOptions = Nothing,
-  leuronRequestExamples = Nothing,
-  leuronRequestStrengths = Nothing,
-  leuronRequestCategories = [],
-  leuronRequestSplits = Nothing,
+  leuronRequestExamples      = Nothing,
+  leuronRequestStrengths     = Nothing,
+  leuronRequestCategories    = [],
+  leuronRequestSplits        = Nothing,
   leuronRequestSubstitutions = Nothing,
-  leuronRequestTags = Nothing,
-  leuronRequestStyle = Nothing
--- leuronRequestSpecificTo = Nothing,
--- leuronRequestChildren = Nothing
+  leuronRequestTags          = [],
+  leuronRequestStyle         = Nothing
+-- leuronRequestSpecificTo   = Nothing,
+-- leuronRequestChildren     = Nothing
 }
 
 
