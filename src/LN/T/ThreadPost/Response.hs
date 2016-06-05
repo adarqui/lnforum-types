@@ -21,9 +21,12 @@ data ThreadPostResponse = ThreadPostResponse {
   threadPostResponseBody        :: PostData,
   threadPostResponseTags        :: [Text],
   threadPostResponsePrivateTags :: [Text],
+  threadPostResponseActive      :: Bool,
+  threadPostResponseGuard       :: Int,
   threadPostResponseCreatedAt   :: Maybe UTCTime,
   threadPostResponseModifiedBy  :: Maybe Int64,
-  threadPostResponseModifiedAt  :: Maybe UTCTime
+  threadPostResponseModifiedAt  :: Maybe UTCTime,
+  threadPostResponseActivityAt  :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

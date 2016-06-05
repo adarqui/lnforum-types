@@ -14,7 +14,8 @@ import           LN.T.Pm
 
 data PmRequest = PmRequest {
   pmRequestSubject :: Text,
-  pmRequestBody    :: Text
+  pmRequestBody    :: Text,
+  pmRequestGuard   :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -22,5 +23,6 @@ data PmRequest = PmRequest {
 defaultPmRequest :: PmRequest
 defaultPmRequest = PmRequest {
   pmRequestSubject = "No Subject",
-  pmRequestBody    = "No Body"
+  pmRequestBody    = "No Body",
+  pmRequestGuard   = 0
 }

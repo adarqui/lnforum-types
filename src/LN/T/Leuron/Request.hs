@@ -28,7 +28,8 @@ data LeuronRequest = LeuronRequest {
   leuronRequestSplits        :: Maybe [Splits],
   leuronRequestSubstitutions :: Maybe [Substitutions],
   leuronRequestTags          :: [Text],
-  leuronRequestStyle         :: Maybe [Text]
+  leuronRequestStyle         :: Maybe [Text],
+  leuronRequestGuard         :: Int
 --  leuronRequestSpecificTo    :: Maybe Text,
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
@@ -49,7 +50,8 @@ defaultLeuronRequest = LeuronRequest {
   leuronRequestSplits        = Nothing,
   leuronRequestSubstitutions = Nothing,
   leuronRequestTags          = [],
-  leuronRequestStyle         = Nothing
+  leuronRequestStyle         = Nothing,
+  leuronRequestGuard         = 0
 -- leuronRequestSpecificTo   = Nothing,
 -- leuronRequestChildren     = Nothing
 }

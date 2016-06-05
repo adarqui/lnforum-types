@@ -16,7 +16,8 @@ data ThreadPostRequest = ThreadPostRequest {
   threadPostRequestTitle       :: Maybe Text,
   threadPostRequestBody        :: PostData,
   threadPostRequestTags        :: [Text],
-  threadPostRequestPrivateTags :: [Text]
+  threadPostRequestPrivateTags :: [Text],
+  threadPostRequestGuard       :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -26,5 +27,6 @@ defaultThreadPostRequest = ThreadPostRequest {
   threadPostRequestTitle       = Nothing,
   threadPostRequestBody        = PostDataEmpty,
   threadPostRequestTags        = [],
-  threadPostRequestPrivateTags = []
+  threadPostRequestPrivateTags = [],
+  threadPostRequestGuard       = 0
 }

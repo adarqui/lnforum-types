@@ -10,12 +10,14 @@ import           LN.T.Prelude
 
 
 data StarRequest = StarRequest {
-  starRequestReason :: Maybe Text
+  starRequestReason :: Maybe Text,
+  starRequestGuard  :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultStarRequest :: StarRequest
 defaultStarRequest = StarRequest {
-  starRequestReason = Nothing
+  starRequestReason = Nothing,
+  starRequestGuard  = 0
 }

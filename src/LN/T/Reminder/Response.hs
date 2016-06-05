@@ -20,8 +20,11 @@ data ReminderResponse = ReminderResponse {
   reminderResponseUserId         :: Int64,
   reminderResponseParentFolderId :: Int64,
   reminderResponseData           :: Text,
+  reminderResponseActive         :: Bool,
+  reminderResponseGuard          :: Int,
   reminderResponseCreatedAt      :: Maybe UTCTime,
-  reminderResponseModifiedAt     :: Maybe UTCTime
+  reminderResponseModifiedAt     :: Maybe UTCTime,
+  reminderResponseActivityAt     :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -37,10 +40,14 @@ data ReminderFolderResponse = ReminderFolderResponse {
   reminderFolderResponseUserId         :: Int64,
   reminderFolderResponseParentFolderId :: Maybe Int64,
   reminderFolderResponseName           :: Text,
+  reminderFolderResponseDisplayName    :: Text,
   reminderFolderResponseVisibility     :: Visibility,
   reminderFolderResponseDescription    :: Maybe Text,
+  reminderFolderResponseActive         :: Bool,
+  reminderFolderResponseGuard          :: Int,
   reminderFolderResponseCreatedAt      :: Maybe UTCTime,
-  reminderFolderResponseModifiedAt     :: Maybe UTCTime
+  reminderFolderResponseModifiedAt     :: Maybe UTCTime,
+  reminderFolderResponseActivityAt     :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

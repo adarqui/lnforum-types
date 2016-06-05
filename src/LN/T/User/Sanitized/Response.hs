@@ -18,7 +18,9 @@ data UserSanitizedResponse = UserSanitizedResponse {
   userSanitizedResponseDisplayNick :: Text,
   userSanitizedResponseEmailMD5    :: Text,
   userSanitizedResponseActive      :: Bool,
-  userSanitizedResponseCreatedAt   :: Maybe UTCTime
+  userSanitizedResponseGuard       :: Int,
+  userSanitizedResponseCreatedAt   :: Maybe UTCTime,
+  userSanitizedResponseActivityAt  :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

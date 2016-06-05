@@ -13,12 +13,14 @@ import           LN.T.PmOut
 
 
 data PmOutRequest = PmOutRequest {
-  pmOutRequestLabel :: Maybe Text
+  pmOutRequestLabel :: Maybe Text,
+  pmOutRequestGuard :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultPmOutRequest :: PmOutRequest
 defaultPmOutRequest = PmOutRequest {
-  pmOutRequestLabel = Nothing
+  pmOutRequestLabel = Nothing,
+  pmOutRequestGuard = 0
 }

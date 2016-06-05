@@ -22,6 +22,8 @@ data LikeResponse = LikeResponse {
   likeResponseOpt        :: LikeOpt,
   likeResponseScore      :: Int,
   likeResponseReason     :: Maybe Text,
+  likeResponseActive     :: Bool,
+  likeResponseGuard      :: Int,
   likeResponseCreatedAt  :: Maybe UTCTime,
   likeResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

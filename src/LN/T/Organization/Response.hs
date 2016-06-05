@@ -17,6 +17,7 @@ data OrganizationResponse = OrganizationResponse {
   organizationResponseId          :: Int64,
   organizationResponseUserId      :: Int64,
   organizationResponseName        :: Text,
+  organizationResponseDisplayName :: Text,
   organizationResponseDescription :: Maybe Text,
   organizationResponseCompany     :: Text,
   organizationResponseLocation    :: Text,
@@ -26,9 +27,12 @@ data OrganizationResponse = OrganizationResponse {
   organizationResponseIcon        :: Maybe Text,
   organizationResponseTags        :: [Text],
   organizationResponseVisibility  :: Visibility,
+  organizationResponseActive      :: Bool,
+  organizationResponseGuard       :: Int,
   organizationResponseCreatedAt   :: Maybe UTCTime,
   organizationResponseModifiedBy  :: Maybe Int64,
-  organizationResponseModifiedAt  :: Maybe UTCTime
+  organizationResponseModifiedAt  :: Maybe UTCTime,
+  organizationResponseActivityAt  :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

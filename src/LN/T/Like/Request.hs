@@ -14,13 +14,15 @@ import           LN.T.Prelude
 
 data LikeRequest = LikeRequest {
   likeRequestOpt    :: LikeOpt,
-  likeRequestReason :: Maybe Text
+  likeRequestReason :: Maybe Text,
+  likeRequestGuard  :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultLikeRequest :: LikeRequest
 defaultLikeRequest = LikeRequest {
-  likeRequestOpt = Like,
-  likeRequestReason = Nothing
+  likeRequestOpt    = Like,
+  likeRequestReason = Nothing,
+  likeRequestGuard  = 0
 }

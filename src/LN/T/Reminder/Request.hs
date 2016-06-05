@@ -16,29 +16,33 @@ import           LN.T.Reminder
 
 
 data ReminderRequest = ReminderRequest {
-  reminderRequestData :: Text
+  reminderRequestData  :: Text,
+  reminderRequestGuard :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultReminderRequest :: ReminderRequest
 defaultReminderRequest = ReminderRequest {
-  reminderRequestData = "Nothing to remind, apparently."
+  reminderRequestData  = "Nothing to remind, apparently.",
+  reminderRequestGuard = 0
 }
 
 
 
 data ReminderFolderRequest = ReminderFolderRequest {
-  reminderFolderRequestName        :: Text,
+  reminderFolderRequestDisplayName :: Text,
   reminderFolderRequestDescription :: Maybe Text,
-  reminderFolderRequestVisibility  :: Visibility
+  reminderFolderRequestVisibility  :: Visibility,
+  reminderFolderRequestGuard       :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultReminderFolderRequest :: ReminderFolderRequest
 defaultReminderFolderRequest = ReminderFolderRequest {
-  reminderFolderRequestName        = "NoName",
+  reminderFolderRequestDisplayName = "NoName",
   reminderFolderRequestDescription = Nothing,
-  reminderFolderRequestVisibility  = Public
+  reminderFolderRequestVisibility  = Public,
+  reminderFolderRequestGuard       = 0
 }

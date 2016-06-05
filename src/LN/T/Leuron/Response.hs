@@ -32,8 +32,11 @@ data LeuronResponse = LeuronResponse {
   leuronResponseSubstitutions :: Maybe [Substitutions],
   leuronResponseTags          :: [Text],
   leuronResponseStyle         :: Maybe [Text],
+  leuronResponseActive        :: Bool,
+  leuronResponseGuard         :: Int,
   leuronResponseCreatedAt     :: Maybe UTCTime,
-  leuronResponseModifiedAt    :: Maybe UTCTime
+  leuronResponseModifiedAt    :: Maybe UTCTime,
+  leuronResponseActivityAt    :: Maybe UTCTime
 --  leuronResponseSpecificTo    :: Maybe Text,
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 

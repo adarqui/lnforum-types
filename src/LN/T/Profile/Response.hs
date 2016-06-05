@@ -23,6 +23,7 @@ data ProfileResponse = ProfileResponse {
   profileResponseSignature  :: Maybe Text,
   profileResponseKarmaGood  :: Int,
   profileResponseKarmaBad   :: Int,
+  profileResponseGuard      :: Int,
   profileResponseCreatedAt  :: Maybe UTCTime,
   profileResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

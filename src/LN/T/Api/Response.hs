@@ -16,6 +16,7 @@ data ApiResponse = ApiResponse {
   apiResponseUserId     :: Int64,
   apiResponseKey        :: Text,
   apiResponseComment    :: Maybe Text,
+  apiResponseGuard      :: Int,
   apiResponseCreatedAt  :: Maybe UTCTime,
   apiResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

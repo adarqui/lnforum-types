@@ -21,6 +21,8 @@ data PmInResponse = PmInResponse {
   pmInResponseIsStarred  :: Bool,
   pmInResponseIsNew      :: Bool,
   pmInResponseIsSaved    :: Bool,
+  pmInResponseActive     :: Bool,
+  pmInResponseGuard      :: Int,
   pmInResponseCreatedAt  :: Maybe UTCTime,
   pmInResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

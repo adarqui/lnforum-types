@@ -7,25 +7,29 @@ module LN.T.Team.Response (
 
 
 
-import           LN.T.Prelude
 import           LN.T.Membership
+import           LN.T.Prelude
 import           LN.T.Visibility
 
 
 
 data TeamResponse = TeamResponse {
-  teamResponseId          :: Int64,
-  teamResponseUserId      :: Int64,
-  teamResponseOrgId       :: Int64,
-  teamResponseName        :: Text,
-  teamResponseDescription :: Maybe Text,
-  teamResponseMembership  :: Membership,
-  teamResponseIcon        :: Maybe Text,
-  teamResponseTags        :: [Text],
-  teamResponseVisibility  :: Visibility,
-  teamResponseCreatedAt   :: Maybe UTCTime,
-  teamResponseModifiedBy  :: Maybe Int64,
-  teamResponseModifiedAt  :: Maybe UTCTime
+  teamResponseId           :: Int64,
+  teamResponseUserId       :: Int64,
+  teamResponseOrgId        :: Int64,
+  teamResponseName         :: Text,
+  teamRespponseDisplayName :: Text,
+  teamResponseDescription  :: Maybe Text,
+  teamResponseMembership   :: Membership,
+  teamResponseIcon         :: Maybe Text,
+  teamResponseTags         :: [Text],
+  teamResponseVisibility   :: Visibility,
+  teamResponseActive       :: Bool,
+  teamResponseGuard        :: Int,
+  teamResponseCreatedAt    :: Maybe UTCTime,
+  teamResponseModifiedBy   :: Maybe Int64,
+  teamResponseModifiedAt   :: Maybe UTCTime,
+  teamResponseActivityAt   :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

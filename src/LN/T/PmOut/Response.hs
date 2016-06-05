@@ -18,6 +18,8 @@ data PmOutResponse = PmOutResponse {
   pmOutResponseUserId     :: Int64,
   pmOutResponseLabel      :: Maybe Text,
   pmOutResponseIsSaved    :: Bool,
+  pmOutResponseActive     :: Bool,
+  pmOutResponseGuard      :: Int,
   pmOutResponseCreatedAt  :: Maybe UTCTime,
   pmOutResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

@@ -18,6 +18,8 @@ data StarResponse = StarResponse {
   starResponseEntity     :: Ent,
   starResponseUserId     :: Int64,
   starResponseReason     :: Maybe Text,
+  starResponseActive     :: Bool,
+  starResponseGuard      :: Int,
   starResponseCreatedAt  :: Maybe UTCTime,
   starResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

@@ -17,13 +17,17 @@ data ForumResponse = ForumResponse {
   forumResponseUserId      :: Int64,
   forumResponseOrgId       :: Int64,
   forumResponseName        :: Text,
+  forumResponseDisplayNAme :: Text,
   forumResponseDescription :: Maybe Text,
   forumResponseIcon        :: Maybe Text,
   forumResponseTags        :: [Text],
   forumResponseVisibility  :: Visibility,
+  forumResponseActive      :: Bool,
+  forumResponseGuard       :: Int,
   forumResponseCreatedAt   :: Maybe UTCTime,
   forumResponseModifiedBy  :: Maybe Int64,
-  forumResponseModifiedAt  :: Maybe UTCTime
+  forumResponseModifiedAt  :: Maybe UTCTime,
+  forumResponseActivityAt  :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

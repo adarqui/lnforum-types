@@ -19,7 +19,8 @@ data ProfileRequest = ProfileRequest {
   profileRequestBirthdate :: UTCTime,
   profileRequestWebsite   :: Maybe Text,
   profileRequestLocation  :: Maybe Text,
-  profileRequestSignature :: Maybe Text
+  profileRequestSignature :: Maybe Text,
+  profileRequestGuard     :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
@@ -30,5 +31,6 @@ defaultProfileRequest = ProfileRequest {
   profileRequestBirthdate = defaultUTCTime,
   profileRequestWebsite   = Nothing,
   profileRequestLocation  = Nothing,
-  profileRequestSignature = Nothing
+  profileRequestSignature = Nothing,
+  profileRequestGuard     = 0
 }

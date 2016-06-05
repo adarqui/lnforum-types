@@ -13,20 +13,22 @@ import           LN.T.Visibility
 
 
 data ForumRequest = ForumRequest {
-  forumRequestName        :: Text,
+  forumRequestDisplayName :: Text,
   forumRequestDescription :: Maybe Text,
   forumRequestIcon        :: Maybe Text,
   forumRequestTags        :: [Text],
-  forumRequestVisibility  :: Visibility
+  forumRequestVisibility  :: Visibility,
+  forumRequestGuard       :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultForumRequest :: ForumRequest
 defaultForumRequest = ForumRequest {
-  forumRequestName        = "",
+  forumRequestDisplayName = "",
   forumRequestDescription = Nothing,
   forumRequestIcon        = Nothing,
   forumRequestTags        = [],
-  forumRequestVisibility  = Public
+  forumRequestVisibility  = Public,
+  forumRequestGuard       = 0
 }

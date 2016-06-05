@@ -15,6 +15,7 @@ data BucketResponse = BucketResponse {
   bucketResponseId          :: Int64,
   bucketResponseUserId      :: Int64,
   bucketResponseName        :: Text,
+  bucketResponseDisplayName :: Text,
   bucketResponseDescription :: Maybe Text,
   bucketResponseScoreLo     :: Int,
   bucketResponseScoreHi     :: Int,
@@ -22,8 +23,11 @@ data BucketResponse = BucketResponse {
   bucketResponseResources   :: [Int64],
   bucketResponseCategories  :: [Text],
   bucketResponseFilters     :: [Int64],
+  bucketResponseActive      :: Bool,
+  bucketResponseGuard       :: Int,
   bucketResponseCreatedAt   :: Maybe UTCTime,
-  bucketResponseModifiedAt  :: Maybe UTCTime
+  bucketResponseModifiedAt  :: Maybe UTCTime,
+  bucketResponseActivityAt  :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

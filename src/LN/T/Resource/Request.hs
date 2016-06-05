@@ -16,7 +16,7 @@ import           LN.T.Visibility
 
 
 data ResourceRequest = ResourceRequest {
-  resourceRequestTitle         :: Text,
+  resourceRequestDisplayName   :: Text,
   resourceRequestDescription   :: Text,
   resourceRequestSource        :: ResourceType,
   resourceRequestAuthor        :: Maybe [Text],
@@ -27,14 +27,15 @@ data ResourceRequest = ResourceRequest {
   resourceRequestVersion       :: Maybe Text,
   resourceRequestUrls          :: Maybe [Text],
   resourceRequestIcon          :: Maybe Text,
-  resourceRequestTags          :: [Text]
+  resourceRequestTags          :: [Text],
+  resourceRequestGuard         :: Int
  } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultResourceRequest :: ResourceRequest
 defaultResourceRequest = ResourceRequest {
-  resourceRequestTitle         = "",
+  resourceRequestDisplayName   = "",
   resourceRequestDescription   = "",
   resourceRequestSource        = URL "not found",
   resourceRequestAuthor        = Nothing,
@@ -45,5 +46,6 @@ defaultResourceRequest = ResourceRequest {
   resourceRequestVersion       = Nothing,
   resourceRequestUrls          = Nothing,
   resourceRequestIcon          = Nothing,
-  resourceRequestTags          = []
+  resourceRequestTags          = [],
+  resourceRequestGuard         = 0
 }

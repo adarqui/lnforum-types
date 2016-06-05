@@ -12,7 +12,6 @@ import           LN.T.User
 
 
 data UserRequest = UserRequest {
-  userRequestNick        :: Text,
   userRequestDisplayNick :: Text,
   userRequestName        :: Text,
   userRequestEmail       :: Text,

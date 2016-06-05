@@ -14,7 +14,7 @@ import           LN.T.Visibility
 
 
 data OrganizationRequest = OrganizationRequest {
-  organizationRequestName        :: Text,
+  organizationRequestDisplayName :: Text,
   organizationRequestDescription :: Maybe Text,
   organizationRequestCompany     :: Text,
   organizationRequestLocation    :: Text,
@@ -22,14 +22,15 @@ data OrganizationRequest = OrganizationRequest {
   organizationRequestMembership  :: Membership,
   organizationRequestTags        :: [Text],
   organizationRequestIcon        :: Maybe Text,
-  organizationRequestVisibility  :: Visibility
+  organizationRequestVisibility  :: Visibility,
+  organizationRequestGuard       :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultOrganizationRequest :: OrganizationRequest
 defaultOrganizationRequest = OrganizationRequest {
-  organizationRequestName        = "",
+  organizationRequestDisplayName = "",
   organizationRequestDescription = Nothing,
   organizationRequestCompany     = "",
   organizationRequestLocation    = "",
@@ -37,5 +38,6 @@ defaultOrganizationRequest = OrganizationRequest {
   organizationRequestMembership  = Membership_Join,
   organizationRequestIcon        = Nothing,
   organizationRequestTags        = [],
-  organizationRequestVisibility  = Public
+  organizationRequestVisibility  = Public,
+  organizationRequestGuard       = 0
 }

@@ -12,24 +12,26 @@ import           LN.T.Prelude
 
 
 data ThreadRequest = ThreadRequest {
-  threadRequestName        :: Text,
+  threadRequestDisplayName :: Text,
   threadRequestDescription :: Maybe Text,
   threadRequestSticky      :: Bool,
   threadRequestLocked      :: Bool,
   threadRequestPoll        :: Maybe Text,
   threadRequestIcon        :: Maybe Text,
-  threadRequestTags        :: [Text]
+  threadRequestTags        :: [Text],
+  threadRequestGuard       :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultThreadRequest :: ThreadRequest
 defaultThreadRequest = ThreadRequest {
-  threadRequestName        = "",
+  threadRequestDisplayName = "",
   threadRequestDescription = Nothing,
   threadRequestSticky      = False,
   threadRequestLocked      = False,
   threadRequestPoll        = Nothing,
   threadRequestIcon        = Nothing,
-  threadRequestTags        = []
+  threadRequestTags        = [],
+  threadRequestGuard       = 0
 }

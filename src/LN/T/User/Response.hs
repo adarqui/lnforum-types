@@ -22,9 +22,11 @@ data UserResponse = UserResponse {
   userResponsePlugin        :: Text,
   userResponseIdent         :: Text,
   userResponseActive        :: Bool,
+  userResponseGuard         :: Int,
   userResponseCreatedAt     :: Maybe UTCTime,
   userResponseModifiedAt    :: Maybe UTCTime,
-  userResponseDeactivatedAt :: Maybe UTCTime
+  userResponseDeactivatedAt :: Maybe UTCTime,
+  userResponseActivityAt    :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

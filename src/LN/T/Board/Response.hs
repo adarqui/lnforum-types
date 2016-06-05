@@ -17,12 +17,16 @@ data BoardResponse = BoardResponse {
   boardResponseForumId     :: Int64,
   boardResponseParentId    :: Maybe Int64,
   boardResponseName        :: Text,
+  boardResponseDisplayName :: Text,
   boardResponseDescription :: Maybe Text,
   boardResponseIcon        :: Maybe Text,
   boardResponseTags        :: [Text],
+  boardResponseActive      :: Bool,
+  boardResponseGuard       :: Int,
   boardResponseCreatedAt   :: Maybe UTCTime,
   boardResponseModifiedBy  :: Maybe Int64,
-  boardResponseModifiedAt  :: Maybe UTCTime
+  boardResponseModifiedAt  :: Maybe UTCTime,
+  boardResponseActivityAt  :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

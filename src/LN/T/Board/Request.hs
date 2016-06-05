@@ -12,18 +12,20 @@ import           LN.T.Prelude
 
 
 data BoardRequest = BoardRequest {
-  boardRequestName        :: Text,
+  boardRequestDisplayName :: Text,
   boardRequestDescription :: Maybe Text,
   boardRequestIcon        :: Maybe Text,
-  boardRequestTags        :: [Text]
+  boardRequestTags        :: [Text],
+  boardRequestGuard       :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
 
 defaultBoardRequest :: BoardRequest
 defaultBoardRequest = BoardRequest {
-  boardRequestName        = "",
+  boardRequestDisplayName = "",
   boardRequestDescription = Nothing,
   boardRequestIcon        = Nothing,
-  boardRequestTags        = []
+  boardRequestTags        = [],
+  boardRequestGuard       = 0
 }

@@ -19,8 +19,11 @@ data PmResponse = PmResponse {
   pmResponseToUserId   :: Int64,
   pmResponseSubject    :: Text,
   pmResponseBody       :: Text,
+  pmResponseActive     :: Bool,
+  pmResponseGuard      :: Int,
   pmResponseCreatedAt  :: Maybe UTCTime,
-  pmResponseModifiedAt :: Maybe UTCTime
+  pmResponseModifiedAt :: Maybe UTCTime,
+  pmResponseActivityAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

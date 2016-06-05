@@ -18,7 +18,8 @@ import           LN.T.Visibility
 data ResourceResponse = ResourceResponse {
   resourceResponseId            :: Int64,
   resourceResponseUserId        :: Int64,
-  resourceResponseTitle         :: Text,
+  resourceResponseName          :: Text,
+  resourceResponseDisplayName   :: Text,
   resourceResponseDescription   :: Text,
   resourceResponseSource        :: ResourceType,
   resourceResponseAuthor        :: Maybe [Text],
@@ -30,9 +31,11 @@ data ResourceResponse = ResourceResponse {
   resourceResponseUrls          :: Maybe [Text],
   resourceResponseIcon          :: Maybe Text,
   resourceResponseTags          :: [Text],
+  resourceResponseActive        :: Bool,
+  resourceResponseGuard         :: Int,
   resourceResponseCreatedAt     :: Maybe UTCTime,
-  resourceResponseModifiedAt    :: Maybe UTCTime
-  -- resourceResponseActivityAt :: Maybe UTCTime -- TODO
+  resourceResponseModifiedAt    :: Maybe UTCTime,
+  resourceResponseActivityAt    :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
