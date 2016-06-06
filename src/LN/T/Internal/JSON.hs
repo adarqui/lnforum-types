@@ -606,7 +606,7 @@ instance ToJSON ForumResponse where
     , "user_id" .= forumResponseUserId
     , "org_id" .= forumResponseOrgId
     , "name" .= forumResponseName
-    , "display_name" .= forumResponseDisplayNAme
+    , "display_name" .= forumResponseDisplayName
     , "description" .= forumResponseDescription
     , "icon" .= forumResponseIcon
     , "tags" .= forumResponseTags
@@ -626,7 +626,7 @@ instance FromJSON ForumResponse where
     forumResponseUserId <- o .: "user_id"
     forumResponseOrgId <- o .: "org_id"
     forumResponseName <- o .: "name"
-    forumResponseDisplayNAme <- o .: "display_name"
+    forumResponseDisplayName <- o .: "display_name"
     forumResponseDescription <- o .: "description"
     forumResponseIcon <- o .: "icon"
     forumResponseTags <- o .: "tags"
@@ -642,7 +642,7 @@ instance FromJSON ForumResponse where
       forumResponseUserId = forumResponseUserId,
       forumResponseOrgId = forumResponseOrgId,
       forumResponseName = forumResponseName,
-      forumResponseDisplayNAme = forumResponseDisplayNAme,
+      forumResponseDisplayName = forumResponseDisplayName,
       forumResponseDescription = forumResponseDescription,
       forumResponseIcon = forumResponseIcon,
       forumResponseTags = forumResponseTags,

@@ -17,7 +17,7 @@ data ForumResponse = ForumResponse {
   forumResponseUserId      :: Int64,
   forumResponseOrgId       :: Int64,
   forumResponseName        :: Text,
-  forumResponseDisplayNAme :: Text,
+  forumResponseDisplayName :: Text,
   forumResponseDescription :: Maybe Text,
   forumResponseIcon        :: Maybe Text,
   forumResponseTags        :: [Text],
