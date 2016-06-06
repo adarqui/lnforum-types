@@ -968,14 +968,17 @@ instance ToJSON LeuronTrainingRequest where
   toJSON LeuronTrainingRequest{..} = object $
     [ "tag" .= "LeuronTrainingRequest"
     , "summary" .= leuronTrainingRequestSummary
+    , "guard" .= leuronTrainingRequestGuard
     ]
 
 
 instance FromJSON LeuronTrainingRequest where
   parseJSON (Object o) = do
     leuronTrainingRequestSummary <- o .: "summary"
+    leuronTrainingRequestGuard <- o .: "guard"
     return $ LeuronTrainingRequest {
-      leuronTrainingRequestSummary = leuronTrainingRequestSummary
+      leuronTrainingRequestSummary = leuronTrainingRequestSummary,
+      leuronTrainingRequestGuard = leuronTrainingRequestGuard
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -987,6 +990,7 @@ instance ToJSON LeuronTrainingResponse where
     , "user_id" .= leuronTrainingResponseUserId
     , "leuron_id" .= leuronTrainingResponseLeuronId
     , "summary" .= leuronTrainingResponseSummary
+    , "guard" .= leuronTrainingResponseGuard
     , "created_at" .= leuronTrainingResponseCreatedAt
     , "modified_at" .= leuronTrainingResponseModifiedAt
     ]
@@ -998,6 +1002,7 @@ instance FromJSON LeuronTrainingResponse where
     leuronTrainingResponseUserId <- o .: "user_id"
     leuronTrainingResponseLeuronId <- o .: "leuron_id"
     leuronTrainingResponseSummary <- o .: "summary"
+    leuronTrainingResponseGuard <- o .: "guard"
     leuronTrainingResponseCreatedAt <- o .: "created_at"
     leuronTrainingResponseModifiedAt <- o .: "modified_at"
     return $ LeuronTrainingResponse {
@@ -1005,6 +1010,7 @@ instance FromJSON LeuronTrainingResponse where
       leuronTrainingResponseUserId = leuronTrainingResponseUserId,
       leuronTrainingResponseLeuronId = leuronTrainingResponseLeuronId,
       leuronTrainingResponseSummary = leuronTrainingResponseSummary,
+      leuronTrainingResponseGuard = leuronTrainingResponseGuard,
       leuronTrainingResponseCreatedAt = leuronTrainingResponseCreatedAt,
       leuronTrainingResponseModifiedAt = leuronTrainingResponseModifiedAt
     }

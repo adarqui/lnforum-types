@@ -17,6 +17,7 @@ data LeuronTrainingResponse = LeuronTrainingResponse {
   leuronTrainingResponseUserId     :: Int64,
   leuronTrainingResponseLeuronId   :: Int64,
   leuronTrainingResponseSummary    :: LeuronTrainingSummary,
+  leuronTrainingResponseGuard      :: Int,
   leuronTrainingResponseCreatedAt  :: Maybe UTCTime,
   leuronTrainingResponseModifiedAt :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
