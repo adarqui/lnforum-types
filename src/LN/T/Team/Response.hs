@@ -18,7 +18,7 @@ data TeamResponse = TeamResponse {
   teamResponseUserId       :: Int64,
   teamResponseOrgId        :: Int64,
   teamResponseName         :: Text,
-  teamRespponseDisplayName :: Text,
+  teamResponseDisplayName  :: Text,
   teamResponseDescription  :: Maybe Text,
   teamResponseMembership   :: Membership,
   teamResponseIcon         :: Maybe Text,
