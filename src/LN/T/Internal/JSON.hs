@@ -89,6 +89,9 @@ instance ToJSON BoardRequest where
     [ "tag" .= "BoardRequest"
     , "display_name" .= boardRequestDisplayName
     , "description" .= boardRequestDescription
+    , "is_anonymous" .= boardRequestIsAnonymous
+    , "can_create_sub_boards" .= boardRequestCanCreateSubBoards
+    , "can_create_threads" .= boardRequestCanCreateThreads
     , "icon" .= boardRequestIcon
     , "tags" .= boardRequestTags
     , "guard" .= boardRequestGuard
@@ -99,12 +102,18 @@ instance FromJSON BoardRequest where
   parseJSON (Object o) = do
     boardRequestDisplayName <- o .: "display_name"
     boardRequestDescription <- o .: "description"
+    boardRequestIsAnonymous <- o .: "is_anonymous"
+    boardRequestCanCreateSubBoards <- o .: "can_create_sub_boards"
+    boardRequestCanCreateThreads <- o .: "can_create_threads"
     boardRequestIcon <- o .: "icon"
     boardRequestTags <- o .: "tags"
     boardRequestGuard <- o .: "guard"
     return $ BoardRequest {
       boardRequestDisplayName = boardRequestDisplayName,
       boardRequestDescription = boardRequestDescription,
+      boardRequestIsAnonymous = boardRequestIsAnonymous,
+      boardRequestCanCreateSubBoards = boardRequestCanCreateSubBoards,
+      boardRequestCanCreateThreads = boardRequestCanCreateThreads,
       boardRequestIcon = boardRequestIcon,
       boardRequestTags = boardRequestTags,
       boardRequestGuard = boardRequestGuard
@@ -122,6 +131,9 @@ instance ToJSON BoardResponse where
     , "name" .= boardResponseName
     , "display_name" .= boardResponseDisplayName
     , "description" .= boardResponseDescription
+    , "is_anonymous" .= boardResponseIsAnonymous
+    , "can_create_sub_boards" .= boardResponseCanCreateSubBoards
+    , "can_create_threads" .= boardResponseCanCreateThreads
     , "icon" .= boardResponseIcon
     , "tags" .= boardResponseTags
     , "active" .= boardResponseActive
@@ -142,6 +154,9 @@ instance FromJSON BoardResponse where
     boardResponseName <- o .: "name"
     boardResponseDisplayName <- o .: "display_name"
     boardResponseDescription <- o .: "description"
+    boardResponseIsAnonymous <- o .: "is_anonymous"
+    boardResponseCanCreateSubBoards <- o .: "can_create_sub_boards"
+    boardResponseCanCreateThreads <- o .: "can_create_threads"
     boardResponseIcon <- o .: "icon"
     boardResponseTags <- o .: "tags"
     boardResponseActive <- o .: "active"
@@ -158,6 +173,9 @@ instance FromJSON BoardResponse where
       boardResponseName = boardResponseName,
       boardResponseDisplayName = boardResponseDisplayName,
       boardResponseDescription = boardResponseDescription,
+      boardResponseIsAnonymous = boardResponseIsAnonymous,
+      boardResponseCanCreateSubBoards = boardResponseCanCreateSubBoards,
+      boardResponseCanCreateThreads = boardResponseCanCreateThreads,
       boardResponseIcon = boardResponseIcon,
       boardResponseTags = boardResponseTags,
       boardResponseActive = boardResponseActive,
