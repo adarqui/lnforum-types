@@ -2395,6 +2395,14 @@ instance ToJSON Param where
     [ "tag" .= "ByTeamName"
     , "contents" .= toJSON x0
     ]
+  toJSON (ByTeamMemberId x0) = object $
+    [ "tag" .= "ByTeamMemberId"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByTeamMembersIds x0) = object $
+    [ "tag" .= "ByTeamMembersIds"
+    , "contents" .= toJSON x0
+    ]
   toJSON (ByUserId x0) = object $
     [ "tag" .= "ByUserId"
     , "contents" .= toJSON x0
@@ -2409,6 +2417,30 @@ instance ToJSON Param where
     ]
   toJSON (ByUsersNicks x0) = object $
     [ "tag" .= "ByUsersNicks"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByGlobalGroupId x0) = object $
+    [ "tag" .= "ByGlobalGroupId"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByGlobalGroupsIds x0) = object $
+    [ "tag" .= "ByGlobalGroupsIds"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByGroupId x0) = object $
+    [ "tag" .= "ByGroupId"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByGroupsIds x0) = object $
+    [ "tag" .= "ByGroupsIds"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByGroupMemberId x0) = object $
+    [ "tag" .= "ByGroupMemberId"
+    , "contents" .= toJSON x0
+    ]
+  toJSON (ByGroupMembersIds x0) = object $
+    [ "tag" .= "ByGroupMembersIds"
     , "contents" .= toJSON x0
     ]
   toJSON (ByForumId x0) = object $
@@ -2597,6 +2629,14 @@ instance FromJSON Param where
         x0 <- o .: "contents"
         ByTeamName <$> parseJSON x0
 
+      "ByTeamMemberId" -> do
+        x0 <- o .: "contents"
+        ByTeamMemberId <$> parseJSON x0
+
+      "ByTeamMembersIds" -> do
+        x0 <- o .: "contents"
+        ByTeamMembersIds <$> parseJSON x0
+
       "ByUserId" -> do
         x0 <- o .: "contents"
         ByUserId <$> parseJSON x0
@@ -2612,6 +2652,30 @@ instance FromJSON Param where
       "ByUsersNicks" -> do
         x0 <- o .: "contents"
         ByUsersNicks <$> parseJSON x0
+
+      "ByGlobalGroupId" -> do
+        x0 <- o .: "contents"
+        ByGlobalGroupId <$> parseJSON x0
+
+      "ByGlobalGroupsIds" -> do
+        x0 <- o .: "contents"
+        ByGlobalGroupsIds <$> parseJSON x0
+
+      "ByGroupId" -> do
+        x0 <- o .: "contents"
+        ByGroupId <$> parseJSON x0
+
+      "ByGroupsIds" -> do
+        x0 <- o .: "contents"
+        ByGroupsIds <$> parseJSON x0
+
+      "ByGroupMemberId" -> do
+        x0 <- o .: "contents"
+        ByGroupMemberId <$> parseJSON x0
+
+      "ByGroupMembersIds" -> do
+        x0 <- o .: "contents"
+        ByGroupMembersIds <$> parseJSON x0
 
       "ByForumId" -> do
         x0 <- o .: "contents"
@@ -2797,6 +2861,14 @@ instance ToJSON ParamTag where
     [ "tag" .= "ParamTag_ByTeamName"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (ParamTag_ByTeamMemberId ) = object $
+    [ "tag" .= "ParamTag_ByTeamMemberId"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByTeamMembersIds ) = object $
+    [ "tag" .= "ParamTag_ByTeamMembersIds"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (ParamTag_ByUserId ) = object $
     [ "tag" .= "ParamTag_ByUserId"
     , "contents" .= ([] :: [Text])
@@ -2811,6 +2883,30 @@ instance ToJSON ParamTag where
     ]
   toJSON (ParamTag_ByUsersNicks ) = object $
     [ "tag" .= "ParamTag_ByUsersNicks"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByGlobalGroupId ) = object $
+    [ "tag" .= "ParamTag_ByGlobalGroupId"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByGlobalGroupsIds ) = object $
+    [ "tag" .= "ParamTag_ByGlobalGroupsIds"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByGroupId ) = object $
+    [ "tag" .= "ParamTag_ByGroupId"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByGroupsIds ) = object $
+    [ "tag" .= "ParamTag_ByGroupsIds"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByGroupMemberId ) = object $
+    [ "tag" .= "ParamTag_ByGroupMemberId"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_ByGroupMembersIds ) = object $
+    [ "tag" .= "ParamTag_ByGroupMembersIds"
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByForumId ) = object $
@@ -2989,6 +3085,12 @@ instance FromJSON ParamTag where
       "ParamTag_ByTeamName" -> do
         return ParamTag_ByTeamName
 
+      "ParamTag_ByTeamMemberId" -> do
+        return ParamTag_ByTeamMemberId
+
+      "ParamTag_ByTeamMembersIds" -> do
+        return ParamTag_ByTeamMembersIds
+
       "ParamTag_ByUserId" -> do
         return ParamTag_ByUserId
 
@@ -3000,6 +3102,24 @@ instance FromJSON ParamTag where
 
       "ParamTag_ByUsersNicks" -> do
         return ParamTag_ByUsersNicks
+
+      "ParamTag_ByGlobalGroupId" -> do
+        return ParamTag_ByGlobalGroupId
+
+      "ParamTag_ByGlobalGroupsIds" -> do
+        return ParamTag_ByGlobalGroupsIds
+
+      "ParamTag_ByGroupId" -> do
+        return ParamTag_ByGroupId
+
+      "ParamTag_ByGroupsIds" -> do
+        return ParamTag_ByGroupsIds
+
+      "ParamTag_ByGroupMemberId" -> do
+        return ParamTag_ByGroupMemberId
+
+      "ParamTag_ByGroupMembersIds" -> do
+        return ParamTag_ByGroupMembersIds
 
       "ParamTag_ByForumId" -> do
         return ParamTag_ByForumId
