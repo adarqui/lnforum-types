@@ -28,6 +28,10 @@ import           LN.T.Forum.Request                  as A
 import           LN.T.Forum.Response                 as A
 import           LN.T.Forum.Stat                     as A
 import           LN.T.GenericPretty                  as A
+import           LN.T.GlobalGroup                    as A
+import           LN.T.GlobalGroup.Request            as A
+import           LN.T.GlobalGroup.Response           as A
+import           LN.T.GlobalGroup.Stat               as A
 import           LN.T.Leuron                         as A
 import           LN.T.Leuron.Request                 as A
 import           LN.T.Leuron.Response                as A
@@ -96,6 +100,10 @@ import           LN.T.Team                           as A
 import           LN.T.Team.Request                   as A
 import           LN.T.Team.Response                  as A
 import           LN.T.Team.Stat                      as A
+import           LN.T.TeamMember                     as A
+import           LN.T.TeamMember.Request             as A
+import           LN.T.TeamMember.Response            as A
+import           LN.T.TeamMember.Stat                as A
 import           LN.T.Test                           as A
 import           LN.T.Thread                         as A
 import           LN.T.Thread.Request                 as A

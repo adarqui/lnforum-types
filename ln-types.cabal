@@ -44,6 +44,10 @@ library
                        LN.T.Forum.Response
                        LN.T.Forum.Stat
                        LN.T.GenericPretty
+                       LN.T.GlobalGroup
+                       LN.T.GlobalGroup.Request
+                       LN.T.GlobalGroup.Response
+                       LN.T.GlobalGroup.Stat
                        LN.T.Leuron
                        LN.T.Leuron.Request
                        LN.T.Leuron.Response
