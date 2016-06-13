@@ -79,6 +79,9 @@ library
                        LN.T.Pack.User
                        LN.T.Pack.Me
                        LN.T.Pack.Sanitized.User
+                       LN.T.Pack.GlobalGroup
+                       LN.T.Pack.Group
+                       LN.T.Pack.GroupMember
                        LN.T.Pack.Forum
                        LN.T.Pack.Board
                        LN.T.Pack.Thread
