@@ -32,6 +32,10 @@ import           LN.T.GlobalGroup                    as A
 import           LN.T.GlobalGroup.Request            as A
 import           LN.T.GlobalGroup.Response           as A
 import           LN.T.GlobalGroup.Stat               as A
+import           LN.T.Group                          as A
+import           LN.T.Group.Request                  as A
+import           LN.T.Group.Response                 as A
+import           LN.T.Group.Stat                     as A
 import           LN.T.GroupMember                    as A
 import           LN.T.GroupMember.Request            as A
 import           LN.T.GroupMember.Response           as A

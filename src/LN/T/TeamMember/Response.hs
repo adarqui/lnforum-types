@@ -17,6 +17,8 @@ data TeamMemberResponse = TeamMemberResponse {
   teamMemberResponseId         :: Int64,
   teamMemberResponseUserId     :: Int64,
   teamMemberResponseTeamId     :: Int64,
+  teamMemberResponseActive     :: Bool,
+  teamMemberResponseGuard      :: Int,
   teamMemberResponseCreatedAt  :: Maybe UTCTime,
   teamMemberResponseModifiedBy :: Maybe Int64,
   teamMemberResponseModifiedAt :: Maybe UTCTime,

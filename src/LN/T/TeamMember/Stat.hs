@@ -17,4 +17,5 @@ data TeamMemberStatResponse = TeamMemberStatResponse {
 
 
 data TeamMemberStatResponses = TeamMemberStatResponses {
+  teamMemberStatResponses :: [TeamMemberStatResponse]
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

@@ -12,7 +12,7 @@ import           LN.T.Prelude
 
 
 data GlobalGroupStatResponse = GlobalGroupStatResponse {
-  globalGroupStatResponseMembers :: Int64
+  globalGroupStatResponseGroups :: Int64
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
