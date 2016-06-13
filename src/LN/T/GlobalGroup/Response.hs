@@ -16,7 +16,6 @@ import           LN.T.Visibility
 data GlobalGroupResponse = GlobalGroupResponse {
   globalGroupResponseId          :: Int64,
   globalGroupResponseUserId      :: Int64,
-  globalGroupResponseOrgId       :: Int64,
   globalGroupResponseName        :: Text,
   globalGroupResponseDisplayName :: Text,
   globalGroupResponseDescription :: Maybe Text,

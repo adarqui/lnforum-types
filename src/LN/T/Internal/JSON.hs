@@ -786,7 +786,6 @@ instance ToJSON GlobalGroupResponse where
     [ "tag" .= "GlobalGroupResponse"
     , "id" .= globalGroupResponseId
     , "user_id" .= globalGroupResponseUserId
-    , "org_id" .= globalGroupResponseOrgId
     , "name" .= globalGroupResponseName
     , "display_name" .= globalGroupResponseDisplayName
     , "description" .= globalGroupResponseDescription
@@ -807,7 +806,6 @@ instance FromJSON GlobalGroupResponse where
   parseJSON (Object o) = do
     globalGroupResponseId <- o .: "id"
     globalGroupResponseUserId <- o .: "user_id"
-    globalGroupResponseOrgId <- o .: "org_id"
     globalGroupResponseName <- o .: "name"
     globalGroupResponseDisplayName <- o .: "display_name"
     globalGroupResponseDescription <- o .: "description"
@@ -824,7 +822,6 @@ instance FromJSON GlobalGroupResponse where
     return $ GlobalGroupResponse {
       globalGroupResponseId = globalGroupResponseId,
       globalGroupResponseUserId = globalGroupResponseUserId,
-      globalGroupResponseOrgId = globalGroupResponseOrgId,
       globalGroupResponseName = globalGroupResponseName,
       globalGroupResponseDisplayName = globalGroupResponseDisplayName,
       globalGroupResponseDescription = globalGroupResponseDescription,
