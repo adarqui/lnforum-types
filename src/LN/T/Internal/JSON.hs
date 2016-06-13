@@ -591,6 +591,8 @@ instance ToJSON ForumRequest where
     [ "tag" .= "ForumRequest"
     , "display_name" .= forumRequestDisplayName
     , "description" .= forumRequestDescription
+    , "threads_per_board" .= forumRequestThreadsPerBoard
+    , "thread_posts_per_thread" .= forumRequestThreadPostsPerThread
     , "icon" .= forumRequestIcon
     , "tags" .= forumRequestTags
     , "visibility" .= forumRequestVisibility
@@ -602,6 +604,8 @@ instance FromJSON ForumRequest where
   parseJSON (Object o) = do
     forumRequestDisplayName <- o .: "display_name"
     forumRequestDescription <- o .: "description"
+    forumRequestThreadsPerBoard <- o .: "threads_per_board"
+    forumRequestThreadPostsPerThread <- o .: "thread_posts_per_thread"
     forumRequestIcon <- o .: "icon"
     forumRequestTags <- o .: "tags"
     forumRequestVisibility <- o .: "visibility"
@@ -609,6 +613,8 @@ instance FromJSON ForumRequest where
     return $ ForumRequest {
       forumRequestDisplayName = forumRequestDisplayName,
       forumRequestDescription = forumRequestDescription,
+      forumRequestThreadsPerBoard = forumRequestThreadsPerBoard,
+      forumRequestThreadPostsPerThread = forumRequestThreadPostsPerThread,
       forumRequestIcon = forumRequestIcon,
       forumRequestTags = forumRequestTags,
       forumRequestVisibility = forumRequestVisibility,
@@ -626,6 +632,8 @@ instance ToJSON ForumResponse where
     , "name" .= forumResponseName
     , "display_name" .= forumResponseDisplayName
     , "description" .= forumResponseDescription
+    , "threads_per_board" .= forumResponseThreadsPerBoard
+    , "thread_posts_per_thread" .= forumResponseThreadPostsPerThread
     , "icon" .= forumResponseIcon
     , "tags" .= forumResponseTags
     , "visibility" .= forumResponseVisibility
@@ -646,6 +654,8 @@ instance FromJSON ForumResponse where
     forumResponseName <- o .: "name"
     forumResponseDisplayName <- o .: "display_name"
     forumResponseDescription <- o .: "description"
+    forumResponseThreadsPerBoard <- o .: "threads_per_board"
+    forumResponseThreadPostsPerThread <- o .: "thread_posts_per_thread"
     forumResponseIcon <- o .: "icon"
     forumResponseTags <- o .: "tags"
     forumResponseVisibility <- o .: "visibility"
@@ -662,6 +672,8 @@ instance FromJSON ForumResponse where
       forumResponseName = forumResponseName,
       forumResponseDisplayName = forumResponseDisplayName,
       forumResponseDescription = forumResponseDescription,
+      forumResponseThreadsPerBoard = forumResponseThreadsPerBoard,
+      forumResponseThreadPostsPerThread = forumResponseThreadPostsPerThread,
       forumResponseIcon = forumResponseIcon,
       forumResponseTags = forumResponseTags,
       forumResponseVisibility = forumResponseVisibility,
@@ -732,6 +744,356 @@ instance FromJSON ForumStatResponses where
     return $ ForumStatResponses {
       forumStatResponses = forumStatResponses
     }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GlobalGroupRequest where
+  toJSON GlobalGroupRequest{..} = object $
+    [ "tag" .= "GlobalGroupRequest"
+    , "display_name" .= globalGroupRequestDisplayName
+    , "description" .= globalGroupRequestDescription
+    , "membership" .= globalGroupRequestMembership
+    , "icon" .= globalGroupRequestIcon
+    , "tags" .= globalGroupRequestTags
+    , "visibility" .= globalGroupRequestVisibility
+    , "guard" .= globalGroupRequestGuard
+    ]
+
+
+instance FromJSON GlobalGroupRequest where
+  parseJSON (Object o) = do
+    globalGroupRequestDisplayName <- o .: "display_name"
+    globalGroupRequestDescription <- o .: "description"
+    globalGroupRequestMembership <- o .: "membership"
+    globalGroupRequestIcon <- o .: "icon"
+    globalGroupRequestTags <- o .: "tags"
+    globalGroupRequestVisibility <- o .: "visibility"
+    globalGroupRequestGuard <- o .: "guard"
+    return $ GlobalGroupRequest {
+      globalGroupRequestDisplayName = globalGroupRequestDisplayName,
+      globalGroupRequestDescription = globalGroupRequestDescription,
+      globalGroupRequestMembership = globalGroupRequestMembership,
+      globalGroupRequestIcon = globalGroupRequestIcon,
+      globalGroupRequestTags = globalGroupRequestTags,
+      globalGroupRequestVisibility = globalGroupRequestVisibility,
+      globalGroupRequestGuard = globalGroupRequestGuard
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GlobalGroupResponse where
+  toJSON GlobalGroupResponse{..} = object $
+    [ "tag" .= "GlobalGroupResponse"
+    , "id" .= globalGroupResponseId
+    , "user_id" .= globalGroupResponseUserId
+    , "org_id" .= globalGroupResponseOrgId
+    , "name" .= globalGroupResponseName
+    , "display_name" .= globalGroupResponseDisplayName
+    , "description" .= globalGroupResponseDescription
+    , "membership" .= globalGroupResponseMembership
+    , "icon" .= globalGroupResponseIcon
+    , "tags" .= globalGroupResponseTags
+    , "visibility" .= globalGroupResponseVisibility
+    , "active" .= globalGroupResponseActive
+    , "guard" .= globalGroupResponseGuard
+    , "created_at" .= globalGroupResponseCreatedAt
+    , "modified_by" .= globalGroupResponseModifiedBy
+    , "modified_at" .= globalGroupResponseModifiedAt
+    , "activity_at" .= globalGroupResponseActivityAt
+    ]
+
+
+instance FromJSON GlobalGroupResponse where
+  parseJSON (Object o) = do
+    globalGroupResponseId <- o .: "id"
+    globalGroupResponseUserId <- o .: "user_id"
+    globalGroupResponseOrgId <- o .: "org_id"
+    globalGroupResponseName <- o .: "name"
+    globalGroupResponseDisplayName <- o .: "display_name"
+    globalGroupResponseDescription <- o .: "description"
+    globalGroupResponseMembership <- o .: "membership"
+    globalGroupResponseIcon <- o .: "icon"
+    globalGroupResponseTags <- o .: "tags"
+    globalGroupResponseVisibility <- o .: "visibility"
+    globalGroupResponseActive <- o .: "active"
+    globalGroupResponseGuard <- o .: "guard"
+    globalGroupResponseCreatedAt <- o .: "created_at"
+    globalGroupResponseModifiedBy <- o .: "modified_by"
+    globalGroupResponseModifiedAt <- o .: "modified_at"
+    globalGroupResponseActivityAt <- o .: "activity_at"
+    return $ GlobalGroupResponse {
+      globalGroupResponseId = globalGroupResponseId,
+      globalGroupResponseUserId = globalGroupResponseUserId,
+      globalGroupResponseOrgId = globalGroupResponseOrgId,
+      globalGroupResponseName = globalGroupResponseName,
+      globalGroupResponseDisplayName = globalGroupResponseDisplayName,
+      globalGroupResponseDescription = globalGroupResponseDescription,
+      globalGroupResponseMembership = globalGroupResponseMembership,
+      globalGroupResponseIcon = globalGroupResponseIcon,
+      globalGroupResponseTags = globalGroupResponseTags,
+      globalGroupResponseVisibility = globalGroupResponseVisibility,
+      globalGroupResponseActive = globalGroupResponseActive,
+      globalGroupResponseGuard = globalGroupResponseGuard,
+      globalGroupResponseCreatedAt = globalGroupResponseCreatedAt,
+      globalGroupResponseModifiedBy = globalGroupResponseModifiedBy,
+      globalGroupResponseModifiedAt = globalGroupResponseModifiedAt,
+      globalGroupResponseActivityAt = globalGroupResponseActivityAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GlobalGroupResponses where
+  toJSON GlobalGroupResponses{..} = object $
+    [ "tag" .= "GlobalGroupResponses"
+    , "global_group_responses" .= globalGroupResponses
+    ]
+
+
+instance FromJSON GlobalGroupResponses where
+  parseJSON (Object o) = do
+    globalGroupResponses <- o .: "global_group_responses"
+    return $ GlobalGroupResponses {
+      globalGroupResponses = globalGroupResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GlobalGroupStatResponse where
+  toJSON GlobalGroupStatResponse{..} = object $
+    [ "tag" .= "GlobalGroupStatResponse"
+    , "groups" .= globalGroupStatResponseGroups
+    ]
+
+
+instance FromJSON GlobalGroupStatResponse where
+  parseJSON (Object o) = do
+    globalGroupStatResponseGroups <- o .: "groups"
+    return $ GlobalGroupStatResponse {
+      globalGroupStatResponseGroups = globalGroupStatResponseGroups
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GlobalGroupStatResponses where
+  toJSON GlobalGroupStatResponses{..} = object $
+    [ "tag" .= "GlobalGroupStatResponses"
+    , "global_group_stat_responses" .= globalGroupStatResponses
+    ]
+
+
+instance FromJSON GlobalGroupStatResponses where
+  parseJSON (Object o) = do
+    globalGroupStatResponses <- o .: "global_group_stat_responses"
+    return $ GlobalGroupStatResponses {
+      globalGroupStatResponses = globalGroupStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupRequest where
+  toJSON GroupRequest{..} = object $
+    [ "tag" .= "GroupRequest"
+    , "guard" .= groupRequestGuard
+    ]
+
+
+instance FromJSON GroupRequest where
+  parseJSON (Object o) = do
+    groupRequestGuard <- o .: "guard"
+    return $ GroupRequest {
+      groupRequestGuard = groupRequestGuard
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupResponse where
+  toJSON GroupResponse{..} = object $
+    [ "tag" .= "GroupResponse"
+    , "id" .= groupResponseId
+    , "user_id" .= groupResponseUserId
+    , "global_group_id" .= groupResponseGlobalGroupId
+    , "organization_id" .= groupResponseOrganizationId
+    , "active" .= groupResponseActive
+    , "guard" .= groupResponseGuard
+    , "created_at" .= groupResponseCreatedAt
+    , "modified_by" .= groupResponseModifiedBy
+    , "modified_at" .= groupResponseModifiedAt
+    , "activity_at" .= groupResponseActivityAt
+    ]
+
+
+instance FromJSON GroupResponse where
+  parseJSON (Object o) = do
+    groupResponseId <- o .: "id"
+    groupResponseUserId <- o .: "user_id"
+    groupResponseGlobalGroupId <- o .: "global_group_id"
+    groupResponseOrganizationId <- o .: "organization_id"
+    groupResponseActive <- o .: "active"
+    groupResponseGuard <- o .: "guard"
+    groupResponseCreatedAt <- o .: "created_at"
+    groupResponseModifiedBy <- o .: "modified_by"
+    groupResponseModifiedAt <- o .: "modified_at"
+    groupResponseActivityAt <- o .: "activity_at"
+    return $ GroupResponse {
+      groupResponseId = groupResponseId,
+      groupResponseUserId = groupResponseUserId,
+      groupResponseGlobalGroupId = groupResponseGlobalGroupId,
+      groupResponseOrganizationId = groupResponseOrganizationId,
+      groupResponseActive = groupResponseActive,
+      groupResponseGuard = groupResponseGuard,
+      groupResponseCreatedAt = groupResponseCreatedAt,
+      groupResponseModifiedBy = groupResponseModifiedBy,
+      groupResponseModifiedAt = groupResponseModifiedAt,
+      groupResponseActivityAt = groupResponseActivityAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupResponses where
+  toJSON GroupResponses{..} = object $
+    [ "tag" .= "GroupResponses"
+    , "group_responses" .= groupResponses
+    ]
+
+
+instance FromJSON GroupResponses where
+  parseJSON (Object o) = do
+    groupResponses <- o .: "group_responses"
+    return $ GroupResponses {
+      groupResponses = groupResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupStatResponse where
+  toJSON GroupStatResponse{..} = object $
+    [ "tag" .= "GroupStatResponse"
+    , "members" .= groupStatResponseMembers
+    ]
+
+
+instance FromJSON GroupStatResponse where
+  parseJSON (Object o) = do
+    groupStatResponseMembers <- o .: "members"
+    return $ GroupStatResponse {
+      groupStatResponseMembers = groupStatResponseMembers
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupStatResponses where
+  toJSON GroupStatResponses{..} = object $
+    [ "tag" .= "GroupStatResponses"
+    , "group_stat_responses" .= groupStatResponses
+    ]
+
+
+instance FromJSON GroupStatResponses where
+  parseJSON (Object o) = do
+    groupStatResponses <- o .: "group_stat_responses"
+    return $ GroupStatResponses {
+      groupStatResponses = groupStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupMemberRequest where
+  toJSON GroupMemberRequest{..} = object $
+    [ "tag" .= "GroupMemberRequest"
+    , "guard" .= groupMemberRequestGuard
+    ]
+
+
+instance FromJSON GroupMemberRequest where
+  parseJSON (Object o) = do
+    groupMemberRequestGuard <- o .: "guard"
+    return $ GroupMemberRequest {
+      groupMemberRequestGuard = groupMemberRequestGuard
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupMemberResponse where
+  toJSON GroupMemberResponse{..} = object $
+    [ "tag" .= "GroupMemberResponse"
+    , "id" .= groupMemberResponseId
+    , "user_id" .= groupMemberResponseUserId
+    , "global_group_id" .= groupMemberResponseGlobalGroupId
+    , "created_at" .= groupMemberResponseCreatedAt
+    , "modified_by" .= groupMemberResponseModifiedBy
+    , "modified_at" .= groupMemberResponseModifiedAt
+    , "activity_at" .= groupMemberResponseActivityAt
+    ]
+
+
+instance FromJSON GroupMemberResponse where
+  parseJSON (Object o) = do
+    groupMemberResponseId <- o .: "id"
+    groupMemberResponseUserId <- o .: "user_id"
+    groupMemberResponseGlobalGroupId <- o .: "global_group_id"
+    groupMemberResponseCreatedAt <- o .: "created_at"
+    groupMemberResponseModifiedBy <- o .: "modified_by"
+    groupMemberResponseModifiedAt <- o .: "modified_at"
+    groupMemberResponseActivityAt <- o .: "activity_at"
+    return $ GroupMemberResponse {
+      groupMemberResponseId = groupMemberResponseId,
+      groupMemberResponseUserId = groupMemberResponseUserId,
+      groupMemberResponseGlobalGroupId = groupMemberResponseGlobalGroupId,
+      groupMemberResponseCreatedAt = groupMemberResponseCreatedAt,
+      groupMemberResponseModifiedBy = groupMemberResponseModifiedBy,
+      groupMemberResponseModifiedAt = groupMemberResponseModifiedAt,
+      groupMemberResponseActivityAt = groupMemberResponseActivityAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupMemberResponses where
+  toJSON GroupMemberResponses{..} = object $
+    [ "tag" .= "GroupMemberResponses"
+    , "group_member_responses" .= groupMemberResponses
+    ]
+
+
+instance FromJSON GroupMemberResponses where
+  parseJSON (Object o) = do
+    groupMemberResponses <- o .: "group_member_responses"
+    return $ GroupMemberResponses {
+      groupMemberResponses = groupMemberResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupMemberStatResponse where
+  toJSON (GroupMemberStatResponse ) = object $
+    [ "tag" .= "GroupMemberStatResponse"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON GroupMemberStatResponse where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "GroupMemberStatResponse" -> do
+        return GroupMemberStatResponse
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON GroupMemberStatResponses where
+  toJSON (GroupMemberStatResponses ) = object $
+    [ "tag" .= "GroupMemberStatResponses"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON GroupMemberStatResponses where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "GroupMemberStatResponses" -> do
+        return GroupMemberStatResponses
+
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
@@ -4144,6 +4506,111 @@ instance FromJSON TeamStatResponses where
     teamStatResponses <- o .: "team_stat_responses"
     return $ TeamStatResponses {
       teamStatResponses = teamStatResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamMemberRequest where
+  toJSON TeamMemberRequest{..} = object $
+    [ "tag" .= "TeamMemberRequest"
+    , "guard" .= teamMemberRequestGuard
+    ]
+
+
+instance FromJSON TeamMemberRequest where
+  parseJSON (Object o) = do
+    teamMemberRequestGuard <- o .: "guard"
+    return $ TeamMemberRequest {
+      teamMemberRequestGuard = teamMemberRequestGuard
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamMemberResponse where
+  toJSON TeamMemberResponse{..} = object $
+    [ "tag" .= "TeamMemberResponse"
+    , "id" .= teamMemberResponseId
+    , "user_id" .= teamMemberResponseUserId
+    , "team_id" .= teamMemberResponseTeamId
+    , "active" .= teamMemberResponseActive
+    , "guard" .= teamMemberResponseGuard
+    , "created_at" .= teamMemberResponseCreatedAt
+    , "modified_by" .= teamMemberResponseModifiedBy
+    , "modified_at" .= teamMemberResponseModifiedAt
+    , "activity_at" .= teamMemberResponseActivityAt
+    ]
+
+
+instance FromJSON TeamMemberResponse where
+  parseJSON (Object o) = do
+    teamMemberResponseId <- o .: "id"
+    teamMemberResponseUserId <- o .: "user_id"
+    teamMemberResponseTeamId <- o .: "team_id"
+    teamMemberResponseActive <- o .: "active"
+    teamMemberResponseGuard <- o .: "guard"
+    teamMemberResponseCreatedAt <- o .: "created_at"
+    teamMemberResponseModifiedBy <- o .: "modified_by"
+    teamMemberResponseModifiedAt <- o .: "modified_at"
+    teamMemberResponseActivityAt <- o .: "activity_at"
+    return $ TeamMemberResponse {
+      teamMemberResponseId = teamMemberResponseId,
+      teamMemberResponseUserId = teamMemberResponseUserId,
+      teamMemberResponseTeamId = teamMemberResponseTeamId,
+      teamMemberResponseActive = teamMemberResponseActive,
+      teamMemberResponseGuard = teamMemberResponseGuard,
+      teamMemberResponseCreatedAt = teamMemberResponseCreatedAt,
+      teamMemberResponseModifiedBy = teamMemberResponseModifiedBy,
+      teamMemberResponseModifiedAt = teamMemberResponseModifiedAt,
+      teamMemberResponseActivityAt = teamMemberResponseActivityAt
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamMemberResponses where
+  toJSON TeamMemberResponses{..} = object $
+    [ "tag" .= "TeamMemberResponses"
+    , "team_member_responses" .= teamMemberResponses
+    ]
+
+
+instance FromJSON TeamMemberResponses where
+  parseJSON (Object o) = do
+    teamMemberResponses <- o .: "team_member_responses"
+    return $ TeamMemberResponses {
+      teamMemberResponses = teamMemberResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamMemberStatResponse where
+  toJSON (TeamMemberStatResponse ) = object $
+    [ "tag" .= "TeamMemberStatResponse"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON TeamMemberStatResponse where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "TeamMemberStatResponse" -> do
+        return TeamMemberStatResponse
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON TeamMemberStatResponses where
+  toJSON TeamMemberStatResponses{..} = object $
+    [ "tag" .= "TeamMemberStatResponses"
+    , "team_member_stat_responses" .= teamMemberStatResponses
+    ]
+
+
+instance FromJSON TeamMemberStatResponses where
+  parseJSON (Object o) = do
+    teamMemberStatResponses <- o .: "team_member_stat_responses"
+    return $ TeamMemberStatResponses {
+      teamMemberStatResponses = teamMemberStatResponses
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
