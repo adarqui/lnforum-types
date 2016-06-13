@@ -13,21 +13,23 @@ import           LN.T.Visibility
 
 
 data ForumResponse = ForumResponse {
-  forumResponseId          :: Int64,
-  forumResponseUserId      :: Int64,
-  forumResponseOrgId       :: Int64,
-  forumResponseName        :: Text,
-  forumResponseDisplayName :: Text,
-  forumResponseDescription :: Maybe Text,
-  forumResponseIcon        :: Maybe Text,
-  forumResponseTags        :: [Text],
-  forumResponseVisibility  :: Visibility,
-  forumResponseActive      :: Bool,
-  forumResponseGuard       :: Int,
-  forumResponseCreatedAt   :: Maybe UTCTime,
-  forumResponseModifiedBy  :: Maybe Int64,
-  forumResponseModifiedAt  :: Maybe UTCTime,
-  forumResponseActivityAt  :: Maybe UTCTime
+  forumResponseId                   :: Int64,
+  forumResponseUserId               :: Int64,
+  forumResponseOrgId                :: Int64,
+  forumResponseName                 :: Text,
+  forumResponseDisplayName          :: Text,
+  forumResponseDescription          :: Maybe Text,
+  forumResponseThreadsPerBoard      :: Int,
+  forumResponseThreadPostsPerThread :: Int,
+  forumResponseIcon                 :: Maybe Text,
+  forumResponseTags                 :: [Text],
+  forumResponseVisibility           :: Visibility,
+  forumResponseActive               :: Bool,
+  forumResponseGuard                :: Int,
+  forumResponseCreatedAt            :: Maybe UTCTime,
+  forumResponseModifiedBy           :: Maybe Int64,
+  forumResponseModifiedAt           :: Maybe UTCTime,
+  forumResponseActivityAt           :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
