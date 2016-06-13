@@ -48,6 +48,14 @@ library
                        LN.T.GlobalGroup.Request
                        LN.T.GlobalGroup.Response
                        LN.T.GlobalGroup.Stat
+                       LN.T.Group
+                       LN.T.Group.Request
+                       LN.T.Group.Response
+                       LN.T.Group.Stat
+                       LN.T.GroupMember
+                       LN.T.GroupMember.Request
+                       LN.T.GroupMember.Response
+                       LN.T.GroupMember.Stat
                        LN.T.Leuron
                        LN.T.Leuron.Request
                        LN.T.Leuron.Response
@@ -124,6 +132,10 @@ library
                        LN.T.Team.Request
                        LN.T.Team.Response
                        LN.T.Team.Stat
+                       LN.T.TeamMember
+                       LN.T.TeamMember.Request
+                       LN.T.TeamMember.Response
+                       LN.T.TeamMember.Stat
                        LN.T.Test
                        LN.T.Time
                        LN.T.Thread
