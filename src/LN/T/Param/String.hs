@@ -24,10 +24,18 @@ data Param
   | ByTeamId               Int64
   | ByTeamsIds             [Int64]
   | ByTeamName             String
+  | ByTeamMemberId         Int64
+  | ByTeamMembersIds       [Int64]
   | ByUserId               Int64
   | ByUsersIds             [Int64]
   | ByUserNick             String
   | ByUsersNicks           [String]
+  | ByGlobalGroupId        Int64
+  | ByGlobalGroupsIds      [Int64]
+  | ByGroupId              Int64
+  | ByGroupsIds            [Int64]
+  | ByGroupMemberId        Int64
+  | ByGroupMembersIds      [Int64]
   | ByForumId              Int64
   | ByForumsIds            [Int64]
   | ByForumName            String
@@ -78,10 +86,18 @@ data ParamTag
   | ParamTag_ByTeamId
   | ParamTag_ByTeamsIds
   | ParamTag_ByTeamName
+  | ParamTag_ByTeamMemberId
+  | ParamTag_ByTeamMembersIds
   | ParamTag_ByUserId
   | ParamTag_ByUsersIds
   | ParamTag_ByUserNick
   | ParamTag_ByUsersNicks
+  | ParamTag_ByGlobalGroupId
+  | ParamTag_ByGlobalGroupsIds
+  | ParamTag_ByGroupId
+  | ParamTag_ByGroupsIds
+  | ParamTag_ByGroupMemberId
+  | ParamTag_ByGroupMembersIds
   | ParamTag_ByForumId
   | ParamTag_ByForumsIds
   | ParamTag_ByForumName
