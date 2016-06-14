@@ -92,6 +92,7 @@ instance ToJSON BoardRequest where
     , "is_anonymous" .= boardRequestIsAnonymous
     , "can_create_sub_boards" .= boardRequestCanCreateSubBoards
     , "can_create_threads" .= boardRequestCanCreateThreads
+    , "suggested_tags" .= boardRequestSuggestedTags
     , "icon" .= boardRequestIcon
     , "tags" .= boardRequestTags
     , "guard" .= boardRequestGuard
@@ -105,6 +106,7 @@ instance FromJSON BoardRequest where
     boardRequestIsAnonymous <- o .: "is_anonymous"
     boardRequestCanCreateSubBoards <- o .: "can_create_sub_boards"
     boardRequestCanCreateThreads <- o .: "can_create_threads"
+    boardRequestSuggestedTags <- o .: "suggested_tags"
     boardRequestIcon <- o .: "icon"
     boardRequestTags <- o .: "tags"
     boardRequestGuard <- o .: "guard"
@@ -114,6 +116,7 @@ instance FromJSON BoardRequest where
       boardRequestIsAnonymous = boardRequestIsAnonymous,
       boardRequestCanCreateSubBoards = boardRequestCanCreateSubBoards,
       boardRequestCanCreateThreads = boardRequestCanCreateThreads,
+      boardRequestSuggestedTags = boardRequestSuggestedTags,
       boardRequestIcon = boardRequestIcon,
       boardRequestTags = boardRequestTags,
       boardRequestGuard = boardRequestGuard
@@ -134,6 +137,7 @@ instance ToJSON BoardResponse where
     , "is_anonymous" .= boardResponseIsAnonymous
     , "can_create_sub_boards" .= boardResponseCanCreateSubBoards
     , "can_create_threads" .= boardResponseCanCreateThreads
+    , "suggested_tags" .= boardResponseSuggestedTags
     , "icon" .= boardResponseIcon
     , "tags" .= boardResponseTags
     , "active" .= boardResponseActive
@@ -157,6 +161,7 @@ instance FromJSON BoardResponse where
     boardResponseIsAnonymous <- o .: "is_anonymous"
     boardResponseCanCreateSubBoards <- o .: "can_create_sub_boards"
     boardResponseCanCreateThreads <- o .: "can_create_threads"
+    boardResponseSuggestedTags <- o .: "suggested_tags"
     boardResponseIcon <- o .: "icon"
     boardResponseTags <- o .: "tags"
     boardResponseActive <- o .: "active"
@@ -176,6 +181,7 @@ instance FromJSON BoardResponse where
       boardResponseIsAnonymous = boardResponseIsAnonymous,
       boardResponseCanCreateSubBoards = boardResponseCanCreateSubBoards,
       boardResponseCanCreateThreads = boardResponseCanCreateThreads,
+      boardResponseSuggestedTags = boardResponseSuggestedTags,
       boardResponseIcon = boardResponseIcon,
       boardResponseTags = boardResponseTags,
       boardResponseActive = boardResponseActive,

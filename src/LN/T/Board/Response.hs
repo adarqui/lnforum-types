@@ -22,6 +22,7 @@ data BoardResponse = BoardResponse {
   boardResponseIsAnonymous        :: Bool,
   boardResponseCanCreateSubBoards :: Bool,
   boardResponseCanCreateThreads   :: Bool,
+  boardResponseSuggestedTags      :: [Text],
   boardResponseIcon               :: Maybe Text,
   boardResponseTags               :: [Text],
   boardResponseActive             :: Bool,

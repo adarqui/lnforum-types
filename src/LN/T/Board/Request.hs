@@ -17,6 +17,7 @@ data BoardRequest = BoardRequest {
   boardRequestIsAnonymous        :: Bool,
   boardRequestCanCreateSubBoards :: Bool,
   boardRequestCanCreateThreads   :: Bool,
+  boardRequestSuggestedTags      :: [Text],
   boardRequestIcon               :: Maybe Text,
   boardRequestTags               :: [Text],
   boardRequestGuard              :: Int
@@ -31,6 +32,7 @@ defaultBoardRequest = BoardRequest {
   boardRequestIsAnonymous        = False,
   boardRequestCanCreateSubBoards = True,
   boardRequestCanCreateThreads   = True,
+  boardRequestSuggestedTags      = [],
   boardRequestIcon               = Nothing,
   boardRequestTags               = [],
   boardRequestGuard              = 0
