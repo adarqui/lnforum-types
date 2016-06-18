@@ -16,5 +16,6 @@ data UserRequest = UserRequest {
   userRequestName        :: Text,
   userRequestEmail       :: Text,
   userRequestPlugin      :: Text,
-  userRequestIdent       :: Text
+  userRequestIdent       :: Text,
+  userRequestAcceptTOS   :: Maybe UTCTime
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)

@@ -26,7 +26,8 @@ data GroupPackResponse = GroupPackResponse {
   groupPackResponseGroupId        :: Int64,
   groupPackResponseOrganization   :: OrganizationResponse,
   groupPackResponseOrganizationId :: Int64,
-  groupPackResponseStat           :: GroupStatResponse
+  groupPackResponseStat           :: GroupStatResponse,
+  groupPackResponseIsOwner        :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

@@ -27,7 +27,8 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseStar                 :: Maybe StarResponse,
   boardPackResponseLatestThread         :: Maybe ThreadResponse,
   boardPackResponseLatestThreadPost     :: Maybe ThreadPostResponse,
-  boardPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse
+  boardPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
+  boardPackResponseIsOwner              :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

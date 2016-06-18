@@ -26,7 +26,8 @@ data ThreadPackResponse = ThreadPackResponse {
   threadPackResponseLike                 :: Maybe LikeResponse,
   threadPackResponseStar                 :: Maybe StarResponse,
   threadPackResponseLatestThreadPost     :: Maybe ThreadPostResponse,
-  threadPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse
+  threadPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
+  threadPackResponseIsOwner              :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

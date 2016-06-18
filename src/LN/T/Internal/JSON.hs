@@ -5164,6 +5164,7 @@ instance ToJSON UserRequest where
     , "email" .= userRequestEmail
     , "plugin" .= userRequestPlugin
     , "ident" .= userRequestIdent
+    , "accept_tos" .= userRequestAcceptTOS
     ]
 
 
@@ -5174,12 +5175,14 @@ instance FromJSON UserRequest where
     userRequestEmail <- o .: "email"
     userRequestPlugin <- o .: "plugin"
     userRequestIdent <- o .: "ident"
+    userRequestAcceptTOS <- o .: "accept_tos"
     return $ UserRequest {
       userRequestDisplayNick = userRequestDisplayNick,
       userRequestName = userRequestName,
       userRequestEmail = userRequestEmail,
       userRequestPlugin = userRequestPlugin,
-      userRequestIdent = userRequestIdent
+      userRequestIdent = userRequestIdent,
+      userRequestAcceptTOS = userRequestAcceptTOS
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5195,6 +5198,7 @@ instance ToJSON UserResponse where
     , "email_md5" .= userResponseEmailMD5
     , "plugin" .= userResponsePlugin
     , "ident" .= userResponseIdent
+    , "accept_tos" .= userResponseAcceptTOS
     , "active" .= userResponseActive
     , "guard" .= userResponseGuard
     , "created_at" .= userResponseCreatedAt
@@ -5214,6 +5218,7 @@ instance FromJSON UserResponse where
     userResponseEmailMD5 <- o .: "email_md5"
     userResponsePlugin <- o .: "plugin"
     userResponseIdent <- o .: "ident"
+    userResponseAcceptTOS <- o .: "accept_tos"
     userResponseActive <- o .: "active"
     userResponseGuard <- o .: "guard"
     userResponseCreatedAt <- o .: "created_at"
@@ -5229,6 +5234,7 @@ instance FromJSON UserResponse where
       userResponseEmailMD5 = userResponseEmailMD5,
       userResponsePlugin = userResponsePlugin,
       userResponseIdent = userResponseIdent,
+      userResponseAcceptTOS = userResponseAcceptTOS,
       userResponseActive = userResponseActive,
       userResponseGuard = userResponseGuard,
       userResponseCreatedAt = userResponseCreatedAt,
@@ -5392,6 +5398,7 @@ instance ToJSON OrganizationPackResponse where
     , "stat" .= organizationPackResponseStat
     , "like" .= organizationPackResponseLike
     , "star" .= organizationPackResponseStar
+    , "is_owner" .= organizationPackResponseIsOwner
     ]
 
 
@@ -5404,6 +5411,7 @@ instance FromJSON OrganizationPackResponse where
     organizationPackResponseStat <- o .: "stat"
     organizationPackResponseLike <- o .: "like"
     organizationPackResponseStar <- o .: "star"
+    organizationPackResponseIsOwner <- o .: "is_owner"
     return $ OrganizationPackResponse {
       organizationPackResponseUser = organizationPackResponseUser,
       organizationPackResponseUserId = organizationPackResponseUserId,
@@ -5411,7 +5419,8 @@ instance FromJSON OrganizationPackResponse where
       organizationPackResponseOrganizationId = organizationPackResponseOrganizationId,
       organizationPackResponseStat = organizationPackResponseStat,
       organizationPackResponseLike = organizationPackResponseLike,
-      organizationPackResponseStar = organizationPackResponseStar
+      organizationPackResponseStar = organizationPackResponseStar,
+      organizationPackResponseIsOwner = organizationPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5442,6 +5451,7 @@ instance ToJSON TeamPackResponse where
     , "stat" .= teamPackResponseStat
     , "like" .= teamPackResponseLike
     , "star" .= teamPackResponseStar
+    , "is_owner" .= teamPackResponseIsOwner
     ]
 
 
@@ -5454,6 +5464,7 @@ instance FromJSON TeamPackResponse where
     teamPackResponseStat <- o .: "stat"
     teamPackResponseLike <- o .: "like"
     teamPackResponseStar <- o .: "star"
+    teamPackResponseIsOwner <- o .: "is_owner"
     return $ TeamPackResponse {
       teamPackResponseUser = teamPackResponseUser,
       teamPackResponseUserId = teamPackResponseUserId,
@@ -5461,7 +5472,8 @@ instance FromJSON TeamPackResponse where
       teamPackResponseTeamId = teamPackResponseTeamId,
       teamPackResponseStat = teamPackResponseStat,
       teamPackResponseLike = teamPackResponseLike,
-      teamPackResponseStar = teamPackResponseStar
+      teamPackResponseStar = teamPackResponseStar,
+      teamPackResponseIsOwner = teamPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5489,6 +5501,7 @@ instance ToJSON TeamMemberPackResponse where
     , "user_id" .= teamMemberPackResponseUserId
     , "team_member" .= teamMemberPackResponseTeamMember
     , "team_member_id" .= teamMemberPackResponseTeamMemberId
+    , "is_owner" .= teamMemberPackResponseIsOwner
     ]
 
 
@@ -5498,11 +5511,13 @@ instance FromJSON TeamMemberPackResponse where
     teamMemberPackResponseUserId <- o .: "user_id"
     teamMemberPackResponseTeamMember <- o .: "team_member"
     teamMemberPackResponseTeamMemberId <- o .: "team_member_id"
+    teamMemberPackResponseIsOwner <- o .: "is_owner"
     return $ TeamMemberPackResponse {
       teamMemberPackResponseUser = teamMemberPackResponseUser,
       teamMemberPackResponseUserId = teamMemberPackResponseUserId,
       teamMemberPackResponseTeamMember = teamMemberPackResponseTeamMember,
-      teamMemberPackResponseTeamMemberId = teamMemberPackResponseTeamMemberId
+      teamMemberPackResponseTeamMemberId = teamMemberPackResponseTeamMemberId,
+      teamMemberPackResponseIsOwner = teamMemberPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5625,6 +5640,7 @@ instance ToJSON GlobalGroupPackResponse where
     , "global_group" .= globalGroupPackResponseGlobalGroup
     , "global_group_id" .= globalGroupPackResponseGlobalGroupId
     , "stat" .= globalGroupPackResponseStat
+    , "is_owner" .= globalGroupPackResponseIsOwner
     ]
 
 
@@ -5635,12 +5651,14 @@ instance FromJSON GlobalGroupPackResponse where
     globalGroupPackResponseGlobalGroup <- o .: "global_group"
     globalGroupPackResponseGlobalGroupId <- o .: "global_group_id"
     globalGroupPackResponseStat <- o .: "stat"
+    globalGroupPackResponseIsOwner <- o .: "is_owner"
     return $ GlobalGroupPackResponse {
       globalGroupPackResponseUser = globalGroupPackResponseUser,
       globalGroupPackResponseUserId = globalGroupPackResponseUserId,
       globalGroupPackResponseGlobalGroup = globalGroupPackResponseGlobalGroup,
       globalGroupPackResponseGlobalGroupId = globalGroupPackResponseGlobalGroupId,
-      globalGroupPackResponseStat = globalGroupPackResponseStat
+      globalGroupPackResponseStat = globalGroupPackResponseStat,
+      globalGroupPackResponseIsOwner = globalGroupPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5671,6 +5689,7 @@ instance ToJSON GroupPackResponse where
     , "organization" .= groupPackResponseOrganization
     , "organization_id" .= groupPackResponseOrganizationId
     , "stat" .= groupPackResponseStat
+    , "is_owner" .= groupPackResponseIsOwner
     ]
 
 
@@ -5683,6 +5702,7 @@ instance FromJSON GroupPackResponse where
     groupPackResponseOrganization <- o .: "organization"
     groupPackResponseOrganizationId <- o .: "organization_id"
     groupPackResponseStat <- o .: "stat"
+    groupPackResponseIsOwner <- o .: "is_owner"
     return $ GroupPackResponse {
       groupPackResponseUser = groupPackResponseUser,
       groupPackResponseUserId = groupPackResponseUserId,
@@ -5690,7 +5710,8 @@ instance FromJSON GroupPackResponse where
       groupPackResponseGroupId = groupPackResponseGroupId,
       groupPackResponseOrganization = groupPackResponseOrganization,
       groupPackResponseOrganizationId = groupPackResponseOrganizationId,
-      groupPackResponseStat = groupPackResponseStat
+      groupPackResponseStat = groupPackResponseStat,
+      groupPackResponseIsOwner = groupPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5718,6 +5739,7 @@ instance ToJSON GroupMemberPackResponse where
     , "user_id" .= groupMemberPackResponseUserId
     , "group_member" .= groupMemberPackResponseGroupMember
     , "group_member_id" .= groupMemberPackResponseGroupMemberId
+    , "is_owner" .= groupMemberPackResponseIsOwner
     ]
 
 
@@ -5727,11 +5749,13 @@ instance FromJSON GroupMemberPackResponse where
     groupMemberPackResponseUserId <- o .: "user_id"
     groupMemberPackResponseGroupMember <- o .: "group_member"
     groupMemberPackResponseGroupMemberId <- o .: "group_member_id"
+    groupMemberPackResponseIsOwner <- o .: "is_owner"
     return $ GroupMemberPackResponse {
       groupMemberPackResponseUser = groupMemberPackResponseUser,
       groupMemberPackResponseUserId = groupMemberPackResponseUserId,
       groupMemberPackResponseGroupMember = groupMemberPackResponseGroupMember,
-      groupMemberPackResponseGroupMemberId = groupMemberPackResponseGroupMemberId
+      groupMemberPackResponseGroupMemberId = groupMemberPackResponseGroupMemberId,
+      groupMemberPackResponseIsOwner = groupMemberPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5760,6 +5784,7 @@ instance ToJSON ForumPackResponse where
     , "stat" .= forumPackResponseStat
     , "like" .= forumPackResponseLike
     , "star" .= forumPackResponseStar
+    , "is_owner" .= forumPackResponseIsOwner
     ]
 
 
@@ -5770,12 +5795,14 @@ instance FromJSON ForumPackResponse where
     forumPackResponseStat <- o .: "stat"
     forumPackResponseLike <- o .: "like"
     forumPackResponseStar <- o .: "star"
+    forumPackResponseIsOwner <- o .: "is_owner"
     return $ ForumPackResponse {
       forumPackResponseForum = forumPackResponseForum,
       forumPackResponseForumId = forumPackResponseForumId,
       forumPackResponseStat = forumPackResponseStat,
       forumPackResponseLike = forumPackResponseLike,
-      forumPackResponseStar = forumPackResponseStar
+      forumPackResponseStar = forumPackResponseStar,
+      forumPackResponseIsOwner = forumPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5807,6 +5834,7 @@ instance ToJSON BoardPackResponse where
     , "latest_thread" .= boardPackResponseLatestThread
     , "latest_thread_post" .= boardPackResponseLatestThreadPost
     , "latest_thread_post_user" .= boardPackResponseLatestThreadPostUser
+    , "is_owner" .= boardPackResponseIsOwner
     ]
 
 
@@ -5820,6 +5848,7 @@ instance FromJSON BoardPackResponse where
     boardPackResponseLatestThread <- o .: "latest_thread"
     boardPackResponseLatestThreadPost <- o .: "latest_thread_post"
     boardPackResponseLatestThreadPostUser <- o .: "latest_thread_post_user"
+    boardPackResponseIsOwner <- o .: "is_owner"
     return $ BoardPackResponse {
       boardPackResponseBoard = boardPackResponseBoard,
       boardPackResponseBoardId = boardPackResponseBoardId,
@@ -5828,7 +5857,8 @@ instance FromJSON BoardPackResponse where
       boardPackResponseStar = boardPackResponseStar,
       boardPackResponseLatestThread = boardPackResponseLatestThread,
       boardPackResponseLatestThreadPost = boardPackResponseLatestThreadPost,
-      boardPackResponseLatestThreadPostUser = boardPackResponseLatestThreadPostUser
+      boardPackResponseLatestThreadPostUser = boardPackResponseLatestThreadPostUser,
+      boardPackResponseIsOwner = boardPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5861,6 +5891,7 @@ instance ToJSON ThreadPackResponse where
     , "star" .= threadPackResponseStar
     , "latest_thread_post" .= threadPackResponseLatestThreadPost
     , "latest_thread_post_user" .= threadPackResponseLatestThreadPostUser
+    , "is_owner" .= threadPackResponseIsOwner
     ]
 
 
@@ -5875,6 +5906,7 @@ instance FromJSON ThreadPackResponse where
     threadPackResponseStar <- o .: "star"
     threadPackResponseLatestThreadPost <- o .: "latest_thread_post"
     threadPackResponseLatestThreadPostUser <- o .: "latest_thread_post_user"
+    threadPackResponseIsOwner <- o .: "is_owner"
     return $ ThreadPackResponse {
       threadPackResponseThread = threadPackResponseThread,
       threadPackResponseThreadId = threadPackResponseThreadId,
@@ -5884,7 +5916,8 @@ instance FromJSON ThreadPackResponse where
       threadPackResponseLike = threadPackResponseLike,
       threadPackResponseStar = threadPackResponseStar,
       threadPackResponseLatestThreadPost = threadPackResponseLatestThreadPost,
-      threadPackResponseLatestThreadPostUser = threadPackResponseLatestThreadPostUser
+      threadPackResponseLatestThreadPostUser = threadPackResponseLatestThreadPostUser,
+      threadPackResponseIsOwner = threadPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5915,6 +5948,7 @@ instance ToJSON ThreadPostPackResponse where
     , "stat" .= threadPostPackResponseStat
     , "like" .= threadPostPackResponseLike
     , "star" .= threadPostPackResponseStar
+    , "is_owner" .= threadPostPackResponseIsOwner
     ]
 
 
@@ -5927,6 +5961,7 @@ instance FromJSON ThreadPostPackResponse where
     threadPostPackResponseStat <- o .: "stat"
     threadPostPackResponseLike <- o .: "like"
     threadPostPackResponseStar <- o .: "star"
+    threadPostPackResponseIsOwner <- o .: "is_owner"
     return $ ThreadPostPackResponse {
       threadPostPackResponseThreadPost = threadPostPackResponseThreadPost,
       threadPostPackResponseThreadPostId = threadPostPackResponseThreadPostId,
@@ -5934,7 +5969,8 @@ instance FromJSON ThreadPostPackResponse where
       threadPostPackResponseUserId = threadPostPackResponseUserId,
       threadPostPackResponseStat = threadPostPackResponseStat,
       threadPostPackResponseLike = threadPostPackResponseLike,
-      threadPostPackResponseStar = threadPostPackResponseStar
+      threadPostPackResponseStar = threadPostPackResponseStar,
+      threadPostPackResponseIsOwner = threadPostPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5965,6 +6001,7 @@ instance ToJSON ResourcePackResponse where
     , "stat" .= resourcePackResponseStat
     , "like" .= resourcePackResponseLike
     , "star" .= resourcePackResponseStar
+    , "is_owner" .= resourcePackResponseIsOwner
     ]
 
 
@@ -5977,6 +6014,7 @@ instance FromJSON ResourcePackResponse where
     resourcePackResponseStat <- o .: "stat"
     resourcePackResponseLike <- o .: "like"
     resourcePackResponseStar <- o .: "star"
+    resourcePackResponseIsOwner <- o .: "is_owner"
     return $ ResourcePackResponse {
       resourcePackResponseResource = resourcePackResponseResource,
       resourcePackResponseResourceId = resourcePackResponseResourceId,
@@ -5984,7 +6022,8 @@ instance FromJSON ResourcePackResponse where
       resourcePackResponseUserId = resourcePackResponseUserId,
       resourcePackResponseStat = resourcePackResponseStat,
       resourcePackResponseLike = resourcePackResponseLike,
-      resourcePackResponseStar = resourcePackResponseStar
+      resourcePackResponseStar = resourcePackResponseStar,
+      resourcePackResponseIsOwner = resourcePackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -6016,6 +6055,7 @@ instance ToJSON LeuronPackResponse where
     , "stat" .= leuronPackResponseStat
     , "like" .= leuronPackResponseLike
     , "star" .= leuronPackResponseStar
+    , "is_owner" .= leuronPackResponseIsOwner
     ]
 
 
@@ -6029,6 +6069,7 @@ instance FromJSON LeuronPackResponse where
     leuronPackResponseStat <- o .: "stat"
     leuronPackResponseLike <- o .: "like"
     leuronPackResponseStar <- o .: "star"
+    leuronPackResponseIsOwner <- o .: "is_owner"
     return $ LeuronPackResponse {
       leuronPackResponseLeuron = leuronPackResponseLeuron,
       leuronPackResponseLeuronId = leuronPackResponseLeuronId,
@@ -6037,7 +6078,8 @@ instance FromJSON LeuronPackResponse where
       leuronPackResponseTraining = leuronPackResponseTraining,
       leuronPackResponseStat = leuronPackResponseStat,
       leuronPackResponseLike = leuronPackResponseLike,
-      leuronPackResponseStar = leuronPackResponseStar
+      leuronPackResponseStar = leuronPackResponseStar,
+      leuronPackResponseIsOwner = leuronPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 

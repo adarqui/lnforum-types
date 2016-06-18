@@ -21,6 +21,7 @@ data UserResponse = UserResponse {
   userResponseEmailMD5      :: Text,
   userResponsePlugin        :: Text,
   userResponseIdent         :: Text,
+  userResponseAcceptTOS     :: Maybe UTCTime,
   userResponseActive        :: Bool,
   userResponseGuard         :: Int,
   userResponseCreatedAt     :: Maybe UTCTime,

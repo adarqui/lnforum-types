@@ -21,7 +21,8 @@ data ForumPackResponse = ForumPackResponse {
   forumPackResponseForumId :: Int64,
   forumPackResponseStat    :: ForumStatResponse,
   forumPackResponseLike    :: Maybe LikeResponse,
-  forumPackResponseStar    :: Maybe StarResponse
+  forumPackResponseStar    :: Maybe StarResponse,
+  forumPackResponseIsOwner :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

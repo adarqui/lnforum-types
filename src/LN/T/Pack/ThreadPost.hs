@@ -23,7 +23,8 @@ data ThreadPostPackResponse = ThreadPostPackResponse {
   threadPostPackResponseUserId       :: Int64,
   threadPostPackResponseStat         :: ThreadPostStatResponse,
   threadPostPackResponseLike         :: Maybe LikeResponse,
-  threadPostPackResponseStar         :: Maybe StarResponse
+  threadPostPackResponseStar         :: Maybe StarResponse,
+  threadPostPackResponseIsOwner      :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

@@ -22,7 +22,8 @@ data GlobalGroupPackResponse = GlobalGroupPackResponse {
   globalGroupPackResponseUserId        :: Int64,
   globalGroupPackResponseGlobalGroup   :: GlobalGroupResponse,
   globalGroupPackResponseGlobalGroupId :: Int64,
-  globalGroupPackResponseStat          :: GlobalGroupStatResponse
+  globalGroupPackResponseStat          :: GlobalGroupStatResponse,
+  globalGroupPackResponseIsOwner       :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

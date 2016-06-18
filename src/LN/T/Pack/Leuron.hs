@@ -25,7 +25,8 @@ data LeuronPackResponse = LeuronPackResponse {
   leuronPackResponseTraining :: LeuronTrainingResponse,
   leuronPackResponseStat     :: LeuronStatResponse,
   leuronPackResponseLike     :: Maybe LikeResponse,
-  leuronPackResponseStar     :: Maybe StarResponse
+  leuronPackResponseStar     :: Maybe StarResponse,
+  leuronPackResponseIsOwner  :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

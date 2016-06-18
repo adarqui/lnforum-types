@@ -21,7 +21,8 @@ data TeamMemberPackResponse = TeamMemberPackResponse {
   teamMemberPackResponseUser         :: UserSanitizedResponse,
   teamMemberPackResponseUserId       :: Int64,
   teamMemberPackResponseTeamMember   :: TeamMemberResponse,
-  teamMemberPackResponseTeamMemberId :: Int64
+  teamMemberPackResponseTeamMemberId :: Int64,
+  teamMemberPackResponseIsOwner      :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 

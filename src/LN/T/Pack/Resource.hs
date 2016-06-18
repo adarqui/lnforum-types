@@ -23,7 +23,8 @@ data ResourcePackResponse = ResourcePackResponse {
   resourcePackResponseUserId     :: Int64,
   resourcePackResponseStat       :: ResourceStatResponse,
   resourcePackResponseLike       :: Maybe LikeResponse,
-  resourcePackResponseStar       :: Maybe StarResponse
+  resourcePackResponseStar       :: Maybe StarResponse,
+  resourcePackResponseIsOwner    :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
 
 
