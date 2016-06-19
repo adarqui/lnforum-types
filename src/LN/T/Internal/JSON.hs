@@ -3651,6 +3651,7 @@ instance FromJSON PmOutResponses where
 instance ToJSON ProfileX where
   toJSON ProfileX{..} = object $
     [ "tag" .= "ProfileX"
+    , "profile_login" .= profileLogin
     , "profile_name" .= profileName
     , "profile_email" .= profileEmail
     ]
@@ -3658,9 +3659,11 @@ instance ToJSON ProfileX where
 
 instance FromJSON ProfileX where
   parseJSON (Object o) = do
+    profileLogin <- o .: "profile_login"
     profileName <- o .: "profile_name"
     profileEmail <- o .: "profile_email"
     return $ ProfileX {
+      profileLogin = profileLogin,
       profileName = profileName,
       profileEmail = profileEmail
     }

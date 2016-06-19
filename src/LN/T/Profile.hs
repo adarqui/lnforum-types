@@ -14,7 +14,8 @@ import           LN.T.Time
 
 
 data ProfileX = ProfileX {
-  profileName  :: Text,
+  profileLogin :: Text,
+  profileName  :: Maybe Text,
   profileEmail :: Text
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
