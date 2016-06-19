@@ -12,7 +12,5 @@ import           Data.String                    as A
 import           Data.Text                      as A (Text)
 import           Data.Time                      as A (UTCTime)
 import           Data.Typeable                  as A (Typeable)
-import           GHC.Generics                   as A ()
-import           LN.T.GenericPretty             as A
+import           GHC.Generics                   as A (Generic)
 import           LN.T.Schema                    as A
-import           Text.PrettyPrint.GenericPretty as A ()

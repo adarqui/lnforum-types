@@ -27,7 +27,6 @@ import           LN.T.Forum                          as A
 import           LN.T.Forum.Request                  as A
 import           LN.T.Forum.Response                 as A
 import           LN.T.Forum.Stat                     as A
-import           LN.T.GenericPretty                  as A
 import           LN.T.GlobalGroup                    as A
 import           LN.T.GlobalGroup.Request            as A
 import           LN.T.GlobalGroup.Response           as A
