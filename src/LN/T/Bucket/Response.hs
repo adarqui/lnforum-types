@@ -28,10 +28,10 @@ data BucketResponse = BucketResponse {
   bucketResponseCreatedAt   :: Maybe UTCTime,
   bucketResponseModifiedAt  :: Maybe UTCTime,
   bucketResponseActivityAt  :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data BucketResponses = BucketResponses {
   bucketResponses :: [BucketResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

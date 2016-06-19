@@ -7,6 +7,7 @@ module LN.T.Profile.Response (
 
 
 
+import           LN.T.Ent
 import           LN.T.Prelude
 import           LN.T.Profile
 import           LN.T.Time
@@ -15,7 +16,8 @@ import           LN.T.Time
 
 data ProfileResponse = ProfileResponse {
   profileResponseId         :: Int64,
-  profileResponseEntityId   :: Int64,
+  profileResponseEnt        :: Ent,
+  profileResponseEntId      :: Int64,
   profileResponseGender     :: ProfileGender,
   profileResponseBirthdate  :: UTCTime,
   profileResponseWebsite    :: Maybe Text,
@@ -26,10 +28,10 @@ data ProfileResponse = ProfileResponse {
   profileResponseGuard      :: Int,
   profileResponseCreatedAt  :: Maybe UTCTime,
   profileResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data ProfileResponses = ProfileResponses {
   profileResponses :: [ProfileResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

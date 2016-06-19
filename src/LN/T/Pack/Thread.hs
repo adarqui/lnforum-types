@@ -28,10 +28,10 @@ data ThreadPackResponse = ThreadPackResponse {
   threadPackResponseLatestThreadPost     :: Maybe ThreadPostResponse,
   threadPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
   threadPackResponseIsOwner              :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data ThreadPackResponses = ThreadPackResponses {
   threadPackResponses :: [ThreadPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

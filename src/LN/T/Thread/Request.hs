@@ -20,7 +20,7 @@ data ThreadRequest = ThreadRequest {
   threadRequestIcon        :: Maybe Text,
   threadRequestTags        :: [Text],
   threadRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

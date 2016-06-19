@@ -31,10 +31,10 @@ data BoardResponse = BoardResponse {
   boardResponseModifiedBy         :: Maybe Int64,
   boardResponseModifiedAt         :: Maybe UTCTime,
   boardResponseActivityAt         :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data BoardResponses = BoardResponses {
   boardResponses :: [BoardResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

@@ -18,7 +18,7 @@ import           LN.T.Prelude
 
 data WorkoutRest
   = WorkoutRestBetweenSets Double
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
@@ -26,13 +26,13 @@ data Workout
   = WorkoutXSet [Workout] WorkoutRest
   | WorkoutExercise String
   | WorkoutEmpty2
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data WorkoutData
   = WorkoutEmpty
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
@@ -44,7 +44,7 @@ data ExerciseType
   | ET_Movement
   | ET_Drill
   | ET_Travel
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
@@ -57,7 +57,7 @@ data ExerciseMeasurement
   | EM_RepetitionsPassFailAndTime Integer Integer Duration
   | EM_DistanceByTimeout Distance Duration
   | EM_DistanceAndTime Distance Duration
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
@@ -66,14 +66,14 @@ data ExerciseInfo = ExerciseInfo {
   exerciseInfoDescription :: Text,
   exerciseInfoType        :: ExerciseType,
   exerciseInfoMeasurement :: ExerciseMeasurement
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data TemplateInfo = TemplateInfo {
   templateInfoName        :: Text,
   templateInfoDescription :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 {-
 data SessionInfo = SessionInfo {

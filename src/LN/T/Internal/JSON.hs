@@ -472,6 +472,22 @@ instance ToJSON Ent where
     [ "tag" .= "Ent_Team"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (Ent_TeamMember ) = object $
+    [ "tag" .= "Ent_TeamMember"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Ent_GlobalGroup ) = object $
+    [ "tag" .= "Ent_GlobalGroup"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Ent_Group ) = object $
+    [ "tag" .= "Ent_Group"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Ent_GroupMember ) = object $
+    [ "tag" .= "Ent_GroupMember"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (Ent_User ) = object $
     [ "tag" .= "Ent_User"
     , "contents" .= ([] :: [Text])
@@ -532,6 +548,10 @@ instance ToJSON Ent where
     [ "tag" .= "Ent_Star"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (Ent_None ) = object $
+    [ "tag" .= "Ent_None"
+    , "contents" .= ([] :: [Text])
+    ]
 
 
 instance FromJSON Ent where
@@ -543,6 +563,18 @@ instance FromJSON Ent where
 
       "Ent_Team" -> do
         return Ent_Team
+
+      "Ent_TeamMember" -> do
+        return Ent_TeamMember
+
+      "Ent_GlobalGroup" -> do
+        return Ent_GlobalGroup
+
+      "Ent_Group" -> do
+        return Ent_Group
+
+      "Ent_GroupMember" -> do
+        return Ent_GroupMember
 
       "Ent_User" -> do
         return Ent_User
@@ -588,6 +620,9 @@ instance FromJSON Ent where
 
       "Ent_Star" -> do
         return Ent_Star
+
+      "Ent_None" -> do
+        return Ent_None
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -1567,9 +1602,11 @@ instance ToJSON LikeStatResponse where
   toJSON LikeStatResponse{..} = object $
     [ "tag" .= "LikeStatResponse"
     , "id" .= likeStatResponseId
-    , "entity" .= likeStatResponseEntity
+    , "ent" .= likeStatResponseEnt
+    , "ent_id" .= likeStatResponseEntId
     , "score" .= likeStatResponseScore
     , "like" .= likeStatResponseLike
+    , "neutral" .= likeStatResponseNeutral
     , "dislike" .= likeStatResponseDislike
     ]
 
@@ -1577,15 +1614,19 @@ instance ToJSON LikeStatResponse where
 instance FromJSON LikeStatResponse where
   parseJSON (Object o) = do
     likeStatResponseId <- o .: "id"
-    likeStatResponseEntity <- o .: "entity"
+    likeStatResponseEnt <- o .: "ent"
+    likeStatResponseEntId <- o .: "ent_id"
     likeStatResponseScore <- o .: "score"
     likeStatResponseLike <- o .: "like"
+    likeStatResponseNeutral <- o .: "neutral"
     likeStatResponseDislike <- o .: "dislike"
     return $ LikeStatResponse {
       likeStatResponseId = likeStatResponseId,
-      likeStatResponseEntity = likeStatResponseEntity,
+      likeStatResponseEnt = likeStatResponseEnt,
+      likeStatResponseEntId = likeStatResponseEntId,
       likeStatResponseScore = likeStatResponseScore,
       likeStatResponseLike = likeStatResponseLike,
+      likeStatResponseNeutral = likeStatResponseNeutral,
       likeStatResponseDislike = likeStatResponseDislike
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
@@ -3695,7 +3736,8 @@ instance ToJSON ProfileResponse where
   toJSON ProfileResponse{..} = object $
     [ "tag" .= "ProfileResponse"
     , "id" .= profileResponseId
-    , "entity_id" .= profileResponseEntityId
+    , "ent" .= profileResponseEnt
+    , "ent_id" .= profileResponseEntId
     , "gender" .= profileResponseGender
     , "birthdate" .= profileResponseBirthdate
     , "website" .= profileResponseWebsite
@@ -3712,7 +3754,8 @@ instance ToJSON ProfileResponse where
 instance FromJSON ProfileResponse where
   parseJSON (Object o) = do
     profileResponseId <- o .: "id"
-    profileResponseEntityId <- o .: "entity_id"
+    profileResponseEnt <- o .: "ent"
+    profileResponseEntId <- o .: "ent_id"
     profileResponseGender <- o .: "gender"
     profileResponseBirthdate <- o .: "birthdate"
     profileResponseWebsite <- o .: "website"
@@ -3725,7 +3768,8 @@ instance FromJSON ProfileResponse where
     profileResponseModifiedAt <- o .: "modified_at"
     return $ ProfileResponse {
       profileResponseId = profileResponseId,
-      profileResponseEntityId = profileResponseEntityId,
+      profileResponseEnt = profileResponseEnt,
+      profileResponseEntId = profileResponseEntId,
       profileResponseGender = profileResponseGender,
       profileResponseBirthdate = profileResponseBirthdate,
       profileResponseWebsite = profileResponseWebsite,
@@ -4403,7 +4447,8 @@ instance ToJSON StarResponse where
   toJSON StarResponse{..} = object $
     [ "tag" .= "StarResponse"
     , "id" .= starResponseId
-    , "entity" .= starResponseEntity
+    , "ent" .= starResponseEnt
+    , "ent_id" .= starResponseEntId
     , "user_id" .= starResponseUserId
     , "reason" .= starResponseReason
     , "active" .= starResponseActive
@@ -4416,7 +4461,8 @@ instance ToJSON StarResponse where
 instance FromJSON StarResponse where
   parseJSON (Object o) = do
     starResponseId <- o .: "id"
-    starResponseEntity <- o .: "entity"
+    starResponseEnt <- o .: "ent"
+    starResponseEntId <- o .: "ent_id"
     starResponseUserId <- o .: "user_id"
     starResponseReason <- o .: "reason"
     starResponseActive <- o .: "active"
@@ -4425,7 +4471,8 @@ instance FromJSON StarResponse where
     starResponseModifiedAt <- o .: "modified_at"
     return $ StarResponse {
       starResponseId = starResponseId,
-      starResponseEntity = starResponseEntity,
+      starResponseEnt = starResponseEnt,
+      starResponseEntId = starResponseEntId,
       starResponseUserId = starResponseUserId,
       starResponseReason = starResponseReason,
       starResponseActive = starResponseActive,
@@ -4456,7 +4503,8 @@ instance ToJSON StarStatResponse where
   toJSON StarStatResponse{..} = object $
     [ "tag" .= "StarStatResponse"
     , "id" .= starStatResponseId
-    , "entity" .= starStatResponseEntity
+    , "ent" .= starStatResponseEnt
+    , "ent_id" .= starStatResponseEntId
     , "stars" .= starStatResponseStars
     ]
 
@@ -4464,11 +4512,13 @@ instance ToJSON StarStatResponse where
 instance FromJSON StarStatResponse where
   parseJSON (Object o) = do
     starStatResponseId <- o .: "id"
-    starStatResponseEntity <- o .: "entity"
+    starStatResponseEnt <- o .: "ent"
+    starStatResponseEntId <- o .: "ent_id"
     starStatResponseStars <- o .: "stars"
     return $ StarStatResponse {
       starStatResponseId = starStatResponseId,
-      starStatResponseEntity = starStatResponseEntity,
+      starStatResponseEnt = starStatResponseEnt,
+      starStatResponseEntId = starStatResponseEntId,
       starStatResponseStars = starStatResponseStars
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
@@ -4655,6 +4705,10 @@ instance ToJSON TeamMemberResponse where
     , "id" .= teamMemberResponseId
     , "user_id" .= teamMemberResponseUserId
     , "team_id" .= teamMemberResponseTeamId
+    , "is_accepted" .= teamMemberResponseIsAccepted
+    , "accpeted_at" .= teamMemberResponseAccpetedAt
+    , "is_blocked" .= teamMemberResponseIsBlocked
+    , "blocked_at" .= teamMemberResponseBlockedAt
     , "active" .= teamMemberResponseActive
     , "guard" .= teamMemberResponseGuard
     , "created_at" .= teamMemberResponseCreatedAt
@@ -4669,6 +4723,10 @@ instance FromJSON TeamMemberResponse where
     teamMemberResponseId <- o .: "id"
     teamMemberResponseUserId <- o .: "user_id"
     teamMemberResponseTeamId <- o .: "team_id"
+    teamMemberResponseIsAccepted <- o .: "is_accepted"
+    teamMemberResponseAccpetedAt <- o .: "accpeted_at"
+    teamMemberResponseIsBlocked <- o .: "is_blocked"
+    teamMemberResponseBlockedAt <- o .: "blocked_at"
     teamMemberResponseActive <- o .: "active"
     teamMemberResponseGuard <- o .: "guard"
     teamMemberResponseCreatedAt <- o .: "created_at"
@@ -4679,6 +4737,10 @@ instance FromJSON TeamMemberResponse where
       teamMemberResponseId = teamMemberResponseId,
       teamMemberResponseUserId = teamMemberResponseUserId,
       teamMemberResponseTeamId = teamMemberResponseTeamId,
+      teamMemberResponseIsAccepted = teamMemberResponseIsAccepted,
+      teamMemberResponseAccpetedAt = teamMemberResponseAccpetedAt,
+      teamMemberResponseIsBlocked = teamMemberResponseIsBlocked,
+      teamMemberResponseBlockedAt = teamMemberResponseBlockedAt,
       teamMemberResponseActive = teamMemberResponseActive,
       teamMemberResponseGuard = teamMemberResponseGuard,
       teamMemberResponseCreatedAt = teamMemberResponseCreatedAt,

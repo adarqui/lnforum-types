@@ -29,10 +29,10 @@ data ThreadResponse = ThreadResponse {
   threadResponseModifiedBy  :: Maybe Int64,
   threadResponseModifiedAt  :: Maybe UTCTime,
   threadResponseActivityAt  :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data ThreadResponses = ThreadResponses {
   threadResponses :: [ThreadResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

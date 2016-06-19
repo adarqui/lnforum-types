@@ -21,7 +21,7 @@ data ForumRequest = ForumRequest {
   forumRequestTags                 :: [Text],
   forumRequestVisibility           :: Visibility,
   forumRequestGuard                :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

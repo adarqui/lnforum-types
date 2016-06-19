@@ -16,7 +16,7 @@ data LikeOpt
   = Like
   | Neutral
   | Dislike
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

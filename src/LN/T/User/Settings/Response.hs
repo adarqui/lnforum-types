@@ -17,4 +17,4 @@ data UserSettingsResponse = UserSettingsResponse {
   userSettingsResponseShowEmail     :: Bool,
   userSettingsResponseShowOnline    :: Bool,
   userSettingsResponsePMEmailNotify :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

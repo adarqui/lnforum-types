@@ -18,10 +18,10 @@ data ThreadPostStatResponse = ThreadPostStatResponse {
   threadPostStatResponseDislikes     :: Int64,
   threadPostStatResponseStars        :: Int64,
   threadPostStatResponseViews        :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data ThreadPostStatResponses = ThreadPostStatResponses {
   threadPostStatResponses :: [ThreadPostStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

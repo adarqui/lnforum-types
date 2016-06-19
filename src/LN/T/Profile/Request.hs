@@ -21,7 +21,7 @@ data ProfileRequest = ProfileRequest {
   profileRequestLocation  :: Maybe Text,
   profileRequestSignature :: Maybe Text,
   profileRequestGuard     :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

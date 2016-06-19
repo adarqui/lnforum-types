@@ -15,7 +15,7 @@ import           LN.T.Visibility
 
 data GroupRequest = GroupRequest {
   groupRequestGuard :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

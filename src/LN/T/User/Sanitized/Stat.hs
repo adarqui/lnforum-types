@@ -21,10 +21,10 @@ data UserSanitizedStatResponse = UserSanitizedStatResponse {
   userSanitizedStatResponseLeurons     :: Int64,
   userSanitizedStatResponseWorkouts    :: Int64
 -- userSanitizedStatResponseLikes :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data UserSanitizedStatResponses = UserSanitizedStatResponses {
   userSanitizedStatResponses :: [UserSanitizedStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

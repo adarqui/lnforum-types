@@ -28,10 +28,10 @@ data UserResponse = UserResponse {
   userResponseModifiedAt    :: Maybe UTCTime,
   userResponseDeactivatedAt :: Maybe UTCTime,
   userResponseActivityAt    :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data UserResponses = UserResponses {
   userResponses :: [UserResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

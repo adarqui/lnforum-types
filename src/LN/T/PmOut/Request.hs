@@ -15,7 +15,7 @@ import           LN.T.PmOut
 data PmOutRequest = PmOutRequest {
   pmOutRequestLabel :: Maybe Text,
   pmOutRequestGuard :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

@@ -17,16 +17,20 @@ data TeamMemberResponse = TeamMemberResponse {
   teamMemberResponseId         :: Int64,
   teamMemberResponseUserId     :: Int64,
   teamMemberResponseTeamId     :: Int64,
+  teamMemberResponseIsAccepted :: Bool,
+  teamMemberResponseAccpetedAt :: Maybe UTCTime,
+  teamMemberResponseIsBlocked  :: Bool,
+  teamMemberResponseBlockedAt  :: Maybe UTCTime,
   teamMemberResponseActive     :: Bool,
   teamMemberResponseGuard      :: Int,
   teamMemberResponseCreatedAt  :: Maybe UTCTime,
   teamMemberResponseModifiedBy :: Maybe Int64,
   teamMemberResponseModifiedAt :: Maybe UTCTime,
   teamMemberResponseActivityAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data TeamMemberResponses = TeamMemberResponses {
   teamMemberResponses :: [TeamMemberResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

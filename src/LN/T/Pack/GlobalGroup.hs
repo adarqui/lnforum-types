@@ -24,10 +24,10 @@ data GlobalGroupPackResponse = GlobalGroupPackResponse {
   globalGroupPackResponseGlobalGroupId :: Int64,
   globalGroupPackResponseStat          :: GlobalGroupStatResponse,
   globalGroupPackResponseIsOwner       :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data GlobalGroupPackResponses = GlobalGroupPackResponses {
   globalGroupPackResponses :: [GlobalGroupPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

@@ -24,7 +24,7 @@ data OrganizationRequest = OrganizationRequest {
   organizationRequestIcon        :: Maybe Text,
   organizationRequestVisibility  :: Visibility,
   organizationRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

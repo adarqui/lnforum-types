@@ -38,10 +38,10 @@ data LeuronResponse = LeuronResponse {
   leuronResponseModifiedAt    :: Maybe UTCTime,
   leuronResponseActivityAt    :: Maybe UTCTime
 --  leuronResponseSpecificTo    :: Maybe Text,
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data LeuronResponses = LeuronResponses {
   leuronResponses :: [LeuronResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

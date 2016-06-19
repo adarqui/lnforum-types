@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.78
+version:             0.1.0.79
 synopsis:            leuron types
 description:         leuron types
 license:             MIT
@@ -37,7 +37,7 @@ library
                        LN.T.Count.Response
                        LN.T.DepList
                        LN.T.Empty
-                       LN.T.Entity
+                       LN.T.Ent
                        LN.T.Error
                        LN.T.Forum
                        LN.T.Forum.Request

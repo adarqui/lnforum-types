@@ -25,10 +25,10 @@ data ThreadPostPackResponse = ThreadPostPackResponse {
   threadPostPackResponseLike         :: Maybe LikeResponse,
   threadPostPackResponseStar         :: Maybe StarResponse,
   threadPostPackResponseIsOwner      :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data ThreadPostPackResponses = ThreadPostPackResponses {
   threadPostPackResponses :: [ThreadPostPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

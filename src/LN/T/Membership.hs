@@ -15,4 +15,4 @@ data Membership
   | Membership_RequestInvite
   | Membership_Join
   | Membership_Locked
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)

@@ -13,4 +13,4 @@ import           LN.T.Prelude
 data Visibility =
     Public
   | Private
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)

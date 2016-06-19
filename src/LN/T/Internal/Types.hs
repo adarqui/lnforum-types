@@ -21,7 +21,7 @@ import           LN.T.Count                          as A
 import           LN.T.Count.Response                 as A
 import           LN.T.DepList                        as A
 import           LN.T.Empty                          as A
-import           LN.T.Entity                         as A
+import           LN.T.Ent                            as A
 import           LN.T.Error                          as A
 import           LN.T.Forum                          as A
 import           LN.T.Forum.Request                  as A

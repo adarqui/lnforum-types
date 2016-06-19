@@ -33,10 +33,10 @@ data OrganizationResponse = OrganizationResponse {
   organizationResponseModifiedBy  :: Maybe Int64,
   organizationResponseModifiedAt  :: Maybe UTCTime,
   organizationResponseActivityAt  :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data OrganizationResponses = OrganizationResponses {
   organizationResponses :: [OrganizationResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

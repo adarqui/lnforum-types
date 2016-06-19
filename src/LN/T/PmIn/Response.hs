@@ -25,10 +25,10 @@ data PmInResponse = PmInResponse {
   pmInResponseGuard      :: Int,
   pmInResponseCreatedAt  :: Maybe UTCTime,
   pmInResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data PmInResponses = PmInResponses {
   pmInResponses :: [PmInResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

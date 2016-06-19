@@ -7,7 +7,7 @@ module LN.T.Like.Response (
 
 
 
-import           LN.T.Entity
+import           LN.T.Ent
 import           LN.T.Like
 import           LN.T.Prelude
 import           LN.T.User
@@ -26,10 +26,10 @@ data LikeResponse = LikeResponse {
   likeResponseGuard      :: Int,
   likeResponseCreatedAt  :: Maybe UTCTime,
   likeResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data LikeResponses = LikeResponses {
   likeResponses :: [LikeResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

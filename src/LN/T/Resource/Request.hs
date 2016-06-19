@@ -29,7 +29,7 @@ data ResourceRequest = ResourceRequest {
   resourceRequestIcon          :: Maybe Text,
   resourceRequestTags          :: [Text],
   resourceRequestGuard         :: Int
- } deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+ } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

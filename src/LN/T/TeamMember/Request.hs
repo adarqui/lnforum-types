@@ -15,7 +15,7 @@ import           LN.T.Visibility
 
 data TeamMemberRequest = TeamMemberRequest {
   teamMemberRequestGuard :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 

@@ -5,19 +5,20 @@ module LN.T.Star.Stat (
 
 
 
-import           LN.T.Entity
+import           LN.T.Ent
 import           LN.T.Prelude
 
 
 
 data StarStatResponse = StarStatResponse {
   starStatResponseId     :: Int64,
-  starStatResponseEntity :: Ent,
+  starStatResponseEnt    :: Ent,
+  starStatResponseEntId  :: Int64,
   starStatResponseStars  :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data StarStatResponses = StarStatResponses {
   starStatResponses :: [StarStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

@@ -27,10 +27,10 @@ data TeamPackResponse = TeamPackResponse {
   teamPackResponseLike    :: Maybe LikeResponse,
   teamPackResponseStar    :: Maybe StarResponse,
   teamPackResponseIsOwner :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data TeamPackResponses = TeamPackResponses {
   teamPackResponses :: [TeamPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

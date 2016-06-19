@@ -79,7 +79,7 @@ data Param
   | CreatedAtUnixTimestamp Int64
   | RealIP                 Text
   | IP                     Text
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
@@ -141,7 +141,7 @@ data ParamTag
   | ParamTag_CreatedAtUnixTimestamp
   | ParamTag_RealIP
   | ParamTag_IP
-  deriving (Eq, Ord, Generic, Typeable, Out)
+  deriving (Eq, Ord, Generic, Typeable)
 
 
 
@@ -203,7 +203,7 @@ data SortOrderBy
   | SortOrderBy_Dsc
   | SortOrderBy_Rnd
   | SortOrderBy_None
-  deriving (Eq, Ord, Generic, Typeable, Out)
+  deriving (Eq, Ord, Generic, Typeable)
 
 
 
@@ -236,7 +236,7 @@ data OrderBy
   | OrderBy_ThreadId
   | OrderBy_Id
   | OrderBy_None
-  deriving (Eq, Ord, Generic, Typeable, Out)
+  deriving (Eq, Ord, Generic, Typeable)
 
 
 

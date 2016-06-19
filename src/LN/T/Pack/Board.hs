@@ -29,10 +29,10 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseLatestThreadPost     :: Maybe ThreadPostResponse,
   boardPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
   boardPackResponseIsOwner              :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data BoardPackResponses = BoardPackResponses {
   boardPackResponses :: [BoardPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

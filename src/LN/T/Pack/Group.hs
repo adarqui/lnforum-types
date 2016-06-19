@@ -28,10 +28,10 @@ data GroupPackResponse = GroupPackResponse {
   groupPackResponseOrganizationId :: Int64,
   groupPackResponseStat           :: GroupStatResponse,
   groupPackResponseIsOwner        :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data GroupPackResponses = GroupPackResponses {
   groupPackResponses :: [GroupPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

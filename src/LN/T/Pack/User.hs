@@ -20,10 +20,10 @@ data UserPackResponse = UserPackResponse {
   userPackResponseStat      :: UserSanitizedStatResponse,
   userPackResponseProfile   :: ProfileResponse,
   userPackResponseProfileId :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
 
 data UserPackResponses = UserPackResponses {
   userPackResponses :: [UserPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+} deriving (Eq, Ord, Show, Read, Generic, Typeable)

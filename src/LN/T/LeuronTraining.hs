@@ -18,4 +18,4 @@ data LeuronTrainingSummary
   | LTS_DontUnderstand
   | LTS_DontCare
   | LTS_Protest
-  deriving (Eq, Ord, Show, Read, Generic, Typeable, Out)
+  deriving (Eq, Ord, Show, Read, Generic, Typeable)
