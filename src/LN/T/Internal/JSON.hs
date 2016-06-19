@@ -4700,7 +4700,7 @@ instance ToJSON TeamMemberResponse where
     , "user_id" .= teamMemberResponseUserId
     , "team_id" .= teamMemberResponseTeamId
     , "is_accepted" .= teamMemberResponseIsAccepted
-    , "accpeted_at" .= teamMemberResponseAccpetedAt
+    , "accepted_at" .= teamMemberResponseAcceptedAt
     , "is_blocked" .= teamMemberResponseIsBlocked
     , "blocked_at" .= teamMemberResponseBlockedAt
     , "active" .= teamMemberResponseActive
@@ -4718,7 +4718,7 @@ instance FromJSON TeamMemberResponse where
     teamMemberResponseUserId <- o .: "user_id"
     teamMemberResponseTeamId <- o .: "team_id"
     teamMemberResponseIsAccepted <- o .: "is_accepted"
-    teamMemberResponseAccpetedAt <- o .: "accpeted_at"
+    teamMemberResponseAcceptedAt <- o .: "accepted_at"
     teamMemberResponseIsBlocked <- o .: "is_blocked"
     teamMemberResponseBlockedAt <- o .: "blocked_at"
     teamMemberResponseActive <- o .: "active"
@@ -4732,7 +4732,7 @@ instance FromJSON TeamMemberResponse where
       teamMemberResponseUserId = teamMemberResponseUserId,
       teamMemberResponseTeamId = teamMemberResponseTeamId,
       teamMemberResponseIsAccepted = teamMemberResponseIsAccepted,
-      teamMemberResponseAccpetedAt = teamMemberResponseAccpetedAt,
+      teamMemberResponseAcceptedAt = teamMemberResponseAcceptedAt,
       teamMemberResponseIsBlocked = teamMemberResponseIsBlocked,
       teamMemberResponseBlockedAt = teamMemberResponseBlockedAt,
       teamMemberResponseActive = teamMemberResponseActive,
