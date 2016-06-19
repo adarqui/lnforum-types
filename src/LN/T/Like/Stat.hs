@@ -11,7 +11,6 @@ import           LN.T.Prelude
 
 
 data LikeStatResponse = LikeStatResponse {
-  likeStatResponseId      :: Int64,
   likeStatResponseEnt     :: Ent,
   likeStatResponseEntId   :: Int64,
   likeStatResponseScore   :: Int64,

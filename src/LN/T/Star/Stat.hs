@@ -11,7 +11,6 @@ import           LN.T.Prelude
 
 
 data StarStatResponse = StarStatResponse {
-  starStatResponseId     :: Int64,
   starStatResponseEnt    :: Ent,
   starStatResponseEntId  :: Int64,
   starStatResponseStars  :: Int64

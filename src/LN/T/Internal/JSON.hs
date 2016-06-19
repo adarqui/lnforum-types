@@ -1601,7 +1601,6 @@ instance FromJSON LikeResponses where
 instance ToJSON LikeStatResponse where
   toJSON LikeStatResponse{..} = object $
     [ "tag" .= "LikeStatResponse"
-    , "id" .= likeStatResponseId
     , "ent" .= likeStatResponseEnt
     , "ent_id" .= likeStatResponseEntId
     , "score" .= likeStatResponseScore
@@ -1613,7 +1612,6 @@ instance ToJSON LikeStatResponse where
 
 instance FromJSON LikeStatResponse where
   parseJSON (Object o) = do
-    likeStatResponseId <- o .: "id"
     likeStatResponseEnt <- o .: "ent"
     likeStatResponseEntId <- o .: "ent_id"
     likeStatResponseScore <- o .: "score"
@@ -1621,7 +1619,6 @@ instance FromJSON LikeStatResponse where
     likeStatResponseNeutral <- o .: "neutral"
     likeStatResponseDislike <- o .: "dislike"
     return $ LikeStatResponse {
-      likeStatResponseId = likeStatResponseId,
       likeStatResponseEnt = likeStatResponseEnt,
       likeStatResponseEntId = likeStatResponseEntId,
       likeStatResponseScore = likeStatResponseScore,
@@ -4502,7 +4499,6 @@ instance FromJSON StarResponses where
 instance ToJSON StarStatResponse where
   toJSON StarStatResponse{..} = object $
     [ "tag" .= "StarStatResponse"
-    , "id" .= starStatResponseId
     , "ent" .= starStatResponseEnt
     , "ent_id" .= starStatResponseEntId
     , "stars" .= starStatResponseStars
@@ -4511,12 +4507,10 @@ instance ToJSON StarStatResponse where
 
 instance FromJSON StarStatResponse where
   parseJSON (Object o) = do
-    starStatResponseId <- o .: "id"
     starStatResponseEnt <- o .: "ent"
     starStatResponseEntId <- o .: "ent_id"
     starStatResponseStars <- o .: "stars"
     return $ StarStatResponse {
-      starStatResponseId = starStatResponseId,
       starStatResponseEnt = starStatResponseEnt,
       starStatResponseEntId = starStatResponseEntId,
       starStatResponseStars = starStatResponseStars
@@ -5461,6 +5455,7 @@ instance ToJSON OrganizationPackResponse where
     , "like" .= organizationPackResponseLike
     , "star" .= organizationPackResponseStar
     , "is_owner" .= organizationPackResponseIsOwner
+    , "is_member" .= organizationPackResponseIsMember
     ]
 
 
@@ -5474,6 +5469,7 @@ instance FromJSON OrganizationPackResponse where
     organizationPackResponseLike <- o .: "like"
     organizationPackResponseStar <- o .: "star"
     organizationPackResponseIsOwner <- o .: "is_owner"
+    organizationPackResponseIsMember <- o .: "is_member"
     return $ OrganizationPackResponse {
       organizationPackResponseUser = organizationPackResponseUser,
       organizationPackResponseUserId = organizationPackResponseUserId,
@@ -5482,7 +5478,8 @@ instance FromJSON OrganizationPackResponse where
       organizationPackResponseStat = organizationPackResponseStat,
       organizationPackResponseLike = organizationPackResponseLike,
       organizationPackResponseStar = organizationPackResponseStar,
-      organizationPackResponseIsOwner = organizationPackResponseIsOwner
+      organizationPackResponseIsOwner = organizationPackResponseIsOwner,
+      organizationPackResponseIsMember = organizationPackResponseIsMember
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
