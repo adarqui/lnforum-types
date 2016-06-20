@@ -1,8 +1,8 @@
 name:                ln-types
 version:             0.1.0.80
-synopsis:            leuron types
-description:         leuron types
-license:             MIT
+synopsis:            Core haskell types for LN.
+description:         See README.md
+license:             BSD3
 license-file:        LICENSE
 author:              Andrew Darqui
 maintainer:          andrew.darqui@gmail.com
