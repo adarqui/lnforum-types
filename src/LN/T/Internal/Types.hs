@@ -6,6 +6,7 @@ module LN.T.Internal.Types (
 
 
 
+import           LN.T.ACL                            as A
 import           LN.T.Api                            as A
 import           LN.T.Api.Request                    as A
 import           LN.T.Api.Response                   as A
@@ -78,6 +79,7 @@ import           LN.T.Pack.Resource                  as A
 import           LN.T.Pack.Leuron                    as A
 import           LN.T.Param                          as A
 import           LN.T.PatternSynonyms                as A
+import           LN.T.Permission                     as A
 import           LN.T.Pm                             as A
 import           LN.T.Pm.Request                     as A
 import           LN.T.Pm.Response                    as A

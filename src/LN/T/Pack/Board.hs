@@ -12,6 +12,7 @@ import           LN.T.Board.Stat
 import           LN.T.Forum.Response
 import           LN.T.Like.Response
 import           LN.T.Organization.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.Thread.Response
@@ -32,7 +33,7 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
   boardPackResponseWithOrganization     :: Maybe OrganizationResponse,
   boardPackResponseWithForum            :: Maybe ForumResponse,
-  boardPackResponseIsOwner              :: Bool
+  boardPackResponsePermissions          :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

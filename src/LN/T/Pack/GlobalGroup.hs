@@ -11,6 +11,7 @@ import           LN.T.GlobalGroup
 import           LN.T.GlobalGroup.Response
 import           LN.T.GlobalGroup.Stat
 import           LN.T.Like.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
@@ -23,7 +24,7 @@ data GlobalGroupPackResponse = GlobalGroupPackResponse {
   globalGroupPackResponseGlobalGroup   :: GlobalGroupResponse,
   globalGroupPackResponseGlobalGroupId :: Int64,
   globalGroupPackResponseStat          :: GlobalGroupStatResponse,
-  globalGroupPackResponseIsOwner       :: Bool
+  globalGroupPackResponsePermissions   :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

@@ -11,6 +11,7 @@ import           LN.T.Like.Response
 import           LN.T.Organization
 import           LN.T.Organization.Response
 import           LN.T.Organization.Stat
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
@@ -25,9 +26,7 @@ data OrganizationPackResponse = OrganizationPackResponse {
   organizationPackResponseStat           :: OrganizationStatResponse,
   organizationPackResponseLike           :: Maybe LikeResponse,
   organizationPackResponseStar           :: Maybe StarResponse,
-  organizationPackResponseIsOwner        :: Bool,
-  organizationPackResponseIsMember       :: Bool
---  organizationPackResponseOrganizationProfile :: ProfileResponse
+  organizationPackResponsePermissions    :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

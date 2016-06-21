@@ -11,6 +11,7 @@ import           LN.T.Forum.Response
 import           LN.T.Forum.Stat
 import           LN.T.Like.Response
 import           LN.T.Organization.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 
@@ -23,7 +24,7 @@ data ForumPackResponse = ForumPackResponse {
   forumPackResponseLike             :: Maybe LikeResponse,
   forumPackResponseStar             :: Maybe StarResponse,
   forumPackResponseWithOrganization :: Maybe OrganizationResponse,
-  forumPackResponseIsOwner          :: Bool
+  forumPackResponsePermissions      :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

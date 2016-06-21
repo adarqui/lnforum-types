@@ -8,6 +8,7 @@ module LN.T.Pack.Team (
 
 
 import           LN.T.Like.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.Team
@@ -19,14 +20,14 @@ import           LN.T.User.Sanitized.Response
 
 data TeamPackResponse = TeamPackResponse {
 --  teamPackResponseOrganization ?
-  teamPackResponseUser    :: UserSanitizedResponse,
-  teamPackResponseUserId  :: Int64,
-  teamPackResponseTeam    :: TeamResponse,
-  teamPackResponseTeamId  :: Int64,
-  teamPackResponseStat    :: TeamStatResponse,
-  teamPackResponseLike    :: Maybe LikeResponse,
-  teamPackResponseStar    :: Maybe StarResponse,
-  teamPackResponseIsOwner :: Bool
+  teamPackResponseUser        :: UserSanitizedResponse,
+  teamPackResponseUserId      :: Int64,
+  teamPackResponseTeam        :: TeamResponse,
+  teamPackResponseTeamId      :: Int64,
+  teamPackResponseStat        :: TeamStatResponse,
+  teamPackResponseLike        :: Maybe LikeResponse,
+  teamPackResponseStar        :: Maybe StarResponse,
+  teamPackResponsePermissions :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

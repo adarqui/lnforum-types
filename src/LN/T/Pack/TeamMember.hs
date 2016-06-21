@@ -8,6 +8,7 @@ module LN.T.Pack.TeamMember (
 
 
 import           LN.T.Like.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.TeamMember
@@ -22,7 +23,7 @@ data TeamMemberPackResponse = TeamMemberPackResponse {
   teamMemberPackResponseUserId       :: Int64,
   teamMemberPackResponseTeamMember   :: TeamMemberResponse,
   teamMemberPackResponseTeamMemberId :: Int64,
-  teamMemberPackResponseIsOwner      :: Bool
+  teamMemberPackResponsePermissions  :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

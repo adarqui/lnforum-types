@@ -13,6 +13,7 @@ import           LN.T.Group.Response
 import           LN.T.Group.Stat
 import           LN.T.Like.Response
 import           LN.T.Organization.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
@@ -27,7 +28,7 @@ data GroupPackResponse = GroupPackResponse {
   groupPackResponseOrganization   :: OrganizationResponse,
   groupPackResponseOrganizationId :: Int64,
   groupPackResponseStat           :: GroupStatResponse,
-  groupPackResponseIsOwner        :: Bool
+  groupPackResponsePermissions    :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

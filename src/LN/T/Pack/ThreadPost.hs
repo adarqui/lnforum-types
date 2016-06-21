@@ -11,6 +11,7 @@ import           LN.T.Board.Response
 import           LN.T.Forum.Response
 import           LN.T.Like.Response
 import           LN.T.Organization.Response
+import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.Thread.Response
@@ -32,7 +33,7 @@ data ThreadPostPackResponse = ThreadPostPackResponse {
   threadPostPackResponseWithForum        :: Maybe ForumResponse,
   threadPostPackResponseWithBoard        :: Maybe BoardResponse,
   threadPostPackResponseWithThread       :: Maybe ThreadResponse,
-  threadPostPackResponseIsOwner          :: Bool
+  threadPostPackResponsePermissions      :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
