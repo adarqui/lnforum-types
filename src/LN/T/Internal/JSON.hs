@@ -24,10 +24,6 @@ instance ToJSON ACL where
     [ "tag" .= "ACL_Deny"
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (ACL_NotFound ) = object $
-    [ "tag" .= "ACL_NotFound"
-    , "contents" .= ([] :: [Text])
-    ]
 
 
 instance FromJSON ACL where
@@ -40,9 +36,6 @@ instance FromJSON ACL where
 
       "ACL_Deny" -> do
         return ACL_Deny
-
-      "ACL_NotFound" -> do
-        return ACL_NotFound
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
