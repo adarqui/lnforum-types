@@ -78,7 +78,6 @@ library
                        LN.T.Organization.Settings.Response
                        LN.T.Organization.Stat
                        LN.T.Param
-                       LN.T.Param.String
                        LN.T.PatternSynonyms
                        LN.T.Pack.Organization
                        LN.T.Pack.Team

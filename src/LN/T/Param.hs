@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module LN.T.Param (
   Param (..),
   ParamTag (..),
@@ -11,6 +13,10 @@ import qualified Data.Text           as T
 import           Haskell.Api.Helpers
 import           LN.T.Prelude
 import           LN.T.SharedTypes
+
+
+
+default (Text)
 
 
 
@@ -79,6 +85,11 @@ data Param
   | CreatedAtUnixTimestamp Int64
   | RealIP                 Text
   | IP                     Text
+  | WithOrganization
+  | WithForum
+  | WithBoard
+  | WithThread
+  | WithResource
   deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
@@ -141,60 +152,70 @@ data ParamTag
   | ParamTag_CreatedAtUnixTimestamp
   | ParamTag_RealIP
   | ParamTag_IP
+  | ParamTag_WithOrganization
+  | ParamTag_WithForum
+  | ParamTag_WithBoard
+  | ParamTag_WithThread
+  | ParamTag_WithResource
   deriving (Eq, Ord, Generic, Typeable)
 
 
 
 instance QueryParam Param where
-  qp (Limit limit)                       = tuple "limit" (show limit)
-  qp (Offset offset)                     = tuple "offset" (show offset)
-  qp (SortOrder sort_order_by)           = tuple "sort_order" (show sort_order_by)
-  qp (Order order_by)                    = tuple "order" (show order_by)
-  qp (ByOrganizationId org_id)           = tuple "organization_id" (show org_id)
-  qp (ByOrganizationsIds orgs_ids)       = tuple "organizations_ids" (show orgs_ids)
-  qp (ByOrganizationName org_name)       = tuple "organization_name" (T.unpack org_name)
-  qp (ByTeamId team_id)                  = tuple "team_id" (show team_id)
-  qp (ByTeamsIds teams_ids)              = tuple "teams_ids" (show teams_ids)
-  qp (ByTeamName team_name)              = tuple "team_name" (T.unpack team_name)
-  qp (ByUserId user_id)                  = tuple "user_id" (show user_id)
-  qp (ByUsersIds users_ids)              = tuple "users_ids" (show users_ids)
-  qp (ByUserNick nick)                   = tuple "user_nick" (show nick)
-  qp (ByUsersNicks nicks)                = tuple "users_nicks" (show nicks)
-  qp (ByForumId forum_id)                = tuple "forum_id" (show forum_id)
-  qp (ByForumsIds forums_ids)            = tuple "forums_ids" (show forums_ids)
-  qp (ByForumName forum_name)            = tuple "forum_name" (T.unpack forum_name)
-  qp (ByBoardId board_id)                = tuple "board_id" (show board_id)
-  qp (ByBoardsIds boards_ids)            = tuple "boards_ids" (show boards_ids)
-  qp (ByBoardName board_name)            = tuple "board_name" (T.unpack board_name)
-  qp (ByThreadId thread_id)              = tuple "thread_id" (show thread_id)
-  qp (ByThreadsIds threads_ids)          = tuple "threads_ids" (show threads_ids)
-  qp (ByThreadName thread_name)          = tuple "thread_name" (T.unpack thread_name)
-  qp (ByThreadPostId thread_post_id)     = tuple "thread_post_id" (show thread_post_id)
-  qp (ByThreadPostsIds thread_posts_ids) = tuple "thread_posts_ids" (show thread_posts_ids)
-  qp (ByThreadPostName thread_post_name) = tuple "thread_post_name" (T.unpack thread_post_name)
-  qp (ByThreadPostLikeId like_id)        = tuple "thread_post_like_id" (show like_id)
-  qp (ByThreadPostLikesIds likes_ids)    = tuple "thread_post_likes_ids" (show likes_ids)
-  qp (ByThreadPostStarId star_id)        = tuple "thread_post_star_id" (show star_id)
-  qp (ByThreadPostStarsIds stars_ids)    = tuple "thread_post_stars_ids" (show stars_ids)
-  qp (ByBucketId bucket_id)              = tuple "bucket_id" (show bucket_id)
-  qp (ByResourceId resource_id)          = tuple "resource_id" (show resource_id)
-  qp (ByResourcesIds resources_ids)      = tuple "resources_ids" (show resources_ids)
-  qp (ByResourceName resource_name)      = tuple "resource_name" (T.unpack resource_name)
-  qp (ByLeuronId leuron_id)              = tuple "leuron_id" (show leuron_id)
-  qp (ByLeuronsIds leurons_ids)          = tuple "leurons_ids" (show leurons_ids)
-  qp (ByPmId pm_id)                      = tuple "pm_id" (show pm_id)
-  qp (ByPmsIds pms_ids)                  = tuple "pms_ids" (show pms_ids)
-  qp (ByReminderId reminder_id)          = tuple "reminder_id" (show reminder_id)
-  qp (ByReminderFolderId reminder_folder)= tuple "reminder_folder_id" (show reminder_folder)
-  qp (ByParentId parent_id)              = tuple "parent_id" (show parent_id)
-  qp (ByParentsIds parents_ids)          = tuple "parents_ids" (show parents_ids)
-  qp (ByParentName parent_name)          = tuple "parent_name" (T.unpack parent_name)
-  qp (Timestamp ts)                      = tuple "ts" (show ts)
-  qp (UnixTimestamp unix_ts)             = tuple "unix_ts" (show unix_ts)
-  qp (CreatedAtTimestamp created_at)     = tuple "created_at_ts" (show created_at)
-  qp (CreatedAtUnixTimestamp created_at) = tuple "created_at_unix_ts" (show created_at)
-  qp (RealIP real_ip)                    = tuple "real_ip" (T.unpack real_ip)
-  qp (IP ip)                             = tuple "ip" (T.unpack ip)
+  qp (Limit limit)                       = tuple "limit" (T.pack $ show limit)
+  qp (Offset offset)                     = tuple "offset" (T.pack $ show offset)
+  qp (SortOrder sort_order_by)           = tuple "sort_order" (T.pack $ show sort_order_by)
+  qp (Order order_by)                    = tuple "order" (T.pack $ show order_by)
+  qp (ByOrganizationId org_id)           = tuple "organization_id" (T.pack $ show org_id)
+  qp (ByOrganizationsIds orgs_ids)       = tuple "organizations_ids" (T.pack $ show orgs_ids)
+  qp (ByOrganizationName org_name)       = tuple "organization_name" org_name
+  qp (ByTeamId team_id)                  = tuple "team_id" (T.pack $ show team_id)
+  qp (ByTeamsIds teams_ids)              = tuple "teams_ids" (T.pack $ show teams_ids)
+  qp (ByTeamName team_name)              = tuple "team_name" team_name
+  qp (ByUserId user_id)                  = tuple "user_id" (T.pack $ show user_id)
+  qp (ByUsersIds users_ids)              = tuple "users_ids" (T.pack $ show users_ids)
+  qp (ByUserNick nick)                   = tuple "user_nick" (T.pack $ show nick)
+  qp (ByUsersNicks nicks)                = tuple "users_nicks" (T.pack $ show nicks)
+  qp (ByForumId forum_id)                = tuple "forum_id" (T.pack $ show forum_id)
+  qp (ByForumsIds forums_ids)            = tuple "forums_ids" (T.pack $ show forums_ids)
+  qp (ByForumName forum_name)            = tuple "forum_name" forum_name
+  qp (ByBoardId board_id)                = tuple "board_id" (T.pack $ show board_id)
+  qp (ByBoardsIds boards_ids)            = tuple "boards_ids" (T.pack $ show boards_ids)
+  qp (ByBoardName board_name)            = tuple "board_name" board_name
+  qp (ByThreadId thread_id)              = tuple "thread_id" (T.pack $ show thread_id)
+  qp (ByThreadsIds threads_ids)          = tuple "threads_ids" (T.pack $ show threads_ids)
+  qp (ByThreadName thread_name)          = tuple "thread_name" thread_name
+  qp (ByThreadPostId thread_post_id)     = tuple "thread_post_id" (T.pack $ show thread_post_id)
+  qp (ByThreadPostsIds thread_posts_ids) = tuple "thread_posts_ids" (T.pack $ show thread_posts_ids)
+  qp (ByThreadPostName thread_post_name) = tuple "thread_post_name" thread_post_name
+  qp (ByThreadPostLikeId like_id)        = tuple "thread_post_like_id" (T.pack $ show like_id)
+  qp (ByThreadPostLikesIds likes_ids)    = tuple "thread_post_likes_ids" (T.pack $ show likes_ids)
+  qp (ByThreadPostStarId star_id)        = tuple "thread_post_star_id" (T.pack $ show star_id)
+  qp (ByThreadPostStarsIds stars_ids)    = tuple "thread_post_stars_ids" (T.pack $ show stars_ids)
+  qp (ByBucketId bucket_id)              = tuple "bucket_id" (T.pack $ show bucket_id)
+  qp (ByResourceId resource_id)          = tuple "resource_id" (T.pack $ show resource_id)
+  qp (ByResourcesIds resources_ids)      = tuple "resources_ids" (T.pack $ show resources_ids)
+  qp (ByResourceName resource_name)      = tuple "resource_name" resource_name
+  qp (ByLeuronId leuron_id)              = tuple "leuron_id" (T.pack $ show leuron_id)
+  qp (ByLeuronsIds leurons_ids)          = tuple "leurons_ids" (T.pack $ show leurons_ids)
+  qp (ByPmId pm_id)                      = tuple "pm_id" (T.pack $ show pm_id)
+  qp (ByPmsIds pms_ids)                  = tuple "pms_ids" (T.pack $ show pms_ids)
+  qp (ByReminderId reminder_id)          = tuple "reminder_id" (T.pack $ show reminder_id)
+  qp (ByReminderFolderId reminder_folder)= tuple "reminder_folder_id" (T.pack $ show reminder_folder)
+  qp (ByParentId parent_id)              = tuple "parent_id" (T.pack $ show parent_id)
+  qp (ByParentsIds parents_ids)          = tuple "parents_ids" (T.pack $ show parents_ids)
+  qp (ByParentName parent_name)          = tuple "parent_name" parent_name
+  qp (Timestamp ts)                      = tuple "ts" (T.pack $ show ts)
+  qp (UnixTimestamp unix_ts)             = tuple "unix_ts" (T.pack $ show unix_ts)
+  qp (CreatedAtTimestamp created_at)     = tuple "created_at_ts" (T.pack $ show created_at)
+  qp (CreatedAtUnixTimestamp created_at) = tuple "created_at_unix_ts" (T.pack $ show created_at)
+  qp (RealIP real_ip)                    = tuple "real_ip" real_ip
+  qp (IP ip)                             = tuple "ip" ip
+  qp WithOrganization                    = tuple "with_organization" ""
+  qp WithForum                           = tuple "with_forum" ""
+  qp WithBoard                           = tuple "with_board" ""
+  qp WithThread                          = tuple "with_thread" ""
+  qp WithResource                        = tuple "with_resource" ""
 
 
 
@@ -322,3 +343,8 @@ instance Show ParamTag where
   show ParamTag_CreatedAtUnixTimestamp = "created_at_unix_ts"
   show ParamTag_RealIP                 = "real_ip"
   show ParamTag_IP                     = "ip"
+  show ParamTag_WithOrganization       = "with_organization"
+  show ParamTag_WithForum              = "with_forum"
+  show ParamTag_WithBoard              = "with_board"
+  show ParamTag_WithThread             = "with_thread"
+  show ParamTag_WithResource           = "with_resource"

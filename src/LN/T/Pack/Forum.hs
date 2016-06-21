@@ -10,19 +10,20 @@ module LN.T.Pack.Forum (
 import           LN.T.Forum.Response
 import           LN.T.Forum.Stat
 import           LN.T.Like.Response
+import           LN.T.Organization.Response
 import           LN.T.Prelude
 import           LN.T.Star.Response
 
 
 
 data ForumPackResponse = ForumPackResponse {
-  -- forumPackResponseOrganizations :: OrganizationResponse ??
-  forumPackResponseForum   :: ForumResponse,
-  forumPackResponseForumId :: Int64,
-  forumPackResponseStat    :: ForumStatResponse,
-  forumPackResponseLike    :: Maybe LikeResponse,
-  forumPackResponseStar    :: Maybe StarResponse,
-  forumPackResponseIsOwner :: Bool
+  forumPackResponseForum            :: ForumResponse,
+  forumPackResponseForumId          :: Int64,
+  forumPackResponseStat             :: ForumStatResponse,
+  forumPackResponseLike             :: Maybe LikeResponse,
+  forumPackResponseStar             :: Maybe StarResponse,
+  forumPackResponseWithOrganization :: Maybe OrganizationResponse,
+  forumPackResponseIsOwner          :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

@@ -9,7 +9,9 @@ module LN.T.Pack.Board (
 
 import           LN.T.Board.Response
 import           LN.T.Board.Stat
+import           LN.T.Forum.Response
 import           LN.T.Like.Response
+import           LN.T.Organization.Response
 import           LN.T.Prelude
 import           LN.T.Star.Response
 import           LN.T.Thread.Response
@@ -28,6 +30,8 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseLatestThread         :: Maybe ThreadResponse,
   boardPackResponseLatestThreadPost     :: Maybe ThreadPostResponse,
   boardPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
+  boardPackResponseWithOrganization     :: Maybe OrganizationResponse,
+  boardPackResponseWithForum            :: Maybe ForumResponse,
   boardPackResponseIsOwner              :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 

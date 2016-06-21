@@ -2624,6 +2624,26 @@ instance ToJSON Param where
     [ "tag" .= "IP"
     , "contents" .= toJSON x0
     ]
+  toJSON (WithOrganization ) = object $
+    [ "tag" .= "WithOrganization"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (WithForum ) = object $
+    [ "tag" .= "WithForum"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (WithBoard ) = object $
+    [ "tag" .= "WithBoard"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (WithThread ) = object $
+    [ "tag" .= "WithThread"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (WithResource ) = object $
+    [ "tag" .= "WithResource"
+    , "contents" .= ([] :: [Text])
+    ]
 
 
 instance FromJSON Param where
@@ -2858,6 +2878,21 @@ instance FromJSON Param where
         x0 <- o .: "contents"
         IP <$> parseJSON x0
 
+      "WithOrganization" -> do
+        return WithOrganization
+
+      "WithForum" -> do
+        return WithForum
+
+      "WithBoard" -> do
+        return WithBoard
+
+      "WithThread" -> do
+        return WithThread
+
+      "WithResource" -> do
+        return WithResource
+
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
@@ -3090,6 +3125,26 @@ instance ToJSON ParamTag where
     [ "tag" .= "ParamTag_IP"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (ParamTag_WithOrganization ) = object $
+    [ "tag" .= "ParamTag_WithOrganization"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_WithForum ) = object $
+    [ "tag" .= "ParamTag_WithForum"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_WithBoard ) = object $
+    [ "tag" .= "ParamTag_WithBoard"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_WithThread ) = object $
+    [ "tag" .= "ParamTag_WithThread"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (ParamTag_WithResource ) = object $
+    [ "tag" .= "ParamTag_WithResource"
+    , "contents" .= ([] :: [Text])
+    ]
 
 
 instance FromJSON ParamTag where
@@ -3266,6 +3321,21 @@ instance FromJSON ParamTag where
 
       "ParamTag_IP" -> do
         return ParamTag_IP
+
+      "ParamTag_WithOrganization" -> do
+        return ParamTag_WithOrganization
+
+      "ParamTag_WithForum" -> do
+        return ParamTag_WithForum
+
+      "ParamTag_WithBoard" -> do
+        return ParamTag_WithBoard
+
+      "ParamTag_WithThread" -> do
+        return ParamTag_WithThread
+
+      "ParamTag_WithResource" -> do
+        return ParamTag_WithResource
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -5846,6 +5916,7 @@ instance ToJSON ForumPackResponse where
     , "stat" .= forumPackResponseStat
     , "like" .= forumPackResponseLike
     , "star" .= forumPackResponseStar
+    , "with_organization" .= forumPackResponseWithOrganization
     , "is_owner" .= forumPackResponseIsOwner
     ]
 
@@ -5857,6 +5928,7 @@ instance FromJSON ForumPackResponse where
     forumPackResponseStat <- o .: "stat"
     forumPackResponseLike <- o .: "like"
     forumPackResponseStar <- o .: "star"
+    forumPackResponseWithOrganization <- o .: "with_organization"
     forumPackResponseIsOwner <- o .: "is_owner"
     return $ ForumPackResponse {
       forumPackResponseForum = forumPackResponseForum,
@@ -5864,6 +5936,7 @@ instance FromJSON ForumPackResponse where
       forumPackResponseStat = forumPackResponseStat,
       forumPackResponseLike = forumPackResponseLike,
       forumPackResponseStar = forumPackResponseStar,
+      forumPackResponseWithOrganization = forumPackResponseWithOrganization,
       forumPackResponseIsOwner = forumPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
@@ -5896,6 +5969,8 @@ instance ToJSON BoardPackResponse where
     , "latest_thread" .= boardPackResponseLatestThread
     , "latest_thread_post" .= boardPackResponseLatestThreadPost
     , "latest_thread_post_user" .= boardPackResponseLatestThreadPostUser
+    , "with_organization" .= boardPackResponseWithOrganization
+    , "with_forum" .= boardPackResponseWithForum
     , "is_owner" .= boardPackResponseIsOwner
     ]
 
@@ -5910,6 +5985,8 @@ instance FromJSON BoardPackResponse where
     boardPackResponseLatestThread <- o .: "latest_thread"
     boardPackResponseLatestThreadPost <- o .: "latest_thread_post"
     boardPackResponseLatestThreadPostUser <- o .: "latest_thread_post_user"
+    boardPackResponseWithOrganization <- o .: "with_organization"
+    boardPackResponseWithForum <- o .: "with_forum"
     boardPackResponseIsOwner <- o .: "is_owner"
     return $ BoardPackResponse {
       boardPackResponseBoard = boardPackResponseBoard,
@@ -5920,6 +5997,8 @@ instance FromJSON BoardPackResponse where
       boardPackResponseLatestThread = boardPackResponseLatestThread,
       boardPackResponseLatestThreadPost = boardPackResponseLatestThreadPost,
       boardPackResponseLatestThreadPostUser = boardPackResponseLatestThreadPostUser,
+      boardPackResponseWithOrganization = boardPackResponseWithOrganization,
+      boardPackResponseWithForum = boardPackResponseWithForum,
       boardPackResponseIsOwner = boardPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
@@ -5953,6 +6032,9 @@ instance ToJSON ThreadPackResponse where
     , "star" .= threadPackResponseStar
     , "latest_thread_post" .= threadPackResponseLatestThreadPost
     , "latest_thread_post_user" .= threadPackResponseLatestThreadPostUser
+    , "with_organization" .= threadPackResponseWithOrganization
+    , "with_forum" .= threadPackResponseWithForum
+    , "with_board" .= threadPackResponseWithBoard
     , "is_owner" .= threadPackResponseIsOwner
     ]
 
@@ -5968,6 +6050,9 @@ instance FromJSON ThreadPackResponse where
     threadPackResponseStar <- o .: "star"
     threadPackResponseLatestThreadPost <- o .: "latest_thread_post"
     threadPackResponseLatestThreadPostUser <- o .: "latest_thread_post_user"
+    threadPackResponseWithOrganization <- o .: "with_organization"
+    threadPackResponseWithForum <- o .: "with_forum"
+    threadPackResponseWithBoard <- o .: "with_board"
     threadPackResponseIsOwner <- o .: "is_owner"
     return $ ThreadPackResponse {
       threadPackResponseThread = threadPackResponseThread,
@@ -5979,6 +6064,9 @@ instance FromJSON ThreadPackResponse where
       threadPackResponseStar = threadPackResponseStar,
       threadPackResponseLatestThreadPost = threadPackResponseLatestThreadPost,
       threadPackResponseLatestThreadPostUser = threadPackResponseLatestThreadPostUser,
+      threadPackResponseWithOrganization = threadPackResponseWithOrganization,
+      threadPackResponseWithForum = threadPackResponseWithForum,
+      threadPackResponseWithBoard = threadPackResponseWithBoard,
       threadPackResponseIsOwner = threadPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
@@ -6010,6 +6098,10 @@ instance ToJSON ThreadPostPackResponse where
     , "stat" .= threadPostPackResponseStat
     , "like" .= threadPostPackResponseLike
     , "star" .= threadPostPackResponseStar
+    , "with_organization" .= threadPostPackResponseWithOrganization
+    , "with_forum" .= threadPostPackResponseWithForum
+    , "with_board" .= threadPostPackResponseWithBoard
+    , "with_thread" .= threadPostPackResponseWithThread
     , "is_owner" .= threadPostPackResponseIsOwner
     ]
 
@@ -6023,6 +6115,10 @@ instance FromJSON ThreadPostPackResponse where
     threadPostPackResponseStat <- o .: "stat"
     threadPostPackResponseLike <- o .: "like"
     threadPostPackResponseStar <- o .: "star"
+    threadPostPackResponseWithOrganization <- o .: "with_organization"
+    threadPostPackResponseWithForum <- o .: "with_forum"
+    threadPostPackResponseWithBoard <- o .: "with_board"
+    threadPostPackResponseWithThread <- o .: "with_thread"
     threadPostPackResponseIsOwner <- o .: "is_owner"
     return $ ThreadPostPackResponse {
       threadPostPackResponseThreadPost = threadPostPackResponseThreadPost,
@@ -6032,6 +6128,10 @@ instance FromJSON ThreadPostPackResponse where
       threadPostPackResponseStat = threadPostPackResponseStat,
       threadPostPackResponseLike = threadPostPackResponseLike,
       threadPostPackResponseStar = threadPostPackResponseStar,
+      threadPostPackResponseWithOrganization = threadPostPackResponseWithOrganization,
+      threadPostPackResponseWithForum = threadPostPackResponseWithForum,
+      threadPostPackResponseWithBoard = threadPostPackResponseWithBoard,
+      threadPostPackResponseWithThread = threadPostPackResponseWithThread,
       threadPostPackResponseIsOwner = threadPostPackResponseIsOwner
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
