@@ -20,13 +20,6 @@ default (Text)
 
 
 
--- *** WARNING ***
--- IF YOU MODIFY ANYTHING IN HERE, YOU MUST COPY IT TO Param/String.hs
--- then:
--- %s/LN.T.Param/LN.T.Param.String/g
--- %s/T.upack //g
--- %s/Text/String/g
-
 data Param
   = Limit                  Int
   | Offset                 Int
