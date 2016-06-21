@@ -1,6 +1,7 @@
 module LN.T.Permission (
   Permission (..),
-  Permissions
+  Permissions,
+  emptyPermissions
 ) where
 
 
@@ -24,3 +25,8 @@ data Permission
 -- Need to build Maps into ln-interop; currently unsupported.
 -- Once built in, need to also change blahResponses from lists to Maps.
 type Permissions = [Permission]
+
+
+
+emptyPermissions :: Permissions
+emptyPermissions = []
