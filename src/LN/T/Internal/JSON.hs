@@ -4735,9 +4735,7 @@ instance ToJSON TeamResponse where
     , "id" .= teamResponseId
     , "user_id" .= teamResponseUserId
     , "org_id" .= teamResponseOrgId
-    , "name" .= teamResponseName
-    , "display_name" .= teamResponseDisplayName
-    , "description" .= teamResponseDescription
+    , "system" .= teamResponseSystem
     , "membership" .= teamResponseMembership
     , "icon" .= teamResponseIcon
     , "tags" .= teamResponseTags
@@ -4756,9 +4754,7 @@ instance FromJSON TeamResponse where
     teamResponseId <- o .: "id"
     teamResponseUserId <- o .: "user_id"
     teamResponseOrgId <- o .: "org_id"
-    teamResponseName <- o .: "name"
-    teamResponseDisplayName <- o .: "display_name"
-    teamResponseDescription <- o .: "description"
+    teamResponseSystem <- o .: "system"
     teamResponseMembership <- o .: "membership"
     teamResponseIcon <- o .: "icon"
     teamResponseTags <- o .: "tags"
@@ -4773,9 +4769,7 @@ instance FromJSON TeamResponse where
       teamResponseId = teamResponseId,
       teamResponseUserId = teamResponseUserId,
       teamResponseOrgId = teamResponseOrgId,
-      teamResponseName = teamResponseName,
-      teamResponseDisplayName = teamResponseDisplayName,
-      teamResponseDescription = teamResponseDescription,
+      teamResponseSystem = teamResponseSystem,
       teamResponseMembership = teamResponseMembership,
       teamResponseIcon = teamResponseIcon,
       teamResponseTags = teamResponseTags,
