@@ -4677,7 +4677,7 @@ instance FromJSON StarStatResponses where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
-instance ToJSON SystemTeams where
+instance ToJSON SystemTeam where
   toJSON (Team_Owners ) = object $
     [ "tag" .= "Team_Owners"
     , "contents" .= ([] :: [Text])
@@ -4688,7 +4688,7 @@ instance ToJSON SystemTeams where
     ]
 
 
-instance FromJSON SystemTeams where
+instance FromJSON SystemTeam where
   parseJSON (Object o) = do
     tag <- o .: "tag"
     case tag of
