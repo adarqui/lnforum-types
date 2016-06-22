@@ -14,6 +14,7 @@ import           LN.T.Organization.Stat
 import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Star.Response
+import           LN.T.Team
 import           LN.T.User.Sanitized.Response
 
 
@@ -27,7 +28,7 @@ data OrganizationPackResponse = OrganizationPackResponse {
   organizationPackResponseLike           :: Maybe LikeResponse,
   organizationPackResponseStar           :: Maybe StarResponse,
   organizationPackResponsePermissions    :: Permissions,
-  organizationPackResponseIsMember       :: Bool
+  organizationPackResponseTeams          :: [SystemTeam]
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

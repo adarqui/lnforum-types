@@ -5610,7 +5610,7 @@ instance ToJSON OrganizationPackResponse where
     , "like" .= organizationPackResponseLike
     , "star" .= organizationPackResponseStar
     , "permissions" .= organizationPackResponsePermissions
-    , "is_member" .= organizationPackResponseIsMember
+    , "teams" .= organizationPackResponseTeams
     ]
 
 
@@ -5624,7 +5624,7 @@ instance FromJSON OrganizationPackResponse where
     organizationPackResponseLike <- o .: "like"
     organizationPackResponseStar <- o .: "star"
     organizationPackResponsePermissions <- o .: "permissions"
-    organizationPackResponseIsMember <- o .: "is_member"
+    organizationPackResponseTeams <- o .: "teams"
     return $ OrganizationPackResponse {
       organizationPackResponseUser = organizationPackResponseUser,
       organizationPackResponseUserId = organizationPackResponseUserId,
@@ -5634,7 +5634,7 @@ instance FromJSON OrganizationPackResponse where
       organizationPackResponseLike = organizationPackResponseLike,
       organizationPackResponseStar = organizationPackResponseStar,
       organizationPackResponsePermissions = organizationPackResponsePermissions,
-      organizationPackResponseIsMember = organizationPackResponseIsMember
+      organizationPackResponseTeams = organizationPackResponseTeams
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
