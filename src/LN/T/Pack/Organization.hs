@@ -26,7 +26,8 @@ data OrganizationPackResponse = OrganizationPackResponse {
   organizationPackResponseStat           :: OrganizationStatResponse,
   organizationPackResponseLike           :: Maybe LikeResponse,
   organizationPackResponseStar           :: Maybe StarResponse,
-  organizationPackResponsePermissions    :: Permissions
+  organizationPackResponsePermissions    :: Permissions,
+  organizationPackResponseIsMember       :: Bool
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 

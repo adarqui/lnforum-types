@@ -14,8 +14,6 @@ import           LN.T.Visibility
 
 
 data TeamRequest = TeamRequest {
-  teamRequestDisplayName :: Text,
-  teamRequestDescription :: Maybe Text,
   teamRequestMembership  :: Membership,
   teamRequestIcon        :: Maybe Text,
   teamRequestTags        :: [Text],
@@ -27,8 +25,6 @@ data TeamRequest = TeamRequest {
 
 defaultTeamRequest :: TeamRequest
 defaultTeamRequest = TeamRequest {
-  teamRequestDisplayName = "",
-  teamRequestDescription = Nothing,
   teamRequestMembership  = Membership_Join,
   teamRequestIcon        = Nothing,
   teamRequestTags        = [],
