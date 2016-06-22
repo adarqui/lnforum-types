@@ -4680,8 +4680,6 @@ instance FromJSON StarStatResponses where
 instance ToJSON TeamRequest where
   toJSON TeamRequest{..} = object $
     [ "tag" .= "TeamRequest"
-    , "display_name" .= teamRequestDisplayName
-    , "description" .= teamRequestDescription
     , "membership" .= teamRequestMembership
     , "icon" .= teamRequestIcon
     , "tags" .= teamRequestTags
@@ -4692,16 +4690,12 @@ instance ToJSON TeamRequest where
 
 instance FromJSON TeamRequest where
   parseJSON (Object o) = do
-    teamRequestDisplayName <- o .: "display_name"
-    teamRequestDescription <- o .: "description"
     teamRequestMembership <- o .: "membership"
     teamRequestIcon <- o .: "icon"
     teamRequestTags <- o .: "tags"
     teamRequestVisibility <- o .: "visibility"
     teamRequestGuard <- o .: "guard"
     return $ TeamRequest {
-      teamRequestDisplayName = teamRequestDisplayName,
-      teamRequestDescription = teamRequestDescription,
       teamRequestMembership = teamRequestMembership,
       teamRequestIcon = teamRequestIcon,
       teamRequestTags = teamRequestTags,
@@ -5598,6 +5592,7 @@ instance ToJSON OrganizationPackResponse where
     , "like" .= organizationPackResponseLike
     , "star" .= organizationPackResponseStar
     , "permissions" .= organizationPackResponsePermissions
+    , "is_member" .= organizationPackResponseIsMember
     ]
 
 
@@ -5611,6 +5606,7 @@ instance FromJSON OrganizationPackResponse where
     organizationPackResponseLike <- o .: "like"
     organizationPackResponseStar <- o .: "star"
     organizationPackResponsePermissions <- o .: "permissions"
+    organizationPackResponseIsMember <- o .: "is_member"
     return $ OrganizationPackResponse {
       organizationPackResponseUser = organizationPackResponseUser,
       organizationPackResponseUserId = organizationPackResponseUserId,
@@ -5619,7 +5615,8 @@ instance FromJSON OrganizationPackResponse where
       organizationPackResponseStat = organizationPackResponseStat,
       organizationPackResponseLike = organizationPackResponseLike,
       organizationPackResponseStar = organizationPackResponseStar,
-      organizationPackResponsePermissions = organizationPackResponsePermissions
+      organizationPackResponsePermissions = organizationPackResponsePermissions,
+      organizationPackResponseIsMember = organizationPackResponseIsMember
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
