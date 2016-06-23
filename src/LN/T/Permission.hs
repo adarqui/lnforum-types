@@ -1,7 +1,8 @@
 module LN.T.Permission (
   Permission (..),
   Permissions,
-  emptyPermissions
+  emptyPermissions,
+  allPermissions
 ) where
 
 
@@ -30,3 +31,8 @@ type Permissions = [Permission]
 
 emptyPermissions :: Permissions
 emptyPermissions = []
+
+
+
+allPermissions :: Permissions
+allPermissions = [Perm_Create, Perm_Read, Perm_Update, Perm_Delete, Perm_Execute]
