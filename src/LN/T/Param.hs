@@ -72,17 +72,18 @@ data Param
   | ByParentId             Int64
   | ByParentsIds           [Int64]
   | ByParentName           Text
+  | BySelf                 Bool
   | Timestamp              UTCTime
   | UnixTimestamp          Int64
   | CreatedAtTimestamp     UTCTime
   | CreatedAtUnixTimestamp Int64
   | RealIP                 Text
   | IP                     Text
-  | WithOrganization
-  | WithForum
-  | WithBoard
-  | WithThread
-  | WithResource
+  | WithOrganization       Bool
+  | WithForum              Bool
+  | WithBoard              Bool
+  | WithThread             Bool
+  | WithResource           Bool
   deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
 
@@ -139,6 +140,7 @@ data ParamTag
   | ParamTag_ByParentId
   | ParamTag_ByParentsIds
   | ParamTag_ByParentName
+  | ParamTag_BySelf
   | ParamTag_Timestamp
   | ParamTag_UnixTimestamp
   | ParamTag_CreatedAtTimestamp
@@ -198,17 +200,18 @@ instance QueryParam Param where
   qp (ByParentId parent_id)              = tuple "parent_id" (T.pack $ show parent_id)
   qp (ByParentsIds parents_ids)          = tuple "parents_ids" (T.pack $ show parents_ids)
   qp (ByParentName parent_name)          = tuple "parent_name" parent_name
+  qp (BySelf b)                          = tuple "self" (T.pack $ show b)
   qp (Timestamp ts)                      = tuple "ts" (T.pack $ show ts)
   qp (UnixTimestamp unix_ts)             = tuple "unix_ts" (T.pack $ show unix_ts)
   qp (CreatedAtTimestamp created_at)     = tuple "created_at_ts" (T.pack $ show created_at)
   qp (CreatedAtUnixTimestamp created_at) = tuple "created_at_unix_ts" (T.pack $ show created_at)
   qp (RealIP real_ip)                    = tuple "real_ip" real_ip
   qp (IP ip)                             = tuple "ip" ip
-  qp WithOrganization                    = tuple "with_organization" ""
-  qp WithForum                           = tuple "with_forum" ""
-  qp WithBoard                           = tuple "with_board" ""
-  qp WithThread                          = tuple "with_thread" ""
-  qp WithResource                        = tuple "with_resource" ""
+  qp (WithOrganization b)                = tuple "with_organization" (T.pack $ show b)
+  qp (WithForum b)                       = tuple "with_forum" (T.pack $ show b)
+  qp (WithBoard b)                       = tuple "with_board" (T.pack $ show b)
+  qp (WithThread b)                      = tuple "with_thread" (T.pack $ show b)
+  qp (WithResource b)                    = tuple "with_resource" (T.pack $ show b)
 
 
 
@@ -330,6 +333,7 @@ instance Show ParamTag where
   show ParamTag_ByParentId             = "parent_id"
   show ParamTag_ByParentsIds           = "parents_ids"
   show ParamTag_ByParentName           = "parent_name"
+  show ParamTag_BySelf                 = "self"
   show ParamTag_Timestamp              = "ts"
   show ParamTag_UnixTimestamp          = "unix_ts"
   show ParamTag_CreatedAtTimestamp     = "created_at_ts"

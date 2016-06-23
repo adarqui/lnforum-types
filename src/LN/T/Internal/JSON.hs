@@ -2625,6 +2625,10 @@ instance ToJSON Param where
     [ "tag" .= "ByParentName"
     , "contents" .= toJSON x0
     ]
+  toJSON (BySelf x0) = object $
+    [ "tag" .= "BySelf"
+    , "contents" .= toJSON x0
+    ]
   toJSON (Timestamp x0) = object $
     [ "tag" .= "Timestamp"
     , "contents" .= toJSON x0
@@ -2649,25 +2653,25 @@ instance ToJSON Param where
     [ "tag" .= "IP"
     , "contents" .= toJSON x0
     ]
-  toJSON (WithOrganization ) = object $
+  toJSON (WithOrganization x0) = object $
     [ "tag" .= "WithOrganization"
-    , "contents" .= ([] :: [Text])
+    , "contents" .= toJSON x0
     ]
-  toJSON (WithForum ) = object $
+  toJSON (WithForum x0) = object $
     [ "tag" .= "WithForum"
-    , "contents" .= ([] :: [Text])
+    , "contents" .= toJSON x0
     ]
-  toJSON (WithBoard ) = object $
+  toJSON (WithBoard x0) = object $
     [ "tag" .= "WithBoard"
-    , "contents" .= ([] :: [Text])
+    , "contents" .= toJSON x0
     ]
-  toJSON (WithThread ) = object $
+  toJSON (WithThread x0) = object $
     [ "tag" .= "WithThread"
-    , "contents" .= ([] :: [Text])
+    , "contents" .= toJSON x0
     ]
-  toJSON (WithResource ) = object $
+  toJSON (WithResource x0) = object $
     [ "tag" .= "WithResource"
-    , "contents" .= ([] :: [Text])
+    , "contents" .= toJSON x0
     ]
 
 
@@ -2879,6 +2883,10 @@ instance FromJSON Param where
         x0 <- o .: "contents"
         ByParentName <$> parseJSON x0
 
+      "BySelf" -> do
+        x0 <- o .: "contents"
+        BySelf <$> parseJSON x0
+
       "Timestamp" -> do
         x0 <- o .: "contents"
         Timestamp <$> parseJSON x0
@@ -2904,19 +2912,24 @@ instance FromJSON Param where
         IP <$> parseJSON x0
 
       "WithOrganization" -> do
-        return WithOrganization
+        x0 <- o .: "contents"
+        WithOrganization <$> parseJSON x0
 
       "WithForum" -> do
-        return WithForum
+        x0 <- o .: "contents"
+        WithForum <$> parseJSON x0
 
       "WithBoard" -> do
-        return WithBoard
+        x0 <- o .: "contents"
+        WithBoard <$> parseJSON x0
 
       "WithThread" -> do
-        return WithThread
+        x0 <- o .: "contents"
+        WithThread <$> parseJSON x0
 
       "WithResource" -> do
-        return WithResource
+        x0 <- o .: "contents"
+        WithResource <$> parseJSON x0
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
@@ -3126,6 +3139,10 @@ instance ToJSON ParamTag where
     [ "tag" .= "ParamTag_ByParentName"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (ParamTag_BySelf ) = object $
+    [ "tag" .= "ParamTag_BySelf"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (ParamTag_Timestamp ) = object $
     [ "tag" .= "ParamTag_Timestamp"
     , "contents" .= ([] :: [Text])
@@ -3328,6 +3345,9 @@ instance FromJSON ParamTag where
 
       "ParamTag_ByParentName" -> do
         return ParamTag_ByParentName
+
+      "ParamTag_BySelf" -> do
+        return ParamTag_BySelf
 
       "ParamTag_Timestamp" -> do
         return ParamTag_Timestamp
