@@ -154,6 +154,7 @@ instance ToJSON BoardResponse where
     [ "tag" .= "BoardResponse"
     , "id" .= boardResponseId
     , "user_id" .= boardResponseUserId
+    , "org_id" .= boardResponseOrgId
     , "forum_id" .= boardResponseForumId
     , "parent_id" .= boardResponseParentId
     , "name" .= boardResponseName
@@ -178,6 +179,7 @@ instance FromJSON BoardResponse where
   parseJSON (Object o) = do
     boardResponseId <- o .: "id"
     boardResponseUserId <- o .: "user_id"
+    boardResponseOrgId <- o .: "org_id"
     boardResponseForumId <- o .: "forum_id"
     boardResponseParentId <- o .: "parent_id"
     boardResponseName <- o .: "name"
@@ -198,6 +200,7 @@ instance FromJSON BoardResponse where
     return $ BoardResponse {
       boardResponseId = boardResponseId,
       boardResponseUserId = boardResponseUserId,
+      boardResponseOrgId = boardResponseOrgId,
       boardResponseForumId = boardResponseForumId,
       boardResponseParentId = boardResponseParentId,
       boardResponseName = boardResponseName,
@@ -4873,6 +4876,7 @@ instance ToJSON TeamMemberResponse where
     [ "tag" .= "TeamMemberResponse"
     , "id" .= teamMemberResponseId
     , "user_id" .= teamMemberResponseUserId
+    , "org_id" .= teamMemberResponseOrgId
     , "team_id" .= teamMemberResponseTeamId
     , "is_accepted" .= teamMemberResponseIsAccepted
     , "accepted_at" .= teamMemberResponseAcceptedAt
@@ -4891,6 +4895,7 @@ instance FromJSON TeamMemberResponse where
   parseJSON (Object o) = do
     teamMemberResponseId <- o .: "id"
     teamMemberResponseUserId <- o .: "user_id"
+    teamMemberResponseOrgId <- o .: "org_id"
     teamMemberResponseTeamId <- o .: "team_id"
     teamMemberResponseIsAccepted <- o .: "is_accepted"
     teamMemberResponseAcceptedAt <- o .: "accepted_at"
@@ -4905,6 +4910,7 @@ instance FromJSON TeamMemberResponse where
     return $ TeamMemberResponse {
       teamMemberResponseId = teamMemberResponseId,
       teamMemberResponseUserId = teamMemberResponseUserId,
+      teamMemberResponseOrgId = teamMemberResponseOrgId,
       teamMemberResponseTeamId = teamMemberResponseTeamId,
       teamMemberResponseIsAccepted = teamMemberResponseIsAccepted,
       teamMemberResponseAcceptedAt = teamMemberResponseAcceptedAt,
@@ -5071,6 +5077,8 @@ instance ToJSON ThreadResponse where
     [ "tag" .= "ThreadResponse"
     , "id" .= threadResponseId
     , "user_id" .= threadResponseUserId
+    , "org_id" .= threadResponseOrgId
+    , "forum_id" .= threadResponseForumId
     , "board_id" .= threadResponseBoardId
     , "name" .= threadResponseName
     , "display_name" .= threadResponseDisplayName
@@ -5093,6 +5101,8 @@ instance FromJSON ThreadResponse where
   parseJSON (Object o) = do
     threadResponseId <- o .: "id"
     threadResponseUserId <- o .: "user_id"
+    threadResponseOrgId <- o .: "org_id"
+    threadResponseForumId <- o .: "forum_id"
     threadResponseBoardId <- o .: "board_id"
     threadResponseName <- o .: "name"
     threadResponseDisplayName <- o .: "display_name"
@@ -5111,6 +5121,8 @@ instance FromJSON ThreadResponse where
     return $ ThreadResponse {
       threadResponseId = threadResponseId,
       threadResponseUserId = threadResponseUserId,
+      threadResponseOrgId = threadResponseOrgId,
+      threadResponseForumId = threadResponseForumId,
       threadResponseBoardId = threadResponseBoardId,
       threadResponseName = threadResponseName,
       threadResponseDisplayName = threadResponseDisplayName,
@@ -5274,6 +5286,9 @@ instance ToJSON ThreadPostResponse where
     [ "tag" .= "ThreadPostResponse"
     , "id" .= threadPostResponseId
     , "user_id" .= threadPostResponseUserId
+    , "org_id" .= threadPostResponseOrgId
+    , "forum_id" .= threadPostResponseForumId
+    , "board_id" .= threadPostResponseBoardId
     , "thread_id" .= threadPostResponseThreadId
     , "parent_id" .= threadPostResponseParentId
     , "title" .= threadPostResponseTitle
@@ -5293,6 +5308,9 @@ instance FromJSON ThreadPostResponse where
   parseJSON (Object o) = do
     threadPostResponseId <- o .: "id"
     threadPostResponseUserId <- o .: "user_id"
+    threadPostResponseOrgId <- o .: "org_id"
+    threadPostResponseForumId <- o .: "forum_id"
+    threadPostResponseBoardId <- o .: "board_id"
     threadPostResponseThreadId <- o .: "thread_id"
     threadPostResponseParentId <- o .: "parent_id"
     threadPostResponseTitle <- o .: "title"
@@ -5308,6 +5326,9 @@ instance FromJSON ThreadPostResponse where
     return $ ThreadPostResponse {
       threadPostResponseId = threadPostResponseId,
       threadPostResponseUserId = threadPostResponseUserId,
+      threadPostResponseOrgId = threadPostResponseOrgId,
+      threadPostResponseForumId = threadPostResponseForumId,
+      threadPostResponseBoardId = threadPostResponseBoardId,
       threadPostResponseThreadId = threadPostResponseThreadId,
       threadPostResponseParentId = threadPostResponseParentId,
       threadPostResponseTitle = threadPostResponseTitle,

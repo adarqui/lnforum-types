@@ -14,6 +14,8 @@ import           LN.T.Prelude
 data ThreadResponse = ThreadResponse {
   threadResponseId          :: Int64,
   threadResponseUserId      :: Int64,
+  threadResponseOrgId       :: Int64,
+  threadResponseForumId     :: Int64,
   threadResponseBoardId     :: Int64,
   threadResponseName        :: Text,
   threadResponseDisplayName :: Text,

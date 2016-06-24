@@ -15,6 +15,9 @@ import           LN.T.ThreadPost
 data ThreadPostResponse = ThreadPostResponse {
   threadPostResponseId          :: Int64,
   threadPostResponseUserId      :: Int64,
+  threadPostResponseOrgId       :: Int64,
+  threadPostResponseForumId     :: Int64,
+  threadPostResponseBoardId     :: Int64,
   threadPostResponseThreadId    :: Int64,
   threadPostResponseParentId    :: Maybe Int64,
   threadPostResponseTitle       :: Maybe Text,

@@ -16,6 +16,7 @@ import           LN.T.Visibility
 data TeamMemberResponse = TeamMemberResponse {
   teamMemberResponseId         :: Int64,
   teamMemberResponseUserId     :: Int64,
+  teamMemberResponseOrgId      :: Int64,
   teamMemberResponseTeamId     :: Int64,
   teamMemberResponseIsAccepted :: Bool,
   teamMemberResponseAcceptedAt :: Maybe UTCTime,

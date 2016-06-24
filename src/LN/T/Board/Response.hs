@@ -14,6 +14,7 @@ import           LN.T.Prelude
 data BoardResponse = BoardResponse {
   boardResponseId                 :: Int64,
   boardResponseUserId             :: Int64,
+  boardResponseOrgId              :: Int64,
   boardResponseForumId            :: Int64,
   boardResponseParentId           :: Maybe Int64,
   boardResponseName               :: Text,
