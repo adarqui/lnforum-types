@@ -25,8 +25,6 @@ data TeamPackResponse = TeamPackResponse {
   teamPackResponseTeam        :: TeamResponse,
   teamPackResponseTeamId      :: Int64,
   teamPackResponseStat        :: TeamStatResponse,
-  teamPackResponseLike        :: Maybe LikeResponse,
-  teamPackResponseStar        :: Maybe StarResponse,
   teamPackResponsePermissions :: Permissions
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
