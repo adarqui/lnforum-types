@@ -3927,6 +3927,7 @@ instance ToJSON ProfileResponse where
     , "website" .= profileResponseWebsite
     , "location" .= profileResponseLocation
     , "signature" .= profileResponseSignature
+    , "debug" .= profileResponseDebug
     , "karma_good" .= profileResponseKarmaGood
     , "karma_bad" .= profileResponseKarmaBad
     , "guard" .= profileResponseGuard
@@ -3945,6 +3946,7 @@ instance FromJSON ProfileResponse where
     profileResponseWebsite <- o .: "website"
     profileResponseLocation <- o .: "location"
     profileResponseSignature <- o .: "signature"
+    profileResponseDebug <- o .: "debug"
     profileResponseKarmaGood <- o .: "karma_good"
     profileResponseKarmaBad <- o .: "karma_bad"
     profileResponseGuard <- o .: "guard"
@@ -3959,6 +3961,7 @@ instance FromJSON ProfileResponse where
       profileResponseWebsite = profileResponseWebsite,
       profileResponseLocation = profileResponseLocation,
       profileResponseSignature = profileResponseSignature,
+      profileResponseDebug = profileResponseDebug,
       profileResponseKarmaGood = profileResponseKarmaGood,
       profileResponseKarmaBad = profileResponseKarmaBad,
       profileResponseGuard = profileResponseGuard,

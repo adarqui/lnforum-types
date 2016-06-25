@@ -23,6 +23,7 @@ data ProfileResponse = ProfileResponse {
   profileResponseWebsite    :: Maybe Text,
   profileResponseLocation   :: Maybe Text,
   profileResponseSignature  :: Maybe Text,
+  profileResponseDebug      :: Bool,
   profileResponseKarmaGood  :: Int,
   profileResponseKarmaBad   :: Int,
   profileResponseGuard      :: Int,
