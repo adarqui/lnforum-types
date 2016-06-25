@@ -664,7 +664,7 @@ instance ToJSON ForumRequest where
     , "thread_posts_per_thread" .= forumRequestThreadPostsPerThread
     , "recent_threads_limit" .= forumRequestRecentThreadsLimit
     , "recent_posts_limit" .= forumRequestRecentPostsLimit
-    , "motwlimit" .= forumRequestMOTWLimit
+    , "motw_limit" .= forumRequestMotwLimit
     , "icon" .= forumRequestIcon
     , "tags" .= forumRequestTags
     , "visibility" .= forumRequestVisibility
@@ -680,7 +680,7 @@ instance FromJSON ForumRequest where
     forumRequestThreadPostsPerThread <- o .: "thread_posts_per_thread"
     forumRequestRecentThreadsLimit <- o .: "recent_threads_limit"
     forumRequestRecentPostsLimit <- o .: "recent_posts_limit"
-    forumRequestMOTWLimit <- o .: "motwlimit"
+    forumRequestMotwLimit <- o .: "motw_limit"
     forumRequestIcon <- o .: "icon"
     forumRequestTags <- o .: "tags"
     forumRequestVisibility <- o .: "visibility"
@@ -692,7 +692,7 @@ instance FromJSON ForumRequest where
       forumRequestThreadPostsPerThread = forumRequestThreadPostsPerThread,
       forumRequestRecentThreadsLimit = forumRequestRecentThreadsLimit,
       forumRequestRecentPostsLimit = forumRequestRecentPostsLimit,
-      forumRequestMOTWLimit = forumRequestMOTWLimit,
+      forumRequestMotwLimit = forumRequestMotwLimit,
       forumRequestIcon = forumRequestIcon,
       forumRequestTags = forumRequestTags,
       forumRequestVisibility = forumRequestVisibility,
@@ -714,7 +714,7 @@ instance ToJSON ForumResponse where
     , "thread_posts_per_thread" .= forumResponseThreadPostsPerThread
     , "recent_threads_limit" .= forumResponseRecentThreadsLimit
     , "recent_posts_limit" .= forumResponseRecentPostsLimit
-    , "motwlimit" .= forumResponseMOTWLimit
+    , "motw_limit" .= forumResponseMotwLimit
     , "icon" .= forumResponseIcon
     , "tags" .= forumResponseTags
     , "visibility" .= forumResponseVisibility
@@ -739,7 +739,7 @@ instance FromJSON ForumResponse where
     forumResponseThreadPostsPerThread <- o .: "thread_posts_per_thread"
     forumResponseRecentThreadsLimit <- o .: "recent_threads_limit"
     forumResponseRecentPostsLimit <- o .: "recent_posts_limit"
-    forumResponseMOTWLimit <- o .: "motwlimit"
+    forumResponseMotwLimit <- o .: "motw_limit"
     forumResponseIcon <- o .: "icon"
     forumResponseTags <- o .: "tags"
     forumResponseVisibility <- o .: "visibility"
@@ -760,7 +760,7 @@ instance FromJSON ForumResponse where
       forumResponseThreadPostsPerThread = forumResponseThreadPostsPerThread,
       forumResponseRecentThreadsLimit = forumResponseRecentThreadsLimit,
       forumResponseRecentPostsLimit = forumResponseRecentPostsLimit,
-      forumResponseMOTWLimit = forumResponseMOTWLimit,
+      forumResponseMotwLimit = forumResponseMotwLimit,
       forumResponseIcon = forumResponseIcon,
       forumResponseTags = forumResponseTags,
       forumResponseVisibility = forumResponseVisibility,

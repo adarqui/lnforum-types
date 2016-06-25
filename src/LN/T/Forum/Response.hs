@@ -23,7 +23,7 @@ data ForumResponse = ForumResponse {
   forumResponseThreadPostsPerThread :: Int,
   forumResponseRecentThreadsLimit   :: Int,
   forumResponseRecentPostsLimit     :: Int,
-  forumResponseMOTWLimit            :: Int,
+  forumResponseMotwLimit            :: Int,
   forumResponseIcon                 :: Maybe Text,
   forumResponseTags                 :: [Text],
   forumResponseVisibility           :: Visibility,
