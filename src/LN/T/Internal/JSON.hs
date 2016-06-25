@@ -3890,6 +3890,7 @@ instance ToJSON ProfileRequest where
     , "website" .= profileRequestWebsite
     , "location" .= profileRequestLocation
     , "signature" .= profileRequestSignature
+    , "debug" .= profileRequestDebug
     , "guard" .= profileRequestGuard
     ]
 
@@ -3901,6 +3902,7 @@ instance FromJSON ProfileRequest where
     profileRequestWebsite <- o .: "website"
     profileRequestLocation <- o .: "location"
     profileRequestSignature <- o .: "signature"
+    profileRequestDebug <- o .: "debug"
     profileRequestGuard <- o .: "guard"
     return $ ProfileRequest {
       profileRequestGender = profileRequestGender,
@@ -3908,6 +3910,7 @@ instance FromJSON ProfileRequest where
       profileRequestWebsite = profileRequestWebsite,
       profileRequestLocation = profileRequestLocation,
       profileRequestSignature = profileRequestSignature,
+      profileRequestDebug = profileRequestDebug,
       profileRequestGuard = profileRequestGuard
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x

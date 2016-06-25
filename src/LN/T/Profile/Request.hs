@@ -20,6 +20,7 @@ data ProfileRequest = ProfileRequest {
   profileRequestWebsite   :: Maybe Text,
   profileRequestLocation  :: Maybe Text,
   profileRequestSignature :: Maybe Text,
+  profileRequestDebug     :: Bool,
   profileRequestGuard     :: Int
 } deriving (Eq, Ord, Show, Read, Generic, Typeable)
 
@@ -32,5 +33,6 @@ defaultProfileRequest = ProfileRequest {
   profileRequestWebsite   = Nothing,
   profileRequestLocation  = Nothing,
   profileRequestSignature = Nothing,
+  profileRequestDebug     = False,
   profileRequestGuard     = 0
 }
