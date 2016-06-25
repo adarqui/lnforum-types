@@ -6402,4 +6402,54 @@ instance FromJSON LeuronPackResponses where
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
+
+instance ToJSON PmInPackResponse where
+  toJSON PmInPackResponse{..} = object $
+    [ "tag" .= "PmInPackResponse"
+    , "pm_in" .= pmInPackResponsePmIn
+    , "pm_in_id" .= pmInPackResponsePmInId
+    , "user" .= pmInPackResponseUser
+    , "user_id" .= pmInPackResponseUserId
+    ]
+
+
+instance FromJSON PmInPackResponse where
+  parseJSON (Object o) = do
+    pmInPackResponsePmIn <- o .: "pm_in"
+    pmInPackResponsePmInId <- o .: "pm_in_id"
+    pmInPackResponseUser <- o .: "user"
+    pmInPackResponseUserId <- o .: "user_id"
+    return $ PmInPackResponse {
+      pmInPackResponsePmIn = pmInPackResponsePmIn,
+      pmInPackResponsePmInId = pmInPackResponsePmInId,
+      pmInPackResponseUser = pmInPackResponseUser,
+      pmInPackResponseUserId = pmInPackResponseUserId
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON PmOutPackResponse where
+  toJSON PmOutPackResponse{..} = object $
+    [ "tag" .= "PmOutPackResponse"
+    , "pm_out" .= pmOutPackResponsePmOut
+    , "pm_out_id" .= pmOutPackResponsePmOutId
+    , "user" .= pmOutPackResponseUser
+    , "user_id" .= pmOutPackResponseUserId
+    ]
+
+
+instance FromJSON PmOutPackResponse where
+  parseJSON (Object o) = do
+    pmOutPackResponsePmOut <- o .: "pm_out"
+    pmOutPackResponsePmOutId <- o .: "pm_out_id"
+    pmOutPackResponseUser <- o .: "user"
+    pmOutPackResponseUserId <- o .: "user_id"
+    return $ PmOutPackResponse {
+      pmOutPackResponsePmOut = pmOutPackResponsePmOut,
+      pmOutPackResponsePmOutId = pmOutPackResponsePmOutId,
+      pmOutPackResponseUser = pmOutPackResponseUser,
+      pmOutPackResponseUserId = pmOutPackResponseUserId
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
 -- footer
