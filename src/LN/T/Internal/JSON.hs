@@ -6428,6 +6428,22 @@ instance FromJSON PmInPackResponse where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON PmInPackResponses where
+  toJSON PmInPackResponses{..} = object $
+    [ "tag" .= "PmInPackResponses"
+    , "pm_in_pack_responses" .= pmInPackResponses
+    ]
+
+
+instance FromJSON PmInPackResponses where
+  parseJSON (Object o) = do
+    pmInPackResponses <- o .: "pm_in_pack_responses"
+    return $ PmInPackResponses {
+      pmInPackResponses = pmInPackResponses
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON PmOutPackResponse where
   toJSON PmOutPackResponse{..} = object $
     [ "tag" .= "PmOutPackResponse"
@@ -6449,6 +6465,22 @@ instance FromJSON PmOutPackResponse where
       pmOutPackResponsePmOutId = pmOutPackResponsePmOutId,
       pmOutPackResponseUser = pmOutPackResponseUser,
       pmOutPackResponseUserId = pmOutPackResponseUserId
+    }
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
+instance ToJSON PmOutPackResponses where
+  toJSON PmOutPackResponses{..} = object $
+    [ "tag" .= "PmOutPackResponses"
+    , "pm_out_pack_responses" .= pmOutPackResponses
+    ]
+
+
+instance FromJSON PmOutPackResponses where
+  parseJSON (Object o) = do
+    pmOutPackResponses <- o .: "pm_out_pack_responses"
+    return $ PmOutPackResponses {
+      pmOutPackResponses = pmOutPackResponses
     }
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
