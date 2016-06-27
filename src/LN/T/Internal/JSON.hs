@@ -655,6 +655,58 @@ instance FromJSON Ent where
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
 
+instance ToJSON ApplicationError where
+  toJSON (Error_Empty ) = object $
+    [ "tag" .= "Error_Empty"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Error_NotFound ) = object $
+    [ "tag" .= "Error_NotFound"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Error_PermissionDenied ) = object $
+    [ "tag" .= "Error_PermissionDenied"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Error_Visibility ) = object $
+    [ "tag" .= "Error_Visibility"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Error_Membership ) = object $
+    [ "tag" .= "Error_Membership"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Error_Unexpected ) = object $
+    [ "tag" .= "Error_Unexpected"
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON ApplicationError where
+  parseJSON (Object o) = do
+    tag <- o .: "tag"
+    case tag of
+      "Error_Empty" -> do
+        return Error_Empty
+
+      "Error_NotFound" -> do
+        return Error_NotFound
+
+      "Error_PermissionDenied" -> do
+        return Error_PermissionDenied
+
+      "Error_Visibility" -> do
+        return Error_Visibility
+
+      "Error_Membership" -> do
+        return Error_Membership
+
+      "Error_Unexpected" -> do
+        return Error_Unexpected
+
+  parseJSON x = fail $ "Could not parse object: " ++ show x
+
+
 instance ToJSON ForumRequest where
   toJSON ForumRequest{..} = object $
     [ "tag" .= "ForumRequest"

@@ -1,17 +1,20 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Error (
-  ApplicationError
+  ApplicationError (..)
 ) where
 
 
 
 import           LN.T.Prelude
-import           LN.T.User
 
 
 
 data ApplicationError
-  = ErrorEmpty
-  | ErrorUser UserError
+  = Error_Empty
+  | Error_NotFound
+  | Error_PermissionDenied
+  | Error_Visibility
+  | Error_Membership
+  | Error_Unexpected
   deriving (Eq, Ord, Show, Read, Generic, Typeable)
