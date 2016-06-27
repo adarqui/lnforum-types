@@ -676,6 +676,10 @@ instance ToJSON ApplicationError where
     [ "tag" .= "Error_Membership"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (Error_NotImplemented ) = object $
+    [ "tag" .= "Error_NotImplemented"
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (Error_Unexpected ) = object $
     [ "tag" .= "Error_Unexpected"
     , "contents" .= ([] :: [Text])
@@ -700,6 +704,9 @@ instance FromJSON ApplicationError where
 
       "Error_Membership" -> do
         return Error_Membership
+
+      "Error_NotImplemented" -> do
+        return Error_NotImplemented
 
       "Error_Unexpected" -> do
         return Error_Unexpected
