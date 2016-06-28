@@ -16,7 +16,9 @@ data ApplicationError
   | Error_PermissionDenied
   | Error_Visibility
   | Error_Membership
-  | Error_Validation
+  | Error_Validation Text
   | Error_NotImplemented
+  | Error_InvalidArguments Text
   | Error_Unexpected
+  | Error_Unknown
   deriving (Eq, Ord, Show, Read, Generic, Typeable)

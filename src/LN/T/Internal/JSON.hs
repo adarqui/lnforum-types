@@ -676,16 +676,24 @@ instance ToJSON ApplicationError where
     [ "tag" .= "Error_Membership"
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (Error_Validation ) = object $
+  toJSON (Error_Validation x0) = object $
     [ "tag" .= "Error_Validation"
-    , "contents" .= ([] :: [Text])
+    , "contents" .= toJSON x0
     ]
   toJSON (Error_NotImplemented ) = object $
     [ "tag" .= "Error_NotImplemented"
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (Error_InvalidArguments x0) = object $
+    [ "tag" .= "Error_InvalidArguments"
+    , "contents" .= toJSON x0
+    ]
   toJSON (Error_Unexpected ) = object $
     [ "tag" .= "Error_Unexpected"
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Error_Unknown ) = object $
+    [ "tag" .= "Error_Unknown"
     , "contents" .= ([] :: [Text])
     ]
 
@@ -710,13 +718,21 @@ instance FromJSON ApplicationError where
         return Error_Membership
 
       "Error_Validation" -> do
-        return Error_Validation
+        x0 <- o .: "contents"
+        Error_Validation <$> parseJSON x0
 
       "Error_NotImplemented" -> do
         return Error_NotImplemented
 
+      "Error_InvalidArguments" -> do
+        x0 <- o .: "contents"
+        Error_InvalidArguments <$> parseJSON x0
+
       "Error_Unexpected" -> do
         return Error_Unexpected
+
+      "Error_Unknown" -> do
+        return Error_Unknown
 
   parseJSON x = fail $ "Could not parse object: " ++ show x
 
