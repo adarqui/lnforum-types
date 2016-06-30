@@ -21,8 +21,3 @@ data LeuronTrainingRequest = LeuronTrainingRequest {
 
 defaultLeuronTrainingRequest :: LeuronTrainingRequest
 defaultLeuronTrainingRequest = LeuronTrainingRequest LTS_View 0
-
-
-
-dle :: LeuronTrainingRequest
-dle = defaultLeuronTrainingRequest

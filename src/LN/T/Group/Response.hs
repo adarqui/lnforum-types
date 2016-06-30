@@ -7,9 +7,7 @@ module LN.T.Group.Response (
 
 
 
-import           LN.T.Membership
 import           LN.T.Prelude
-import           LN.T.Visibility
 
 
 

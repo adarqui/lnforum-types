@@ -11,7 +11,6 @@ module LN.T.Reminder.Response (
 
 import           LN.T.Prelude
 import           LN.T.Visibility
-import           LN.T.Reminder
 
 
 

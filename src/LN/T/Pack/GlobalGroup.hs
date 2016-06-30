@@ -7,13 +7,10 @@ module LN.T.Pack.GlobalGroup (
 
 
 
-import           LN.T.GlobalGroup
 import           LN.T.GlobalGroup.Response
 import           LN.T.GlobalGroup.Stat
-import           LN.T.Like.Response
 import           LN.T.Permission
 import           LN.T.Prelude
-import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
 
 

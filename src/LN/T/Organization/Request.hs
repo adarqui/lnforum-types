@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Organization.Request (
   OrganizationRequest (..),
@@ -7,8 +8,8 @@ module LN.T.Organization.Request (
 
 
 
-import           LN.T.Prelude
 import           LN.T.Membership
+import           LN.T.Prelude
 import           LN.T.Visibility
 
 

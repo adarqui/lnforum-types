@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module LN.T.Api (
   apiPrefix
 ) where

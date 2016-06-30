@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Resource.Request (
   ResourceRequest (..),
@@ -7,10 +8,9 @@ module LN.T.Resource.Request (
 
 
 
-import           LN.T.Prelude
-import           LN.T.Resource
 import           LN.T.DepList
 import           LN.T.Prelude
+import           LN.T.Resource
 import           LN.T.Visibility
 
 

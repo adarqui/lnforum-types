@@ -8,7 +8,6 @@ module LN.T.PmOut.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.PmOut
 
 
 

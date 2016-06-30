@@ -8,7 +8,6 @@ module LN.T.Pm.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.Pm
 
 
 

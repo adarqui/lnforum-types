@@ -9,7 +9,6 @@ module LN.T.Star.Response (
 
 import           LN.T.Ent
 import           LN.T.Prelude
-import           LN.T.User
 
 
 

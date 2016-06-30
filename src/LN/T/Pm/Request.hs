@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Pm.Request (
   PmRequest (..),
@@ -8,7 +9,6 @@ module LN.T.Pm.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Pm
 
 
 

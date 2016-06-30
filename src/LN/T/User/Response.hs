@@ -8,7 +8,6 @@ module LN.T.User.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.User
 
 
 

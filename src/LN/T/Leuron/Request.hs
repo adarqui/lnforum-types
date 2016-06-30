@@ -11,8 +11,8 @@ module LN.T.Leuron.Request (
 import           LN.T.DepList       as A
 import           LN.T.Leuron        as A
 import           LN.T.Prelude
-import           LN.T.Splits        as A
-import           LN.T.Substitutions as A
+import           LN.T.Splits        as A ()
+import           LN.T.Substitutions as A ()
 
 
 

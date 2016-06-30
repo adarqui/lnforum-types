@@ -9,7 +9,6 @@ module LN.T.Resource.Response (
 
 import           LN.T.DepList
 import           LN.T.Prelude
-import           LN.T.Prelude
 import           LN.T.Resource
 import           LN.T.Visibility
 

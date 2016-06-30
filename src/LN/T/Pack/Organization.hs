@@ -8,7 +8,6 @@ module LN.T.Pack.Organization (
 
 
 import           LN.T.Like.Response
-import           LN.T.Organization
 import           LN.T.Organization.Response
 import           LN.T.Organization.Stat
 import           LN.T.Permission

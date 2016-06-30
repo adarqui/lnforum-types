@@ -7,11 +7,8 @@ module LN.T.Pack.Team (
 
 
 
-import           LN.T.Like.Response
 import           LN.T.Permission
 import           LN.T.Prelude
-import           LN.T.Star.Response
-import           LN.T.Team
 import           LN.T.Team.Response
 import           LN.T.Team.Stat
 import           LN.T.User.Sanitized.Response

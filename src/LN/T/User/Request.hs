@@ -7,7 +7,6 @@ module LN.T.User.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.User
 
 
 

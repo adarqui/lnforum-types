@@ -10,7 +10,6 @@ module LN.T.Like.Response (
 import           LN.T.Ent
 import           LN.T.Like
 import           LN.T.Prelude
-import           LN.T.User
 
 
 

@@ -1,5 +1,5 @@
-
-{-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RecordWildCards   #-}
 
 module LN.T.Splits (
   Splits (..),

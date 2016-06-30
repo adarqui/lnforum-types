@@ -7,13 +7,9 @@ module LN.T.Pack.TeamMember (
 
 
 
-import           LN.T.Like.Response
 import           LN.T.Permission
 import           LN.T.Prelude
-import           LN.T.Star.Response
-import           LN.T.TeamMember
 import           LN.T.TeamMember.Response
-import           LN.T.TeamMember.Stat
 import           LN.T.User.Sanitized.Response
 
 

@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Reminder.Request (
   ReminderRequest (..),
@@ -11,7 +12,6 @@ module LN.T.Reminder.Request (
 
 import           LN.T.Prelude
 import           LN.T.Visibility
-import           LN.T.Reminder
 
 
 

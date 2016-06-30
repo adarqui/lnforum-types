@@ -7,8 +7,6 @@ module LN.T.User.Settings.Response (
 
 
 import           LN.T.Prelude
-import           LN.T.User
-import           LN.T.User.Settings
 
 
 
