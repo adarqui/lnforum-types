@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.91
+version:             0.1.0.92
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3
@@ -174,7 +174,7 @@ library
                      , haskell-api-helpers
   hs-source-dirs:      src
   default-language:    Haskell2010
-  ghc-options:         -Wall -fno-warn-orphans
+  ghc-options:         -Wall -Werror -fno-warn-orphans
   default-extensions:  OverloadedStrings
                        DeriveGeneric
                        DeriveAnyClass

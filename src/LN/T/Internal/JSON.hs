@@ -3,6 +3,7 @@
 {-# LANGUAGE RecordWildCards      #-}
 {-# LANGUAGE ExplicitForAll       #-}
 {-# LANGUAGE RankNTypes           #-}
+{-# LANGUAGE ScopedTypeVariables  #-}
 
 module LN.T.Internal.JSON where
 
@@ -11,38 +12,42 @@ module LN.T.Internal.JSON where
 
 import Data.Aeson
 import Data.Text   (Text)
+import Data.Monoid ((<>))
 
 import LN.T.Internal.Types
-import Data.Int
 
 instance ToJSON ACL where
   toJSON (ACL_Grant x0) = object $
-    [ "tag" .= "ACL_Grant"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ACL_Grant" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ACL_Deny ) = object $
-    [ "tag" .= "ACL_Deny"
+    [ "tag" .= ("ACL_Deny" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON ACL where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "ACL_Grant" -> do
-        x0 <- o .: "contents"
-        ACL_Grant <$> parseJSON x0
+      ("ACL_Grant" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ACL_Grant <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ACL_Grant"
 
-      "ACL_Deny" -> do
-        return ACL_Deny
+      ("ACL_Deny" :: Text) -> do
+        pure ACL_Deny
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse ACL"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ApiRequest where
   toJSON ApiRequest{..} = object $
-    [ "tag" .= "ApiRequest"
+    [ "tag" .= ("ApiRequest" :: Text)
     , "comment" .= apiRequestComment
     , "guard" .= apiRequestGuard
     ]
@@ -50,18 +55,18 @@ instance ToJSON ApiRequest where
 
 instance FromJSON ApiRequest where
   parseJSON (Object o) = do
-    apiRequestComment <- o .: "comment"
-    apiRequestGuard <- o .: "guard"
-    return $ ApiRequest {
+    apiRequestComment <- o .: ("comment" :: Text)
+    apiRequestGuard <- o .: ("guard" :: Text)
+    pure $ ApiRequest {
       apiRequestComment = apiRequestComment,
       apiRequestGuard = apiRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ApiResponse where
   toJSON ApiResponse{..} = object $
-    [ "tag" .= "ApiResponse"
+    [ "tag" .= ("ApiResponse" :: Text)
     , "id" .= apiResponseId
     , "user_id" .= apiResponseUserId
     , "key" .= apiResponseKey
@@ -74,14 +79,14 @@ instance ToJSON ApiResponse where
 
 instance FromJSON ApiResponse where
   parseJSON (Object o) = do
-    apiResponseId <- o .: "id"
-    apiResponseUserId <- o .: "user_id"
-    apiResponseKey <- o .: "key"
-    apiResponseComment <- o .: "comment"
-    apiResponseGuard <- o .: "guard"
-    apiResponseCreatedAt <- o .: "created_at"
-    apiResponseModifiedAt <- o .: "modified_at"
-    return $ ApiResponse {
+    apiResponseId <- o .: ("id" :: Text)
+    apiResponseUserId <- o .: ("user_id" :: Text)
+    apiResponseKey <- o .: ("key" :: Text)
+    apiResponseComment <- o .: ("comment" :: Text)
+    apiResponseGuard <- o .: ("guard" :: Text)
+    apiResponseCreatedAt <- o .: ("created_at" :: Text)
+    apiResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ ApiResponse {
       apiResponseId = apiResponseId,
       apiResponseUserId = apiResponseUserId,
       apiResponseKey = apiResponseKey,
@@ -90,28 +95,28 @@ instance FromJSON ApiResponse where
       apiResponseCreatedAt = apiResponseCreatedAt,
       apiResponseModifiedAt = apiResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ApiResponses where
   toJSON ApiResponses{..} = object $
-    [ "tag" .= "ApiResponses"
+    [ "tag" .= ("ApiResponses" :: Text)
     , "api_responses" .= apiResponses
     ]
 
 
 instance FromJSON ApiResponses where
   parseJSON (Object o) = do
-    apiResponses <- o .: "api_responses"
-    return $ ApiResponses {
+    apiResponses <- o .: ("api_responses" :: Text)
+    pure $ ApiResponses {
       apiResponses = apiResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardRequest where
   toJSON BoardRequest{..} = object $
-    [ "tag" .= "BoardRequest"
+    [ "tag" .= ("BoardRequest" :: Text)
     , "display_name" .= boardRequestDisplayName
     , "description" .= boardRequestDescription
     , "is_anonymous" .= boardRequestIsAnonymous
@@ -126,16 +131,16 @@ instance ToJSON BoardRequest where
 
 instance FromJSON BoardRequest where
   parseJSON (Object o) = do
-    boardRequestDisplayName <- o .: "display_name"
-    boardRequestDescription <- o .: "description"
-    boardRequestIsAnonymous <- o .: "is_anonymous"
-    boardRequestCanCreateSubBoards <- o .: "can_create_sub_boards"
-    boardRequestCanCreateThreads <- o .: "can_create_threads"
-    boardRequestSuggestedTags <- o .: "suggested_tags"
-    boardRequestIcon <- o .: "icon"
-    boardRequestTags <- o .: "tags"
-    boardRequestGuard <- o .: "guard"
-    return $ BoardRequest {
+    boardRequestDisplayName <- o .: ("display_name" :: Text)
+    boardRequestDescription <- o .: ("description" :: Text)
+    boardRequestIsAnonymous <- o .: ("is_anonymous" :: Text)
+    boardRequestCanCreateSubBoards <- o .: ("can_create_sub_boards" :: Text)
+    boardRequestCanCreateThreads <- o .: ("can_create_threads" :: Text)
+    boardRequestSuggestedTags <- o .: ("suggested_tags" :: Text)
+    boardRequestIcon <- o .: ("icon" :: Text)
+    boardRequestTags <- o .: ("tags" :: Text)
+    boardRequestGuard <- o .: ("guard" :: Text)
+    pure $ BoardRequest {
       boardRequestDisplayName = boardRequestDisplayName,
       boardRequestDescription = boardRequestDescription,
       boardRequestIsAnonymous = boardRequestIsAnonymous,
@@ -146,12 +151,12 @@ instance FromJSON BoardRequest where
       boardRequestTags = boardRequestTags,
       boardRequestGuard = boardRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardResponse where
   toJSON BoardResponse{..} = object $
-    [ "tag" .= "BoardResponse"
+    [ "tag" .= ("BoardResponse" :: Text)
     , "id" .= boardResponseId
     , "user_id" .= boardResponseUserId
     , "org_id" .= boardResponseOrgId
@@ -177,27 +182,27 @@ instance ToJSON BoardResponse where
 
 instance FromJSON BoardResponse where
   parseJSON (Object o) = do
-    boardResponseId <- o .: "id"
-    boardResponseUserId <- o .: "user_id"
-    boardResponseOrgId <- o .: "org_id"
-    boardResponseForumId <- o .: "forum_id"
-    boardResponseParentId <- o .: "parent_id"
-    boardResponseName <- o .: "name"
-    boardResponseDisplayName <- o .: "display_name"
-    boardResponseDescription <- o .: "description"
-    boardResponseIsAnonymous <- o .: "is_anonymous"
-    boardResponseCanCreateSubBoards <- o .: "can_create_sub_boards"
-    boardResponseCanCreateThreads <- o .: "can_create_threads"
-    boardResponseSuggestedTags <- o .: "suggested_tags"
-    boardResponseIcon <- o .: "icon"
-    boardResponseTags <- o .: "tags"
-    boardResponseActive <- o .: "active"
-    boardResponseGuard <- o .: "guard"
-    boardResponseCreatedAt <- o .: "created_at"
-    boardResponseModifiedBy <- o .: "modified_by"
-    boardResponseModifiedAt <- o .: "modified_at"
-    boardResponseActivityAt <- o .: "activity_at"
-    return $ BoardResponse {
+    boardResponseId <- o .: ("id" :: Text)
+    boardResponseUserId <- o .: ("user_id" :: Text)
+    boardResponseOrgId <- o .: ("org_id" :: Text)
+    boardResponseForumId <- o .: ("forum_id" :: Text)
+    boardResponseParentId <- o .: ("parent_id" :: Text)
+    boardResponseName <- o .: ("name" :: Text)
+    boardResponseDisplayName <- o .: ("display_name" :: Text)
+    boardResponseDescription <- o .: ("description" :: Text)
+    boardResponseIsAnonymous <- o .: ("is_anonymous" :: Text)
+    boardResponseCanCreateSubBoards <- o .: ("can_create_sub_boards" :: Text)
+    boardResponseCanCreateThreads <- o .: ("can_create_threads" :: Text)
+    boardResponseSuggestedTags <- o .: ("suggested_tags" :: Text)
+    boardResponseIcon <- o .: ("icon" :: Text)
+    boardResponseTags <- o .: ("tags" :: Text)
+    boardResponseActive <- o .: ("active" :: Text)
+    boardResponseGuard <- o .: ("guard" :: Text)
+    boardResponseCreatedAt <- o .: ("created_at" :: Text)
+    boardResponseModifiedBy <- o .: ("modified_by" :: Text)
+    boardResponseModifiedAt <- o .: ("modified_at" :: Text)
+    boardResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ BoardResponse {
       boardResponseId = boardResponseId,
       boardResponseUserId = boardResponseUserId,
       boardResponseOrgId = boardResponseOrgId,
@@ -219,28 +224,28 @@ instance FromJSON BoardResponse where
       boardResponseModifiedAt = boardResponseModifiedAt,
       boardResponseActivityAt = boardResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardResponses where
   toJSON BoardResponses{..} = object $
-    [ "tag" .= "BoardResponses"
+    [ "tag" .= ("BoardResponses" :: Text)
     , "board_responses" .= boardResponses
     ]
 
 
 instance FromJSON BoardResponses where
   parseJSON (Object o) = do
-    boardResponses <- o .: "board_responses"
-    return $ BoardResponses {
+    boardResponses <- o .: ("board_responses" :: Text)
+    pure $ BoardResponses {
       boardResponses = boardResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardStatResponse where
   toJSON BoardStatResponse{..} = object $
-    [ "tag" .= "BoardStatResponse"
+    [ "tag" .= ("BoardStatResponse" :: Text)
     , "board_id" .= boardStatResponseBoardId
     , "threads" .= boardStatResponseThreads
     , "thread_posts" .= boardStatResponseThreadPosts
@@ -250,38 +255,38 @@ instance ToJSON BoardStatResponse where
 
 instance FromJSON BoardStatResponse where
   parseJSON (Object o) = do
-    boardStatResponseBoardId <- o .: "board_id"
-    boardStatResponseThreads <- o .: "threads"
-    boardStatResponseThreadPosts <- o .: "thread_posts"
-    boardStatResponseViews <- o .: "views"
-    return $ BoardStatResponse {
+    boardStatResponseBoardId <- o .: ("board_id" :: Text)
+    boardStatResponseThreads <- o .: ("threads" :: Text)
+    boardStatResponseThreadPosts <- o .: ("thread_posts" :: Text)
+    boardStatResponseViews <- o .: ("views" :: Text)
+    pure $ BoardStatResponse {
       boardStatResponseBoardId = boardStatResponseBoardId,
       boardStatResponseThreads = boardStatResponseThreads,
       boardStatResponseThreadPosts = boardStatResponseThreadPosts,
       boardStatResponseViews = boardStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardStatResponses where
   toJSON BoardStatResponses{..} = object $
-    [ "tag" .= "BoardStatResponses"
+    [ "tag" .= ("BoardStatResponses" :: Text)
     , "board_stat_responses" .= boardStatResponses
     ]
 
 
 instance FromJSON BoardStatResponses where
   parseJSON (Object o) = do
-    boardStatResponses <- o .: "board_stat_responses"
-    return $ BoardStatResponses {
+    boardStatResponses <- o .: ("board_stat_responses" :: Text)
+    pure $ BoardStatResponses {
       boardStatResponses = boardStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BucketRequest where
   toJSON BucketRequest{..} = object $
-    [ "tag" .= "BucketRequest"
+    [ "tag" .= ("BucketRequest" :: Text)
     , "display_name" .= bucketRequestDisplayName
     , "description" .= bucketRequestDescription
     , "score_lo" .= bucketRequestScoreLo
@@ -296,16 +301,16 @@ instance ToJSON BucketRequest where
 
 instance FromJSON BucketRequest where
   parseJSON (Object o) = do
-    bucketRequestDisplayName <- o .: "display_name"
-    bucketRequestDescription <- o .: "description"
-    bucketRequestScoreLo <- o .: "score_lo"
-    bucketRequestScoreHi <- o .: "score_hi"
-    bucketRequestLeurons <- o .: "leurons"
-    bucketRequestResources <- o .: "resources"
-    bucketRequestCategories <- o .: "categories"
-    bucketRequestFilters <- o .: "filters"
-    bucketRequestGuard <- o .: "guard"
-    return $ BucketRequest {
+    bucketRequestDisplayName <- o .: ("display_name" :: Text)
+    bucketRequestDescription <- o .: ("description" :: Text)
+    bucketRequestScoreLo <- o .: ("score_lo" :: Text)
+    bucketRequestScoreHi <- o .: ("score_hi" :: Text)
+    bucketRequestLeurons <- o .: ("leurons" :: Text)
+    bucketRequestResources <- o .: ("resources" :: Text)
+    bucketRequestCategories <- o .: ("categories" :: Text)
+    bucketRequestFilters <- o .: ("filters" :: Text)
+    bucketRequestGuard <- o .: ("guard" :: Text)
+    pure $ BucketRequest {
       bucketRequestDisplayName = bucketRequestDisplayName,
       bucketRequestDescription = bucketRequestDescription,
       bucketRequestScoreLo = bucketRequestScoreLo,
@@ -316,12 +321,12 @@ instance FromJSON BucketRequest where
       bucketRequestFilters = bucketRequestFilters,
       bucketRequestGuard = bucketRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BucketResponse where
   toJSON BucketResponse{..} = object $
-    [ "tag" .= "BucketResponse"
+    [ "tag" .= ("BucketResponse" :: Text)
     , "id" .= bucketResponseId
     , "user_id" .= bucketResponseUserId
     , "name" .= bucketResponseName
@@ -343,23 +348,23 @@ instance ToJSON BucketResponse where
 
 instance FromJSON BucketResponse where
   parseJSON (Object o) = do
-    bucketResponseId <- o .: "id"
-    bucketResponseUserId <- o .: "user_id"
-    bucketResponseName <- o .: "name"
-    bucketResponseDisplayName <- o .: "display_name"
-    bucketResponseDescription <- o .: "description"
-    bucketResponseScoreLo <- o .: "score_lo"
-    bucketResponseScoreHi <- o .: "score_hi"
-    bucketResponseLeurons <- o .: "leurons"
-    bucketResponseResources <- o .: "resources"
-    bucketResponseCategories <- o .: "categories"
-    bucketResponseFilters <- o .: "filters"
-    bucketResponseActive <- o .: "active"
-    bucketResponseGuard <- o .: "guard"
-    bucketResponseCreatedAt <- o .: "created_at"
-    bucketResponseModifiedAt <- o .: "modified_at"
-    bucketResponseActivityAt <- o .: "activity_at"
-    return $ BucketResponse {
+    bucketResponseId <- o .: ("id" :: Text)
+    bucketResponseUserId <- o .: ("user_id" :: Text)
+    bucketResponseName <- o .: ("name" :: Text)
+    bucketResponseDisplayName <- o .: ("display_name" :: Text)
+    bucketResponseDescription <- o .: ("description" :: Text)
+    bucketResponseScoreLo <- o .: ("score_lo" :: Text)
+    bucketResponseScoreHi <- o .: ("score_hi" :: Text)
+    bucketResponseLeurons <- o .: ("leurons" :: Text)
+    bucketResponseResources <- o .: ("resources" :: Text)
+    bucketResponseCategories <- o .: ("categories" :: Text)
+    bucketResponseFilters <- o .: ("filters" :: Text)
+    bucketResponseActive <- o .: ("active" :: Text)
+    bucketResponseGuard <- o .: ("guard" :: Text)
+    bucketResponseCreatedAt <- o .: ("created_at" :: Text)
+    bucketResponseModifiedAt <- o .: ("modified_at" :: Text)
+    bucketResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ BucketResponse {
       bucketResponseId = bucketResponseId,
       bucketResponseUserId = bucketResponseUserId,
       bucketResponseName = bucketResponseName,
@@ -377,28 +382,28 @@ instance FromJSON BucketResponse where
       bucketResponseModifiedAt = bucketResponseModifiedAt,
       bucketResponseActivityAt = bucketResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BucketResponses where
   toJSON BucketResponses{..} = object $
-    [ "tag" .= "BucketResponses"
+    [ "tag" .= ("BucketResponses" :: Text)
     , "bucket_responses" .= bucketResponses
     ]
 
 
 instance FromJSON BucketResponses where
   parseJSON (Object o) = do
-    bucketResponses <- o .: "bucket_responses"
-    return $ BucketResponses {
+    bucketResponses <- o .: ("bucket_responses" :: Text)
+    pure $ BucketResponses {
       bucketResponses = bucketResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON CountResponse where
   toJSON CountResponse{..} = object $
-    [ "tag" .= "CountResponse"
+    [ "tag" .= ("CountResponse" :: Text)
     , "id" .= countResponseId
     , "n" .= countResponseN
     ]
@@ -406,50 +411,50 @@ instance ToJSON CountResponse where
 
 instance FromJSON CountResponse where
   parseJSON (Object o) = do
-    countResponseId <- o .: "id"
-    countResponseN <- o .: "n"
-    return $ CountResponse {
+    countResponseId <- o .: ("id" :: Text)
+    countResponseN <- o .: ("n" :: Text)
+    pure $ CountResponse {
       countResponseId = countResponseId,
       countResponseN = countResponseN
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON CountResponses where
   toJSON CountResponses{..} = object $
-    [ "tag" .= "CountResponses"
+    [ "tag" .= ("CountResponses" :: Text)
     , "count_responses" .= countResponses
     ]
 
 
 instance FromJSON CountResponses where
   parseJSON (Object o) = do
-    countResponses <- o .: "count_responses"
-    return $ CountResponses {
+    countResponses <- o .: ("count_responses" :: Text)
+    pure $ CountResponses {
       countResponses = countResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON EmptyRequest where
   toJSON EmptyRequest{..} = object $
-    [ "tag" .= "EmptyRequest"
+    [ "tag" .= ("EmptyRequest" :: Text)
     , "value" .= emptyRequestValue
     ]
 
 
 instance FromJSON EmptyRequest where
   parseJSON (Object o) = do
-    emptyRequestValue <- o .: "value"
-    return $ EmptyRequest {
+    emptyRequestValue <- o .: ("value" :: Text)
+    pure $ EmptyRequest {
       emptyRequestValue = emptyRequestValue
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON EmptyResponse where
   toJSON EmptyResponse{..} = object $
-    [ "tag" .= "EmptyResponse"
+    [ "tag" .= ("EmptyResponse" :: Text)
     , "id" .= emptyResponseId
     , "user_id" .= emptyResponseUserId
     , "value" .= emptyResponseValue
@@ -460,286 +465,294 @@ instance ToJSON EmptyResponse where
 
 instance FromJSON EmptyResponse where
   parseJSON (Object o) = do
-    emptyResponseId <- o .: "id"
-    emptyResponseUserId <- o .: "user_id"
-    emptyResponseValue <- o .: "value"
-    emptyResponseCreatedAt <- o .: "created_at"
-    emptyResponseModifiedAt <- o .: "modified_at"
-    return $ EmptyResponse {
+    emptyResponseId <- o .: ("id" :: Text)
+    emptyResponseUserId <- o .: ("user_id" :: Text)
+    emptyResponseValue <- o .: ("value" :: Text)
+    emptyResponseCreatedAt <- o .: ("created_at" :: Text)
+    emptyResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ EmptyResponse {
       emptyResponseId = emptyResponseId,
       emptyResponseUserId = emptyResponseUserId,
       emptyResponseValue = emptyResponseValue,
       emptyResponseCreatedAt = emptyResponseCreatedAt,
       emptyResponseModifiedAt = emptyResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON EmptyResponses where
   toJSON EmptyResponses{..} = object $
-    [ "tag" .= "EmptyResponses"
+    [ "tag" .= ("EmptyResponses" :: Text)
     , "empty_responses" .= emptyResponses
     ]
 
 
 instance FromJSON EmptyResponses where
   parseJSON (Object o) = do
-    emptyResponses <- o .: "empty_responses"
-    return $ EmptyResponses {
+    emptyResponses <- o .: ("empty_responses" :: Text)
+    pure $ EmptyResponses {
       emptyResponses = emptyResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Ent where
   toJSON (Ent_Organization ) = object $
-    [ "tag" .= "Ent_Organization"
+    [ "tag" .= ("Ent_Organization" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Team ) = object $
-    [ "tag" .= "Ent_Team"
+    [ "tag" .= ("Ent_Team" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_TeamMember ) = object $
-    [ "tag" .= "Ent_TeamMember"
+    [ "tag" .= ("Ent_TeamMember" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_GlobalGroup ) = object $
-    [ "tag" .= "Ent_GlobalGroup"
+    [ "tag" .= ("Ent_GlobalGroup" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Group ) = object $
-    [ "tag" .= "Ent_Group"
+    [ "tag" .= ("Ent_Group" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_GroupMember ) = object $
-    [ "tag" .= "Ent_GroupMember"
+    [ "tag" .= ("Ent_GroupMember" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_User ) = object $
-    [ "tag" .= "Ent_User"
+    [ "tag" .= ("Ent_User" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_UserSanitized ) = object $
-    [ "tag" .= "Ent_UserSanitized"
+    [ "tag" .= ("Ent_UserSanitized" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Forum ) = object $
-    [ "tag" .= "Ent_Forum"
+    [ "tag" .= ("Ent_Forum" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Board ) = object $
-    [ "tag" .= "Ent_Board"
+    [ "tag" .= ("Ent_Board" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Thread ) = object $
-    [ "tag" .= "Ent_Thread"
+    [ "tag" .= ("Ent_Thread" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_ThreadPost ) = object $
-    [ "tag" .= "Ent_ThreadPost"
+    [ "tag" .= ("Ent_ThreadPost" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Blog ) = object $
-    [ "tag" .= "Ent_Blog"
+    [ "tag" .= ("Ent_Blog" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_BlogPost ) = object $
-    [ "tag" .= "Ent_BlogPost"
+    [ "tag" .= ("Ent_BlogPost" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_BlogComment ) = object $
-    [ "tag" .= "Ent_BlogComment"
+    [ "tag" .= ("Ent_BlogComment" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Resource ) = object $
-    [ "tag" .= "Ent_Resource"
+    [ "tag" .= ("Ent_Resource" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Leuron ) = object $
-    [ "tag" .= "Ent_Leuron"
+    [ "tag" .= ("Ent_Leuron" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Comment ) = object $
-    [ "tag" .= "Ent_Comment"
+    [ "tag" .= ("Ent_Comment" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Api ) = object $
-    [ "tag" .= "Ent_Api"
+    [ "tag" .= ("Ent_Api" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Like ) = object $
-    [ "tag" .= "Ent_Like"
+    [ "tag" .= ("Ent_Like" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_Star ) = object $
-    [ "tag" .= "Ent_Star"
+    [ "tag" .= ("Ent_Star" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Ent_None ) = object $
-    [ "tag" .= "Ent_None"
+    [ "tag" .= ("Ent_None" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON Ent where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Ent_Organization" -> do
-        return Ent_Organization
+      ("Ent_Organization" :: Text) -> do
+        pure Ent_Organization
 
-      "Ent_Team" -> do
-        return Ent_Team
+      ("Ent_Team" :: Text) -> do
+        pure Ent_Team
 
-      "Ent_TeamMember" -> do
-        return Ent_TeamMember
+      ("Ent_TeamMember" :: Text) -> do
+        pure Ent_TeamMember
 
-      "Ent_GlobalGroup" -> do
-        return Ent_GlobalGroup
+      ("Ent_GlobalGroup" :: Text) -> do
+        pure Ent_GlobalGroup
 
-      "Ent_Group" -> do
-        return Ent_Group
+      ("Ent_Group" :: Text) -> do
+        pure Ent_Group
 
-      "Ent_GroupMember" -> do
-        return Ent_GroupMember
+      ("Ent_GroupMember" :: Text) -> do
+        pure Ent_GroupMember
 
-      "Ent_User" -> do
-        return Ent_User
+      ("Ent_User" :: Text) -> do
+        pure Ent_User
 
-      "Ent_UserSanitized" -> do
-        return Ent_UserSanitized
+      ("Ent_UserSanitized" :: Text) -> do
+        pure Ent_UserSanitized
 
-      "Ent_Forum" -> do
-        return Ent_Forum
+      ("Ent_Forum" :: Text) -> do
+        pure Ent_Forum
 
-      "Ent_Board" -> do
-        return Ent_Board
+      ("Ent_Board" :: Text) -> do
+        pure Ent_Board
 
-      "Ent_Thread" -> do
-        return Ent_Thread
+      ("Ent_Thread" :: Text) -> do
+        pure Ent_Thread
 
-      "Ent_ThreadPost" -> do
-        return Ent_ThreadPost
+      ("Ent_ThreadPost" :: Text) -> do
+        pure Ent_ThreadPost
 
-      "Ent_Blog" -> do
-        return Ent_Blog
+      ("Ent_Blog" :: Text) -> do
+        pure Ent_Blog
 
-      "Ent_BlogPost" -> do
-        return Ent_BlogPost
+      ("Ent_BlogPost" :: Text) -> do
+        pure Ent_BlogPost
 
-      "Ent_BlogComment" -> do
-        return Ent_BlogComment
+      ("Ent_BlogComment" :: Text) -> do
+        pure Ent_BlogComment
 
-      "Ent_Resource" -> do
-        return Ent_Resource
+      ("Ent_Resource" :: Text) -> do
+        pure Ent_Resource
 
-      "Ent_Leuron" -> do
-        return Ent_Leuron
+      ("Ent_Leuron" :: Text) -> do
+        pure Ent_Leuron
 
-      "Ent_Comment" -> do
-        return Ent_Comment
+      ("Ent_Comment" :: Text) -> do
+        pure Ent_Comment
 
-      "Ent_Api" -> do
-        return Ent_Api
+      ("Ent_Api" :: Text) -> do
+        pure Ent_Api
 
-      "Ent_Like" -> do
-        return Ent_Like
+      ("Ent_Like" :: Text) -> do
+        pure Ent_Like
 
-      "Ent_Star" -> do
-        return Ent_Star
+      ("Ent_Star" :: Text) -> do
+        pure Ent_Star
 
-      "Ent_None" -> do
-        return Ent_None
+      ("Ent_None" :: Text) -> do
+        pure Ent_None
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Ent"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ApplicationError where
   toJSON (Error_Empty ) = object $
-    [ "tag" .= "Error_Empty"
+    [ "tag" .= ("Error_Empty" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_NotFound ) = object $
-    [ "tag" .= "Error_NotFound"
+    [ "tag" .= ("Error_NotFound" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_PermissionDenied ) = object $
-    [ "tag" .= "Error_PermissionDenied"
+    [ "tag" .= ("Error_PermissionDenied" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_Visibility ) = object $
-    [ "tag" .= "Error_Visibility"
+    [ "tag" .= ("Error_Visibility" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_Membership ) = object $
-    [ "tag" .= "Error_Membership"
+    [ "tag" .= ("Error_Membership" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_Validation x0) = object $
-    [ "tag" .= "Error_Validation"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("Error_Validation" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (Error_NotImplemented ) = object $
-    [ "tag" .= "Error_NotImplemented"
+    [ "tag" .= ("Error_NotImplemented" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_InvalidArguments x0) = object $
-    [ "tag" .= "Error_InvalidArguments"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("Error_InvalidArguments" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (Error_Unexpected ) = object $
-    [ "tag" .= "Error_Unexpected"
+    [ "tag" .= ("Error_Unexpected" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_Unknown ) = object $
-    [ "tag" .= "Error_Unknown"
+    [ "tag" .= ("Error_Unknown" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON ApplicationError where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Error_Empty" -> do
-        return Error_Empty
+      ("Error_Empty" :: Text) -> do
+        pure Error_Empty
 
-      "Error_NotFound" -> do
-        return Error_NotFound
+      ("Error_NotFound" :: Text) -> do
+        pure Error_NotFound
 
-      "Error_PermissionDenied" -> do
-        return Error_PermissionDenied
+      ("Error_PermissionDenied" :: Text) -> do
+        pure Error_PermissionDenied
 
-      "Error_Visibility" -> do
-        return Error_Visibility
+      ("Error_Visibility" :: Text) -> do
+        pure Error_Visibility
 
-      "Error_Membership" -> do
-        return Error_Membership
+      ("Error_Membership" :: Text) -> do
+        pure Error_Membership
 
-      "Error_Validation" -> do
-        x0 <- o .: "contents"
-        Error_Validation <$> parseJSON x0
+      ("Error_Validation" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> Error_Validation <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: Error_Validation"
 
-      "Error_NotImplemented" -> do
-        return Error_NotImplemented
+      ("Error_NotImplemented" :: Text) -> do
+        pure Error_NotImplemented
 
-      "Error_InvalidArguments" -> do
-        x0 <- o .: "contents"
-        Error_InvalidArguments <$> parseJSON x0
+      ("Error_InvalidArguments" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> Error_InvalidArguments <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: Error_InvalidArguments"
 
-      "Error_Unexpected" -> do
-        return Error_Unexpected
+      ("Error_Unexpected" :: Text) -> do
+        pure Error_Unexpected
 
-      "Error_Unknown" -> do
-        return Error_Unknown
+      ("Error_Unknown" :: Text) -> do
+        pure Error_Unknown
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse ApplicationError"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumRequest where
   toJSON ForumRequest{..} = object $
-    [ "tag" .= "ForumRequest"
+    [ "tag" .= ("ForumRequest" :: Text)
     , "display_name" .= forumRequestDisplayName
     , "description" .= forumRequestDescription
     , "threads_per_board" .= forumRequestThreadsPerBoard
@@ -756,18 +769,18 @@ instance ToJSON ForumRequest where
 
 instance FromJSON ForumRequest where
   parseJSON (Object o) = do
-    forumRequestDisplayName <- o .: "display_name"
-    forumRequestDescription <- o .: "description"
-    forumRequestThreadsPerBoard <- o .: "threads_per_board"
-    forumRequestThreadPostsPerThread <- o .: "thread_posts_per_thread"
-    forumRequestRecentThreadsLimit <- o .: "recent_threads_limit"
-    forumRequestRecentPostsLimit <- o .: "recent_posts_limit"
-    forumRequestMotwLimit <- o .: "motw_limit"
-    forumRequestIcon <- o .: "icon"
-    forumRequestTags <- o .: "tags"
-    forumRequestVisibility <- o .: "visibility"
-    forumRequestGuard <- o .: "guard"
-    return $ ForumRequest {
+    forumRequestDisplayName <- o .: ("display_name" :: Text)
+    forumRequestDescription <- o .: ("description" :: Text)
+    forumRequestThreadsPerBoard <- o .: ("threads_per_board" :: Text)
+    forumRequestThreadPostsPerThread <- o .: ("thread_posts_per_thread" :: Text)
+    forumRequestRecentThreadsLimit <- o .: ("recent_threads_limit" :: Text)
+    forumRequestRecentPostsLimit <- o .: ("recent_posts_limit" :: Text)
+    forumRequestMotwLimit <- o .: ("motw_limit" :: Text)
+    forumRequestIcon <- o .: ("icon" :: Text)
+    forumRequestTags <- o .: ("tags" :: Text)
+    forumRequestVisibility <- o .: ("visibility" :: Text)
+    forumRequestGuard <- o .: ("guard" :: Text)
+    pure $ ForumRequest {
       forumRequestDisplayName = forumRequestDisplayName,
       forumRequestDescription = forumRequestDescription,
       forumRequestThreadsPerBoard = forumRequestThreadsPerBoard,
@@ -780,12 +793,12 @@ instance FromJSON ForumRequest where
       forumRequestVisibility = forumRequestVisibility,
       forumRequestGuard = forumRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumResponse where
   toJSON ForumResponse{..} = object $
-    [ "tag" .= "ForumResponse"
+    [ "tag" .= ("ForumResponse" :: Text)
     , "id" .= forumResponseId
     , "user_id" .= forumResponseUserId
     , "org_id" .= forumResponseOrgId
@@ -811,27 +824,27 @@ instance ToJSON ForumResponse where
 
 instance FromJSON ForumResponse where
   parseJSON (Object o) = do
-    forumResponseId <- o .: "id"
-    forumResponseUserId <- o .: "user_id"
-    forumResponseOrgId <- o .: "org_id"
-    forumResponseName <- o .: "name"
-    forumResponseDisplayName <- o .: "display_name"
-    forumResponseDescription <- o .: "description"
-    forumResponseThreadsPerBoard <- o .: "threads_per_board"
-    forumResponseThreadPostsPerThread <- o .: "thread_posts_per_thread"
-    forumResponseRecentThreadsLimit <- o .: "recent_threads_limit"
-    forumResponseRecentPostsLimit <- o .: "recent_posts_limit"
-    forumResponseMotwLimit <- o .: "motw_limit"
-    forumResponseIcon <- o .: "icon"
-    forumResponseTags <- o .: "tags"
-    forumResponseVisibility <- o .: "visibility"
-    forumResponseActive <- o .: "active"
-    forumResponseGuard <- o .: "guard"
-    forumResponseCreatedAt <- o .: "created_at"
-    forumResponseModifiedBy <- o .: "modified_by"
-    forumResponseModifiedAt <- o .: "modified_at"
-    forumResponseActivityAt <- o .: "activity_at"
-    return $ ForumResponse {
+    forumResponseId <- o .: ("id" :: Text)
+    forumResponseUserId <- o .: ("user_id" :: Text)
+    forumResponseOrgId <- o .: ("org_id" :: Text)
+    forumResponseName <- o .: ("name" :: Text)
+    forumResponseDisplayName <- o .: ("display_name" :: Text)
+    forumResponseDescription <- o .: ("description" :: Text)
+    forumResponseThreadsPerBoard <- o .: ("threads_per_board" :: Text)
+    forumResponseThreadPostsPerThread <- o .: ("thread_posts_per_thread" :: Text)
+    forumResponseRecentThreadsLimit <- o .: ("recent_threads_limit" :: Text)
+    forumResponseRecentPostsLimit <- o .: ("recent_posts_limit" :: Text)
+    forumResponseMotwLimit <- o .: ("motw_limit" :: Text)
+    forumResponseIcon <- o .: ("icon" :: Text)
+    forumResponseTags <- o .: ("tags" :: Text)
+    forumResponseVisibility <- o .: ("visibility" :: Text)
+    forumResponseActive <- o .: ("active" :: Text)
+    forumResponseGuard <- o .: ("guard" :: Text)
+    forumResponseCreatedAt <- o .: ("created_at" :: Text)
+    forumResponseModifiedBy <- o .: ("modified_by" :: Text)
+    forumResponseModifiedAt <- o .: ("modified_at" :: Text)
+    forumResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ ForumResponse {
       forumResponseId = forumResponseId,
       forumResponseUserId = forumResponseUserId,
       forumResponseOrgId = forumResponseOrgId,
@@ -853,28 +866,28 @@ instance FromJSON ForumResponse where
       forumResponseModifiedAt = forumResponseModifiedAt,
       forumResponseActivityAt = forumResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumResponses where
   toJSON ForumResponses{..} = object $
-    [ "tag" .= "ForumResponses"
+    [ "tag" .= ("ForumResponses" :: Text)
     , "forum_responses" .= forumResponses
     ]
 
 
 instance FromJSON ForumResponses where
   parseJSON (Object o) = do
-    forumResponses <- o .: "forum_responses"
-    return $ ForumResponses {
+    forumResponses <- o .: ("forum_responses" :: Text)
+    pure $ ForumResponses {
       forumResponses = forumResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumStatResponse where
   toJSON ForumStatResponse{..} = object $
-    [ "tag" .= "ForumStatResponse"
+    [ "tag" .= ("ForumStatResponse" :: Text)
     , "forum_id" .= forumStatResponseForumId
     , "boards" .= forumStatResponseBoards
     , "threads" .= forumStatResponseThreads
@@ -885,40 +898,40 @@ instance ToJSON ForumStatResponse where
 
 instance FromJSON ForumStatResponse where
   parseJSON (Object o) = do
-    forumStatResponseForumId <- o .: "forum_id"
-    forumStatResponseBoards <- o .: "boards"
-    forumStatResponseThreads <- o .: "threads"
-    forumStatResponseThreadPosts <- o .: "thread_posts"
-    forumStatResponseViews <- o .: "views"
-    return $ ForumStatResponse {
+    forumStatResponseForumId <- o .: ("forum_id" :: Text)
+    forumStatResponseBoards <- o .: ("boards" :: Text)
+    forumStatResponseThreads <- o .: ("threads" :: Text)
+    forumStatResponseThreadPosts <- o .: ("thread_posts" :: Text)
+    forumStatResponseViews <- o .: ("views" :: Text)
+    pure $ ForumStatResponse {
       forumStatResponseForumId = forumStatResponseForumId,
       forumStatResponseBoards = forumStatResponseBoards,
       forumStatResponseThreads = forumStatResponseThreads,
       forumStatResponseThreadPosts = forumStatResponseThreadPosts,
       forumStatResponseViews = forumStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumStatResponses where
   toJSON ForumStatResponses{..} = object $
-    [ "tag" .= "ForumStatResponses"
+    [ "tag" .= ("ForumStatResponses" :: Text)
     , "forum_stat_responses" .= forumStatResponses
     ]
 
 
 instance FromJSON ForumStatResponses where
   parseJSON (Object o) = do
-    forumStatResponses <- o .: "forum_stat_responses"
-    return $ ForumStatResponses {
+    forumStatResponses <- o .: ("forum_stat_responses" :: Text)
+    pure $ ForumStatResponses {
       forumStatResponses = forumStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupRequest where
   toJSON GlobalGroupRequest{..} = object $
-    [ "tag" .= "GlobalGroupRequest"
+    [ "tag" .= ("GlobalGroupRequest" :: Text)
     , "display_name" .= globalGroupRequestDisplayName
     , "description" .= globalGroupRequestDescription
     , "membership" .= globalGroupRequestMembership
@@ -931,14 +944,14 @@ instance ToJSON GlobalGroupRequest where
 
 instance FromJSON GlobalGroupRequest where
   parseJSON (Object o) = do
-    globalGroupRequestDisplayName <- o .: "display_name"
-    globalGroupRequestDescription <- o .: "description"
-    globalGroupRequestMembership <- o .: "membership"
-    globalGroupRequestIcon <- o .: "icon"
-    globalGroupRequestTags <- o .: "tags"
-    globalGroupRequestVisibility <- o .: "visibility"
-    globalGroupRequestGuard <- o .: "guard"
-    return $ GlobalGroupRequest {
+    globalGroupRequestDisplayName <- o .: ("display_name" :: Text)
+    globalGroupRequestDescription <- o .: ("description" :: Text)
+    globalGroupRequestMembership <- o .: ("membership" :: Text)
+    globalGroupRequestIcon <- o .: ("icon" :: Text)
+    globalGroupRequestTags <- o .: ("tags" :: Text)
+    globalGroupRequestVisibility <- o .: ("visibility" :: Text)
+    globalGroupRequestGuard <- o .: ("guard" :: Text)
+    pure $ GlobalGroupRequest {
       globalGroupRequestDisplayName = globalGroupRequestDisplayName,
       globalGroupRequestDescription = globalGroupRequestDescription,
       globalGroupRequestMembership = globalGroupRequestMembership,
@@ -947,12 +960,12 @@ instance FromJSON GlobalGroupRequest where
       globalGroupRequestVisibility = globalGroupRequestVisibility,
       globalGroupRequestGuard = globalGroupRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupResponse where
   toJSON GlobalGroupResponse{..} = object $
-    [ "tag" .= "GlobalGroupResponse"
+    [ "tag" .= ("GlobalGroupResponse" :: Text)
     , "id" .= globalGroupResponseId
     , "user_id" .= globalGroupResponseUserId
     , "name" .= globalGroupResponseName
@@ -973,22 +986,22 @@ instance ToJSON GlobalGroupResponse where
 
 instance FromJSON GlobalGroupResponse where
   parseJSON (Object o) = do
-    globalGroupResponseId <- o .: "id"
-    globalGroupResponseUserId <- o .: "user_id"
-    globalGroupResponseName <- o .: "name"
-    globalGroupResponseDisplayName <- o .: "display_name"
-    globalGroupResponseDescription <- o .: "description"
-    globalGroupResponseMembership <- o .: "membership"
-    globalGroupResponseIcon <- o .: "icon"
-    globalGroupResponseTags <- o .: "tags"
-    globalGroupResponseVisibility <- o .: "visibility"
-    globalGroupResponseActive <- o .: "active"
-    globalGroupResponseGuard <- o .: "guard"
-    globalGroupResponseCreatedAt <- o .: "created_at"
-    globalGroupResponseModifiedBy <- o .: "modified_by"
-    globalGroupResponseModifiedAt <- o .: "modified_at"
-    globalGroupResponseActivityAt <- o .: "activity_at"
-    return $ GlobalGroupResponse {
+    globalGroupResponseId <- o .: ("id" :: Text)
+    globalGroupResponseUserId <- o .: ("user_id" :: Text)
+    globalGroupResponseName <- o .: ("name" :: Text)
+    globalGroupResponseDisplayName <- o .: ("display_name" :: Text)
+    globalGroupResponseDescription <- o .: ("description" :: Text)
+    globalGroupResponseMembership <- o .: ("membership" :: Text)
+    globalGroupResponseIcon <- o .: ("icon" :: Text)
+    globalGroupResponseTags <- o .: ("tags" :: Text)
+    globalGroupResponseVisibility <- o .: ("visibility" :: Text)
+    globalGroupResponseActive <- o .: ("active" :: Text)
+    globalGroupResponseGuard <- o .: ("guard" :: Text)
+    globalGroupResponseCreatedAt <- o .: ("created_at" :: Text)
+    globalGroupResponseModifiedBy <- o .: ("modified_by" :: Text)
+    globalGroupResponseModifiedAt <- o .: ("modified_at" :: Text)
+    globalGroupResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ GlobalGroupResponse {
       globalGroupResponseId = globalGroupResponseId,
       globalGroupResponseUserId = globalGroupResponseUserId,
       globalGroupResponseName = globalGroupResponseName,
@@ -1005,76 +1018,76 @@ instance FromJSON GlobalGroupResponse where
       globalGroupResponseModifiedAt = globalGroupResponseModifiedAt,
       globalGroupResponseActivityAt = globalGroupResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupResponses where
   toJSON GlobalGroupResponses{..} = object $
-    [ "tag" .= "GlobalGroupResponses"
+    [ "tag" .= ("GlobalGroupResponses" :: Text)
     , "global_group_responses" .= globalGroupResponses
     ]
 
 
 instance FromJSON GlobalGroupResponses where
   parseJSON (Object o) = do
-    globalGroupResponses <- o .: "global_group_responses"
-    return $ GlobalGroupResponses {
+    globalGroupResponses <- o .: ("global_group_responses" :: Text)
+    pure $ GlobalGroupResponses {
       globalGroupResponses = globalGroupResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupStatResponse where
   toJSON GlobalGroupStatResponse{..} = object $
-    [ "tag" .= "GlobalGroupStatResponse"
+    [ "tag" .= ("GlobalGroupStatResponse" :: Text)
     , "groups" .= globalGroupStatResponseGroups
     ]
 
 
 instance FromJSON GlobalGroupStatResponse where
   parseJSON (Object o) = do
-    globalGroupStatResponseGroups <- o .: "groups"
-    return $ GlobalGroupStatResponse {
+    globalGroupStatResponseGroups <- o .: ("groups" :: Text)
+    pure $ GlobalGroupStatResponse {
       globalGroupStatResponseGroups = globalGroupStatResponseGroups
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupStatResponses where
   toJSON GlobalGroupStatResponses{..} = object $
-    [ "tag" .= "GlobalGroupStatResponses"
+    [ "tag" .= ("GlobalGroupStatResponses" :: Text)
     , "global_group_stat_responses" .= globalGroupStatResponses
     ]
 
 
 instance FromJSON GlobalGroupStatResponses where
   parseJSON (Object o) = do
-    globalGroupStatResponses <- o .: "global_group_stat_responses"
-    return $ GlobalGroupStatResponses {
+    globalGroupStatResponses <- o .: ("global_group_stat_responses" :: Text)
+    pure $ GlobalGroupStatResponses {
       globalGroupStatResponses = globalGroupStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupRequest where
   toJSON GroupRequest{..} = object $
-    [ "tag" .= "GroupRequest"
+    [ "tag" .= ("GroupRequest" :: Text)
     , "guard" .= groupRequestGuard
     ]
 
 
 instance FromJSON GroupRequest where
   parseJSON (Object o) = do
-    groupRequestGuard <- o .: "guard"
-    return $ GroupRequest {
+    groupRequestGuard <- o .: ("guard" :: Text)
+    pure $ GroupRequest {
       groupRequestGuard = groupRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupResponse where
   toJSON GroupResponse{..} = object $
-    [ "tag" .= "GroupResponse"
+    [ "tag" .= ("GroupResponse" :: Text)
     , "id" .= groupResponseId
     , "user_id" .= groupResponseUserId
     , "global_group_id" .= groupResponseGlobalGroupId
@@ -1090,17 +1103,17 @@ instance ToJSON GroupResponse where
 
 instance FromJSON GroupResponse where
   parseJSON (Object o) = do
-    groupResponseId <- o .: "id"
-    groupResponseUserId <- o .: "user_id"
-    groupResponseGlobalGroupId <- o .: "global_group_id"
-    groupResponseOrganizationId <- o .: "organization_id"
-    groupResponseActive <- o .: "active"
-    groupResponseGuard <- o .: "guard"
-    groupResponseCreatedAt <- o .: "created_at"
-    groupResponseModifiedBy <- o .: "modified_by"
-    groupResponseModifiedAt <- o .: "modified_at"
-    groupResponseActivityAt <- o .: "activity_at"
-    return $ GroupResponse {
+    groupResponseId <- o .: ("id" :: Text)
+    groupResponseUserId <- o .: ("user_id" :: Text)
+    groupResponseGlobalGroupId <- o .: ("global_group_id" :: Text)
+    groupResponseOrganizationId <- o .: ("organization_id" :: Text)
+    groupResponseActive <- o .: ("active" :: Text)
+    groupResponseGuard <- o .: ("guard" :: Text)
+    groupResponseCreatedAt <- o .: ("created_at" :: Text)
+    groupResponseModifiedBy <- o .: ("modified_by" :: Text)
+    groupResponseModifiedAt <- o .: ("modified_at" :: Text)
+    groupResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ GroupResponse {
       groupResponseId = groupResponseId,
       groupResponseUserId = groupResponseUserId,
       groupResponseGlobalGroupId = groupResponseGlobalGroupId,
@@ -1112,76 +1125,76 @@ instance FromJSON GroupResponse where
       groupResponseModifiedAt = groupResponseModifiedAt,
       groupResponseActivityAt = groupResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupResponses where
   toJSON GroupResponses{..} = object $
-    [ "tag" .= "GroupResponses"
+    [ "tag" .= ("GroupResponses" :: Text)
     , "group_responses" .= groupResponses
     ]
 
 
 instance FromJSON GroupResponses where
   parseJSON (Object o) = do
-    groupResponses <- o .: "group_responses"
-    return $ GroupResponses {
+    groupResponses <- o .: ("group_responses" :: Text)
+    pure $ GroupResponses {
       groupResponses = groupResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupStatResponse where
   toJSON GroupStatResponse{..} = object $
-    [ "tag" .= "GroupStatResponse"
+    [ "tag" .= ("GroupStatResponse" :: Text)
     , "members" .= groupStatResponseMembers
     ]
 
 
 instance FromJSON GroupStatResponse where
   parseJSON (Object o) = do
-    groupStatResponseMembers <- o .: "members"
-    return $ GroupStatResponse {
+    groupStatResponseMembers <- o .: ("members" :: Text)
+    pure $ GroupStatResponse {
       groupStatResponseMembers = groupStatResponseMembers
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupStatResponses where
   toJSON GroupStatResponses{..} = object $
-    [ "tag" .= "GroupStatResponses"
+    [ "tag" .= ("GroupStatResponses" :: Text)
     , "group_stat_responses" .= groupStatResponses
     ]
 
 
 instance FromJSON GroupStatResponses where
   parseJSON (Object o) = do
-    groupStatResponses <- o .: "group_stat_responses"
-    return $ GroupStatResponses {
+    groupStatResponses <- o .: ("group_stat_responses" :: Text)
+    pure $ GroupStatResponses {
       groupStatResponses = groupStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberRequest where
   toJSON GroupMemberRequest{..} = object $
-    [ "tag" .= "GroupMemberRequest"
+    [ "tag" .= ("GroupMemberRequest" :: Text)
     , "guard" .= groupMemberRequestGuard
     ]
 
 
 instance FromJSON GroupMemberRequest where
   parseJSON (Object o) = do
-    groupMemberRequestGuard <- o .: "guard"
-    return $ GroupMemberRequest {
+    groupMemberRequestGuard <- o .: ("guard" :: Text)
+    pure $ GroupMemberRequest {
       groupMemberRequestGuard = groupMemberRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberResponse where
   toJSON GroupMemberResponse{..} = object $
-    [ "tag" .= "GroupMemberResponse"
+    [ "tag" .= ("GroupMemberResponse" :: Text)
     , "id" .= groupMemberResponseId
     , "user_id" .= groupMemberResponseUserId
     , "global_group_id" .= groupMemberResponseGlobalGroupId
@@ -1194,14 +1207,14 @@ instance ToJSON GroupMemberResponse where
 
 instance FromJSON GroupMemberResponse where
   parseJSON (Object o) = do
-    groupMemberResponseId <- o .: "id"
-    groupMemberResponseUserId <- o .: "user_id"
-    groupMemberResponseGlobalGroupId <- o .: "global_group_id"
-    groupMemberResponseCreatedAt <- o .: "created_at"
-    groupMemberResponseModifiedBy <- o .: "modified_by"
-    groupMemberResponseModifiedAt <- o .: "modified_at"
-    groupMemberResponseActivityAt <- o .: "activity_at"
-    return $ GroupMemberResponse {
+    groupMemberResponseId <- o .: ("id" :: Text)
+    groupMemberResponseUserId <- o .: ("user_id" :: Text)
+    groupMemberResponseGlobalGroupId <- o .: ("global_group_id" :: Text)
+    groupMemberResponseCreatedAt <- o .: ("created_at" :: Text)
+    groupMemberResponseModifiedBy <- o .: ("modified_by" :: Text)
+    groupMemberResponseModifiedAt <- o .: ("modified_at" :: Text)
+    groupMemberResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ GroupMemberResponse {
       groupMemberResponseId = groupMemberResponseId,
       groupMemberResponseUserId = groupMemberResponseUserId,
       groupMemberResponseGlobalGroupId = groupMemberResponseGlobalGroupId,
@@ -1210,62 +1223,66 @@ instance FromJSON GroupMemberResponse where
       groupMemberResponseModifiedAt = groupMemberResponseModifiedAt,
       groupMemberResponseActivityAt = groupMemberResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberResponses where
   toJSON GroupMemberResponses{..} = object $
-    [ "tag" .= "GroupMemberResponses"
+    [ "tag" .= ("GroupMemberResponses" :: Text)
     , "group_member_responses" .= groupMemberResponses
     ]
 
 
 instance FromJSON GroupMemberResponses where
   parseJSON (Object o) = do
-    groupMemberResponses <- o .: "group_member_responses"
-    return $ GroupMemberResponses {
+    groupMemberResponses <- o .: ("group_member_responses" :: Text)
+    pure $ GroupMemberResponses {
       groupMemberResponses = groupMemberResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberStatResponse where
   toJSON (GroupMemberStatResponse ) = object $
-    [ "tag" .= "GroupMemberStatResponse"
+    [ "tag" .= ("GroupMemberStatResponse" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON GroupMemberStatResponse where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "GroupMemberStatResponse" -> do
-        return GroupMemberStatResponse
+      ("GroupMemberStatResponse" :: Text) -> do
+        pure GroupMemberStatResponse
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse GroupMemberStatResponse"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberStatResponses where
   toJSON (GroupMemberStatResponses ) = object $
-    [ "tag" .= "GroupMemberStatResponses"
+    [ "tag" .= ("GroupMemberStatResponses" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON GroupMemberStatResponses where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "GroupMemberStatResponses" -> do
-        return GroupMemberStatResponses
+      ("GroupMemberStatResponses" :: Text) -> do
+        pure GroupMemberStatResponses
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse GroupMemberStatResponses"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronRequest where
   toJSON LeuronRequest{..} = object $
-    [ "tag" .= "LeuronRequest"
+    [ "tag" .= ("LeuronRequest" :: Text)
     , "data" .= leuronRequestData
     , "title" .= leuronRequestTitle
     , "description" .= leuronRequestDescription
@@ -1284,20 +1301,20 @@ instance ToJSON LeuronRequest where
 
 instance FromJSON LeuronRequest where
   parseJSON (Object o) = do
-    leuronRequestData <- o .: "data"
-    leuronRequestTitle <- o .: "title"
-    leuronRequestDescription <- o .: "description"
-    leuronRequestSection <- o .: "section"
-    leuronRequestPage <- o .: "page"
-    leuronRequestExamples <- o .: "examples"
-    leuronRequestStrengths <- o .: "strengths"
-    leuronRequestCategories <- o .: "categories"
-    leuronRequestSplits <- o .: "splits"
-    leuronRequestSubstitutions <- o .: "substitutions"
-    leuronRequestTags <- o .: "tags"
-    leuronRequestStyle <- o .: "style"
-    leuronRequestGuard <- o .: "guard"
-    return $ LeuronRequest {
+    leuronRequestData <- o .: ("data" :: Text)
+    leuronRequestTitle <- o .: ("title" :: Text)
+    leuronRequestDescription <- o .: ("description" :: Text)
+    leuronRequestSection <- o .: ("section" :: Text)
+    leuronRequestPage <- o .: ("page" :: Text)
+    leuronRequestExamples <- o .: ("examples" :: Text)
+    leuronRequestStrengths <- o .: ("strengths" :: Text)
+    leuronRequestCategories <- o .: ("categories" :: Text)
+    leuronRequestSplits <- o .: ("splits" :: Text)
+    leuronRequestSubstitutions <- o .: ("substitutions" :: Text)
+    leuronRequestTags <- o .: ("tags" :: Text)
+    leuronRequestStyle <- o .: ("style" :: Text)
+    leuronRequestGuard <- o .: ("guard" :: Text)
+    pure $ LeuronRequest {
       leuronRequestData = leuronRequestData,
       leuronRequestTitle = leuronRequestTitle,
       leuronRequestDescription = leuronRequestDescription,
@@ -1312,12 +1329,12 @@ instance FromJSON LeuronRequest where
       leuronRequestStyle = leuronRequestStyle,
       leuronRequestGuard = leuronRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronResponse where
   toJSON LeuronResponse{..} = object $
-    [ "tag" .= "LeuronResponse"
+    [ "tag" .= ("LeuronResponse" :: Text)
     , "id" .= leuronResponseId
     , "user_id" .= leuronResponseUserId
     , "resource_id" .= leuronResponseResourceId
@@ -1343,27 +1360,27 @@ instance ToJSON LeuronResponse where
 
 instance FromJSON LeuronResponse where
   parseJSON (Object o) = do
-    leuronResponseId <- o .: "id"
-    leuronResponseUserId <- o .: "user_id"
-    leuronResponseResourceId <- o .: "resource_id"
-    leuronResponseData <- o .: "data"
-    leuronResponseTitle <- o .: "title"
-    leuronResponseDescription <- o .: "description"
-    leuronResponseSection <- o .: "section"
-    leuronResponsePage <- o .: "page"
-    leuronResponseExamples <- o .: "examples"
-    leuronResponseStrengths <- o .: "strengths"
-    leuronResponseCategories <- o .: "categories"
-    leuronResponseSplits <- o .: "splits"
-    leuronResponseSubstitutions <- o .: "substitutions"
-    leuronResponseTags <- o .: "tags"
-    leuronResponseStyle <- o .: "style"
-    leuronResponseActive <- o .: "active"
-    leuronResponseGuard <- o .: "guard"
-    leuronResponseCreatedAt <- o .: "created_at"
-    leuronResponseModifiedAt <- o .: "modified_at"
-    leuronResponseActivityAt <- o .: "activity_at"
-    return $ LeuronResponse {
+    leuronResponseId <- o .: ("id" :: Text)
+    leuronResponseUserId <- o .: ("user_id" :: Text)
+    leuronResponseResourceId <- o .: ("resource_id" :: Text)
+    leuronResponseData <- o .: ("data" :: Text)
+    leuronResponseTitle <- o .: ("title" :: Text)
+    leuronResponseDescription <- o .: ("description" :: Text)
+    leuronResponseSection <- o .: ("section" :: Text)
+    leuronResponsePage <- o .: ("page" :: Text)
+    leuronResponseExamples <- o .: ("examples" :: Text)
+    leuronResponseStrengths <- o .: ("strengths" :: Text)
+    leuronResponseCategories <- o .: ("categories" :: Text)
+    leuronResponseSplits <- o .: ("splits" :: Text)
+    leuronResponseSubstitutions <- o .: ("substitutions" :: Text)
+    leuronResponseTags <- o .: ("tags" :: Text)
+    leuronResponseStyle <- o .: ("style" :: Text)
+    leuronResponseActive <- o .: ("active" :: Text)
+    leuronResponseGuard <- o .: ("guard" :: Text)
+    leuronResponseCreatedAt <- o .: ("created_at" :: Text)
+    leuronResponseModifiedAt <- o .: ("modified_at" :: Text)
+    leuronResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ LeuronResponse {
       leuronResponseId = leuronResponseId,
       leuronResponseUserId = leuronResponseUserId,
       leuronResponseResourceId = leuronResponseResourceId,
@@ -1385,28 +1402,28 @@ instance FromJSON LeuronResponse where
       leuronResponseModifiedAt = leuronResponseModifiedAt,
       leuronResponseActivityAt = leuronResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronResponses where
   toJSON LeuronResponses{..} = object $
-    [ "tag" .= "LeuronResponses"
+    [ "tag" .= ("LeuronResponses" :: Text)
     , "leuron_responses" .= leuronResponses
     ]
 
 
 instance FromJSON LeuronResponses where
   parseJSON (Object o) = do
-    leuronResponses <- o .: "leuron_responses"
-    return $ LeuronResponses {
+    leuronResponses <- o .: ("leuron_responses" :: Text)
+    pure $ LeuronResponses {
       leuronResponses = leuronResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronStatResponse where
   toJSON LeuronStatResponse{..} = object $
-    [ "tag" .= "LeuronStatResponse"
+    [ "tag" .= ("LeuronStatResponse" :: Text)
     , "leuron_id" .= leuronStatResponseLeuronId
     , "likes" .= leuronStatResponseLikes
     , "neutral" .= leuronStatResponseNeutral
@@ -1418,13 +1435,13 @@ instance ToJSON LeuronStatResponse where
 
 instance FromJSON LeuronStatResponse where
   parseJSON (Object o) = do
-    leuronStatResponseLeuronId <- o .: "leuron_id"
-    leuronStatResponseLikes <- o .: "likes"
-    leuronStatResponseNeutral <- o .: "neutral"
-    leuronStatResponseDislikes <- o .: "dislikes"
-    leuronStatResponseStars <- o .: "stars"
-    leuronStatResponseViews <- o .: "views"
-    return $ LeuronStatResponse {
+    leuronStatResponseLeuronId <- o .: ("leuron_id" :: Text)
+    leuronStatResponseLikes <- o .: ("likes" :: Text)
+    leuronStatResponseNeutral <- o .: ("neutral" :: Text)
+    leuronStatResponseDislikes <- o .: ("dislikes" :: Text)
+    leuronStatResponseStars <- o .: ("stars" :: Text)
+    leuronStatResponseViews <- o .: ("views" :: Text)
+    pure $ LeuronStatResponse {
       leuronStatResponseLeuronId = leuronStatResponseLeuronId,
       leuronStatResponseLikes = leuronStatResponseLikes,
       leuronStatResponseNeutral = leuronStatResponseNeutral,
@@ -1432,87 +1449,89 @@ instance FromJSON LeuronStatResponse where
       leuronStatResponseStars = leuronStatResponseStars,
       leuronStatResponseViews = leuronStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronStatResponses where
   toJSON LeuronStatResponses{..} = object $
-    [ "tag" .= "LeuronStatResponses"
+    [ "tag" .= ("LeuronStatResponses" :: Text)
     , "leuron_stat_responses" .= leuronStatResponses
     ]
 
 
 instance FromJSON LeuronStatResponses where
   parseJSON (Object o) = do
-    leuronStatResponses <- o .: "leuron_stat_responses"
-    return $ LeuronStatResponses {
+    leuronStatResponses <- o .: ("leuron_stat_responses" :: Text)
+    pure $ LeuronStatResponses {
       leuronStatResponses = leuronStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronTrainingSummary where
   toJSON (LTS_View ) = object $
-    [ "tag" .= "LTS_View"
+    [ "tag" .= ("LTS_View" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LTS_Skip ) = object $
-    [ "tag" .= "LTS_Skip"
+    [ "tag" .= ("LTS_Skip" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LTS_Know ) = object $
-    [ "tag" .= "LTS_Know"
+    [ "tag" .= ("LTS_Know" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LTS_DontKnow ) = object $
-    [ "tag" .= "LTS_DontKnow"
+    [ "tag" .= ("LTS_DontKnow" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LTS_DontUnderstand ) = object $
-    [ "tag" .= "LTS_DontUnderstand"
+    [ "tag" .= ("LTS_DontUnderstand" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LTS_DontCare ) = object $
-    [ "tag" .= "LTS_DontCare"
+    [ "tag" .= ("LTS_DontCare" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LTS_Protest ) = object $
-    [ "tag" .= "LTS_Protest"
+    [ "tag" .= ("LTS_Protest" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON LeuronTrainingSummary where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "LTS_View" -> do
-        return LTS_View
+      ("LTS_View" :: Text) -> do
+        pure LTS_View
 
-      "LTS_Skip" -> do
-        return LTS_Skip
+      ("LTS_Skip" :: Text) -> do
+        pure LTS_Skip
 
-      "LTS_Know" -> do
-        return LTS_Know
+      ("LTS_Know" :: Text) -> do
+        pure LTS_Know
 
-      "LTS_DontKnow" -> do
-        return LTS_DontKnow
+      ("LTS_DontKnow" :: Text) -> do
+        pure LTS_DontKnow
 
-      "LTS_DontUnderstand" -> do
-        return LTS_DontUnderstand
+      ("LTS_DontUnderstand" :: Text) -> do
+        pure LTS_DontUnderstand
 
-      "LTS_DontCare" -> do
-        return LTS_DontCare
+      ("LTS_DontCare" :: Text) -> do
+        pure LTS_DontCare
 
-      "LTS_Protest" -> do
-        return LTS_Protest
+      ("LTS_Protest" :: Text) -> do
+        pure LTS_Protest
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse LeuronTrainingSummary"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronTrainingRequest where
   toJSON LeuronTrainingRequest{..} = object $
-    [ "tag" .= "LeuronTrainingRequest"
+    [ "tag" .= ("LeuronTrainingRequest" :: Text)
     , "summary" .= leuronTrainingRequestSummary
     , "guard" .= leuronTrainingRequestGuard
     ]
@@ -1520,18 +1539,18 @@ instance ToJSON LeuronTrainingRequest where
 
 instance FromJSON LeuronTrainingRequest where
   parseJSON (Object o) = do
-    leuronTrainingRequestSummary <- o .: "summary"
-    leuronTrainingRequestGuard <- o .: "guard"
-    return $ LeuronTrainingRequest {
+    leuronTrainingRequestSummary <- o .: ("summary" :: Text)
+    leuronTrainingRequestGuard <- o .: ("guard" :: Text)
+    pure $ LeuronTrainingRequest {
       leuronTrainingRequestSummary = leuronTrainingRequestSummary,
       leuronTrainingRequestGuard = leuronTrainingRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronTrainingResponse where
   toJSON LeuronTrainingResponse{..} = object $
-    [ "tag" .= "LeuronTrainingResponse"
+    [ "tag" .= ("LeuronTrainingResponse" :: Text)
     , "id" .= leuronTrainingResponseId
     , "user_id" .= leuronTrainingResponseUserId
     , "leuron_id" .= leuronTrainingResponseLeuronId
@@ -1544,14 +1563,14 @@ instance ToJSON LeuronTrainingResponse where
 
 instance FromJSON LeuronTrainingResponse where
   parseJSON (Object o) = do
-    leuronTrainingResponseId <- o .: "id"
-    leuronTrainingResponseUserId <- o .: "user_id"
-    leuronTrainingResponseLeuronId <- o .: "leuron_id"
-    leuronTrainingResponseSummary <- o .: "summary"
-    leuronTrainingResponseGuard <- o .: "guard"
-    leuronTrainingResponseCreatedAt <- o .: "created_at"
-    leuronTrainingResponseModifiedAt <- o .: "modified_at"
-    return $ LeuronTrainingResponse {
+    leuronTrainingResponseId <- o .: ("id" :: Text)
+    leuronTrainingResponseUserId <- o .: ("user_id" :: Text)
+    leuronTrainingResponseLeuronId <- o .: ("leuron_id" :: Text)
+    leuronTrainingResponseSummary <- o .: ("summary" :: Text)
+    leuronTrainingResponseGuard <- o .: ("guard" :: Text)
+    leuronTrainingResponseCreatedAt <- o .: ("created_at" :: Text)
+    leuronTrainingResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ LeuronTrainingResponse {
       leuronTrainingResponseId = leuronTrainingResponseId,
       leuronTrainingResponseUserId = leuronTrainingResponseUserId,
       leuronTrainingResponseLeuronId = leuronTrainingResponseLeuronId,
@@ -1560,91 +1579,93 @@ instance FromJSON LeuronTrainingResponse where
       leuronTrainingResponseCreatedAt = leuronTrainingResponseCreatedAt,
       leuronTrainingResponseModifiedAt = leuronTrainingResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronTrainingResponses where
   toJSON LeuronTrainingResponses{..} = object $
-    [ "tag" .= "LeuronTrainingResponses"
+    [ "tag" .= ("LeuronTrainingResponses" :: Text)
     , "leuron_training_responses" .= leuronTrainingResponses
     ]
 
 
 instance FromJSON LeuronTrainingResponses where
   parseJSON (Object o) = do
-    leuronTrainingResponses <- o .: "leuron_training_responses"
-    return $ LeuronTrainingResponses {
+    leuronTrainingResponses <- o .: ("leuron_training_responses" :: Text)
+    pure $ LeuronTrainingResponses {
       leuronTrainingResponses = leuronTrainingResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronTrainingStatResponse where
   toJSON LeuronTrainingStatResponse{..} = object $
-    [ "tag" .= "LeuronTrainingStatResponse"
+    [ "tag" .= ("LeuronTrainingStatResponse" :: Text)
     , "leuron_training_id" .= leuronTrainingStatResponseLeuronTrainingId
     ]
 
 
 instance FromJSON LeuronTrainingStatResponse where
   parseJSON (Object o) = do
-    leuronTrainingStatResponseLeuronTrainingId <- o .: "leuron_training_id"
-    return $ LeuronTrainingStatResponse {
+    leuronTrainingStatResponseLeuronTrainingId <- o .: ("leuron_training_id" :: Text)
+    pure $ LeuronTrainingStatResponse {
       leuronTrainingStatResponseLeuronTrainingId = leuronTrainingStatResponseLeuronTrainingId
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronTrainingStatResponses where
   toJSON LeuronTrainingStatResponses{..} = object $
-    [ "tag" .= "LeuronTrainingStatResponses"
+    [ "tag" .= ("LeuronTrainingStatResponses" :: Text)
     , "leuron_training_stat_responses" .= leuronTrainingStatResponses
     ]
 
 
 instance FromJSON LeuronTrainingStatResponses where
   parseJSON (Object o) = do
-    leuronTrainingStatResponses <- o .: "leuron_training_stat_responses"
-    return $ LeuronTrainingStatResponses {
+    leuronTrainingStatResponses <- o .: ("leuron_training_stat_responses" :: Text)
+    pure $ LeuronTrainingStatResponses {
       leuronTrainingStatResponses = leuronTrainingStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LikeOpt where
   toJSON (Like ) = object $
-    [ "tag" .= "Like"
+    [ "tag" .= ("Like" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Neutral ) = object $
-    [ "tag" .= "Neutral"
+    [ "tag" .= ("Neutral" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Dislike ) = object $
-    [ "tag" .= "Dislike"
+    [ "tag" .= ("Dislike" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON LikeOpt where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Like" -> do
-        return Like
+      ("Like" :: Text) -> do
+        pure Like
 
-      "Neutral" -> do
-        return Neutral
+      ("Neutral" :: Text) -> do
+        pure Neutral
 
-      "Dislike" -> do
-        return Dislike
+      ("Dislike" :: Text) -> do
+        pure Dislike
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse LikeOpt"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LikeRequest where
   toJSON LikeRequest{..} = object $
-    [ "tag" .= "LikeRequest"
+    [ "tag" .= ("LikeRequest" :: Text)
     , "opt" .= likeRequestOpt
     , "reason" .= likeRequestReason
     , "guard" .= likeRequestGuard
@@ -1653,20 +1674,20 @@ instance ToJSON LikeRequest where
 
 instance FromJSON LikeRequest where
   parseJSON (Object o) = do
-    likeRequestOpt <- o .: "opt"
-    likeRequestReason <- o .: "reason"
-    likeRequestGuard <- o .: "guard"
-    return $ LikeRequest {
+    likeRequestOpt <- o .: ("opt" :: Text)
+    likeRequestReason <- o .: ("reason" :: Text)
+    likeRequestGuard <- o .: ("guard" :: Text)
+    pure $ LikeRequest {
       likeRequestOpt = likeRequestOpt,
       likeRequestReason = likeRequestReason,
       likeRequestGuard = likeRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LikeResponse where
   toJSON LikeResponse{..} = object $
-    [ "tag" .= "LikeResponse"
+    [ "tag" .= ("LikeResponse" :: Text)
     , "id" .= likeResponseId
     , "ent" .= likeResponseEnt
     , "ent_id" .= likeResponseEntId
@@ -1683,18 +1704,18 @@ instance ToJSON LikeResponse where
 
 instance FromJSON LikeResponse where
   parseJSON (Object o) = do
-    likeResponseId <- o .: "id"
-    likeResponseEnt <- o .: "ent"
-    likeResponseEntId <- o .: "ent_id"
-    likeResponseUserId <- o .: "user_id"
-    likeResponseOpt <- o .: "opt"
-    likeResponseScore <- o .: "score"
-    likeResponseReason <- o .: "reason"
-    likeResponseActive <- o .: "active"
-    likeResponseGuard <- o .: "guard"
-    likeResponseCreatedAt <- o .: "created_at"
-    likeResponseModifiedAt <- o .: "modified_at"
-    return $ LikeResponse {
+    likeResponseId <- o .: ("id" :: Text)
+    likeResponseEnt <- o .: ("ent" :: Text)
+    likeResponseEntId <- o .: ("ent_id" :: Text)
+    likeResponseUserId <- o .: ("user_id" :: Text)
+    likeResponseOpt <- o .: ("opt" :: Text)
+    likeResponseScore <- o .: ("score" :: Text)
+    likeResponseReason <- o .: ("reason" :: Text)
+    likeResponseActive <- o .: ("active" :: Text)
+    likeResponseGuard <- o .: ("guard" :: Text)
+    likeResponseCreatedAt <- o .: ("created_at" :: Text)
+    likeResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ LikeResponse {
       likeResponseId = likeResponseId,
       likeResponseEnt = likeResponseEnt,
       likeResponseEntId = likeResponseEntId,
@@ -1707,28 +1728,28 @@ instance FromJSON LikeResponse where
       likeResponseCreatedAt = likeResponseCreatedAt,
       likeResponseModifiedAt = likeResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LikeResponses where
   toJSON LikeResponses{..} = object $
-    [ "tag" .= "LikeResponses"
+    [ "tag" .= ("LikeResponses" :: Text)
     , "like_responses" .= likeResponses
     ]
 
 
 instance FromJSON LikeResponses where
   parseJSON (Object o) = do
-    likeResponses <- o .: "like_responses"
-    return $ LikeResponses {
+    likeResponses <- o .: ("like_responses" :: Text)
+    pure $ LikeResponses {
       likeResponses = likeResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LikeStatResponse where
   toJSON LikeStatResponse{..} = object $
-    [ "tag" .= "LikeStatResponse"
+    [ "tag" .= ("LikeStatResponse" :: Text)
     , "ent" .= likeStatResponseEnt
     , "ent_id" .= likeStatResponseEntId
     , "score" .= likeStatResponseScore
@@ -1740,13 +1761,13 @@ instance ToJSON LikeStatResponse where
 
 instance FromJSON LikeStatResponse where
   parseJSON (Object o) = do
-    likeStatResponseEnt <- o .: "ent"
-    likeStatResponseEntId <- o .: "ent_id"
-    likeStatResponseScore <- o .: "score"
-    likeStatResponseLike <- o .: "like"
-    likeStatResponseNeutral <- o .: "neutral"
-    likeStatResponseDislike <- o .: "dislike"
-    return $ LikeStatResponse {
+    likeStatResponseEnt <- o .: ("ent" :: Text)
+    likeStatResponseEntId <- o .: ("ent_id" :: Text)
+    likeStatResponseScore <- o .: ("score" :: Text)
+    likeStatResponseLike <- o .: ("like" :: Text)
+    likeStatResponseNeutral <- o .: ("neutral" :: Text)
+    likeStatResponseDislike <- o .: ("dislike" :: Text)
+    pure $ LikeStatResponse {
       likeStatResponseEnt = likeStatResponseEnt,
       likeStatResponseEntId = likeStatResponseEntId,
       likeStatResponseScore = likeStatResponseScore,
@@ -1754,302 +1775,334 @@ instance FromJSON LikeStatResponse where
       likeStatResponseNeutral = likeStatResponseNeutral,
       likeStatResponseDislike = likeStatResponseDislike
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LikeStatResponses where
   toJSON LikeStatResponses{..} = object $
-    [ "tag" .= "LikeStatResponses"
+    [ "tag" .= ("LikeStatResponses" :: Text)
     , "like_stat_responses" .= likeStatResponses
     ]
 
 
 instance FromJSON LikeStatResponses where
   parseJSON (Object o) = do
-    likeStatResponses <- o .: "like_stat_responses"
-    return $ LikeStatResponses {
+    likeStatResponses <- o .: ("like_stat_responses" :: Text)
+    pure $ LikeStatResponses {
       likeStatResponses = likeStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronData where
   toJSON (LnFact x0) = object $
-    [ "tag" .= "LnFact"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnFact" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnFactList x0) = object $
-    [ "tag" .= "LnFactList"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnFactList" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnCard x0) = object $
-    [ "tag" .= "LnCard"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnCard" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnDCard x0) = object $
-    [ "tag" .= "LnDCard"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnDCard" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnDCardX x0) = object $
-    [ "tag" .= "LnDCardX"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnDCardX" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnAcronym x0) = object $
-    [ "tag" .= "LnAcronym"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnAcronym" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnSynonym x0) = object $
-    [ "tag" .= "LnSynonym"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnSynonym" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnAntonym x0) = object $
-    [ "tag" .= "LnAntonym"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnAntonym" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnTemplate x0) = object $
-    [ "tag" .= "LnTemplate"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnTemplate" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnImageAssociation x0) = object $
-    [ "tag" .= "LnImageAssociation"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnImageAssociation" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnLinearDemo x0) = object $
-    [ "tag" .= "LnLinearDemo"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnLinearDemo" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnTable x0) = object $
-    [ "tag" .= "LnTable"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnTable" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnScript x0) = object $
-    [ "tag" .= "LnScript"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnScript" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnQA x0) = object $
-    [ "tag" .= "LnQA"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("LnQA" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (LnExamples ) = object $
-    [ "tag" .= "LnExamples"
+    [ "tag" .= ("LnExamples" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (LnEmpty ) = object $
-    [ "tag" .= "LnEmpty"
+    [ "tag" .= ("LnEmpty" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON LeuronData where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "LnFact" -> do
-        x0 <- o .: "contents"
-        LnFact <$> parseJSON x0
+      ("LnFact" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnFact <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnFact"
 
-      "LnFactList" -> do
-        x0 <- o .: "contents"
-        LnFactList <$> parseJSON x0
+      ("LnFactList" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnFactList <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnFactList"
 
-      "LnCard" -> do
-        x0 <- o .: "contents"
-        LnCard <$> parseJSON x0
+      ("LnCard" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnCard <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnCard"
 
-      "LnDCard" -> do
-        x0 <- o .: "contents"
-        LnDCard <$> parseJSON x0
+      ("LnDCard" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnDCard <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnDCard"
 
-      "LnDCardX" -> do
-        x0 <- o .: "contents"
-        LnDCardX <$> parseJSON x0
+      ("LnDCardX" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnDCardX <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnDCardX"
 
-      "LnAcronym" -> do
-        x0 <- o .: "contents"
-        LnAcronym <$> parseJSON x0
+      ("LnAcronym" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnAcronym <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnAcronym"
 
-      "LnSynonym" -> do
-        x0 <- o .: "contents"
-        LnSynonym <$> parseJSON x0
+      ("LnSynonym" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnSynonym <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnSynonym"
 
-      "LnAntonym" -> do
-        x0 <- o .: "contents"
-        LnAntonym <$> parseJSON x0
+      ("LnAntonym" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnAntonym <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnAntonym"
 
-      "LnTemplate" -> do
-        x0 <- o .: "contents"
-        LnTemplate <$> parseJSON x0
+      ("LnTemplate" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnTemplate <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnTemplate"
 
-      "LnImageAssociation" -> do
-        x0 <- o .: "contents"
-        LnImageAssociation <$> parseJSON x0
+      ("LnImageAssociation" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnImageAssociation <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnImageAssociation"
 
-      "LnLinearDemo" -> do
-        x0 <- o .: "contents"
-        LnLinearDemo <$> parseJSON x0
+      ("LnLinearDemo" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnLinearDemo <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnLinearDemo"
 
-      "LnTable" -> do
-        x0 <- o .: "contents"
-        LnTable <$> parseJSON x0
+      ("LnTable" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnTable <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnTable"
 
-      "LnScript" -> do
-        x0 <- o .: "contents"
-        LnScript <$> parseJSON x0
+      ("LnScript" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnScript <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnScript"
 
-      "LnQA" -> do
-        x0 <- o .: "contents"
-        LnQA <$> parseJSON x0
+      ("LnQA" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> LnQA <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: LnQA"
 
-      "LnExamples" -> do
-        return LnExamples
+      ("LnExamples" :: Text) -> do
+        pure LnExamples
 
-      "LnEmpty" -> do
-        return LnEmpty
+      ("LnEmpty" :: Text) -> do
+        pure LnEmpty
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse LeuronData"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TyLeuron where
   toJSON (TyLnFact ) = object $
-    [ "tag" .= "TyLnFact"
+    [ "tag" .= ("TyLnFact" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnFactList ) = object $
-    [ "tag" .= "TyLnFactList"
+    [ "tag" .= ("TyLnFactList" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnCard ) = object $
-    [ "tag" .= "TyLnCard"
+    [ "tag" .= ("TyLnCard" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnDCard ) = object $
-    [ "tag" .= "TyLnDCard"
+    [ "tag" .= ("TyLnDCard" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnDCardX ) = object $
-    [ "tag" .= "TyLnDCardX"
+    [ "tag" .= ("TyLnDCardX" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnAcronym ) = object $
-    [ "tag" .= "TyLnAcronym"
+    [ "tag" .= ("TyLnAcronym" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnSynonym ) = object $
-    [ "tag" .= "TyLnSynonym"
+    [ "tag" .= ("TyLnSynonym" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnAntonym ) = object $
-    [ "tag" .= "TyLnAntonym"
+    [ "tag" .= ("TyLnAntonym" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnTemplate ) = object $
-    [ "tag" .= "TyLnTemplate"
+    [ "tag" .= ("TyLnTemplate" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnImageAssociation ) = object $
-    [ "tag" .= "TyLnImageAssociation"
+    [ "tag" .= ("TyLnImageAssociation" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnLinearDemo ) = object $
-    [ "tag" .= "TyLnLinearDemo"
+    [ "tag" .= ("TyLnLinearDemo" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnTable ) = object $
-    [ "tag" .= "TyLnTable"
+    [ "tag" .= ("TyLnTable" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnScript ) = object $
-    [ "tag" .= "TyLnScript"
+    [ "tag" .= ("TyLnScript" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnQA ) = object $
-    [ "tag" .= "TyLnQA"
+    [ "tag" .= ("TyLnQA" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnExamples ) = object $
-    [ "tag" .= "TyLnExamples"
+    [ "tag" .= ("TyLnExamples" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyLnEmpty ) = object $
-    [ "tag" .= "TyLnEmpty"
+    [ "tag" .= ("TyLnEmpty" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON TyLeuron where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "TyLnFact" -> do
-        return TyLnFact
+      ("TyLnFact" :: Text) -> do
+        pure TyLnFact
 
-      "TyLnFactList" -> do
-        return TyLnFactList
+      ("TyLnFactList" :: Text) -> do
+        pure TyLnFactList
 
-      "TyLnCard" -> do
-        return TyLnCard
+      ("TyLnCard" :: Text) -> do
+        pure TyLnCard
 
-      "TyLnDCard" -> do
-        return TyLnDCard
+      ("TyLnDCard" :: Text) -> do
+        pure TyLnDCard
 
-      "TyLnDCardX" -> do
-        return TyLnDCardX
+      ("TyLnDCardX" :: Text) -> do
+        pure TyLnDCardX
 
-      "TyLnAcronym" -> do
-        return TyLnAcronym
+      ("TyLnAcronym" :: Text) -> do
+        pure TyLnAcronym
 
-      "TyLnSynonym" -> do
-        return TyLnSynonym
+      ("TyLnSynonym" :: Text) -> do
+        pure TyLnSynonym
 
-      "TyLnAntonym" -> do
-        return TyLnAntonym
+      ("TyLnAntonym" :: Text) -> do
+        pure TyLnAntonym
 
-      "TyLnTemplate" -> do
-        return TyLnTemplate
+      ("TyLnTemplate" :: Text) -> do
+        pure TyLnTemplate
 
-      "TyLnImageAssociation" -> do
-        return TyLnImageAssociation
+      ("TyLnImageAssociation" :: Text) -> do
+        pure TyLnImageAssociation
 
-      "TyLnLinearDemo" -> do
-        return TyLnLinearDemo
+      ("TyLnLinearDemo" :: Text) -> do
+        pure TyLnLinearDemo
 
-      "TyLnTable" -> do
-        return TyLnTable
+      ("TyLnTable" :: Text) -> do
+        pure TyLnTable
 
-      "TyLnScript" -> do
-        return TyLnScript
+      ("TyLnScript" :: Text) -> do
+        pure TyLnScript
 
-      "TyLnQA" -> do
-        return TyLnQA
+      ("TyLnQA" :: Text) -> do
+        pure TyLnQA
 
-      "TyLnExamples" -> do
-        return TyLnExamples
+      ("TyLnExamples" :: Text) -> do
+        pure TyLnExamples
 
-      "TyLnEmpty" -> do
-        return TyLnEmpty
+      ("TyLnEmpty" :: Text) -> do
+        pure TyLnEmpty
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse TyLeuron"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Fact where
   toJSON Fact{..} = object $
-    [ "tag" .= "Fact"
+    [ "tag" .= ("Fact" :: Text)
     , "text" .= factText
     ]
 
 
 instance FromJSON Fact where
   parseJSON (Object o) = do
-    factText <- o .: "text"
-    return $ Fact {
+    factText <- o .: ("text" :: Text)
+    pure $ Fact {
       factText = factText
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON FactList where
   toJSON FactList{..} = object $
-    [ "tag" .= "FactList"
+    [ "tag" .= ("FactList" :: Text)
     , "fact" .= factListFact
     , "list" .= factListList
     ]
@@ -2057,18 +2110,18 @@ instance ToJSON FactList where
 
 instance FromJSON FactList where
   parseJSON (Object o) = do
-    factListFact <- o .: "fact"
-    factListList <- o .: "list"
-    return $ FactList {
+    factListFact <- o .: ("fact" :: Text)
+    factListList <- o .: ("list" :: Text)
+    pure $ FactList {
       factListFact = factListFact,
       factListList = factListList
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Card where
   toJSON Card{..} = object $
-    [ "tag" .= "Card"
+    [ "tag" .= ("Card" :: Text)
     , "front" .= cardFront
     , "back" .= cardBack
     ]
@@ -2076,18 +2129,18 @@ instance ToJSON Card where
 
 instance FromJSON Card where
   parseJSON (Object o) = do
-    cardFront <- o .: "front"
-    cardBack <- o .: "back"
-    return $ Card {
+    cardFront <- o .: ("front" :: Text)
+    cardBack <- o .: ("back" :: Text)
+    pure $ Card {
       cardFront = cardFront,
       cardBack = cardBack
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON DCard where
   toJSON DCard{..} = object $
-    [ "tag" .= "DCard"
+    [ "tag" .= ("DCard" :: Text)
     , "front" .= dcardFront
     , "back" .= dcardBack
     ]
@@ -2095,18 +2148,18 @@ instance ToJSON DCard where
 
 instance FromJSON DCard where
   parseJSON (Object o) = do
-    dcardFront <- o .: "front"
-    dcardBack <- o .: "back"
-    return $ DCard {
+    dcardFront <- o .: ("front" :: Text)
+    dcardBack <- o .: ("back" :: Text)
+    pure $ DCard {
       dcardFront = dcardFront,
       dcardBack = dcardBack
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON DCardX where
   toJSON DCardX{..} = object $
-    [ "tag" .= "DCardX"
+    [ "tag" .= ("DCardX" :: Text)
     , "front" .= dcardxFront
     , "back" .= dcardxBack
     ]
@@ -2114,18 +2167,18 @@ instance ToJSON DCardX where
 
 instance FromJSON DCardX where
   parseJSON (Object o) = do
-    dcardxFront <- o .: "front"
-    dcardxBack <- o .: "back"
-    return $ DCardX {
+    dcardxFront <- o .: ("front" :: Text)
+    dcardxBack <- o .: ("back" :: Text)
+    pure $ DCardX {
       dcardxFront = dcardxFront,
       dcardxBack = dcardxBack
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Acronym where
   toJSON Acronym{..} = object $
-    [ "tag" .= "Acronym"
+    [ "tag" .= ("Acronym" :: Text)
     , "abbreviation" .= acronymAbbreviation
     , "meaning" .= acronymMeaning
     ]
@@ -2133,18 +2186,18 @@ instance ToJSON Acronym where
 
 instance FromJSON Acronym where
   parseJSON (Object o) = do
-    acronymAbbreviation <- o .: "abbreviation"
-    acronymMeaning <- o .: "meaning"
-    return $ Acronym {
+    acronymAbbreviation <- o .: ("abbreviation" :: Text)
+    acronymMeaning <- o .: ("meaning" :: Text)
+    pure $ Acronym {
       acronymAbbreviation = acronymAbbreviation,
       acronymMeaning = acronymMeaning
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Synonym where
   toJSON Synonym{..} = object $
-    [ "tag" .= "Synonym"
+    [ "tag" .= ("Synonym" :: Text)
     , "a" .= synonymA
     , "b" .= synonymB
     ]
@@ -2152,18 +2205,18 @@ instance ToJSON Synonym where
 
 instance FromJSON Synonym where
   parseJSON (Object o) = do
-    synonymA <- o .: "a"
-    synonymB <- o .: "b"
-    return $ Synonym {
+    synonymA <- o .: ("a" :: Text)
+    synonymB <- o .: ("b" :: Text)
+    pure $ Synonym {
       synonymA = synonymA,
       synonymB = synonymB
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Antonym where
   toJSON Antonym{..} = object $
-    [ "tag" .= "Antonym"
+    [ "tag" .= ("Antonym" :: Text)
     , "a" .= antonymA
     , "b" .= antonymB
     ]
@@ -2171,18 +2224,18 @@ instance ToJSON Antonym where
 
 instance FromJSON Antonym where
   parseJSON (Object o) = do
-    antonymA <- o .: "a"
-    antonymB <- o .: "b"
-    return $ Antonym {
+    antonymA <- o .: ("a" :: Text)
+    antonymB <- o .: ("b" :: Text)
+    pure $ Antonym {
       antonymA = antonymA,
       antonymB = antonymB
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Template where
   toJSON Template{..} = object $
-    [ "tag" .= "Template"
+    [ "tag" .= ("Template" :: Text)
     , "template" .= template
     , "values" .= templateValues
     ]
@@ -2190,18 +2243,18 @@ instance ToJSON Template where
 
 instance FromJSON Template where
   parseJSON (Object o) = do
-    template <- o .: "template"
-    templateValues <- o .: "values"
-    return $ Template {
+    template <- o .: ("template" :: Text)
+    templateValues <- o .: ("values" :: Text)
+    pure $ Template {
       template = template,
       templateValues = templateValues
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ImageAssociation where
   toJSON ImageAssociation{..} = object $
-    [ "tag" .= "ImageAssociation"
+    [ "tag" .= ("ImageAssociation" :: Text)
     , "image_url" .= imageUrl
     , "assoc_by" .= assocBy
     , "assoc_result" .= assocResult
@@ -2210,20 +2263,20 @@ instance ToJSON ImageAssociation where
 
 instance FromJSON ImageAssociation where
   parseJSON (Object o) = do
-    imageUrl <- o .: "image_url"
-    assocBy <- o .: "assoc_by"
-    assocResult <- o .: "assoc_result"
-    return $ ImageAssociation {
+    imageUrl <- o .: ("image_url" :: Text)
+    assocBy <- o .: ("assoc_by" :: Text)
+    assocResult <- o .: ("assoc_result" :: Text)
+    pure $ ImageAssociation {
       imageUrl = imageUrl,
       assocBy = assocBy,
       assocResult = assocResult
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Script where
   toJSON Script{..} = object $
-    [ "tag" .= "Script"
+    [ "tag" .= ("Script" :: Text)
     , "title" .= scriptTitle
     , "desc" .= scriptDesc
     , "url" .= scriptUrl
@@ -2232,20 +2285,20 @@ instance ToJSON Script where
 
 instance FromJSON Script where
   parseJSON (Object o) = do
-    scriptTitle <- o .: "title"
-    scriptDesc <- o .: "desc"
-    scriptUrl <- o .: "url"
-    return $ Script {
+    scriptTitle <- o .: ("title" :: Text)
+    scriptDesc <- o .: ("desc" :: Text)
+    scriptUrl <- o .: ("url" :: Text)
+    pure $ Script {
       scriptTitle = scriptTitle,
       scriptDesc = scriptDesc,
       scriptUrl = scriptUrl
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LinearDemo where
   toJSON LinearDemo{..} = object $
-    [ "tag" .= "LinearDemo"
+    [ "tag" .= ("LinearDemo" :: Text)
     , "label" .= linearDemoLabel
     , "content" .= linearDemoContent
     ]
@@ -2253,18 +2306,18 @@ instance ToJSON LinearDemo where
 
 instance FromJSON LinearDemo where
   parseJSON (Object o) = do
-    linearDemoLabel <- o .: "label"
-    linearDemoContent <- o .: "content"
-    return $ LinearDemo {
+    linearDemoLabel <- o .: ("label" :: Text)
+    linearDemoContent <- o .: ("content" :: Text)
+    pure $ LinearDemo {
       linearDemoLabel = linearDemoLabel,
       linearDemoContent = linearDemoContent
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON QA where
   toJSON QA{..} = object $
-    [ "tag" .= "QA"
+    [ "tag" .= ("QA" :: Text)
     , "question" .= qaQuestion
     , "answer" .= qaAnswer
     ]
@@ -2272,18 +2325,18 @@ instance ToJSON QA where
 
 instance FromJSON QA where
   parseJSON (Object o) = do
-    qaQuestion <- o .: "question"
-    qaAnswer <- o .: "answer"
-    return $ QA {
+    qaQuestion <- o .: ("question" :: Text)
+    qaAnswer <- o .: ("answer" :: Text)
+    pure $ QA {
       qaQuestion = qaQuestion,
       qaAnswer = qaAnswer
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Table where
   toJSON Table{..} = object $
-    [ "tag" .= "Table"
+    [ "tag" .= ("Table" :: Text)
     , "title" .= tableTitle
     , "columns" .= tableColumns
     , "rows" .= tableRows
@@ -2292,58 +2345,60 @@ instance ToJSON Table where
 
 instance FromJSON Table where
   parseJSON (Object o) = do
-    tableTitle <- o .: "title"
-    tableColumns <- o .: "columns"
-    tableRows <- o .: "rows"
-    return $ Table {
+    tableTitle <- o .: ("title" :: Text)
+    tableColumns <- o .: ("columns" :: Text)
+    tableRows <- o .: ("rows" :: Text)
+    pure $ Table {
       tableTitle = tableTitle,
       tableColumns = tableColumns,
       tableRows = tableRows
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Membership where
   toJSON (Membership_InviteOnly ) = object $
-    [ "tag" .= "Membership_InviteOnly"
+    [ "tag" .= ("Membership_InviteOnly" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Membership_RequestInvite ) = object $
-    [ "tag" .= "Membership_RequestInvite"
+    [ "tag" .= ("Membership_RequestInvite" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Membership_Join ) = object $
-    [ "tag" .= "Membership_Join"
+    [ "tag" .= ("Membership_Join" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Membership_Locked ) = object $
-    [ "tag" .= "Membership_Locked"
+    [ "tag" .= ("Membership_Locked" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON Membership where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Membership_InviteOnly" -> do
-        return Membership_InviteOnly
+      ("Membership_InviteOnly" :: Text) -> do
+        pure Membership_InviteOnly
 
-      "Membership_RequestInvite" -> do
-        return Membership_RequestInvite
+      ("Membership_RequestInvite" :: Text) -> do
+        pure Membership_RequestInvite
 
-      "Membership_Join" -> do
-        return Membership_Join
+      ("Membership_Join" :: Text) -> do
+        pure Membership_Join
 
-      "Membership_Locked" -> do
-        return Membership_Locked
+      ("Membership_Locked" :: Text) -> do
+        pure Membership_Locked
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Membership"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationRequest where
   toJSON OrganizationRequest{..} = object $
-    [ "tag" .= "OrganizationRequest"
+    [ "tag" .= ("OrganizationRequest" :: Text)
     , "display_name" .= organizationRequestDisplayName
     , "description" .= organizationRequestDescription
     , "company" .= organizationRequestCompany
@@ -2359,17 +2414,17 @@ instance ToJSON OrganizationRequest where
 
 instance FromJSON OrganizationRequest where
   parseJSON (Object o) = do
-    organizationRequestDisplayName <- o .: "display_name"
-    organizationRequestDescription <- o .: "description"
-    organizationRequestCompany <- o .: "company"
-    organizationRequestLocation <- o .: "location"
-    organizationRequestEmail <- o .: "email"
-    organizationRequestMembership <- o .: "membership"
-    organizationRequestTags <- o .: "tags"
-    organizationRequestIcon <- o .: "icon"
-    organizationRequestVisibility <- o .: "visibility"
-    organizationRequestGuard <- o .: "guard"
-    return $ OrganizationRequest {
+    organizationRequestDisplayName <- o .: ("display_name" :: Text)
+    organizationRequestDescription <- o .: ("description" :: Text)
+    organizationRequestCompany <- o .: ("company" :: Text)
+    organizationRequestLocation <- o .: ("location" :: Text)
+    organizationRequestEmail <- o .: ("email" :: Text)
+    organizationRequestMembership <- o .: ("membership" :: Text)
+    organizationRequestTags <- o .: ("tags" :: Text)
+    organizationRequestIcon <- o .: ("icon" :: Text)
+    organizationRequestVisibility <- o .: ("visibility" :: Text)
+    organizationRequestGuard <- o .: ("guard" :: Text)
+    pure $ OrganizationRequest {
       organizationRequestDisplayName = organizationRequestDisplayName,
       organizationRequestDescription = organizationRequestDescription,
       organizationRequestCompany = organizationRequestCompany,
@@ -2381,12 +2436,12 @@ instance FromJSON OrganizationRequest where
       organizationRequestVisibility = organizationRequestVisibility,
       organizationRequestGuard = organizationRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationResponse where
   toJSON OrganizationResponse{..} = object $
-    [ "tag" .= "OrganizationResponse"
+    [ "tag" .= ("OrganizationResponse" :: Text)
     , "id" .= organizationResponseId
     , "user_id" .= organizationResponseUserId
     , "name" .= organizationResponseName
@@ -2411,26 +2466,26 @@ instance ToJSON OrganizationResponse where
 
 instance FromJSON OrganizationResponse where
   parseJSON (Object o) = do
-    organizationResponseId <- o .: "id"
-    organizationResponseUserId <- o .: "user_id"
-    organizationResponseName <- o .: "name"
-    organizationResponseDisplayName <- o .: "display_name"
-    organizationResponseDescription <- o .: "description"
-    organizationResponseCompany <- o .: "company"
-    organizationResponseLocation <- o .: "location"
-    organizationResponseEmail <- o .: "email"
-    organizationResponseEmailMD5 <- o .: "email_md5"
-    organizationResponseMembership <- o .: "membership"
-    organizationResponseIcon <- o .: "icon"
-    organizationResponseTags <- o .: "tags"
-    organizationResponseVisibility <- o .: "visibility"
-    organizationResponseActive <- o .: "active"
-    organizationResponseGuard <- o .: "guard"
-    organizationResponseCreatedAt <- o .: "created_at"
-    organizationResponseModifiedBy <- o .: "modified_by"
-    organizationResponseModifiedAt <- o .: "modified_at"
-    organizationResponseActivityAt <- o .: "activity_at"
-    return $ OrganizationResponse {
+    organizationResponseId <- o .: ("id" :: Text)
+    organizationResponseUserId <- o .: ("user_id" :: Text)
+    organizationResponseName <- o .: ("name" :: Text)
+    organizationResponseDisplayName <- o .: ("display_name" :: Text)
+    organizationResponseDescription <- o .: ("description" :: Text)
+    organizationResponseCompany <- o .: ("company" :: Text)
+    organizationResponseLocation <- o .: ("location" :: Text)
+    organizationResponseEmail <- o .: ("email" :: Text)
+    organizationResponseEmailMD5 <- o .: ("email_md5" :: Text)
+    organizationResponseMembership <- o .: ("membership" :: Text)
+    organizationResponseIcon <- o .: ("icon" :: Text)
+    organizationResponseTags <- o .: ("tags" :: Text)
+    organizationResponseVisibility <- o .: ("visibility" :: Text)
+    organizationResponseActive <- o .: ("active" :: Text)
+    organizationResponseGuard <- o .: ("guard" :: Text)
+    organizationResponseCreatedAt <- o .: ("created_at" :: Text)
+    organizationResponseModifiedBy <- o .: ("modified_by" :: Text)
+    organizationResponseModifiedAt <- o .: ("modified_at" :: Text)
+    organizationResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ OrganizationResponse {
       organizationResponseId = organizationResponseId,
       organizationResponseUserId = organizationResponseUserId,
       organizationResponseName = organizationResponseName,
@@ -2451,28 +2506,28 @@ instance FromJSON OrganizationResponse where
       organizationResponseModifiedAt = organizationResponseModifiedAt,
       organizationResponseActivityAt = organizationResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationResponses where
   toJSON OrganizationResponses{..} = object $
-    [ "tag" .= "OrganizationResponses"
+    [ "tag" .= ("OrganizationResponses" :: Text)
     , "organization_responses" .= organizationResponses
     ]
 
 
 instance FromJSON OrganizationResponses where
   parseJSON (Object o) = do
-    organizationResponses <- o .: "organization_responses"
-    return $ OrganizationResponses {
+    organizationResponses <- o .: ("organization_responses" :: Text)
+    pure $ OrganizationResponses {
       organizationResponses = organizationResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationStatResponse where
   toJSON OrganizationStatResponse{..} = object $
-    [ "tag" .= "OrganizationStatResponse"
+    [ "tag" .= ("OrganizationStatResponse" :: Text)
     , "organization_id" .= organizationStatResponseOrganizationId
     , "teams" .= organizationStatResponseTeams
     , "members" .= organizationStatResponseMembers
@@ -2486,15 +2541,15 @@ instance ToJSON OrganizationStatResponse where
 
 instance FromJSON OrganizationStatResponse where
   parseJSON (Object o) = do
-    organizationStatResponseOrganizationId <- o .: "organization_id"
-    organizationStatResponseTeams <- o .: "teams"
-    organizationStatResponseMembers <- o .: "members"
-    organizationStatResponseForums <- o .: "forums"
-    organizationStatResponseBoards <- o .: "boards"
-    organizationStatResponseThreads <- o .: "threads"
-    organizationStatResponseThreadPosts <- o .: "thread_posts"
-    organizationStatResponseViews <- o .: "views"
-    return $ OrganizationStatResponse {
+    organizationStatResponseOrganizationId <- o .: ("organization_id" :: Text)
+    organizationStatResponseTeams <- o .: ("teams" :: Text)
+    organizationStatResponseMembers <- o .: ("members" :: Text)
+    organizationStatResponseForums <- o .: ("forums" :: Text)
+    organizationStatResponseBoards <- o .: ("boards" :: Text)
+    organizationStatResponseThreads <- o .: ("threads" :: Text)
+    organizationStatResponseThreadPosts <- o .: ("thread_posts" :: Text)
+    organizationStatResponseViews <- o .: ("views" :: Text)
+    pure $ OrganizationStatResponse {
       organizationStatResponseOrganizationId = organizationStatResponseOrganizationId,
       organizationStatResponseTeams = organizationStatResponseTeams,
       organizationStatResponseMembers = organizationStatResponseMembers,
@@ -2504,1170 +2559,1306 @@ instance FromJSON OrganizationStatResponse where
       organizationStatResponseThreadPosts = organizationStatResponseThreadPosts,
       organizationStatResponseViews = organizationStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationStatResponses where
   toJSON OrganizationStatResponses{..} = object $
-    [ "tag" .= "OrganizationStatResponses"
+    [ "tag" .= ("OrganizationStatResponses" :: Text)
     , "organization_stat_responses" .= organizationStatResponses
     ]
 
 
 instance FromJSON OrganizationStatResponses where
   parseJSON (Object o) = do
-    organizationStatResponses <- o .: "organization_stat_responses"
-    return $ OrganizationStatResponses {
+    organizationStatResponses <- o .: ("organization_stat_responses" :: Text)
+    pure $ OrganizationStatResponses {
       organizationStatResponses = organizationStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Param where
   toJSON (Limit x0) = object $
-    [ "tag" .= "Limit"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("Limit" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (Offset x0) = object $
-    [ "tag" .= "Offset"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("Offset" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (SortOrder x0) = object $
-    [ "tag" .= "SortOrder"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("SortOrder" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (Order x0) = object $
-    [ "tag" .= "Order"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("Order" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByOrganizationId x0) = object $
-    [ "tag" .= "ByOrganizationId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByOrganizationId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByOrganizationsIds x0) = object $
-    [ "tag" .= "ByOrganizationsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByOrganizationsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByOrganizationName x0) = object $
-    [ "tag" .= "ByOrganizationName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByOrganizationName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByTeamId x0) = object $
-    [ "tag" .= "ByTeamId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByTeamId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByTeamsIds x0) = object $
-    [ "tag" .= "ByTeamsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByTeamsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByTeamName x0) = object $
-    [ "tag" .= "ByTeamName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByTeamName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByTeamMemberId x0) = object $
-    [ "tag" .= "ByTeamMemberId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByTeamMemberId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByTeamMembersIds x0) = object $
-    [ "tag" .= "ByTeamMembersIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByTeamMembersIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByUserId x0) = object $
-    [ "tag" .= "ByUserId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByUserId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByUsersIds x0) = object $
-    [ "tag" .= "ByUsersIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByUsersIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByUserNick x0) = object $
-    [ "tag" .= "ByUserNick"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByUserNick" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByUsersNicks x0) = object $
-    [ "tag" .= "ByUsersNicks"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByUsersNicks" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByGlobalGroupId x0) = object $
-    [ "tag" .= "ByGlobalGroupId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByGlobalGroupId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByGlobalGroupsIds x0) = object $
-    [ "tag" .= "ByGlobalGroupsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByGlobalGroupsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByGroupId x0) = object $
-    [ "tag" .= "ByGroupId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByGroupId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByGroupsIds x0) = object $
-    [ "tag" .= "ByGroupsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByGroupsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByGroupMemberId x0) = object $
-    [ "tag" .= "ByGroupMemberId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByGroupMemberId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByGroupMembersIds x0) = object $
-    [ "tag" .= "ByGroupMembersIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByGroupMembersIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByForumId x0) = object $
-    [ "tag" .= "ByForumId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByForumId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByForumsIds x0) = object $
-    [ "tag" .= "ByForumsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByForumsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByForumName x0) = object $
-    [ "tag" .= "ByForumName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByForumName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByBoardId x0) = object $
-    [ "tag" .= "ByBoardId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByBoardId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByBoardsIds x0) = object $
-    [ "tag" .= "ByBoardsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByBoardsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByBoardName x0) = object $
-    [ "tag" .= "ByBoardName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByBoardName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadId x0) = object $
-    [ "tag" .= "ByThreadId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadsIds x0) = object $
-    [ "tag" .= "ByThreadsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadName x0) = object $
-    [ "tag" .= "ByThreadName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostId x0) = object $
-    [ "tag" .= "ByThreadPostId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostsIds x0) = object $
-    [ "tag" .= "ByThreadPostsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostName x0) = object $
-    [ "tag" .= "ByThreadPostName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostLikeId x0) = object $
-    [ "tag" .= "ByThreadPostLikeId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostLikeId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostLikesIds x0) = object $
-    [ "tag" .= "ByThreadPostLikesIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostLikesIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostStarId x0) = object $
-    [ "tag" .= "ByThreadPostStarId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostStarId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByThreadPostStarsIds x0) = object $
-    [ "tag" .= "ByThreadPostStarsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByThreadPostStarsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByBucketId x0) = object $
-    [ "tag" .= "ByBucketId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByBucketId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByResourceId x0) = object $
-    [ "tag" .= "ByResourceId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByResourceId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByResourcesIds x0) = object $
-    [ "tag" .= "ByResourcesIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByResourcesIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByResourceName x0) = object $
-    [ "tag" .= "ByResourceName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByResourceName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByLeuronId x0) = object $
-    [ "tag" .= "ByLeuronId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByLeuronId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByLeuronsIds x0) = object $
-    [ "tag" .= "ByLeuronsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByLeuronsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByPmId x0) = object $
-    [ "tag" .= "ByPmId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByPmId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByPmsIds x0) = object $
-    [ "tag" .= "ByPmsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByPmsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByReminderId x0) = object $
-    [ "tag" .= "ByReminderId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByReminderId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByReminderFolderId x0) = object $
-    [ "tag" .= "ByReminderFolderId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByReminderFolderId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByParentId x0) = object $
-    [ "tag" .= "ByParentId"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByParentId" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByParentsIds x0) = object $
-    [ "tag" .= "ByParentsIds"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByParentsIds" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ByParentName x0) = object $
-    [ "tag" .= "ByParentName"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ByParentName" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (BySelf x0) = object $
-    [ "tag" .= "BySelf"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("BySelf" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (Timestamp x0) = object $
-    [ "tag" .= "Timestamp"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("Timestamp" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (UnixTimestamp x0) = object $
-    [ "tag" .= "UnixTimestamp"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("UnixTimestamp" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (CreatedAtTimestamp x0) = object $
-    [ "tag" .= "CreatedAtTimestamp"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("CreatedAtTimestamp" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (CreatedAtUnixTimestamp x0) = object $
-    [ "tag" .= "CreatedAtUnixTimestamp"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("CreatedAtUnixTimestamp" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (RealIP x0) = object $
-    [ "tag" .= "RealIP"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("RealIP" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (IP x0) = object $
-    [ "tag" .= "IP"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("IP" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (WithOrganization x0) = object $
-    [ "tag" .= "WithOrganization"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("WithOrganization" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (WithForum x0) = object $
-    [ "tag" .= "WithForum"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("WithForum" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (WithBoard x0) = object $
-    [ "tag" .= "WithBoard"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("WithBoard" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (WithThread x0) = object $
-    [ "tag" .= "WithThread"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("WithThread" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (WithResource x0) = object $
-    [ "tag" .= "WithResource"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("WithResource" :: Text)
+    , "contents" .= [toJSON x0]
     ]
 
 
 instance FromJSON Param where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Limit" -> do
-        x0 <- o .: "contents"
-        Limit <$> parseJSON x0
+      ("Limit" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> Limit <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: Limit"
 
-      "Offset" -> do
-        x0 <- o .: "contents"
-        Offset <$> parseJSON x0
+      ("Offset" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> Offset <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: Offset"
 
-      "SortOrder" -> do
-        x0 <- o .: "contents"
-        SortOrder <$> parseJSON x0
+      ("SortOrder" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> SortOrder <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: SortOrder"
 
-      "Order" -> do
-        x0 <- o .: "contents"
-        Order <$> parseJSON x0
+      ("Order" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> Order <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: Order"
 
-      "ByOrganizationId" -> do
-        x0 <- o .: "contents"
-        ByOrganizationId <$> parseJSON x0
+      ("ByOrganizationId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByOrganizationId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByOrganizationId"
 
-      "ByOrganizationsIds" -> do
-        x0 <- o .: "contents"
-        ByOrganizationsIds <$> parseJSON x0
+      ("ByOrganizationsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByOrganizationsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByOrganizationsIds"
 
-      "ByOrganizationName" -> do
-        x0 <- o .: "contents"
-        ByOrganizationName <$> parseJSON x0
+      ("ByOrganizationName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByOrganizationName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByOrganizationName"
 
-      "ByTeamId" -> do
-        x0 <- o .: "contents"
-        ByTeamId <$> parseJSON x0
+      ("ByTeamId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByTeamId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByTeamId"
 
-      "ByTeamsIds" -> do
-        x0 <- o .: "contents"
-        ByTeamsIds <$> parseJSON x0
+      ("ByTeamsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByTeamsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByTeamsIds"
 
-      "ByTeamName" -> do
-        x0 <- o .: "contents"
-        ByTeamName <$> parseJSON x0
+      ("ByTeamName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByTeamName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByTeamName"
 
-      "ByTeamMemberId" -> do
-        x0 <- o .: "contents"
-        ByTeamMemberId <$> parseJSON x0
+      ("ByTeamMemberId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByTeamMemberId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByTeamMemberId"
 
-      "ByTeamMembersIds" -> do
-        x0 <- o .: "contents"
-        ByTeamMembersIds <$> parseJSON x0
+      ("ByTeamMembersIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByTeamMembersIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByTeamMembersIds"
 
-      "ByUserId" -> do
-        x0 <- o .: "contents"
-        ByUserId <$> parseJSON x0
+      ("ByUserId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByUserId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByUserId"
 
-      "ByUsersIds" -> do
-        x0 <- o .: "contents"
-        ByUsersIds <$> parseJSON x0
+      ("ByUsersIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByUsersIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByUsersIds"
 
-      "ByUserNick" -> do
-        x0 <- o .: "contents"
-        ByUserNick <$> parseJSON x0
+      ("ByUserNick" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByUserNick <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByUserNick"
 
-      "ByUsersNicks" -> do
-        x0 <- o .: "contents"
-        ByUsersNicks <$> parseJSON x0
+      ("ByUsersNicks" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByUsersNicks <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByUsersNicks"
 
-      "ByGlobalGroupId" -> do
-        x0 <- o .: "contents"
-        ByGlobalGroupId <$> parseJSON x0
+      ("ByGlobalGroupId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByGlobalGroupId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByGlobalGroupId"
 
-      "ByGlobalGroupsIds" -> do
-        x0 <- o .: "contents"
-        ByGlobalGroupsIds <$> parseJSON x0
+      ("ByGlobalGroupsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByGlobalGroupsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByGlobalGroupsIds"
 
-      "ByGroupId" -> do
-        x0 <- o .: "contents"
-        ByGroupId <$> parseJSON x0
+      ("ByGroupId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByGroupId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByGroupId"
 
-      "ByGroupsIds" -> do
-        x0 <- o .: "contents"
-        ByGroupsIds <$> parseJSON x0
+      ("ByGroupsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByGroupsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByGroupsIds"
 
-      "ByGroupMemberId" -> do
-        x0 <- o .: "contents"
-        ByGroupMemberId <$> parseJSON x0
+      ("ByGroupMemberId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByGroupMemberId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByGroupMemberId"
 
-      "ByGroupMembersIds" -> do
-        x0 <- o .: "contents"
-        ByGroupMembersIds <$> parseJSON x0
+      ("ByGroupMembersIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByGroupMembersIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByGroupMembersIds"
 
-      "ByForumId" -> do
-        x0 <- o .: "contents"
-        ByForumId <$> parseJSON x0
+      ("ByForumId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByForumId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByForumId"
 
-      "ByForumsIds" -> do
-        x0 <- o .: "contents"
-        ByForumsIds <$> parseJSON x0
+      ("ByForumsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByForumsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByForumsIds"
 
-      "ByForumName" -> do
-        x0 <- o .: "contents"
-        ByForumName <$> parseJSON x0
+      ("ByForumName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByForumName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByForumName"
 
-      "ByBoardId" -> do
-        x0 <- o .: "contents"
-        ByBoardId <$> parseJSON x0
+      ("ByBoardId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByBoardId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByBoardId"
 
-      "ByBoardsIds" -> do
-        x0 <- o .: "contents"
-        ByBoardsIds <$> parseJSON x0
+      ("ByBoardsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByBoardsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByBoardsIds"
 
-      "ByBoardName" -> do
-        x0 <- o .: "contents"
-        ByBoardName <$> parseJSON x0
+      ("ByBoardName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByBoardName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByBoardName"
 
-      "ByThreadId" -> do
-        x0 <- o .: "contents"
-        ByThreadId <$> parseJSON x0
+      ("ByThreadId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadId"
 
-      "ByThreadsIds" -> do
-        x0 <- o .: "contents"
-        ByThreadsIds <$> parseJSON x0
+      ("ByThreadsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadsIds"
 
-      "ByThreadName" -> do
-        x0 <- o .: "contents"
-        ByThreadName <$> parseJSON x0
+      ("ByThreadName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadName"
 
-      "ByThreadPostId" -> do
-        x0 <- o .: "contents"
-        ByThreadPostId <$> parseJSON x0
+      ("ByThreadPostId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostId"
 
-      "ByThreadPostsIds" -> do
-        x0 <- o .: "contents"
-        ByThreadPostsIds <$> parseJSON x0
+      ("ByThreadPostsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostsIds"
 
-      "ByThreadPostName" -> do
-        x0 <- o .: "contents"
-        ByThreadPostName <$> parseJSON x0
+      ("ByThreadPostName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostName"
 
-      "ByThreadPostLikeId" -> do
-        x0 <- o .: "contents"
-        ByThreadPostLikeId <$> parseJSON x0
+      ("ByThreadPostLikeId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostLikeId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostLikeId"
 
-      "ByThreadPostLikesIds" -> do
-        x0 <- o .: "contents"
-        ByThreadPostLikesIds <$> parseJSON x0
+      ("ByThreadPostLikesIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostLikesIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostLikesIds"
 
-      "ByThreadPostStarId" -> do
-        x0 <- o .: "contents"
-        ByThreadPostStarId <$> parseJSON x0
+      ("ByThreadPostStarId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostStarId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostStarId"
 
-      "ByThreadPostStarsIds" -> do
-        x0 <- o .: "contents"
-        ByThreadPostStarsIds <$> parseJSON x0
+      ("ByThreadPostStarsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByThreadPostStarsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByThreadPostStarsIds"
 
-      "ByBucketId" -> do
-        x0 <- o .: "contents"
-        ByBucketId <$> parseJSON x0
+      ("ByBucketId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByBucketId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByBucketId"
 
-      "ByResourceId" -> do
-        x0 <- o .: "contents"
-        ByResourceId <$> parseJSON x0
+      ("ByResourceId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByResourceId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByResourceId"
 
-      "ByResourcesIds" -> do
-        x0 <- o .: "contents"
-        ByResourcesIds <$> parseJSON x0
+      ("ByResourcesIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByResourcesIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByResourcesIds"
 
-      "ByResourceName" -> do
-        x0 <- o .: "contents"
-        ByResourceName <$> parseJSON x0
+      ("ByResourceName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByResourceName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByResourceName"
 
-      "ByLeuronId" -> do
-        x0 <- o .: "contents"
-        ByLeuronId <$> parseJSON x0
+      ("ByLeuronId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByLeuronId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByLeuronId"
 
-      "ByLeuronsIds" -> do
-        x0 <- o .: "contents"
-        ByLeuronsIds <$> parseJSON x0
+      ("ByLeuronsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByLeuronsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByLeuronsIds"
 
-      "ByPmId" -> do
-        x0 <- o .: "contents"
-        ByPmId <$> parseJSON x0
+      ("ByPmId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByPmId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByPmId"
 
-      "ByPmsIds" -> do
-        x0 <- o .: "contents"
-        ByPmsIds <$> parseJSON x0
+      ("ByPmsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByPmsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByPmsIds"
 
-      "ByReminderId" -> do
-        x0 <- o .: "contents"
-        ByReminderId <$> parseJSON x0
+      ("ByReminderId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByReminderId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByReminderId"
 
-      "ByReminderFolderId" -> do
-        x0 <- o .: "contents"
-        ByReminderFolderId <$> parseJSON x0
+      ("ByReminderFolderId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByReminderFolderId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByReminderFolderId"
 
-      "ByParentId" -> do
-        x0 <- o .: "contents"
-        ByParentId <$> parseJSON x0
+      ("ByParentId" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByParentId <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByParentId"
 
-      "ByParentsIds" -> do
-        x0 <- o .: "contents"
-        ByParentsIds <$> parseJSON x0
+      ("ByParentsIds" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByParentsIds <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByParentsIds"
 
-      "ByParentName" -> do
-        x0 <- o .: "contents"
-        ByParentName <$> parseJSON x0
+      ("ByParentName" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ByParentName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByParentName"
 
-      "BySelf" -> do
-        x0 <- o .: "contents"
-        BySelf <$> parseJSON x0
+      ("BySelf" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> BySelf <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: BySelf"
 
-      "Timestamp" -> do
-        x0 <- o .: "contents"
-        Timestamp <$> parseJSON x0
+      ("Timestamp" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> Timestamp <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: Timestamp"
 
-      "UnixTimestamp" -> do
-        x0 <- o .: "contents"
-        UnixTimestamp <$> parseJSON x0
+      ("UnixTimestamp" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> UnixTimestamp <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: UnixTimestamp"
 
-      "CreatedAtTimestamp" -> do
-        x0 <- o .: "contents"
-        CreatedAtTimestamp <$> parseJSON x0
+      ("CreatedAtTimestamp" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> CreatedAtTimestamp <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: CreatedAtTimestamp"
 
-      "CreatedAtUnixTimestamp" -> do
-        x0 <- o .: "contents"
-        CreatedAtUnixTimestamp <$> parseJSON x0
+      ("CreatedAtUnixTimestamp" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> CreatedAtUnixTimestamp <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: CreatedAtUnixTimestamp"
 
-      "RealIP" -> do
-        x0 <- o .: "contents"
-        RealIP <$> parseJSON x0
+      ("RealIP" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> RealIP <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: RealIP"
 
-      "IP" -> do
-        x0 <- o .: "contents"
-        IP <$> parseJSON x0
+      ("IP" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> IP <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: IP"
 
-      "WithOrganization" -> do
-        x0 <- o .: "contents"
-        WithOrganization <$> parseJSON x0
+      ("WithOrganization" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> WithOrganization <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: WithOrganization"
 
-      "WithForum" -> do
-        x0 <- o .: "contents"
-        WithForum <$> parseJSON x0
+      ("WithForum" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> WithForum <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: WithForum"
 
-      "WithBoard" -> do
-        x0 <- o .: "contents"
-        WithBoard <$> parseJSON x0
+      ("WithBoard" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> WithBoard <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: WithBoard"
 
-      "WithThread" -> do
-        x0 <- o .: "contents"
-        WithThread <$> parseJSON x0
+      ("WithThread" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> WithThread <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: WithThread"
 
-      "WithResource" -> do
-        x0 <- o .: "contents"
-        WithResource <$> parseJSON x0
+      ("WithResource" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> WithResource <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: WithResource"
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Param"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ParamTag where
   toJSON (ParamTag_Limit ) = object $
-    [ "tag" .= "ParamTag_Limit"
+    [ "tag" .= ("ParamTag_Limit" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_Offset ) = object $
-    [ "tag" .= "ParamTag_Offset"
+    [ "tag" .= ("ParamTag_Offset" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_SortOrder ) = object $
-    [ "tag" .= "ParamTag_SortOrder"
+    [ "tag" .= ("ParamTag_SortOrder" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_Order ) = object $
-    [ "tag" .= "ParamTag_Order"
+    [ "tag" .= ("ParamTag_Order" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByOrganizationId ) = object $
-    [ "tag" .= "ParamTag_ByOrganizationId"
+    [ "tag" .= ("ParamTag_ByOrganizationId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByOrganizationsIds ) = object $
-    [ "tag" .= "ParamTag_ByOrganizationsIds"
+    [ "tag" .= ("ParamTag_ByOrganizationsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByOrganizationName ) = object $
-    [ "tag" .= "ParamTag_ByOrganizationName"
+    [ "tag" .= ("ParamTag_ByOrganizationName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByTeamId ) = object $
-    [ "tag" .= "ParamTag_ByTeamId"
+    [ "tag" .= ("ParamTag_ByTeamId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByTeamsIds ) = object $
-    [ "tag" .= "ParamTag_ByTeamsIds"
+    [ "tag" .= ("ParamTag_ByTeamsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByTeamName ) = object $
-    [ "tag" .= "ParamTag_ByTeamName"
+    [ "tag" .= ("ParamTag_ByTeamName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByTeamMemberId ) = object $
-    [ "tag" .= "ParamTag_ByTeamMemberId"
+    [ "tag" .= ("ParamTag_ByTeamMemberId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByTeamMembersIds ) = object $
-    [ "tag" .= "ParamTag_ByTeamMembersIds"
+    [ "tag" .= ("ParamTag_ByTeamMembersIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByUserId ) = object $
-    [ "tag" .= "ParamTag_ByUserId"
+    [ "tag" .= ("ParamTag_ByUserId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByUsersIds ) = object $
-    [ "tag" .= "ParamTag_ByUsersIds"
+    [ "tag" .= ("ParamTag_ByUsersIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByUserNick ) = object $
-    [ "tag" .= "ParamTag_ByUserNick"
+    [ "tag" .= ("ParamTag_ByUserNick" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByUsersNicks ) = object $
-    [ "tag" .= "ParamTag_ByUsersNicks"
+    [ "tag" .= ("ParamTag_ByUsersNicks" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGlobalGroupId ) = object $
-    [ "tag" .= "ParamTag_ByGlobalGroupId"
+    [ "tag" .= ("ParamTag_ByGlobalGroupId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGlobalGroupsIds ) = object $
-    [ "tag" .= "ParamTag_ByGlobalGroupsIds"
+    [ "tag" .= ("ParamTag_ByGlobalGroupsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGroupId ) = object $
-    [ "tag" .= "ParamTag_ByGroupId"
+    [ "tag" .= ("ParamTag_ByGroupId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGroupsIds ) = object $
-    [ "tag" .= "ParamTag_ByGroupsIds"
+    [ "tag" .= ("ParamTag_ByGroupsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGroupMemberId ) = object $
-    [ "tag" .= "ParamTag_ByGroupMemberId"
+    [ "tag" .= ("ParamTag_ByGroupMemberId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGroupMembersIds ) = object $
-    [ "tag" .= "ParamTag_ByGroupMembersIds"
+    [ "tag" .= ("ParamTag_ByGroupMembersIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByForumId ) = object $
-    [ "tag" .= "ParamTag_ByForumId"
+    [ "tag" .= ("ParamTag_ByForumId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByForumsIds ) = object $
-    [ "tag" .= "ParamTag_ByForumsIds"
+    [ "tag" .= ("ParamTag_ByForumsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByForumName ) = object $
-    [ "tag" .= "ParamTag_ByForumName"
+    [ "tag" .= ("ParamTag_ByForumName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByBoardId ) = object $
-    [ "tag" .= "ParamTag_ByBoardId"
+    [ "tag" .= ("ParamTag_ByBoardId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByBoardsIds ) = object $
-    [ "tag" .= "ParamTag_ByBoardsIds"
+    [ "tag" .= ("ParamTag_ByBoardsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByBoardName ) = object $
-    [ "tag" .= "ParamTag_ByBoardName"
+    [ "tag" .= ("ParamTag_ByBoardName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadId ) = object $
-    [ "tag" .= "ParamTag_ByThreadId"
+    [ "tag" .= ("ParamTag_ByThreadId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadsIds ) = object $
-    [ "tag" .= "ParamTag_ByThreadsIds"
+    [ "tag" .= ("ParamTag_ByThreadsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadName ) = object $
-    [ "tag" .= "ParamTag_ByThreadName"
+    [ "tag" .= ("ParamTag_ByThreadName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostId ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostId"
+    [ "tag" .= ("ParamTag_ByThreadPostId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostsIds ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostsIds"
+    [ "tag" .= ("ParamTag_ByThreadPostsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostName ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostName"
+    [ "tag" .= ("ParamTag_ByThreadPostName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostLikeId ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostLikeId"
+    [ "tag" .= ("ParamTag_ByThreadPostLikeId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostLikesIds ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostLikesIds"
+    [ "tag" .= ("ParamTag_ByThreadPostLikesIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostStarId ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostStarId"
+    [ "tag" .= ("ParamTag_ByThreadPostStarId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByThreadPostStarsIds ) = object $
-    [ "tag" .= "ParamTag_ByThreadPostStarsIds"
+    [ "tag" .= ("ParamTag_ByThreadPostStarsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByBucketId ) = object $
-    [ "tag" .= "ParamTag_ByBucketId"
+    [ "tag" .= ("ParamTag_ByBucketId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByResourceId ) = object $
-    [ "tag" .= "ParamTag_ByResourceId"
+    [ "tag" .= ("ParamTag_ByResourceId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByResourcesIds ) = object $
-    [ "tag" .= "ParamTag_ByResourcesIds"
+    [ "tag" .= ("ParamTag_ByResourcesIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByResourceName ) = object $
-    [ "tag" .= "ParamTag_ByResourceName"
+    [ "tag" .= ("ParamTag_ByResourceName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByLeuronId ) = object $
-    [ "tag" .= "ParamTag_ByLeuronId"
+    [ "tag" .= ("ParamTag_ByLeuronId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByLeuronsIds ) = object $
-    [ "tag" .= "ParamTag_ByLeuronsIds"
+    [ "tag" .= ("ParamTag_ByLeuronsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByPmId ) = object $
-    [ "tag" .= "ParamTag_ByPmId"
+    [ "tag" .= ("ParamTag_ByPmId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByPmsIds ) = object $
-    [ "tag" .= "ParamTag_ByPmsIds"
+    [ "tag" .= ("ParamTag_ByPmsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByReminderId ) = object $
-    [ "tag" .= "ParamTag_ByReminderId"
+    [ "tag" .= ("ParamTag_ByReminderId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByReminderFolderId ) = object $
-    [ "tag" .= "ParamTag_ByReminderFolderId"
+    [ "tag" .= ("ParamTag_ByReminderFolderId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByParentId ) = object $
-    [ "tag" .= "ParamTag_ByParentId"
+    [ "tag" .= ("ParamTag_ByParentId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByParentsIds ) = object $
-    [ "tag" .= "ParamTag_ByParentsIds"
+    [ "tag" .= ("ParamTag_ByParentsIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByParentName ) = object $
-    [ "tag" .= "ParamTag_ByParentName"
+    [ "tag" .= ("ParamTag_ByParentName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_BySelf ) = object $
-    [ "tag" .= "ParamTag_BySelf"
+    [ "tag" .= ("ParamTag_BySelf" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_Timestamp ) = object $
-    [ "tag" .= "ParamTag_Timestamp"
+    [ "tag" .= ("ParamTag_Timestamp" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_UnixTimestamp ) = object $
-    [ "tag" .= "ParamTag_UnixTimestamp"
+    [ "tag" .= ("ParamTag_UnixTimestamp" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_CreatedAtTimestamp ) = object $
-    [ "tag" .= "ParamTag_CreatedAtTimestamp"
+    [ "tag" .= ("ParamTag_CreatedAtTimestamp" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_CreatedAtUnixTimestamp ) = object $
-    [ "tag" .= "ParamTag_CreatedAtUnixTimestamp"
+    [ "tag" .= ("ParamTag_CreatedAtUnixTimestamp" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_RealIP ) = object $
-    [ "tag" .= "ParamTag_RealIP"
+    [ "tag" .= ("ParamTag_RealIP" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_IP ) = object $
-    [ "tag" .= "ParamTag_IP"
+    [ "tag" .= ("ParamTag_IP" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_WithOrganization ) = object $
-    [ "tag" .= "ParamTag_WithOrganization"
+    [ "tag" .= ("ParamTag_WithOrganization" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_WithForum ) = object $
-    [ "tag" .= "ParamTag_WithForum"
+    [ "tag" .= ("ParamTag_WithForum" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_WithBoard ) = object $
-    [ "tag" .= "ParamTag_WithBoard"
+    [ "tag" .= ("ParamTag_WithBoard" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_WithThread ) = object $
-    [ "tag" .= "ParamTag_WithThread"
+    [ "tag" .= ("ParamTag_WithThread" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_WithResource ) = object $
-    [ "tag" .= "ParamTag_WithResource"
+    [ "tag" .= ("ParamTag_WithResource" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON ParamTag where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "ParamTag_Limit" -> do
-        return ParamTag_Limit
+      ("ParamTag_Limit" :: Text) -> do
+        pure ParamTag_Limit
 
-      "ParamTag_Offset" -> do
-        return ParamTag_Offset
+      ("ParamTag_Offset" :: Text) -> do
+        pure ParamTag_Offset
 
-      "ParamTag_SortOrder" -> do
-        return ParamTag_SortOrder
+      ("ParamTag_SortOrder" :: Text) -> do
+        pure ParamTag_SortOrder
 
-      "ParamTag_Order" -> do
-        return ParamTag_Order
+      ("ParamTag_Order" :: Text) -> do
+        pure ParamTag_Order
 
-      "ParamTag_ByOrganizationId" -> do
-        return ParamTag_ByOrganizationId
+      ("ParamTag_ByOrganizationId" :: Text) -> do
+        pure ParamTag_ByOrganizationId
 
-      "ParamTag_ByOrganizationsIds" -> do
-        return ParamTag_ByOrganizationsIds
+      ("ParamTag_ByOrganizationsIds" :: Text) -> do
+        pure ParamTag_ByOrganizationsIds
 
-      "ParamTag_ByOrganizationName" -> do
-        return ParamTag_ByOrganizationName
+      ("ParamTag_ByOrganizationName" :: Text) -> do
+        pure ParamTag_ByOrganizationName
 
-      "ParamTag_ByTeamId" -> do
-        return ParamTag_ByTeamId
+      ("ParamTag_ByTeamId" :: Text) -> do
+        pure ParamTag_ByTeamId
 
-      "ParamTag_ByTeamsIds" -> do
-        return ParamTag_ByTeamsIds
+      ("ParamTag_ByTeamsIds" :: Text) -> do
+        pure ParamTag_ByTeamsIds
 
-      "ParamTag_ByTeamName" -> do
-        return ParamTag_ByTeamName
+      ("ParamTag_ByTeamName" :: Text) -> do
+        pure ParamTag_ByTeamName
 
-      "ParamTag_ByTeamMemberId" -> do
-        return ParamTag_ByTeamMemberId
+      ("ParamTag_ByTeamMemberId" :: Text) -> do
+        pure ParamTag_ByTeamMemberId
 
-      "ParamTag_ByTeamMembersIds" -> do
-        return ParamTag_ByTeamMembersIds
+      ("ParamTag_ByTeamMembersIds" :: Text) -> do
+        pure ParamTag_ByTeamMembersIds
 
-      "ParamTag_ByUserId" -> do
-        return ParamTag_ByUserId
+      ("ParamTag_ByUserId" :: Text) -> do
+        pure ParamTag_ByUserId
 
-      "ParamTag_ByUsersIds" -> do
-        return ParamTag_ByUsersIds
+      ("ParamTag_ByUsersIds" :: Text) -> do
+        pure ParamTag_ByUsersIds
 
-      "ParamTag_ByUserNick" -> do
-        return ParamTag_ByUserNick
+      ("ParamTag_ByUserNick" :: Text) -> do
+        pure ParamTag_ByUserNick
 
-      "ParamTag_ByUsersNicks" -> do
-        return ParamTag_ByUsersNicks
+      ("ParamTag_ByUsersNicks" :: Text) -> do
+        pure ParamTag_ByUsersNicks
 
-      "ParamTag_ByGlobalGroupId" -> do
-        return ParamTag_ByGlobalGroupId
+      ("ParamTag_ByGlobalGroupId" :: Text) -> do
+        pure ParamTag_ByGlobalGroupId
 
-      "ParamTag_ByGlobalGroupsIds" -> do
-        return ParamTag_ByGlobalGroupsIds
+      ("ParamTag_ByGlobalGroupsIds" :: Text) -> do
+        pure ParamTag_ByGlobalGroupsIds
 
-      "ParamTag_ByGroupId" -> do
-        return ParamTag_ByGroupId
+      ("ParamTag_ByGroupId" :: Text) -> do
+        pure ParamTag_ByGroupId
 
-      "ParamTag_ByGroupsIds" -> do
-        return ParamTag_ByGroupsIds
+      ("ParamTag_ByGroupsIds" :: Text) -> do
+        pure ParamTag_ByGroupsIds
 
-      "ParamTag_ByGroupMemberId" -> do
-        return ParamTag_ByGroupMemberId
+      ("ParamTag_ByGroupMemberId" :: Text) -> do
+        pure ParamTag_ByGroupMemberId
 
-      "ParamTag_ByGroupMembersIds" -> do
-        return ParamTag_ByGroupMembersIds
+      ("ParamTag_ByGroupMembersIds" :: Text) -> do
+        pure ParamTag_ByGroupMembersIds
 
-      "ParamTag_ByForumId" -> do
-        return ParamTag_ByForumId
+      ("ParamTag_ByForumId" :: Text) -> do
+        pure ParamTag_ByForumId
 
-      "ParamTag_ByForumsIds" -> do
-        return ParamTag_ByForumsIds
+      ("ParamTag_ByForumsIds" :: Text) -> do
+        pure ParamTag_ByForumsIds
 
-      "ParamTag_ByForumName" -> do
-        return ParamTag_ByForumName
+      ("ParamTag_ByForumName" :: Text) -> do
+        pure ParamTag_ByForumName
 
-      "ParamTag_ByBoardId" -> do
-        return ParamTag_ByBoardId
+      ("ParamTag_ByBoardId" :: Text) -> do
+        pure ParamTag_ByBoardId
 
-      "ParamTag_ByBoardsIds" -> do
-        return ParamTag_ByBoardsIds
+      ("ParamTag_ByBoardsIds" :: Text) -> do
+        pure ParamTag_ByBoardsIds
 
-      "ParamTag_ByBoardName" -> do
-        return ParamTag_ByBoardName
+      ("ParamTag_ByBoardName" :: Text) -> do
+        pure ParamTag_ByBoardName
 
-      "ParamTag_ByThreadId" -> do
-        return ParamTag_ByThreadId
+      ("ParamTag_ByThreadId" :: Text) -> do
+        pure ParamTag_ByThreadId
 
-      "ParamTag_ByThreadsIds" -> do
-        return ParamTag_ByThreadsIds
+      ("ParamTag_ByThreadsIds" :: Text) -> do
+        pure ParamTag_ByThreadsIds
 
-      "ParamTag_ByThreadName" -> do
-        return ParamTag_ByThreadName
+      ("ParamTag_ByThreadName" :: Text) -> do
+        pure ParamTag_ByThreadName
 
-      "ParamTag_ByThreadPostId" -> do
-        return ParamTag_ByThreadPostId
+      ("ParamTag_ByThreadPostId" :: Text) -> do
+        pure ParamTag_ByThreadPostId
 
-      "ParamTag_ByThreadPostsIds" -> do
-        return ParamTag_ByThreadPostsIds
+      ("ParamTag_ByThreadPostsIds" :: Text) -> do
+        pure ParamTag_ByThreadPostsIds
 
-      "ParamTag_ByThreadPostName" -> do
-        return ParamTag_ByThreadPostName
+      ("ParamTag_ByThreadPostName" :: Text) -> do
+        pure ParamTag_ByThreadPostName
 
-      "ParamTag_ByThreadPostLikeId" -> do
-        return ParamTag_ByThreadPostLikeId
+      ("ParamTag_ByThreadPostLikeId" :: Text) -> do
+        pure ParamTag_ByThreadPostLikeId
 
-      "ParamTag_ByThreadPostLikesIds" -> do
-        return ParamTag_ByThreadPostLikesIds
+      ("ParamTag_ByThreadPostLikesIds" :: Text) -> do
+        pure ParamTag_ByThreadPostLikesIds
 
-      "ParamTag_ByThreadPostStarId" -> do
-        return ParamTag_ByThreadPostStarId
+      ("ParamTag_ByThreadPostStarId" :: Text) -> do
+        pure ParamTag_ByThreadPostStarId
 
-      "ParamTag_ByThreadPostStarsIds" -> do
-        return ParamTag_ByThreadPostStarsIds
+      ("ParamTag_ByThreadPostStarsIds" :: Text) -> do
+        pure ParamTag_ByThreadPostStarsIds
 
-      "ParamTag_ByBucketId" -> do
-        return ParamTag_ByBucketId
+      ("ParamTag_ByBucketId" :: Text) -> do
+        pure ParamTag_ByBucketId
 
-      "ParamTag_ByResourceId" -> do
-        return ParamTag_ByResourceId
+      ("ParamTag_ByResourceId" :: Text) -> do
+        pure ParamTag_ByResourceId
 
-      "ParamTag_ByResourcesIds" -> do
-        return ParamTag_ByResourcesIds
+      ("ParamTag_ByResourcesIds" :: Text) -> do
+        pure ParamTag_ByResourcesIds
 
-      "ParamTag_ByResourceName" -> do
-        return ParamTag_ByResourceName
+      ("ParamTag_ByResourceName" :: Text) -> do
+        pure ParamTag_ByResourceName
 
-      "ParamTag_ByLeuronId" -> do
-        return ParamTag_ByLeuronId
+      ("ParamTag_ByLeuronId" :: Text) -> do
+        pure ParamTag_ByLeuronId
 
-      "ParamTag_ByLeuronsIds" -> do
-        return ParamTag_ByLeuronsIds
+      ("ParamTag_ByLeuronsIds" :: Text) -> do
+        pure ParamTag_ByLeuronsIds
 
-      "ParamTag_ByPmId" -> do
-        return ParamTag_ByPmId
+      ("ParamTag_ByPmId" :: Text) -> do
+        pure ParamTag_ByPmId
 
-      "ParamTag_ByPmsIds" -> do
-        return ParamTag_ByPmsIds
+      ("ParamTag_ByPmsIds" :: Text) -> do
+        pure ParamTag_ByPmsIds
 
-      "ParamTag_ByReminderId" -> do
-        return ParamTag_ByReminderId
+      ("ParamTag_ByReminderId" :: Text) -> do
+        pure ParamTag_ByReminderId
 
-      "ParamTag_ByReminderFolderId" -> do
-        return ParamTag_ByReminderFolderId
+      ("ParamTag_ByReminderFolderId" :: Text) -> do
+        pure ParamTag_ByReminderFolderId
 
-      "ParamTag_ByParentId" -> do
-        return ParamTag_ByParentId
+      ("ParamTag_ByParentId" :: Text) -> do
+        pure ParamTag_ByParentId
 
-      "ParamTag_ByParentsIds" -> do
-        return ParamTag_ByParentsIds
+      ("ParamTag_ByParentsIds" :: Text) -> do
+        pure ParamTag_ByParentsIds
 
-      "ParamTag_ByParentName" -> do
-        return ParamTag_ByParentName
+      ("ParamTag_ByParentName" :: Text) -> do
+        pure ParamTag_ByParentName
 
-      "ParamTag_BySelf" -> do
-        return ParamTag_BySelf
+      ("ParamTag_BySelf" :: Text) -> do
+        pure ParamTag_BySelf
 
-      "ParamTag_Timestamp" -> do
-        return ParamTag_Timestamp
+      ("ParamTag_Timestamp" :: Text) -> do
+        pure ParamTag_Timestamp
 
-      "ParamTag_UnixTimestamp" -> do
-        return ParamTag_UnixTimestamp
+      ("ParamTag_UnixTimestamp" :: Text) -> do
+        pure ParamTag_UnixTimestamp
 
-      "ParamTag_CreatedAtTimestamp" -> do
-        return ParamTag_CreatedAtTimestamp
+      ("ParamTag_CreatedAtTimestamp" :: Text) -> do
+        pure ParamTag_CreatedAtTimestamp
 
-      "ParamTag_CreatedAtUnixTimestamp" -> do
-        return ParamTag_CreatedAtUnixTimestamp
+      ("ParamTag_CreatedAtUnixTimestamp" :: Text) -> do
+        pure ParamTag_CreatedAtUnixTimestamp
 
-      "ParamTag_RealIP" -> do
-        return ParamTag_RealIP
+      ("ParamTag_RealIP" :: Text) -> do
+        pure ParamTag_RealIP
 
-      "ParamTag_IP" -> do
-        return ParamTag_IP
+      ("ParamTag_IP" :: Text) -> do
+        pure ParamTag_IP
 
-      "ParamTag_WithOrganization" -> do
-        return ParamTag_WithOrganization
+      ("ParamTag_WithOrganization" :: Text) -> do
+        pure ParamTag_WithOrganization
 
-      "ParamTag_WithForum" -> do
-        return ParamTag_WithForum
+      ("ParamTag_WithForum" :: Text) -> do
+        pure ParamTag_WithForum
 
-      "ParamTag_WithBoard" -> do
-        return ParamTag_WithBoard
+      ("ParamTag_WithBoard" :: Text) -> do
+        pure ParamTag_WithBoard
 
-      "ParamTag_WithThread" -> do
-        return ParamTag_WithThread
+      ("ParamTag_WithThread" :: Text) -> do
+        pure ParamTag_WithThread
 
-      "ParamTag_WithResource" -> do
-        return ParamTag_WithResource
+      ("ParamTag_WithResource" :: Text) -> do
+        pure ParamTag_WithResource
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse ParamTag"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON SortOrderBy where
   toJSON (SortOrderBy_Asc ) = object $
-    [ "tag" .= "SortOrderBy_Asc"
+    [ "tag" .= ("SortOrderBy_Asc" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (SortOrderBy_Dsc ) = object $
-    [ "tag" .= "SortOrderBy_Dsc"
+    [ "tag" .= ("SortOrderBy_Dsc" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (SortOrderBy_Rnd ) = object $
-    [ "tag" .= "SortOrderBy_Rnd"
+    [ "tag" .= ("SortOrderBy_Rnd" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (SortOrderBy_None ) = object $
-    [ "tag" .= "SortOrderBy_None"
+    [ "tag" .= ("SortOrderBy_None" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON SortOrderBy where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "SortOrderBy_Asc" -> do
-        return SortOrderBy_Asc
+      ("SortOrderBy_Asc" :: Text) -> do
+        pure SortOrderBy_Asc
 
-      "SortOrderBy_Dsc" -> do
-        return SortOrderBy_Dsc
+      ("SortOrderBy_Dsc" :: Text) -> do
+        pure SortOrderBy_Dsc
 
-      "SortOrderBy_Rnd" -> do
-        return SortOrderBy_Rnd
+      ("SortOrderBy_Rnd" :: Text) -> do
+        pure SortOrderBy_Rnd
 
-      "SortOrderBy_None" -> do
-        return SortOrderBy_None
+      ("SortOrderBy_None" :: Text) -> do
+        pure SortOrderBy_None
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse SortOrderBy"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrderBy where
   toJSON (OrderBy_UserId ) = object $
-    [ "tag" .= "OrderBy_UserId"
+    [ "tag" .= ("OrderBy_UserId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_CreatedAt ) = object $
-    [ "tag" .= "OrderBy_CreatedAt"
+    [ "tag" .= ("OrderBy_CreatedAt" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_ModifiedAt ) = object $
-    [ "tag" .= "OrderBy_ModifiedAt"
+    [ "tag" .= ("OrderBy_ModifiedAt" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_ModifiedBy ) = object $
-    [ "tag" .= "OrderBy_ModifiedBy"
+    [ "tag" .= ("OrderBy_ModifiedBy" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_ActivityAt ) = object $
-    [ "tag" .= "OrderBy_ActivityAt"
+    [ "tag" .= ("OrderBy_ActivityAt" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_OrganizationId ) = object $
-    [ "tag" .= "OrderBy_OrganizationId"
+    [ "tag" .= ("OrderBy_OrganizationId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_TeamId ) = object $
-    [ "tag" .= "OrderBy_TeamId"
+    [ "tag" .= ("OrderBy_TeamId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_ForumId ) = object $
-    [ "tag" .= "OrderBy_ForumId"
+    [ "tag" .= ("OrderBy_ForumId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_BoardId ) = object $
-    [ "tag" .= "OrderBy_BoardId"
+    [ "tag" .= ("OrderBy_BoardId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_ThreadId ) = object $
-    [ "tag" .= "OrderBy_ThreadId"
+    [ "tag" .= ("OrderBy_ThreadId" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_Id ) = object $
-    [ "tag" .= "OrderBy_Id"
+    [ "tag" .= ("OrderBy_Id" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (OrderBy_None ) = object $
-    [ "tag" .= "OrderBy_None"
+    [ "tag" .= ("OrderBy_None" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON OrderBy where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "OrderBy_UserId" -> do
-        return OrderBy_UserId
+      ("OrderBy_UserId" :: Text) -> do
+        pure OrderBy_UserId
 
-      "OrderBy_CreatedAt" -> do
-        return OrderBy_CreatedAt
+      ("OrderBy_CreatedAt" :: Text) -> do
+        pure OrderBy_CreatedAt
 
-      "OrderBy_ModifiedAt" -> do
-        return OrderBy_ModifiedAt
+      ("OrderBy_ModifiedAt" :: Text) -> do
+        pure OrderBy_ModifiedAt
 
-      "OrderBy_ModifiedBy" -> do
-        return OrderBy_ModifiedBy
+      ("OrderBy_ModifiedBy" :: Text) -> do
+        pure OrderBy_ModifiedBy
 
-      "OrderBy_ActivityAt" -> do
-        return OrderBy_ActivityAt
+      ("OrderBy_ActivityAt" :: Text) -> do
+        pure OrderBy_ActivityAt
 
-      "OrderBy_OrganizationId" -> do
-        return OrderBy_OrganizationId
+      ("OrderBy_OrganizationId" :: Text) -> do
+        pure OrderBy_OrganizationId
 
-      "OrderBy_TeamId" -> do
-        return OrderBy_TeamId
+      ("OrderBy_TeamId" :: Text) -> do
+        pure OrderBy_TeamId
 
-      "OrderBy_ForumId" -> do
-        return OrderBy_ForumId
+      ("OrderBy_ForumId" :: Text) -> do
+        pure OrderBy_ForumId
 
-      "OrderBy_BoardId" -> do
-        return OrderBy_BoardId
+      ("OrderBy_BoardId" :: Text) -> do
+        pure OrderBy_BoardId
 
-      "OrderBy_ThreadId" -> do
-        return OrderBy_ThreadId
+      ("OrderBy_ThreadId" :: Text) -> do
+        pure OrderBy_ThreadId
 
-      "OrderBy_Id" -> do
-        return OrderBy_Id
+      ("OrderBy_Id" :: Text) -> do
+        pure OrderBy_Id
 
-      "OrderBy_None" -> do
-        return OrderBy_None
+      ("OrderBy_None" :: Text) -> do
+        pure OrderBy_None
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse OrderBy"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Permission where
   toJSON (Perm_Create ) = object $
-    [ "tag" .= "Perm_Create"
+    [ "tag" .= ("Perm_Create" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Perm_Read ) = object $
-    [ "tag" .= "Perm_Read"
+    [ "tag" .= ("Perm_Read" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Perm_Update ) = object $
-    [ "tag" .= "Perm_Update"
+    [ "tag" .= ("Perm_Update" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Perm_Delete ) = object $
-    [ "tag" .= "Perm_Delete"
+    [ "tag" .= ("Perm_Delete" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Perm_Execute ) = object $
-    [ "tag" .= "Perm_Execute"
+    [ "tag" .= ("Perm_Execute" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON Permission where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Perm_Create" -> do
-        return Perm_Create
+      ("Perm_Create" :: Text) -> do
+        pure Perm_Create
 
-      "Perm_Read" -> do
-        return Perm_Read
+      ("Perm_Read" :: Text) -> do
+        pure Perm_Read
 
-      "Perm_Update" -> do
-        return Perm_Update
+      ("Perm_Update" :: Text) -> do
+        pure Perm_Update
 
-      "Perm_Delete" -> do
-        return Perm_Delete
+      ("Perm_Delete" :: Text) -> do
+        pure Perm_Delete
 
-      "Perm_Execute" -> do
-        return Perm_Execute
+      ("Perm_Execute" :: Text) -> do
+        pure Perm_Execute
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Permission"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmRequest where
   toJSON PmRequest{..} = object $
-    [ "tag" .= "PmRequest"
+    [ "tag" .= ("PmRequest" :: Text)
     , "subject" .= pmRequestSubject
     , "body" .= pmRequestBody
     , "guard" .= pmRequestGuard
@@ -3676,20 +3867,20 @@ instance ToJSON PmRequest where
 
 instance FromJSON PmRequest where
   parseJSON (Object o) = do
-    pmRequestSubject <- o .: "subject"
-    pmRequestBody <- o .: "body"
-    pmRequestGuard <- o .: "guard"
-    return $ PmRequest {
+    pmRequestSubject <- o .: ("subject" :: Text)
+    pmRequestBody <- o .: ("body" :: Text)
+    pmRequestGuard <- o .: ("guard" :: Text)
+    pure $ PmRequest {
       pmRequestSubject = pmRequestSubject,
       pmRequestBody = pmRequestBody,
       pmRequestGuard = pmRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmResponse where
   toJSON PmResponse{..} = object $
-    [ "tag" .= "PmResponse"
+    [ "tag" .= ("PmResponse" :: Text)
     , "id" .= pmResponseId
     , "user_id" .= pmResponseUserId
     , "to_user_id" .= pmResponseToUserId
@@ -3705,17 +3896,17 @@ instance ToJSON PmResponse where
 
 instance FromJSON PmResponse where
   parseJSON (Object o) = do
-    pmResponseId <- o .: "id"
-    pmResponseUserId <- o .: "user_id"
-    pmResponseToUserId <- o .: "to_user_id"
-    pmResponseSubject <- o .: "subject"
-    pmResponseBody <- o .: "body"
-    pmResponseActive <- o .: "active"
-    pmResponseGuard <- o .: "guard"
-    pmResponseCreatedAt <- o .: "created_at"
-    pmResponseModifiedAt <- o .: "modified_at"
-    pmResponseActivityAt <- o .: "activity_at"
-    return $ PmResponse {
+    pmResponseId <- o .: ("id" :: Text)
+    pmResponseUserId <- o .: ("user_id" :: Text)
+    pmResponseToUserId <- o .: ("to_user_id" :: Text)
+    pmResponseSubject <- o .: ("subject" :: Text)
+    pmResponseBody <- o .: ("body" :: Text)
+    pmResponseActive <- o .: ("active" :: Text)
+    pmResponseGuard <- o .: ("guard" :: Text)
+    pmResponseCreatedAt <- o .: ("created_at" :: Text)
+    pmResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pmResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ PmResponse {
       pmResponseId = pmResponseId,
       pmResponseUserId = pmResponseUserId,
       pmResponseToUserId = pmResponseToUserId,
@@ -3727,28 +3918,28 @@ instance FromJSON PmResponse where
       pmResponseModifiedAt = pmResponseModifiedAt,
       pmResponseActivityAt = pmResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmResponses where
   toJSON PmResponses{..} = object $
-    [ "tag" .= "PmResponses"
+    [ "tag" .= ("PmResponses" :: Text)
     , "pm_responses" .= pmResponses
     ]
 
 
 instance FromJSON PmResponses where
   parseJSON (Object o) = do
-    pmResponses <- o .: "pm_responses"
-    return $ PmResponses {
+    pmResponses <- o .: ("pm_responses" :: Text)
+    pure $ PmResponses {
       pmResponses = pmResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmInRequest where
   toJSON PmInRequest{..} = object $
-    [ "tag" .= "PmInRequest"
+    [ "tag" .= ("PmInRequest" :: Text)
     , "label" .= pmInRequestLabel
     , "is_read" .= pmInRequestIsRead
     , "is_starred" .= pmInRequestIsStarred
@@ -3758,22 +3949,22 @@ instance ToJSON PmInRequest where
 
 instance FromJSON PmInRequest where
   parseJSON (Object o) = do
-    pmInRequestLabel <- o .: "label"
-    pmInRequestIsRead <- o .: "is_read"
-    pmInRequestIsStarred <- o .: "is_starred"
-    pmInRequestGuard <- o .: "guard"
-    return $ PmInRequest {
+    pmInRequestLabel <- o .: ("label" :: Text)
+    pmInRequestIsRead <- o .: ("is_read" :: Text)
+    pmInRequestIsStarred <- o .: ("is_starred" :: Text)
+    pmInRequestGuard <- o .: ("guard" :: Text)
+    pure $ PmInRequest {
       pmInRequestLabel = pmInRequestLabel,
       pmInRequestIsRead = pmInRequestIsRead,
       pmInRequestIsStarred = pmInRequestIsStarred,
       pmInRequestGuard = pmInRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmInResponse where
   toJSON PmInResponse{..} = object $
-    [ "tag" .= "PmInResponse"
+    [ "tag" .= ("PmInResponse" :: Text)
     , "id" .= pmInResponseId
     , "pm_id" .= pmInResponsePmId
     , "user_id" .= pmInResponseUserId
@@ -3791,19 +3982,19 @@ instance ToJSON PmInResponse where
 
 instance FromJSON PmInResponse where
   parseJSON (Object o) = do
-    pmInResponseId <- o .: "id"
-    pmInResponsePmId <- o .: "pm_id"
-    pmInResponseUserId <- o .: "user_id"
-    pmInResponseLabel <- o .: "label"
-    pmInResponseIsRead <- o .: "is_read"
-    pmInResponseIsStarred <- o .: "is_starred"
-    pmInResponseIsNew <- o .: "is_new"
-    pmInResponseIsSaved <- o .: "is_saved"
-    pmInResponseActive <- o .: "active"
-    pmInResponseGuard <- o .: "guard"
-    pmInResponseCreatedAt <- o .: "created_at"
-    pmInResponseModifiedAt <- o .: "modified_at"
-    return $ PmInResponse {
+    pmInResponseId <- o .: ("id" :: Text)
+    pmInResponsePmId <- o .: ("pm_id" :: Text)
+    pmInResponseUserId <- o .: ("user_id" :: Text)
+    pmInResponseLabel <- o .: ("label" :: Text)
+    pmInResponseIsRead <- o .: ("is_read" :: Text)
+    pmInResponseIsStarred <- o .: ("is_starred" :: Text)
+    pmInResponseIsNew <- o .: ("is_new" :: Text)
+    pmInResponseIsSaved <- o .: ("is_saved" :: Text)
+    pmInResponseActive <- o .: ("active" :: Text)
+    pmInResponseGuard <- o .: ("guard" :: Text)
+    pmInResponseCreatedAt <- o .: ("created_at" :: Text)
+    pmInResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ PmInResponse {
       pmInResponseId = pmInResponseId,
       pmInResponsePmId = pmInResponsePmId,
       pmInResponseUserId = pmInResponseUserId,
@@ -3817,28 +4008,28 @@ instance FromJSON PmInResponse where
       pmInResponseCreatedAt = pmInResponseCreatedAt,
       pmInResponseModifiedAt = pmInResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmInResponses where
   toJSON PmInResponses{..} = object $
-    [ "tag" .= "PmInResponses"
+    [ "tag" .= ("PmInResponses" :: Text)
     , "pm_in_responses" .= pmInResponses
     ]
 
 
 instance FromJSON PmInResponses where
   parseJSON (Object o) = do
-    pmInResponses <- o .: "pm_in_responses"
-    return $ PmInResponses {
+    pmInResponses <- o .: ("pm_in_responses" :: Text)
+    pure $ PmInResponses {
       pmInResponses = pmInResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmOutRequest where
   toJSON PmOutRequest{..} = object $
-    [ "tag" .= "PmOutRequest"
+    [ "tag" .= ("PmOutRequest" :: Text)
     , "label" .= pmOutRequestLabel
     , "guard" .= pmOutRequestGuard
     ]
@@ -3846,18 +4037,18 @@ instance ToJSON PmOutRequest where
 
 instance FromJSON PmOutRequest where
   parseJSON (Object o) = do
-    pmOutRequestLabel <- o .: "label"
-    pmOutRequestGuard <- o .: "guard"
-    return $ PmOutRequest {
+    pmOutRequestLabel <- o .: ("label" :: Text)
+    pmOutRequestGuard <- o .: ("guard" :: Text)
+    pure $ PmOutRequest {
       pmOutRequestLabel = pmOutRequestLabel,
       pmOutRequestGuard = pmOutRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmOutResponse where
   toJSON PmOutResponse{..} = object $
-    [ "tag" .= "PmOutResponse"
+    [ "tag" .= ("PmOutResponse" :: Text)
     , "id" .= pmOutResponseId
     , "pm_id" .= pmOutResponsePmId
     , "user_id" .= pmOutResponseUserId
@@ -3872,16 +4063,16 @@ instance ToJSON PmOutResponse where
 
 instance FromJSON PmOutResponse where
   parseJSON (Object o) = do
-    pmOutResponseId <- o .: "id"
-    pmOutResponsePmId <- o .: "pm_id"
-    pmOutResponseUserId <- o .: "user_id"
-    pmOutResponseLabel <- o .: "label"
-    pmOutResponseIsSaved <- o .: "is_saved"
-    pmOutResponseActive <- o .: "active"
-    pmOutResponseGuard <- o .: "guard"
-    pmOutResponseCreatedAt <- o .: "created_at"
-    pmOutResponseModifiedAt <- o .: "modified_at"
-    return $ PmOutResponse {
+    pmOutResponseId <- o .: ("id" :: Text)
+    pmOutResponsePmId <- o .: ("pm_id" :: Text)
+    pmOutResponseUserId <- o .: ("user_id" :: Text)
+    pmOutResponseLabel <- o .: ("label" :: Text)
+    pmOutResponseIsSaved <- o .: ("is_saved" :: Text)
+    pmOutResponseActive <- o .: ("active" :: Text)
+    pmOutResponseGuard <- o .: ("guard" :: Text)
+    pmOutResponseCreatedAt <- o .: ("created_at" :: Text)
+    pmOutResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ PmOutResponse {
       pmOutResponseId = pmOutResponseId,
       pmOutResponsePmId = pmOutResponsePmId,
       pmOutResponseUserId = pmOutResponseUserId,
@@ -3892,28 +4083,28 @@ instance FromJSON PmOutResponse where
       pmOutResponseCreatedAt = pmOutResponseCreatedAt,
       pmOutResponseModifiedAt = pmOutResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmOutResponses where
   toJSON PmOutResponses{..} = object $
-    [ "tag" .= "PmOutResponses"
+    [ "tag" .= ("PmOutResponses" :: Text)
     , "pm_out_responses" .= pmOutResponses
     ]
 
 
 instance FromJSON PmOutResponses where
   parseJSON (Object o) = do
-    pmOutResponses <- o .: "pm_out_responses"
-    return $ PmOutResponses {
+    pmOutResponses <- o .: ("pm_out_responses" :: Text)
+    pure $ PmOutResponses {
       pmOutResponses = pmOutResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ProfileX where
   toJSON ProfileX{..} = object $
-    [ "tag" .= "ProfileX"
+    [ "tag" .= ("ProfileX" :: Text)
     , "profile_login" .= profileLogin
     , "profile_name" .= profileName
     , "profile_email" .= profileEmail
@@ -3922,51 +4113,53 @@ instance ToJSON ProfileX where
 
 instance FromJSON ProfileX where
   parseJSON (Object o) = do
-    profileLogin <- o .: "profile_login"
-    profileName <- o .: "profile_name"
-    profileEmail <- o .: "profile_email"
-    return $ ProfileX {
+    profileLogin <- o .: ("profile_login" :: Text)
+    profileName <- o .: ("profile_name" :: Text)
+    profileEmail <- o .: ("profile_email" :: Text)
+    pure $ ProfileX {
       profileLogin = profileLogin,
       profileName = profileName,
       profileEmail = profileEmail
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ProfileGender where
   toJSON (GenderMale ) = object $
-    [ "tag" .= "GenderMale"
+    [ "tag" .= ("GenderMale" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (GenderFemale ) = object $
-    [ "tag" .= "GenderFemale"
+    [ "tag" .= ("GenderFemale" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (GenderUnknown ) = object $
-    [ "tag" .= "GenderUnknown"
+    [ "tag" .= ("GenderUnknown" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON ProfileGender where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "GenderMale" -> do
-        return GenderMale
+      ("GenderMale" :: Text) -> do
+        pure GenderMale
 
-      "GenderFemale" -> do
-        return GenderFemale
+      ("GenderFemale" :: Text) -> do
+        pure GenderFemale
 
-      "GenderUnknown" -> do
-        return GenderUnknown
+      ("GenderUnknown" :: Text) -> do
+        pure GenderUnknown
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse ProfileGender"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ProfileRequest where
   toJSON ProfileRequest{..} = object $
-    [ "tag" .= "ProfileRequest"
+    [ "tag" .= ("ProfileRequest" :: Text)
     , "gender" .= profileRequestGender
     , "birthdate" .= profileRequestBirthdate
     , "website" .= profileRequestWebsite
@@ -3979,14 +4172,14 @@ instance ToJSON ProfileRequest where
 
 instance FromJSON ProfileRequest where
   parseJSON (Object o) = do
-    profileRequestGender <- o .: "gender"
-    profileRequestBirthdate <- o .: "birthdate"
-    profileRequestWebsite <- o .: "website"
-    profileRequestLocation <- o .: "location"
-    profileRequestSignature <- o .: "signature"
-    profileRequestDebug <- o .: "debug"
-    profileRequestGuard <- o .: "guard"
-    return $ ProfileRequest {
+    profileRequestGender <- o .: ("gender" :: Text)
+    profileRequestBirthdate <- o .: ("birthdate" :: Text)
+    profileRequestWebsite <- o .: ("website" :: Text)
+    profileRequestLocation <- o .: ("location" :: Text)
+    profileRequestSignature <- o .: ("signature" :: Text)
+    profileRequestDebug <- o .: ("debug" :: Text)
+    profileRequestGuard <- o .: ("guard" :: Text)
+    pure $ ProfileRequest {
       profileRequestGender = profileRequestGender,
       profileRequestBirthdate = profileRequestBirthdate,
       profileRequestWebsite = profileRequestWebsite,
@@ -3995,12 +4188,12 @@ instance FromJSON ProfileRequest where
       profileRequestDebug = profileRequestDebug,
       profileRequestGuard = profileRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ProfileResponse where
   toJSON ProfileResponse{..} = object $
-    [ "tag" .= "ProfileResponse"
+    [ "tag" .= ("ProfileResponse" :: Text)
     , "id" .= profileResponseId
     , "ent" .= profileResponseEnt
     , "ent_id" .= profileResponseEntId
@@ -4020,21 +4213,21 @@ instance ToJSON ProfileResponse where
 
 instance FromJSON ProfileResponse where
   parseJSON (Object o) = do
-    profileResponseId <- o .: "id"
-    profileResponseEnt <- o .: "ent"
-    profileResponseEntId <- o .: "ent_id"
-    profileResponseGender <- o .: "gender"
-    profileResponseBirthdate <- o .: "birthdate"
-    profileResponseWebsite <- o .: "website"
-    profileResponseLocation <- o .: "location"
-    profileResponseSignature <- o .: "signature"
-    profileResponseDebug <- o .: "debug"
-    profileResponseKarmaGood <- o .: "karma_good"
-    profileResponseKarmaBad <- o .: "karma_bad"
-    profileResponseGuard <- o .: "guard"
-    profileResponseCreatedAt <- o .: "created_at"
-    profileResponseModifiedAt <- o .: "modified_at"
-    return $ ProfileResponse {
+    profileResponseId <- o .: ("id" :: Text)
+    profileResponseEnt <- o .: ("ent" :: Text)
+    profileResponseEntId <- o .: ("ent_id" :: Text)
+    profileResponseGender <- o .: ("gender" :: Text)
+    profileResponseBirthdate <- o .: ("birthdate" :: Text)
+    profileResponseWebsite <- o .: ("website" :: Text)
+    profileResponseLocation <- o .: ("location" :: Text)
+    profileResponseSignature <- o .: ("signature" :: Text)
+    profileResponseDebug <- o .: ("debug" :: Text)
+    profileResponseKarmaGood <- o .: ("karma_good" :: Text)
+    profileResponseKarmaBad <- o .: ("karma_bad" :: Text)
+    profileResponseGuard <- o .: ("guard" :: Text)
+    profileResponseCreatedAt <- o .: ("created_at" :: Text)
+    profileResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ ProfileResponse {
       profileResponseId = profileResponseId,
       profileResponseEnt = profileResponseEnt,
       profileResponseEntId = profileResponseEntId,
@@ -4050,28 +4243,28 @@ instance FromJSON ProfileResponse where
       profileResponseCreatedAt = profileResponseCreatedAt,
       profileResponseModifiedAt = profileResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ProfileResponses where
   toJSON ProfileResponses{..} = object $
-    [ "tag" .= "ProfileResponses"
+    [ "tag" .= ("ProfileResponses" :: Text)
     , "profile_responses" .= profileResponses
     ]
 
 
 instance FromJSON ProfileResponses where
   parseJSON (Object o) = do
-    profileResponses <- o .: "profile_responses"
-    return $ ProfileResponses {
+    profileResponses <- o .: ("profile_responses" :: Text)
+    pure $ ProfileResponses {
       profileResponses = profileResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ReminderRequest where
   toJSON ReminderRequest{..} = object $
-    [ "tag" .= "ReminderRequest"
+    [ "tag" .= ("ReminderRequest" :: Text)
     , "data" .= reminderRequestData
     , "guard" .= reminderRequestGuard
     ]
@@ -4079,18 +4272,18 @@ instance ToJSON ReminderRequest where
 
 instance FromJSON ReminderRequest where
   parseJSON (Object o) = do
-    reminderRequestData <- o .: "data"
-    reminderRequestGuard <- o .: "guard"
-    return $ ReminderRequest {
+    reminderRequestData <- o .: ("data" :: Text)
+    reminderRequestGuard <- o .: ("guard" :: Text)
+    pure $ ReminderRequest {
       reminderRequestData = reminderRequestData,
       reminderRequestGuard = reminderRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ReminderResponse where
   toJSON ReminderResponse{..} = object $
-    [ "tag" .= "ReminderResponse"
+    [ "tag" .= ("ReminderResponse" :: Text)
     , "id" .= reminderResponseId
     , "user_id" .= reminderResponseUserId
     , "parent_folder_id" .= reminderResponseParentFolderId
@@ -4105,16 +4298,16 @@ instance ToJSON ReminderResponse where
 
 instance FromJSON ReminderResponse where
   parseJSON (Object o) = do
-    reminderResponseId <- o .: "id"
-    reminderResponseUserId <- o .: "user_id"
-    reminderResponseParentFolderId <- o .: "parent_folder_id"
-    reminderResponseData <- o .: "data"
-    reminderResponseActive <- o .: "active"
-    reminderResponseGuard <- o .: "guard"
-    reminderResponseCreatedAt <- o .: "created_at"
-    reminderResponseModifiedAt <- o .: "modified_at"
-    reminderResponseActivityAt <- o .: "activity_at"
-    return $ ReminderResponse {
+    reminderResponseId <- o .: ("id" :: Text)
+    reminderResponseUserId <- o .: ("user_id" :: Text)
+    reminderResponseParentFolderId <- o .: ("parent_folder_id" :: Text)
+    reminderResponseData <- o .: ("data" :: Text)
+    reminderResponseActive <- o .: ("active" :: Text)
+    reminderResponseGuard <- o .: ("guard" :: Text)
+    reminderResponseCreatedAt <- o .: ("created_at" :: Text)
+    reminderResponseModifiedAt <- o .: ("modified_at" :: Text)
+    reminderResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ ReminderResponse {
       reminderResponseId = reminderResponseId,
       reminderResponseUserId = reminderResponseUserId,
       reminderResponseParentFolderId = reminderResponseParentFolderId,
@@ -4125,28 +4318,28 @@ instance FromJSON ReminderResponse where
       reminderResponseModifiedAt = reminderResponseModifiedAt,
       reminderResponseActivityAt = reminderResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ReminderResponses where
   toJSON ReminderResponses{..} = object $
-    [ "tag" .= "ReminderResponses"
+    [ "tag" .= ("ReminderResponses" :: Text)
     , "reminder_responses" .= reminderResponses
     ]
 
 
 instance FromJSON ReminderResponses where
   parseJSON (Object o) = do
-    reminderResponses <- o .: "reminder_responses"
-    return $ ReminderResponses {
+    reminderResponses <- o .: ("reminder_responses" :: Text)
+    pure $ ReminderResponses {
       reminderResponses = reminderResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ReminderFolderRequest where
   toJSON ReminderFolderRequest{..} = object $
-    [ "tag" .= "ReminderFolderRequest"
+    [ "tag" .= ("ReminderFolderRequest" :: Text)
     , "display_name" .= reminderFolderRequestDisplayName
     , "description" .= reminderFolderRequestDescription
     , "visibility" .= reminderFolderRequestVisibility
@@ -4156,22 +4349,22 @@ instance ToJSON ReminderFolderRequest where
 
 instance FromJSON ReminderFolderRequest where
   parseJSON (Object o) = do
-    reminderFolderRequestDisplayName <- o .: "display_name"
-    reminderFolderRequestDescription <- o .: "description"
-    reminderFolderRequestVisibility <- o .: "visibility"
-    reminderFolderRequestGuard <- o .: "guard"
-    return $ ReminderFolderRequest {
+    reminderFolderRequestDisplayName <- o .: ("display_name" :: Text)
+    reminderFolderRequestDescription <- o .: ("description" :: Text)
+    reminderFolderRequestVisibility <- o .: ("visibility" :: Text)
+    reminderFolderRequestGuard <- o .: ("guard" :: Text)
+    pure $ ReminderFolderRequest {
       reminderFolderRequestDisplayName = reminderFolderRequestDisplayName,
       reminderFolderRequestDescription = reminderFolderRequestDescription,
       reminderFolderRequestVisibility = reminderFolderRequestVisibility,
       reminderFolderRequestGuard = reminderFolderRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ReminderFolderResponse where
   toJSON ReminderFolderResponse{..} = object $
-    [ "tag" .= "ReminderFolderResponse"
+    [ "tag" .= ("ReminderFolderResponse" :: Text)
     , "id" .= reminderFolderResponseId
     , "user_id" .= reminderFolderResponseUserId
     , "parent_folder_id" .= reminderFolderResponseParentFolderId
@@ -4189,19 +4382,19 @@ instance ToJSON ReminderFolderResponse where
 
 instance FromJSON ReminderFolderResponse where
   parseJSON (Object o) = do
-    reminderFolderResponseId <- o .: "id"
-    reminderFolderResponseUserId <- o .: "user_id"
-    reminderFolderResponseParentFolderId <- o .: "parent_folder_id"
-    reminderFolderResponseName <- o .: "name"
-    reminderFolderResponseDisplayName <- o .: "display_name"
-    reminderFolderResponseVisibility <- o .: "visibility"
-    reminderFolderResponseDescription <- o .: "description"
-    reminderFolderResponseActive <- o .: "active"
-    reminderFolderResponseGuard <- o .: "guard"
-    reminderFolderResponseCreatedAt <- o .: "created_at"
-    reminderFolderResponseModifiedAt <- o .: "modified_at"
-    reminderFolderResponseActivityAt <- o .: "activity_at"
-    return $ ReminderFolderResponse {
+    reminderFolderResponseId <- o .: ("id" :: Text)
+    reminderFolderResponseUserId <- o .: ("user_id" :: Text)
+    reminderFolderResponseParentFolderId <- o .: ("parent_folder_id" :: Text)
+    reminderFolderResponseName <- o .: ("name" :: Text)
+    reminderFolderResponseDisplayName <- o .: ("display_name" :: Text)
+    reminderFolderResponseVisibility <- o .: ("visibility" :: Text)
+    reminderFolderResponseDescription <- o .: ("description" :: Text)
+    reminderFolderResponseActive <- o .: ("active" :: Text)
+    reminderFolderResponseGuard <- o .: ("guard" :: Text)
+    reminderFolderResponseCreatedAt <- o .: ("created_at" :: Text)
+    reminderFolderResponseModifiedAt <- o .: ("modified_at" :: Text)
+    reminderFolderResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ ReminderFolderResponse {
       reminderFolderResponseId = reminderFolderResponseId,
       reminderFolderResponseUserId = reminderFolderResponseUserId,
       reminderFolderResponseParentFolderId = reminderFolderResponseParentFolderId,
@@ -4215,122 +4408,134 @@ instance FromJSON ReminderFolderResponse where
       reminderFolderResponseModifiedAt = reminderFolderResponseModifiedAt,
       reminderFolderResponseActivityAt = reminderFolderResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ReminderFolderResponses where
   toJSON ReminderFolderResponses{..} = object $
-    [ "tag" .= "ReminderFolderResponses"
+    [ "tag" .= ("ReminderFolderResponses" :: Text)
     , "reminder_folder_responses" .= reminderFolderResponses
     ]
 
 
 instance FromJSON ReminderFolderResponses where
   parseJSON (Object o) = do
-    reminderFolderResponses <- o .: "reminder_folder_responses"
-    return $ ReminderFolderResponses {
+    reminderFolderResponses <- o .: ("reminder_folder_responses" :: Text)
+    pure $ ReminderFolderResponses {
       reminderFolderResponses = reminderFolderResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourceType where
   toJSON (ISBN13 x0) = object $
-    [ "tag" .= "ISBN13"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ISBN13" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ISBN10 x0) = object $
-    [ "tag" .= "ISBN10"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ISBN10" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (ISBN x0) = object $
-    [ "tag" .= "ISBN"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("ISBN" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (URL x0) = object $
-    [ "tag" .= "URL"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("URL" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (SourceNone ) = object $
-    [ "tag" .= "SourceNone"
+    [ "tag" .= ("SourceNone" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON ResourceType where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "ISBN13" -> do
-        x0 <- o .: "contents"
-        ISBN13 <$> parseJSON x0
+      ("ISBN13" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ISBN13 <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ISBN13"
 
-      "ISBN10" -> do
-        x0 <- o .: "contents"
-        ISBN10 <$> parseJSON x0
+      ("ISBN10" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ISBN10 <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ISBN10"
 
-      "ISBN" -> do
-        x0 <- o .: "contents"
-        ISBN <$> parseJSON x0
+      ("ISBN" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> ISBN <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ISBN"
 
-      "URL" -> do
-        x0 <- o .: "contents"
-        URL <$> parseJSON x0
+      ("URL" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> URL <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: URL"
 
-      "SourceNone" -> do
-        return SourceNone
+      ("SourceNone" :: Text) -> do
+        pure SourceNone
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse ResourceType"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TyResourceType where
   toJSON (TyISBN13 ) = object $
-    [ "tag" .= "TyISBN13"
+    [ "tag" .= ("TyISBN13" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyISBN10 ) = object $
-    [ "tag" .= "TyISBN10"
+    [ "tag" .= ("TyISBN10" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyISBN ) = object $
-    [ "tag" .= "TyISBN"
+    [ "tag" .= ("TyISBN" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TyURL ) = object $
-    [ "tag" .= "TyURL"
+    [ "tag" .= ("TyURL" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TySourceNone ) = object $
-    [ "tag" .= "TySourceNone"
+    [ "tag" .= ("TySourceNone" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON TyResourceType where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "TyISBN13" -> do
-        return TyISBN13
+      ("TyISBN13" :: Text) -> do
+        pure TyISBN13
 
-      "TyISBN10" -> do
-        return TyISBN10
+      ("TyISBN10" :: Text) -> do
+        pure TyISBN10
 
-      "TyISBN" -> do
-        return TyISBN
+      ("TyISBN" :: Text) -> do
+        pure TyISBN
 
-      "TyURL" -> do
-        return TyURL
+      ("TyURL" :: Text) -> do
+        pure TyURL
 
-      "TySourceNone" -> do
-        return TySourceNone
+      ("TySourceNone" :: Text) -> do
+        pure TySourceNone
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse TyResourceType"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourceRequest where
   toJSON ResourceRequest{..} = object $
-    [ "tag" .= "ResourceRequest"
+    [ "tag" .= ("ResourceRequest" :: Text)
     , "display_name" .= resourceRequestDisplayName
     , "description" .= resourceRequestDescription
     , "source" .= resourceRequestSource
@@ -4349,20 +4554,20 @@ instance ToJSON ResourceRequest where
 
 instance FromJSON ResourceRequest where
   parseJSON (Object o) = do
-    resourceRequestDisplayName <- o .: "display_name"
-    resourceRequestDescription <- o .: "description"
-    resourceRequestSource <- o .: "source"
-    resourceRequestAuthor <- o .: "author"
-    resourceRequestPrerequisites <- o .: "prerequisites"
-    resourceRequestCategories <- o .: "categories"
-    resourceRequestVisibility <- o .: "visibility"
-    resourceRequestCounter <- o .: "counter"
-    resourceRequestVersion <- o .: "version"
-    resourceRequestUrls <- o .: "urls"
-    resourceRequestIcon <- o .: "icon"
-    resourceRequestTags <- o .: "tags"
-    resourceRequestGuard <- o .: "guard"
-    return $ ResourceRequest {
+    resourceRequestDisplayName <- o .: ("display_name" :: Text)
+    resourceRequestDescription <- o .: ("description" :: Text)
+    resourceRequestSource <- o .: ("source" :: Text)
+    resourceRequestAuthor <- o .: ("author" :: Text)
+    resourceRequestPrerequisites <- o .: ("prerequisites" :: Text)
+    resourceRequestCategories <- o .: ("categories" :: Text)
+    resourceRequestVisibility <- o .: ("visibility" :: Text)
+    resourceRequestCounter <- o .: ("counter" :: Text)
+    resourceRequestVersion <- o .: ("version" :: Text)
+    resourceRequestUrls <- o .: ("urls" :: Text)
+    resourceRequestIcon <- o .: ("icon" :: Text)
+    resourceRequestTags <- o .: ("tags" :: Text)
+    resourceRequestGuard <- o .: ("guard" :: Text)
+    pure $ ResourceRequest {
       resourceRequestDisplayName = resourceRequestDisplayName,
       resourceRequestDescription = resourceRequestDescription,
       resourceRequestSource = resourceRequestSource,
@@ -4377,12 +4582,12 @@ instance FromJSON ResourceRequest where
       resourceRequestTags = resourceRequestTags,
       resourceRequestGuard = resourceRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourceResponse where
   toJSON ResourceResponse{..} = object $
-    [ "tag" .= "ResourceResponse"
+    [ "tag" .= ("ResourceResponse" :: Text)
     , "id" .= resourceResponseId
     , "user_id" .= resourceResponseUserId
     , "name" .= resourceResponseName
@@ -4408,27 +4613,27 @@ instance ToJSON ResourceResponse where
 
 instance FromJSON ResourceResponse where
   parseJSON (Object o) = do
-    resourceResponseId <- o .: "id"
-    resourceResponseUserId <- o .: "user_id"
-    resourceResponseName <- o .: "name"
-    resourceResponseDisplayName <- o .: "display_name"
-    resourceResponseDescription <- o .: "description"
-    resourceResponseSource <- o .: "source"
-    resourceResponseAuthor <- o .: "author"
-    resourceResponsePrerequisites <- o .: "prerequisites"
-    resourceResponseCategories <- o .: "categories"
-    resourceResponseVisibility <- o .: "visibility"
-    resourceResponseCounter <- o .: "counter"
-    resourceResponseVersion <- o .: "version"
-    resourceResponseUrls <- o .: "urls"
-    resourceResponseIcon <- o .: "icon"
-    resourceResponseTags <- o .: "tags"
-    resourceResponseActive <- o .: "active"
-    resourceResponseGuard <- o .: "guard"
-    resourceResponseCreatedAt <- o .: "created_at"
-    resourceResponseModifiedAt <- o .: "modified_at"
-    resourceResponseActivityAt <- o .: "activity_at"
-    return $ ResourceResponse {
+    resourceResponseId <- o .: ("id" :: Text)
+    resourceResponseUserId <- o .: ("user_id" :: Text)
+    resourceResponseName <- o .: ("name" :: Text)
+    resourceResponseDisplayName <- o .: ("display_name" :: Text)
+    resourceResponseDescription <- o .: ("description" :: Text)
+    resourceResponseSource <- o .: ("source" :: Text)
+    resourceResponseAuthor <- o .: ("author" :: Text)
+    resourceResponsePrerequisites <- o .: ("prerequisites" :: Text)
+    resourceResponseCategories <- o .: ("categories" :: Text)
+    resourceResponseVisibility <- o .: ("visibility" :: Text)
+    resourceResponseCounter <- o .: ("counter" :: Text)
+    resourceResponseVersion <- o .: ("version" :: Text)
+    resourceResponseUrls <- o .: ("urls" :: Text)
+    resourceResponseIcon <- o .: ("icon" :: Text)
+    resourceResponseTags <- o .: ("tags" :: Text)
+    resourceResponseActive <- o .: ("active" :: Text)
+    resourceResponseGuard <- o .: ("guard" :: Text)
+    resourceResponseCreatedAt <- o .: ("created_at" :: Text)
+    resourceResponseModifiedAt <- o .: ("modified_at" :: Text)
+    resourceResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ ResourceResponse {
       resourceResponseId = resourceResponseId,
       resourceResponseUserId = resourceResponseUserId,
       resourceResponseName = resourceResponseName,
@@ -4450,28 +4655,28 @@ instance FromJSON ResourceResponse where
       resourceResponseModifiedAt = resourceResponseModifiedAt,
       resourceResponseActivityAt = resourceResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourceResponses where
   toJSON ResourceResponses{..} = object $
-    [ "tag" .= "ResourceResponses"
+    [ "tag" .= ("ResourceResponses" :: Text)
     , "resource_responses" .= resourceResponses
     ]
 
 
 instance FromJSON ResourceResponses where
   parseJSON (Object o) = do
-    resourceResponses <- o .: "resource_responses"
-    return $ ResourceResponses {
+    resourceResponses <- o .: ("resource_responses" :: Text)
+    pure $ ResourceResponses {
       resourceResponses = resourceResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourceStatResponse where
   toJSON ResourceStatResponse{..} = object $
-    [ "tag" .= "ResourceStatResponse"
+    [ "tag" .= ("ResourceStatResponse" :: Text)
     , "resource_id" .= resourceStatResponseResourceId
     , "leurons" .= resourceStatResponseLeurons
     , "likes" .= resourceStatResponseLikes
@@ -4484,14 +4689,14 @@ instance ToJSON ResourceStatResponse where
 
 instance FromJSON ResourceStatResponse where
   parseJSON (Object o) = do
-    resourceStatResponseResourceId <- o .: "resource_id"
-    resourceStatResponseLeurons <- o .: "leurons"
-    resourceStatResponseLikes <- o .: "likes"
-    resourceStatResponseNeutral <- o .: "neutral"
-    resourceStatResponseDislikes <- o .: "dislikes"
-    resourceStatResponseStars <- o .: "stars"
-    resourceStatResponseViews <- o .: "views"
-    return $ ResourceStatResponse {
+    resourceStatResponseResourceId <- o .: ("resource_id" :: Text)
+    resourceStatResponseLeurons <- o .: ("leurons" :: Text)
+    resourceStatResponseLikes <- o .: ("likes" :: Text)
+    resourceStatResponseNeutral <- o .: ("neutral" :: Text)
+    resourceStatResponseDislikes <- o .: ("dislikes" :: Text)
+    resourceStatResponseStars <- o .: ("stars" :: Text)
+    resourceStatResponseViews <- o .: ("views" :: Text)
+    pure $ ResourceStatResponse {
       resourceStatResponseResourceId = resourceStatResponseResourceId,
       resourceStatResponseLeurons = resourceStatResponseLeurons,
       resourceStatResponseLikes = resourceStatResponseLikes,
@@ -4500,202 +4705,222 @@ instance FromJSON ResourceStatResponse where
       resourceStatResponseStars = resourceStatResponseStars,
       resourceStatResponseViews = resourceStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourceStatResponses where
   toJSON ResourceStatResponses{..} = object $
-    [ "tag" .= "ResourceStatResponses"
+    [ "tag" .= ("ResourceStatResponses" :: Text)
     , "resource_stat_responses" .= resourceStatResponses
     ]
 
 
 instance FromJSON ResourceStatResponses where
   parseJSON (Object o) = do
-    resourceStatResponses <- o .: "resource_stat_responses"
-    return $ ResourceStatResponses {
+    resourceStatResponses <- o .: ("resource_stat_responses" :: Text)
+    pure $ ResourceStatResponses {
       resourceStatResponses = resourceStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Size where
   toJSON (XSmall ) = object $
-    [ "tag" .= "XSmall"
+    [ "tag" .= ("XSmall" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Small ) = object $
-    [ "tag" .= "Small"
+    [ "tag" .= ("Small" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Medium ) = object $
-    [ "tag" .= "Medium"
+    [ "tag" .= ("Medium" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Large ) = object $
-    [ "tag" .= "Large"
+    [ "tag" .= ("Large" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (XLarge ) = object $
-    [ "tag" .= "XLarge"
+    [ "tag" .= ("XLarge" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON Size where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "XSmall" -> do
-        return XSmall
+      ("XSmall" :: Text) -> do
+        pure XSmall
 
-      "Small" -> do
-        return Small
+      ("Small" :: Text) -> do
+        pure Small
 
-      "Medium" -> do
-        return Medium
+      ("Medium" :: Text) -> do
+        pure Medium
 
-      "Large" -> do
-        return Large
+      ("Large" :: Text) -> do
+        pure Large
 
-      "XLarge" -> do
-        return XLarge
+      ("XLarge" :: Text) -> do
+        pure XLarge
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Size"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Splits where
   toJSON (SplitAt x0 x1 x2) = object $
-    [ "tag" .= "SplitAt"
+    [ "tag" .= ("SplitAt" :: Text)
     , "contents" .= [toJSON x0, toJSON x1, toJSON x2]
     ]
   toJSON (SplitNone ) = object $
-    [ "tag" .= "SplitNone"
+    [ "tag" .= ("SplitNone" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON Splits where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "SplitAt" -> do
-        [x0, x1, x2] <- o .: "contents"
-        SplitAt <$> parseJSON x0 <*> parseJSON x1 <*> parseJSON x2
+      ("SplitAt" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0, x1, x2] -> SplitAt <$> parseJSON x0 <*> parseJSON x1 <*> parseJSON x2
+          _ -> fail "FromJON Typemismatch: SplitAt"
 
-      "SplitNone" -> do
-        return SplitNone
+      ("SplitNone" :: Text) -> do
+        pure SplitNone
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Splits"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TySplits where
   toJSON (TySplitA ) = object $
-    [ "tag" .= "TySplitA"
+    [ "tag" .= ("TySplitA" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TySplitNone ) = object $
-    [ "tag" .= "TySplitNone"
+    [ "tag" .= ("TySplitNone" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON TySplits where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "TySplitA" -> do
-        return TySplitA
+      ("TySplitA" :: Text) -> do
+        pure TySplitA
 
-      "TySplitNone" -> do
-        return TySplitNone
+      ("TySplitNone" :: Text) -> do
+        pure TySplitNone
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse TySplits"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Substitutions where
   toJSON (SubsExpr x0 x1) = object $
-    [ "tag" .= "SubsExpr"
+    [ "tag" .= ("SubsExpr" :: Text)
     , "contents" .= [toJSON x0, toJSON x1]
     ]
   toJSON (SubsOneOf x0) = object $
-    [ "tag" .= "SubsOneOf"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("SubsOneOf" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (SubsAllOf x0) = object $
-    [ "tag" .= "SubsAllOf"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("SubsAllOf" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (SubsBoth x0 x1) = object $
-    [ "tag" .= "SubsBoth"
+    [ "tag" .= ("SubsBoth" :: Text)
     , "contents" .= [toJSON x0, toJSON x1]
     ]
 
 
 instance FromJSON Substitutions where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "SubsExpr" -> do
-        [x0, x1] <- o .: "contents"
-        SubsExpr <$> parseJSON x0 <*> parseJSON x1
+      ("SubsExpr" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0, x1] -> SubsExpr <$> parseJSON x0 <*> parseJSON x1
+          _ -> fail "FromJON Typemismatch: SubsExpr"
 
-      "SubsOneOf" -> do
-        x0 <- o .: "contents"
-        SubsOneOf <$> parseJSON x0
+      ("SubsOneOf" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> SubsOneOf <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: SubsOneOf"
 
-      "SubsAllOf" -> do
-        x0 <- o .: "contents"
-        SubsAllOf <$> parseJSON x0
+      ("SubsAllOf" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> SubsAllOf <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: SubsAllOf"
 
-      "SubsBoth" -> do
-        [x0, x1] <- o .: "contents"
-        SubsBoth <$> parseJSON x0 <*> parseJSON x1
+      ("SubsBoth" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0, x1] -> SubsBoth <$> parseJSON x0 <*> parseJSON x1
+          _ -> fail "FromJON Typemismatch: SubsBoth"
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Substitutions"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TySubstitutions where
   toJSON (TySubsExpr ) = object $
-    [ "tag" .= "TySubsExpr"
+    [ "tag" .= ("TySubsExpr" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TySubsOneOf ) = object $
-    [ "tag" .= "TySubsOneOf"
+    [ "tag" .= ("TySubsOneOf" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TySubsAllOf ) = object $
-    [ "tag" .= "TySubsAllOf"
+    [ "tag" .= ("TySubsAllOf" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (TySubsBoth ) = object $
-    [ "tag" .= "TySubsBoth"
+    [ "tag" .= ("TySubsBoth" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON TySubstitutions where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "TySubsExpr" -> do
-        return TySubsExpr
+      ("TySubsExpr" :: Text) -> do
+        pure TySubsExpr
 
-      "TySubsOneOf" -> do
-        return TySubsOneOf
+      ("TySubsOneOf" :: Text) -> do
+        pure TySubsOneOf
 
-      "TySubsAllOf" -> do
-        return TySubsAllOf
+      ("TySubsAllOf" :: Text) -> do
+        pure TySubsAllOf
 
-      "TySubsBoth" -> do
-        return TySubsBoth
+      ("TySubsBoth" :: Text) -> do
+        pure TySubsBoth
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse TySubstitutions"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON StarRequest where
   toJSON StarRequest{..} = object $
-    [ "tag" .= "StarRequest"
+    [ "tag" .= ("StarRequest" :: Text)
     , "reason" .= starRequestReason
     , "guard" .= starRequestGuard
     ]
@@ -4703,18 +4928,18 @@ instance ToJSON StarRequest where
 
 instance FromJSON StarRequest where
   parseJSON (Object o) = do
-    starRequestReason <- o .: "reason"
-    starRequestGuard <- o .: "guard"
-    return $ StarRequest {
+    starRequestReason <- o .: ("reason" :: Text)
+    starRequestGuard <- o .: ("guard" :: Text)
+    pure $ StarRequest {
       starRequestReason = starRequestReason,
       starRequestGuard = starRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON StarResponse where
   toJSON StarResponse{..} = object $
-    [ "tag" .= "StarResponse"
+    [ "tag" .= ("StarResponse" :: Text)
     , "id" .= starResponseId
     , "ent" .= starResponseEnt
     , "ent_id" .= starResponseEntId
@@ -4729,16 +4954,16 @@ instance ToJSON StarResponse where
 
 instance FromJSON StarResponse where
   parseJSON (Object o) = do
-    starResponseId <- o .: "id"
-    starResponseEnt <- o .: "ent"
-    starResponseEntId <- o .: "ent_id"
-    starResponseUserId <- o .: "user_id"
-    starResponseReason <- o .: "reason"
-    starResponseActive <- o .: "active"
-    starResponseGuard <- o .: "guard"
-    starResponseCreatedAt <- o .: "created_at"
-    starResponseModifiedAt <- o .: "modified_at"
-    return $ StarResponse {
+    starResponseId <- o .: ("id" :: Text)
+    starResponseEnt <- o .: ("ent" :: Text)
+    starResponseEntId <- o .: ("ent_id" :: Text)
+    starResponseUserId <- o .: ("user_id" :: Text)
+    starResponseReason <- o .: ("reason" :: Text)
+    starResponseActive <- o .: ("active" :: Text)
+    starResponseGuard <- o .: ("guard" :: Text)
+    starResponseCreatedAt <- o .: ("created_at" :: Text)
+    starResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ StarResponse {
       starResponseId = starResponseId,
       starResponseEnt = starResponseEnt,
       starResponseEntId = starResponseEntId,
@@ -4749,28 +4974,28 @@ instance FromJSON StarResponse where
       starResponseCreatedAt = starResponseCreatedAt,
       starResponseModifiedAt = starResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON StarResponses where
   toJSON StarResponses{..} = object $
-    [ "tag" .= "StarResponses"
+    [ "tag" .= ("StarResponses" :: Text)
     , "star_responses" .= starResponses
     ]
 
 
 instance FromJSON StarResponses where
   parseJSON (Object o) = do
-    starResponses <- o .: "star_responses"
-    return $ StarResponses {
+    starResponses <- o .: ("star_responses" :: Text)
+    pure $ StarResponses {
       starResponses = starResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON StarStatResponse where
   toJSON StarStatResponse{..} = object $
-    [ "tag" .= "StarStatResponse"
+    [ "tag" .= ("StarStatResponse" :: Text)
     , "ent" .= starStatResponseEnt
     , "ent_id" .= starStatResponseEntId
     , "stars" .= starStatResponseStars
@@ -4779,60 +5004,62 @@ instance ToJSON StarStatResponse where
 
 instance FromJSON StarStatResponse where
   parseJSON (Object o) = do
-    starStatResponseEnt <- o .: "ent"
-    starStatResponseEntId <- o .: "ent_id"
-    starStatResponseStars <- o .: "stars"
-    return $ StarStatResponse {
+    starStatResponseEnt <- o .: ("ent" :: Text)
+    starStatResponseEntId <- o .: ("ent_id" :: Text)
+    starStatResponseStars <- o .: ("stars" :: Text)
+    pure $ StarStatResponse {
       starStatResponseEnt = starStatResponseEnt,
       starStatResponseEntId = starStatResponseEntId,
       starStatResponseStars = starStatResponseStars
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON StarStatResponses where
   toJSON StarStatResponses{..} = object $
-    [ "tag" .= "StarStatResponses"
+    [ "tag" .= ("StarStatResponses" :: Text)
     , "star_stat_responses" .= starStatResponses
     ]
 
 
 instance FromJSON StarStatResponses where
   parseJSON (Object o) = do
-    starStatResponses <- o .: "star_stat_responses"
-    return $ StarStatResponses {
+    starStatResponses <- o .: ("star_stat_responses" :: Text)
+    pure $ StarStatResponses {
       starStatResponses = starStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON SystemTeam where
   toJSON (Team_Owners ) = object $
-    [ "tag" .= "Team_Owners"
+    [ "tag" .= ("Team_Owners" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Team_Members ) = object $
-    [ "tag" .= "Team_Members"
+    [ "tag" .= ("Team_Members" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON SystemTeam where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Team_Owners" -> do
-        return Team_Owners
+      ("Team_Owners" :: Text) -> do
+        pure Team_Owners
 
-      "Team_Members" -> do
-        return Team_Members
+      ("Team_Members" :: Text) -> do
+        pure Team_Members
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse SystemTeam"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamRequest where
   toJSON TeamRequest{..} = object $
-    [ "tag" .= "TeamRequest"
+    [ "tag" .= ("TeamRequest" :: Text)
     , "membership" .= teamRequestMembership
     , "icon" .= teamRequestIcon
     , "tags" .= teamRequestTags
@@ -4843,24 +5070,24 @@ instance ToJSON TeamRequest where
 
 instance FromJSON TeamRequest where
   parseJSON (Object o) = do
-    teamRequestMembership <- o .: "membership"
-    teamRequestIcon <- o .: "icon"
-    teamRequestTags <- o .: "tags"
-    teamRequestVisibility <- o .: "visibility"
-    teamRequestGuard <- o .: "guard"
-    return $ TeamRequest {
+    teamRequestMembership <- o .: ("membership" :: Text)
+    teamRequestIcon <- o .: ("icon" :: Text)
+    teamRequestTags <- o .: ("tags" :: Text)
+    teamRequestVisibility <- o .: ("visibility" :: Text)
+    teamRequestGuard <- o .: ("guard" :: Text)
+    pure $ TeamRequest {
       teamRequestMembership = teamRequestMembership,
       teamRequestIcon = teamRequestIcon,
       teamRequestTags = teamRequestTags,
       teamRequestVisibility = teamRequestVisibility,
       teamRequestGuard = teamRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamResponse where
   toJSON TeamResponse{..} = object $
-    [ "tag" .= "TeamResponse"
+    [ "tag" .= ("TeamResponse" :: Text)
     , "id" .= teamResponseId
     , "user_id" .= teamResponseUserId
     , "org_id" .= teamResponseOrgId
@@ -4880,21 +5107,21 @@ instance ToJSON TeamResponse where
 
 instance FromJSON TeamResponse where
   parseJSON (Object o) = do
-    teamResponseId <- o .: "id"
-    teamResponseUserId <- o .: "user_id"
-    teamResponseOrgId <- o .: "org_id"
-    teamResponseSystem <- o .: "system"
-    teamResponseMembership <- o .: "membership"
-    teamResponseIcon <- o .: "icon"
-    teamResponseTags <- o .: "tags"
-    teamResponseVisibility <- o .: "visibility"
-    teamResponseActive <- o .: "active"
-    teamResponseGuard <- o .: "guard"
-    teamResponseCreatedAt <- o .: "created_at"
-    teamResponseModifiedBy <- o .: "modified_by"
-    teamResponseModifiedAt <- o .: "modified_at"
-    teamResponseActivityAt <- o .: "activity_at"
-    return $ TeamResponse {
+    teamResponseId <- o .: ("id" :: Text)
+    teamResponseUserId <- o .: ("user_id" :: Text)
+    teamResponseOrgId <- o .: ("org_id" :: Text)
+    teamResponseSystem <- o .: ("system" :: Text)
+    teamResponseMembership <- o .: ("membership" :: Text)
+    teamResponseIcon <- o .: ("icon" :: Text)
+    teamResponseTags <- o .: ("tags" :: Text)
+    teamResponseVisibility <- o .: ("visibility" :: Text)
+    teamResponseActive <- o .: ("active" :: Text)
+    teamResponseGuard <- o .: ("guard" :: Text)
+    teamResponseCreatedAt <- o .: ("created_at" :: Text)
+    teamResponseModifiedBy <- o .: ("modified_by" :: Text)
+    teamResponseModifiedAt <- o .: ("modified_at" :: Text)
+    teamResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ TeamResponse {
       teamResponseId = teamResponseId,
       teamResponseUserId = teamResponseUserId,
       teamResponseOrgId = teamResponseOrgId,
@@ -4910,76 +5137,76 @@ instance FromJSON TeamResponse where
       teamResponseModifiedAt = teamResponseModifiedAt,
       teamResponseActivityAt = teamResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamResponses where
   toJSON TeamResponses{..} = object $
-    [ "tag" .= "TeamResponses"
+    [ "tag" .= ("TeamResponses" :: Text)
     , "team_responses" .= teamResponses
     ]
 
 
 instance FromJSON TeamResponses where
   parseJSON (Object o) = do
-    teamResponses <- o .: "team_responses"
-    return $ TeamResponses {
+    teamResponses <- o .: ("team_responses" :: Text)
+    pure $ TeamResponses {
       teamResponses = teamResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamStatResponse where
   toJSON TeamStatResponse{..} = object $
-    [ "tag" .= "TeamStatResponse"
+    [ "tag" .= ("TeamStatResponse" :: Text)
     , "members" .= teamStatResponseMembers
     ]
 
 
 instance FromJSON TeamStatResponse where
   parseJSON (Object o) = do
-    teamStatResponseMembers <- o .: "members"
-    return $ TeamStatResponse {
+    teamStatResponseMembers <- o .: ("members" :: Text)
+    pure $ TeamStatResponse {
       teamStatResponseMembers = teamStatResponseMembers
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamStatResponses where
   toJSON TeamStatResponses{..} = object $
-    [ "tag" .= "TeamStatResponses"
+    [ "tag" .= ("TeamStatResponses" :: Text)
     , "team_stat_responses" .= teamStatResponses
     ]
 
 
 instance FromJSON TeamStatResponses where
   parseJSON (Object o) = do
-    teamStatResponses <- o .: "team_stat_responses"
-    return $ TeamStatResponses {
+    teamStatResponses <- o .: ("team_stat_responses" :: Text)
+    pure $ TeamStatResponses {
       teamStatResponses = teamStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberRequest where
   toJSON TeamMemberRequest{..} = object $
-    [ "tag" .= "TeamMemberRequest"
+    [ "tag" .= ("TeamMemberRequest" :: Text)
     , "guard" .= teamMemberRequestGuard
     ]
 
 
 instance FromJSON TeamMemberRequest where
   parseJSON (Object o) = do
-    teamMemberRequestGuard <- o .: "guard"
-    return $ TeamMemberRequest {
+    teamMemberRequestGuard <- o .: ("guard" :: Text)
+    pure $ TeamMemberRequest {
       teamMemberRequestGuard = teamMemberRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberResponse where
   toJSON TeamMemberResponse{..} = object $
-    [ "tag" .= "TeamMemberResponse"
+    [ "tag" .= ("TeamMemberResponse" :: Text)
     , "id" .= teamMemberResponseId
     , "user_id" .= teamMemberResponseUserId
     , "org_id" .= teamMemberResponseOrgId
@@ -4999,21 +5226,21 @@ instance ToJSON TeamMemberResponse where
 
 instance FromJSON TeamMemberResponse where
   parseJSON (Object o) = do
-    teamMemberResponseId <- o .: "id"
-    teamMemberResponseUserId <- o .: "user_id"
-    teamMemberResponseOrgId <- o .: "org_id"
-    teamMemberResponseTeamId <- o .: "team_id"
-    teamMemberResponseIsAccepted <- o .: "is_accepted"
-    teamMemberResponseAcceptedAt <- o .: "accepted_at"
-    teamMemberResponseIsBlocked <- o .: "is_blocked"
-    teamMemberResponseBlockedAt <- o .: "blocked_at"
-    teamMemberResponseActive <- o .: "active"
-    teamMemberResponseGuard <- o .: "guard"
-    teamMemberResponseCreatedAt <- o .: "created_at"
-    teamMemberResponseModifiedBy <- o .: "modified_by"
-    teamMemberResponseModifiedAt <- o .: "modified_at"
-    teamMemberResponseActivityAt <- o .: "activity_at"
-    return $ TeamMemberResponse {
+    teamMemberResponseId <- o .: ("id" :: Text)
+    teamMemberResponseUserId <- o .: ("user_id" :: Text)
+    teamMemberResponseOrgId <- o .: ("org_id" :: Text)
+    teamMemberResponseTeamId <- o .: ("team_id" :: Text)
+    teamMemberResponseIsAccepted <- o .: ("is_accepted" :: Text)
+    teamMemberResponseAcceptedAt <- o .: ("accepted_at" :: Text)
+    teamMemberResponseIsBlocked <- o .: ("is_blocked" :: Text)
+    teamMemberResponseBlockedAt <- o .: ("blocked_at" :: Text)
+    teamMemberResponseActive <- o .: ("active" :: Text)
+    teamMemberResponseGuard <- o .: ("guard" :: Text)
+    teamMemberResponseCreatedAt <- o .: ("created_at" :: Text)
+    teamMemberResponseModifiedBy <- o .: ("modified_by" :: Text)
+    teamMemberResponseModifiedAt <- o .: ("modified_at" :: Text)
+    teamMemberResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ TeamMemberResponse {
       teamMemberResponseId = teamMemberResponseId,
       teamMemberResponseUserId = teamMemberResponseUserId,
       teamMemberResponseOrgId = teamMemberResponseOrgId,
@@ -5029,77 +5256,79 @@ instance FromJSON TeamMemberResponse where
       teamMemberResponseModifiedAt = teamMemberResponseModifiedAt,
       teamMemberResponseActivityAt = teamMemberResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberResponses where
   toJSON TeamMemberResponses{..} = object $
-    [ "tag" .= "TeamMemberResponses"
+    [ "tag" .= ("TeamMemberResponses" :: Text)
     , "team_member_responses" .= teamMemberResponses
     ]
 
 
 instance FromJSON TeamMemberResponses where
   parseJSON (Object o) = do
-    teamMemberResponses <- o .: "team_member_responses"
-    return $ TeamMemberResponses {
+    teamMemberResponses <- o .: ("team_member_responses" :: Text)
+    pure $ TeamMemberResponses {
       teamMemberResponses = teamMemberResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberStatResponse where
   toJSON (TeamMemberStatResponse ) = object $
-    [ "tag" .= "TeamMemberStatResponse"
+    [ "tag" .= ("TeamMemberStatResponse" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON TeamMemberStatResponse where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "TeamMemberStatResponse" -> do
-        return TeamMemberStatResponse
+      ("TeamMemberStatResponse" :: Text) -> do
+        pure TeamMemberStatResponse
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse TeamMemberStatResponse"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberStatResponses where
   toJSON TeamMemberStatResponses{..} = object $
-    [ "tag" .= "TeamMemberStatResponses"
+    [ "tag" .= ("TeamMemberStatResponses" :: Text)
     , "team_member_stat_responses" .= teamMemberStatResponses
     ]
 
 
 instance FromJSON TeamMemberStatResponses where
   parseJSON (Object o) = do
-    teamMemberStatResponses <- o .: "team_member_stat_responses"
-    return $ TeamMemberStatResponses {
+    teamMemberStatResponses <- o .: ("team_member_stat_responses" :: Text)
+    pure $ TeamMemberStatResponses {
       teamMemberStatResponses = teamMemberStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TestRequest where
   toJSON TestRequest{..} = object $
-    [ "tag" .= "TestRequest"
+    [ "tag" .= ("TestRequest" :: Text)
     , "msg" .= testRequestMsg
     ]
 
 
 instance FromJSON TestRequest where
   parseJSON (Object o) = do
-    testRequestMsg <- o .: "msg"
-    return $ TestRequest {
+    testRequestMsg <- o .: ("msg" :: Text)
+    pure $ TestRequest {
       testRequestMsg = testRequestMsg
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TestResponse where
   toJSON TestResponse{..} = object $
-    [ "tag" .= "TestResponse"
+    [ "tag" .= ("TestResponse" :: Text)
     , "id" .= testResponseId
     , "user_id" .= testResponseUserId
     , "msg" .= testResponseMsg
@@ -5110,40 +5339,40 @@ instance ToJSON TestResponse where
 
 instance FromJSON TestResponse where
   parseJSON (Object o) = do
-    testResponseId <- o .: "id"
-    testResponseUserId <- o .: "user_id"
-    testResponseMsg <- o .: "msg"
-    testResponseCreatedAt <- o .: "created_at"
-    testResponseModifiedAt <- o .: "modified_at"
-    return $ TestResponse {
+    testResponseId <- o .: ("id" :: Text)
+    testResponseUserId <- o .: ("user_id" :: Text)
+    testResponseMsg <- o .: ("msg" :: Text)
+    testResponseCreatedAt <- o .: ("created_at" :: Text)
+    testResponseModifiedAt <- o .: ("modified_at" :: Text)
+    pure $ TestResponse {
       testResponseId = testResponseId,
       testResponseUserId = testResponseUserId,
       testResponseMsg = testResponseMsg,
       testResponseCreatedAt = testResponseCreatedAt,
       testResponseModifiedAt = testResponseModifiedAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TestResponses where
   toJSON TestResponses{..} = object $
-    [ "tag" .= "TestResponses"
+    [ "tag" .= ("TestResponses" :: Text)
     , "test_responses" .= testResponses
     ]
 
 
 instance FromJSON TestResponses where
   parseJSON (Object o) = do
-    testResponses <- o .: "test_responses"
-    return $ TestResponses {
+    testResponses <- o .: ("test_responses" :: Text)
+    pure $ TestResponses {
       testResponses = testResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadRequest where
   toJSON ThreadRequest{..} = object $
-    [ "tag" .= "ThreadRequest"
+    [ "tag" .= ("ThreadRequest" :: Text)
     , "display_name" .= threadRequestDisplayName
     , "description" .= threadRequestDescription
     , "sticky" .= threadRequestSticky
@@ -5157,15 +5386,15 @@ instance ToJSON ThreadRequest where
 
 instance FromJSON ThreadRequest where
   parseJSON (Object o) = do
-    threadRequestDisplayName <- o .: "display_name"
-    threadRequestDescription <- o .: "description"
-    threadRequestSticky <- o .: "sticky"
-    threadRequestLocked <- o .: "locked"
-    threadRequestPoll <- o .: "poll"
-    threadRequestIcon <- o .: "icon"
-    threadRequestTags <- o .: "tags"
-    threadRequestGuard <- o .: "guard"
-    return $ ThreadRequest {
+    threadRequestDisplayName <- o .: ("display_name" :: Text)
+    threadRequestDescription <- o .: ("description" :: Text)
+    threadRequestSticky <- o .: ("sticky" :: Text)
+    threadRequestLocked <- o .: ("locked" :: Text)
+    threadRequestPoll <- o .: ("poll" :: Text)
+    threadRequestIcon <- o .: ("icon" :: Text)
+    threadRequestTags <- o .: ("tags" :: Text)
+    threadRequestGuard <- o .: ("guard" :: Text)
+    pure $ ThreadRequest {
       threadRequestDisplayName = threadRequestDisplayName,
       threadRequestDescription = threadRequestDescription,
       threadRequestSticky = threadRequestSticky,
@@ -5175,12 +5404,12 @@ instance FromJSON ThreadRequest where
       threadRequestTags = threadRequestTags,
       threadRequestGuard = threadRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadResponse where
   toJSON ThreadResponse{..} = object $
-    [ "tag" .= "ThreadResponse"
+    [ "tag" .= ("ThreadResponse" :: Text)
     , "id" .= threadResponseId
     , "user_id" .= threadResponseUserId
     , "org_id" .= threadResponseOrgId
@@ -5205,26 +5434,26 @@ instance ToJSON ThreadResponse where
 
 instance FromJSON ThreadResponse where
   parseJSON (Object o) = do
-    threadResponseId <- o .: "id"
-    threadResponseUserId <- o .: "user_id"
-    threadResponseOrgId <- o .: "org_id"
-    threadResponseForumId <- o .: "forum_id"
-    threadResponseBoardId <- o .: "board_id"
-    threadResponseName <- o .: "name"
-    threadResponseDisplayName <- o .: "display_name"
-    threadResponseDescription <- o .: "description"
-    threadResponseSticky <- o .: "sticky"
-    threadResponseLocked <- o .: "locked"
-    threadResponsePoll <- o .: "poll"
-    threadResponseIcon <- o .: "icon"
-    threadResponseTags <- o .: "tags"
-    threadResponseActive <- o .: "active"
-    threadResponseGuard <- o .: "guard"
-    threadResponseCreatedAt <- o .: "created_at"
-    threadResponseModifiedBy <- o .: "modified_by"
-    threadResponseModifiedAt <- o .: "modified_at"
-    threadResponseActivityAt <- o .: "activity_at"
-    return $ ThreadResponse {
+    threadResponseId <- o .: ("id" :: Text)
+    threadResponseUserId <- o .: ("user_id" :: Text)
+    threadResponseOrgId <- o .: ("org_id" :: Text)
+    threadResponseForumId <- o .: ("forum_id" :: Text)
+    threadResponseBoardId <- o .: ("board_id" :: Text)
+    threadResponseName <- o .: ("name" :: Text)
+    threadResponseDisplayName <- o .: ("display_name" :: Text)
+    threadResponseDescription <- o .: ("description" :: Text)
+    threadResponseSticky <- o .: ("sticky" :: Text)
+    threadResponseLocked <- o .: ("locked" :: Text)
+    threadResponsePoll <- o .: ("poll" :: Text)
+    threadResponseIcon <- o .: ("icon" :: Text)
+    threadResponseTags <- o .: ("tags" :: Text)
+    threadResponseActive <- o .: ("active" :: Text)
+    threadResponseGuard <- o .: ("guard" :: Text)
+    threadResponseCreatedAt <- o .: ("created_at" :: Text)
+    threadResponseModifiedBy <- o .: ("modified_by" :: Text)
+    threadResponseModifiedAt <- o .: ("modified_at" :: Text)
+    threadResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ ThreadResponse {
       threadResponseId = threadResponseId,
       threadResponseUserId = threadResponseUserId,
       threadResponseOrgId = threadResponseOrgId,
@@ -5245,28 +5474,28 @@ instance FromJSON ThreadResponse where
       threadResponseModifiedAt = threadResponseModifiedAt,
       threadResponseActivityAt = threadResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadResponses where
   toJSON ThreadResponses{..} = object $
-    [ "tag" .= "ThreadResponses"
+    [ "tag" .= ("ThreadResponses" :: Text)
     , "thread_responses" .= threadResponses
     ]
 
 
 instance FromJSON ThreadResponses where
   parseJSON (Object o) = do
-    threadResponses <- o .: "thread_responses"
-    return $ ThreadResponses {
+    threadResponses <- o .: ("thread_responses" :: Text)
+    pure $ ThreadResponses {
       threadResponses = threadResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadStatResponse where
   toJSON ThreadStatResponse{..} = object $
-    [ "tag" .= "ThreadStatResponse"
+    [ "tag" .= ("ThreadStatResponse" :: Text)
     , "thread_id" .= threadStatResponseThreadId
     , "thread_posts" .= threadStatResponseThreadPosts
     , "views" .= threadStatResponseViews
@@ -5275,93 +5504,105 @@ instance ToJSON ThreadStatResponse where
 
 instance FromJSON ThreadStatResponse where
   parseJSON (Object o) = do
-    threadStatResponseThreadId <- o .: "thread_id"
-    threadStatResponseThreadPosts <- o .: "thread_posts"
-    threadStatResponseViews <- o .: "views"
-    return $ ThreadStatResponse {
+    threadStatResponseThreadId <- o .: ("thread_id" :: Text)
+    threadStatResponseThreadPosts <- o .: ("thread_posts" :: Text)
+    threadStatResponseViews <- o .: ("views" :: Text)
+    pure $ ThreadStatResponse {
       threadStatResponseThreadId = threadStatResponseThreadId,
       threadStatResponseThreadPosts = threadStatResponseThreadPosts,
       threadStatResponseViews = threadStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadStatResponses where
   toJSON ThreadStatResponses{..} = object $
-    [ "tag" .= "ThreadStatResponses"
+    [ "tag" .= ("ThreadStatResponses" :: Text)
     , "thread_stat_responses" .= threadStatResponses
     ]
 
 
 instance FromJSON ThreadStatResponses where
   parseJSON (Object o) = do
-    threadStatResponses <- o .: "thread_stat_responses"
-    return $ ThreadStatResponses {
+    threadStatResponses <- o .: ("thread_stat_responses" :: Text)
+    pure $ ThreadStatResponses {
       threadStatResponses = threadStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PostData where
   toJSON (PostDataRaw x0) = object $
-    [ "tag" .= "PostDataRaw"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("PostDataRaw" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (PostDataMarkdown x0) = object $
-    [ "tag" .= "PostDataMarkdown"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("PostDataMarkdown" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (PostDataBBCode x0) = object $
-    [ "tag" .= "PostDataBBCode"
-    , "contents" .= toJSON x0
+    [ "tag" .= ("PostDataBBCode" :: Text)
+    , "contents" .= [toJSON x0]
     ]
   toJSON (PostDataCode x0 x1) = object $
-    [ "tag" .= "PostDataCode"
+    [ "tag" .= ("PostDataCode" :: Text)
     , "contents" .= [toJSON x0, toJSON x1]
     ]
   toJSON (PostDataOther x0 x1) = object $
-    [ "tag" .= "PostDataOther"
+    [ "tag" .= ("PostDataOther" :: Text)
     , "contents" .= [toJSON x0, toJSON x1]
     ]
   toJSON (PostDataEmpty ) = object $
-    [ "tag" .= "PostDataEmpty"
+    [ "tag" .= ("PostDataEmpty" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON PostData where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "PostDataRaw" -> do
-        x0 <- o .: "contents"
-        PostDataRaw <$> parseJSON x0
+      ("PostDataRaw" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> PostDataRaw <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: PostDataRaw"
 
-      "PostDataMarkdown" -> do
-        x0 <- o .: "contents"
-        PostDataMarkdown <$> parseJSON x0
+      ("PostDataMarkdown" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> PostDataMarkdown <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: PostDataMarkdown"
 
-      "PostDataBBCode" -> do
-        x0 <- o .: "contents"
-        PostDataBBCode <$> parseJSON x0
+      ("PostDataBBCode" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0] -> PostDataBBCode <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: PostDataBBCode"
 
-      "PostDataCode" -> do
-        [x0, x1] <- o .: "contents"
-        PostDataCode <$> parseJSON x0 <*> parseJSON x1
+      ("PostDataCode" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0, x1] -> PostDataCode <$> parseJSON x0 <*> parseJSON x1
+          _ -> fail "FromJON Typemismatch: PostDataCode"
 
-      "PostDataOther" -> do
-        [x0, x1] <- o .: "contents"
-        PostDataOther <$> parseJSON x0 <*> parseJSON x1
+      ("PostDataOther" :: Text) -> do
+        r <- o .: "contents"
+        case r of
+          [x0, x1] -> PostDataOther <$> parseJSON x0 <*> parseJSON x1
+          _ -> fail "FromJON Typemismatch: PostDataOther"
 
-      "PostDataEmpty" -> do
-        return PostDataEmpty
+      ("PostDataEmpty" :: Text) -> do
+        pure PostDataEmpty
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse PostData"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostRequest where
   toJSON ThreadPostRequest{..} = object $
-    [ "tag" .= "ThreadPostRequest"
+    [ "tag" .= ("ThreadPostRequest" :: Text)
     , "title" .= threadPostRequestTitle
     , "body" .= threadPostRequestBody
     , "tags" .= threadPostRequestTags
@@ -5372,24 +5613,24 @@ instance ToJSON ThreadPostRequest where
 
 instance FromJSON ThreadPostRequest where
   parseJSON (Object o) = do
-    threadPostRequestTitle <- o .: "title"
-    threadPostRequestBody <- o .: "body"
-    threadPostRequestTags <- o .: "tags"
-    threadPostRequestPrivateTags <- o .: "private_tags"
-    threadPostRequestGuard <- o .: "guard"
-    return $ ThreadPostRequest {
+    threadPostRequestTitle <- o .: ("title" :: Text)
+    threadPostRequestBody <- o .: ("body" :: Text)
+    threadPostRequestTags <- o .: ("tags" :: Text)
+    threadPostRequestPrivateTags <- o .: ("private_tags" :: Text)
+    threadPostRequestGuard <- o .: ("guard" :: Text)
+    pure $ ThreadPostRequest {
       threadPostRequestTitle = threadPostRequestTitle,
       threadPostRequestBody = threadPostRequestBody,
       threadPostRequestTags = threadPostRequestTags,
       threadPostRequestPrivateTags = threadPostRequestPrivateTags,
       threadPostRequestGuard = threadPostRequestGuard
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostResponse where
   toJSON ThreadPostResponse{..} = object $
-    [ "tag" .= "ThreadPostResponse"
+    [ "tag" .= ("ThreadPostResponse" :: Text)
     , "id" .= threadPostResponseId
     , "user_id" .= threadPostResponseUserId
     , "org_id" .= threadPostResponseOrgId
@@ -5412,24 +5653,24 @@ instance ToJSON ThreadPostResponse where
 
 instance FromJSON ThreadPostResponse where
   parseJSON (Object o) = do
-    threadPostResponseId <- o .: "id"
-    threadPostResponseUserId <- o .: "user_id"
-    threadPostResponseOrgId <- o .: "org_id"
-    threadPostResponseForumId <- o .: "forum_id"
-    threadPostResponseBoardId <- o .: "board_id"
-    threadPostResponseThreadId <- o .: "thread_id"
-    threadPostResponseParentId <- o .: "parent_id"
-    threadPostResponseTitle <- o .: "title"
-    threadPostResponseBody <- o .: "body"
-    threadPostResponseTags <- o .: "tags"
-    threadPostResponsePrivateTags <- o .: "private_tags"
-    threadPostResponseActive <- o .: "active"
-    threadPostResponseGuard <- o .: "guard"
-    threadPostResponseCreatedAt <- o .: "created_at"
-    threadPostResponseModifiedBy <- o .: "modified_by"
-    threadPostResponseModifiedAt <- o .: "modified_at"
-    threadPostResponseActivityAt <- o .: "activity_at"
-    return $ ThreadPostResponse {
+    threadPostResponseId <- o .: ("id" :: Text)
+    threadPostResponseUserId <- o .: ("user_id" :: Text)
+    threadPostResponseOrgId <- o .: ("org_id" :: Text)
+    threadPostResponseForumId <- o .: ("forum_id" :: Text)
+    threadPostResponseBoardId <- o .: ("board_id" :: Text)
+    threadPostResponseThreadId <- o .: ("thread_id" :: Text)
+    threadPostResponseParentId <- o .: ("parent_id" :: Text)
+    threadPostResponseTitle <- o .: ("title" :: Text)
+    threadPostResponseBody <- o .: ("body" :: Text)
+    threadPostResponseTags <- o .: ("tags" :: Text)
+    threadPostResponsePrivateTags <- o .: ("private_tags" :: Text)
+    threadPostResponseActive <- o .: ("active" :: Text)
+    threadPostResponseGuard <- o .: ("guard" :: Text)
+    threadPostResponseCreatedAt <- o .: ("created_at" :: Text)
+    threadPostResponseModifiedBy <- o .: ("modified_by" :: Text)
+    threadPostResponseModifiedAt <- o .: ("modified_at" :: Text)
+    threadPostResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ ThreadPostResponse {
       threadPostResponseId = threadPostResponseId,
       threadPostResponseUserId = threadPostResponseUserId,
       threadPostResponseOrgId = threadPostResponseOrgId,
@@ -5448,28 +5689,28 @@ instance FromJSON ThreadPostResponse where
       threadPostResponseModifiedAt = threadPostResponseModifiedAt,
       threadPostResponseActivityAt = threadPostResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostResponses where
   toJSON ThreadPostResponses{..} = object $
-    [ "tag" .= "ThreadPostResponses"
+    [ "tag" .= ("ThreadPostResponses" :: Text)
     , "thread_post_responses" .= threadPostResponses
     ]
 
 
 instance FromJSON ThreadPostResponses where
   parseJSON (Object o) = do
-    threadPostResponses <- o .: "thread_post_responses"
-    return $ ThreadPostResponses {
+    threadPostResponses <- o .: ("thread_post_responses" :: Text)
+    pure $ ThreadPostResponses {
       threadPostResponses = threadPostResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostStatResponse where
   toJSON ThreadPostStatResponse{..} = object $
-    [ "tag" .= "ThreadPostStatResponse"
+    [ "tag" .= ("ThreadPostStatResponse" :: Text)
     , "thread_post_id" .= threadPostStatResponseThreadPostId
     , "likes" .= threadPostStatResponseLikes
     , "neutral" .= threadPostStatResponseNeutral
@@ -5481,13 +5722,13 @@ instance ToJSON ThreadPostStatResponse where
 
 instance FromJSON ThreadPostStatResponse where
   parseJSON (Object o) = do
-    threadPostStatResponseThreadPostId <- o .: "thread_post_id"
-    threadPostStatResponseLikes <- o .: "likes"
-    threadPostStatResponseNeutral <- o .: "neutral"
-    threadPostStatResponseDislikes <- o .: "dislikes"
-    threadPostStatResponseStars <- o .: "stars"
-    threadPostStatResponseViews <- o .: "views"
-    return $ ThreadPostStatResponse {
+    threadPostStatResponseThreadPostId <- o .: ("thread_post_id" :: Text)
+    threadPostStatResponseLikes <- o .: ("likes" :: Text)
+    threadPostStatResponseNeutral <- o .: ("neutral" :: Text)
+    threadPostStatResponseDislikes <- o .: ("dislikes" :: Text)
+    threadPostStatResponseStars <- o .: ("stars" :: Text)
+    threadPostStatResponseViews <- o .: ("views" :: Text)
+    pure $ ThreadPostStatResponse {
       threadPostStatResponseThreadPostId = threadPostStatResponseThreadPostId,
       threadPostStatResponseLikes = threadPostStatResponseLikes,
       threadPostStatResponseNeutral = threadPostStatResponseNeutral,
@@ -5495,28 +5736,28 @@ instance FromJSON ThreadPostStatResponse where
       threadPostStatResponseStars = threadPostStatResponseStars,
       threadPostStatResponseViews = threadPostStatResponseViews
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostStatResponses where
   toJSON ThreadPostStatResponses{..} = object $
-    [ "tag" .= "ThreadPostStatResponses"
+    [ "tag" .= ("ThreadPostStatResponses" :: Text)
     , "thread_post_stat_responses" .= threadPostStatResponses
     ]
 
 
 instance FromJSON ThreadPostStatResponses where
   parseJSON (Object o) = do
-    threadPostStatResponses <- o .: "thread_post_stat_responses"
-    return $ ThreadPostStatResponses {
+    threadPostStatResponses <- o .: ("thread_post_stat_responses" :: Text)
+    pure $ ThreadPostStatResponses {
       threadPostStatResponses = threadPostStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserRequest where
   toJSON UserRequest{..} = object $
-    [ "tag" .= "UserRequest"
+    [ "tag" .= ("UserRequest" :: Text)
     , "display_nick" .= userRequestDisplayNick
     , "name" .= userRequestName
     , "email" .= userRequestEmail
@@ -5528,13 +5769,13 @@ instance ToJSON UserRequest where
 
 instance FromJSON UserRequest where
   parseJSON (Object o) = do
-    userRequestDisplayNick <- o .: "display_nick"
-    userRequestName <- o .: "name"
-    userRequestEmail <- o .: "email"
-    userRequestPlugin <- o .: "plugin"
-    userRequestIdent <- o .: "ident"
-    userRequestAcceptTOS <- o .: "accept_tos"
-    return $ UserRequest {
+    userRequestDisplayNick <- o .: ("display_nick" :: Text)
+    userRequestName <- o .: ("name" :: Text)
+    userRequestEmail <- o .: ("email" :: Text)
+    userRequestPlugin <- o .: ("plugin" :: Text)
+    userRequestIdent <- o .: ("ident" :: Text)
+    userRequestAcceptTOS <- o .: ("accept_tos" :: Text)
+    pure $ UserRequest {
       userRequestDisplayNick = userRequestDisplayNick,
       userRequestName = userRequestName,
       userRequestEmail = userRequestEmail,
@@ -5542,12 +5783,12 @@ instance FromJSON UserRequest where
       userRequestIdent = userRequestIdent,
       userRequestAcceptTOS = userRequestAcceptTOS
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserResponse where
   toJSON UserResponse{..} = object $
-    [ "tag" .= "UserResponse"
+    [ "tag" .= ("UserResponse" :: Text)
     , "id" .= userResponseId
     , "nick" .= userResponseNick
     , "display_nick" .= userResponseDisplayNick
@@ -5568,22 +5809,22 @@ instance ToJSON UserResponse where
 
 instance FromJSON UserResponse where
   parseJSON (Object o) = do
-    userResponseId <- o .: "id"
-    userResponseNick <- o .: "nick"
-    userResponseDisplayNick <- o .: "display_nick"
-    userResponseName <- o .: "name"
-    userResponseEmail <- o .: "email"
-    userResponseEmailMD5 <- o .: "email_md5"
-    userResponsePlugin <- o .: "plugin"
-    userResponseIdent <- o .: "ident"
-    userResponseAcceptTOS <- o .: "accept_tos"
-    userResponseActive <- o .: "active"
-    userResponseGuard <- o .: "guard"
-    userResponseCreatedAt <- o .: "created_at"
-    userResponseModifiedAt <- o .: "modified_at"
-    userResponseDeactivatedAt <- o .: "deactivated_at"
-    userResponseActivityAt <- o .: "activity_at"
-    return $ UserResponse {
+    userResponseId <- o .: ("id" :: Text)
+    userResponseNick <- o .: ("nick" :: Text)
+    userResponseDisplayNick <- o .: ("display_nick" :: Text)
+    userResponseName <- o .: ("name" :: Text)
+    userResponseEmail <- o .: ("email" :: Text)
+    userResponseEmailMD5 <- o .: ("email_md5" :: Text)
+    userResponsePlugin <- o .: ("plugin" :: Text)
+    userResponseIdent <- o .: ("ident" :: Text)
+    userResponseAcceptTOS <- o .: ("accept_tos" :: Text)
+    userResponseActive <- o .: ("active" :: Text)
+    userResponseGuard <- o .: ("guard" :: Text)
+    userResponseCreatedAt <- o .: ("created_at" :: Text)
+    userResponseModifiedAt <- o .: ("modified_at" :: Text)
+    userResponseDeactivatedAt <- o .: ("deactivated_at" :: Text)
+    userResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ UserResponse {
       userResponseId = userResponseId,
       userResponseNick = userResponseNick,
       userResponseDisplayNick = userResponseDisplayNick,
@@ -5600,28 +5841,28 @@ instance FromJSON UserResponse where
       userResponseDeactivatedAt = userResponseDeactivatedAt,
       userResponseActivityAt = userResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserResponses where
   toJSON UserResponses{..} = object $
-    [ "tag" .= "UserResponses"
+    [ "tag" .= ("UserResponses" :: Text)
     , "user_responses" .= userResponses
     ]
 
 
 instance FromJSON UserResponses where
   parseJSON (Object o) = do
-    userResponses <- o .: "user_responses"
-    return $ UserResponses {
+    userResponses <- o .: ("user_responses" :: Text)
+    pure $ UserResponses {
       userResponses = userResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserSanitizedResponse where
   toJSON UserSanitizedResponse{..} = object $
-    [ "tag" .= "UserSanitizedResponse"
+    [ "tag" .= ("UserSanitizedResponse" :: Text)
     , "id" .= userSanitizedResponseId
     , "nick" .= userSanitizedResponseNick
     , "display_nick" .= userSanitizedResponseDisplayNick
@@ -5635,15 +5876,15 @@ instance ToJSON UserSanitizedResponse where
 
 instance FromJSON UserSanitizedResponse where
   parseJSON (Object o) = do
-    userSanitizedResponseId <- o .: "id"
-    userSanitizedResponseNick <- o .: "nick"
-    userSanitizedResponseDisplayNick <- o .: "display_nick"
-    userSanitizedResponseEmailMD5 <- o .: "email_md5"
-    userSanitizedResponseActive <- o .: "active"
-    userSanitizedResponseGuard <- o .: "guard"
-    userSanitizedResponseCreatedAt <- o .: "created_at"
-    userSanitizedResponseActivityAt <- o .: "activity_at"
-    return $ UserSanitizedResponse {
+    userSanitizedResponseId <- o .: ("id" :: Text)
+    userSanitizedResponseNick <- o .: ("nick" :: Text)
+    userSanitizedResponseDisplayNick <- o .: ("display_nick" :: Text)
+    userSanitizedResponseEmailMD5 <- o .: ("email_md5" :: Text)
+    userSanitizedResponseActive <- o .: ("active" :: Text)
+    userSanitizedResponseGuard <- o .: ("guard" :: Text)
+    userSanitizedResponseCreatedAt <- o .: ("created_at" :: Text)
+    userSanitizedResponseActivityAt <- o .: ("activity_at" :: Text)
+    pure $ UserSanitizedResponse {
       userSanitizedResponseId = userSanitizedResponseId,
       userSanitizedResponseNick = userSanitizedResponseNick,
       userSanitizedResponseDisplayNick = userSanitizedResponseDisplayNick,
@@ -5653,28 +5894,28 @@ instance FromJSON UserSanitizedResponse where
       userSanitizedResponseCreatedAt = userSanitizedResponseCreatedAt,
       userSanitizedResponseActivityAt = userSanitizedResponseActivityAt
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserSanitizedResponses where
   toJSON UserSanitizedResponses{..} = object $
-    [ "tag" .= "UserSanitizedResponses"
+    [ "tag" .= ("UserSanitizedResponses" :: Text)
     , "user_sanitized_responses" .= userSanitizedResponses
     ]
 
 
 instance FromJSON UserSanitizedResponses where
   parseJSON (Object o) = do
-    userSanitizedResponses <- o .: "user_sanitized_responses"
-    return $ UserSanitizedResponses {
+    userSanitizedResponses <- o .: ("user_sanitized_responses" :: Text)
+    pure $ UserSanitizedResponses {
       userSanitizedResponses = userSanitizedResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserSanitizedStatResponse where
   toJSON UserSanitizedStatResponse{..} = object $
-    [ "tag" .= "UserSanitizedStatResponse"
+    [ "tag" .= ("UserSanitizedStatResponse" :: Text)
     , "user_id" .= userSanitizedStatResponseUserId
     , "threads" .= userSanitizedStatResponseThreads
     , "thread_posts" .= userSanitizedStatResponseThreadPosts
@@ -5687,14 +5928,14 @@ instance ToJSON UserSanitizedStatResponse where
 
 instance FromJSON UserSanitizedStatResponse where
   parseJSON (Object o) = do
-    userSanitizedStatResponseUserId <- o .: "user_id"
-    userSanitizedStatResponseThreads <- o .: "threads"
-    userSanitizedStatResponseThreadPosts <- o .: "thread_posts"
-    userSanitizedStatResponseRespect <- o .: "respect"
-    userSanitizedStatResponseResources <- o .: "resources"
-    userSanitizedStatResponseLeurons <- o .: "leurons"
-    userSanitizedStatResponseWorkouts <- o .: "workouts"
-    return $ UserSanitizedStatResponse {
+    userSanitizedStatResponseUserId <- o .: ("user_id" :: Text)
+    userSanitizedStatResponseThreads <- o .: ("threads" :: Text)
+    userSanitizedStatResponseThreadPosts <- o .: ("thread_posts" :: Text)
+    userSanitizedStatResponseRespect <- o .: ("respect" :: Text)
+    userSanitizedStatResponseResources <- o .: ("resources" :: Text)
+    userSanitizedStatResponseLeurons <- o .: ("leurons" :: Text)
+    userSanitizedStatResponseWorkouts <- o .: ("workouts" :: Text)
+    pure $ UserSanitizedStatResponse {
       userSanitizedStatResponseUserId = userSanitizedStatResponseUserId,
       userSanitizedStatResponseThreads = userSanitizedStatResponseThreads,
       userSanitizedStatResponseThreadPosts = userSanitizedStatResponseThreadPosts,
@@ -5703,52 +5944,54 @@ instance FromJSON UserSanitizedStatResponse where
       userSanitizedStatResponseLeurons = userSanitizedStatResponseLeurons,
       userSanitizedStatResponseWorkouts = userSanitizedStatResponseWorkouts
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserSanitizedStatResponses where
   toJSON UserSanitizedStatResponses{..} = object $
-    [ "tag" .= "UserSanitizedStatResponses"
+    [ "tag" .= ("UserSanitizedStatResponses" :: Text)
     , "user_sanitized_stat_responses" .= userSanitizedStatResponses
     ]
 
 
 instance FromJSON UserSanitizedStatResponses where
   parseJSON (Object o) = do
-    userSanitizedStatResponses <- o .: "user_sanitized_stat_responses"
-    return $ UserSanitizedStatResponses {
+    userSanitizedStatResponses <- o .: ("user_sanitized_stat_responses" :: Text)
+    pure $ UserSanitizedStatResponses {
       userSanitizedStatResponses = userSanitizedStatResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON Visibility where
   toJSON (Public ) = object $
-    [ "tag" .= "Public"
+    [ "tag" .= ("Public" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Private ) = object $
-    [ "tag" .= "Private"
+    [ "tag" .= ("Private" :: Text)
     , "contents" .= ([] :: [Text])
     ]
 
 
 instance FromJSON Visibility where
   parseJSON (Object o) = do
-    tag <- o .: "tag"
+    tag <- o .: ("tag" :: Text)
     case tag of
-      "Public" -> do
-        return Public
+      ("Public" :: Text) -> do
+        pure Public
 
-      "Private" -> do
-        return Private
+      ("Private" :: Text) -> do
+        pure Private
 
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+      _ -> fail "Could not parse Visibility"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationPackResponse where
   toJSON OrganizationPackResponse{..} = object $
-    [ "tag" .= "OrganizationPackResponse"
+    [ "tag" .= ("OrganizationPackResponse" :: Text)
     , "user" .= organizationPackResponseUser
     , "user_id" .= organizationPackResponseUserId
     , "organization" .= organizationPackResponseOrganization
@@ -5763,16 +6006,16 @@ instance ToJSON OrganizationPackResponse where
 
 instance FromJSON OrganizationPackResponse where
   parseJSON (Object o) = do
-    organizationPackResponseUser <- o .: "user"
-    organizationPackResponseUserId <- o .: "user_id"
-    organizationPackResponseOrganization <- o .: "organization"
-    organizationPackResponseOrganizationId <- o .: "organization_id"
-    organizationPackResponseStat <- o .: "stat"
-    organizationPackResponseLike <- o .: "like"
-    organizationPackResponseStar <- o .: "star"
-    organizationPackResponsePermissions <- o .: "permissions"
-    organizationPackResponseTeams <- o .: "teams"
-    return $ OrganizationPackResponse {
+    organizationPackResponseUser <- o .: ("user" :: Text)
+    organizationPackResponseUserId <- o .: ("user_id" :: Text)
+    organizationPackResponseOrganization <- o .: ("organization" :: Text)
+    organizationPackResponseOrganizationId <- o .: ("organization_id" :: Text)
+    organizationPackResponseStat <- o .: ("stat" :: Text)
+    organizationPackResponseLike <- o .: ("like" :: Text)
+    organizationPackResponseStar <- o .: ("star" :: Text)
+    organizationPackResponsePermissions <- o .: ("permissions" :: Text)
+    organizationPackResponseTeams <- o .: ("teams" :: Text)
+    pure $ OrganizationPackResponse {
       organizationPackResponseUser = organizationPackResponseUser,
       organizationPackResponseUserId = organizationPackResponseUserId,
       organizationPackResponseOrganization = organizationPackResponseOrganization,
@@ -5783,28 +6026,28 @@ instance FromJSON OrganizationPackResponse where
       organizationPackResponsePermissions = organizationPackResponsePermissions,
       organizationPackResponseTeams = organizationPackResponseTeams
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON OrganizationPackResponses where
   toJSON OrganizationPackResponses{..} = object $
-    [ "tag" .= "OrganizationPackResponses"
+    [ "tag" .= ("OrganizationPackResponses" :: Text)
     , "organization_pack_responses" .= organizationPackResponses
     ]
 
 
 instance FromJSON OrganizationPackResponses where
   parseJSON (Object o) = do
-    organizationPackResponses <- o .: "organization_pack_responses"
-    return $ OrganizationPackResponses {
+    organizationPackResponses <- o .: ("organization_pack_responses" :: Text)
+    pure $ OrganizationPackResponses {
       organizationPackResponses = organizationPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamPackResponse where
   toJSON TeamPackResponse{..} = object $
-    [ "tag" .= "TeamPackResponse"
+    [ "tag" .= ("TeamPackResponse" :: Text)
     , "user" .= teamPackResponseUser
     , "user_id" .= teamPackResponseUserId
     , "team" .= teamPackResponseTeam
@@ -5816,13 +6059,13 @@ instance ToJSON TeamPackResponse where
 
 instance FromJSON TeamPackResponse where
   parseJSON (Object o) = do
-    teamPackResponseUser <- o .: "user"
-    teamPackResponseUserId <- o .: "user_id"
-    teamPackResponseTeam <- o .: "team"
-    teamPackResponseTeamId <- o .: "team_id"
-    teamPackResponseStat <- o .: "stat"
-    teamPackResponsePermissions <- o .: "permissions"
-    return $ TeamPackResponse {
+    teamPackResponseUser <- o .: ("user" :: Text)
+    teamPackResponseUserId <- o .: ("user_id" :: Text)
+    teamPackResponseTeam <- o .: ("team" :: Text)
+    teamPackResponseTeamId <- o .: ("team_id" :: Text)
+    teamPackResponseStat <- o .: ("stat" :: Text)
+    teamPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ TeamPackResponse {
       teamPackResponseUser = teamPackResponseUser,
       teamPackResponseUserId = teamPackResponseUserId,
       teamPackResponseTeam = teamPackResponseTeam,
@@ -5830,28 +6073,28 @@ instance FromJSON TeamPackResponse where
       teamPackResponseStat = teamPackResponseStat,
       teamPackResponsePermissions = teamPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamPackResponses where
   toJSON TeamPackResponses{..} = object $
-    [ "tag" .= "TeamPackResponses"
+    [ "tag" .= ("TeamPackResponses" :: Text)
     , "team_pack_responses" .= teamPackResponses
     ]
 
 
 instance FromJSON TeamPackResponses where
   parseJSON (Object o) = do
-    teamPackResponses <- o .: "team_pack_responses"
-    return $ TeamPackResponses {
+    teamPackResponses <- o .: ("team_pack_responses" :: Text)
+    pure $ TeamPackResponses {
       teamPackResponses = teamPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberPackResponse where
   toJSON TeamMemberPackResponse{..} = object $
-    [ "tag" .= "TeamMemberPackResponse"
+    [ "tag" .= ("TeamMemberPackResponse" :: Text)
     , "user" .= teamMemberPackResponseUser
     , "user_id" .= teamMemberPackResponseUserId
     , "team_member" .= teamMemberPackResponseTeamMember
@@ -5862,40 +6105,40 @@ instance ToJSON TeamMemberPackResponse where
 
 instance FromJSON TeamMemberPackResponse where
   parseJSON (Object o) = do
-    teamMemberPackResponseUser <- o .: "user"
-    teamMemberPackResponseUserId <- o .: "user_id"
-    teamMemberPackResponseTeamMember <- o .: "team_member"
-    teamMemberPackResponseTeamMemberId <- o .: "team_member_id"
-    teamMemberPackResponsePermissions <- o .: "permissions"
-    return $ TeamMemberPackResponse {
+    teamMemberPackResponseUser <- o .: ("user" :: Text)
+    teamMemberPackResponseUserId <- o .: ("user_id" :: Text)
+    teamMemberPackResponseTeamMember <- o .: ("team_member" :: Text)
+    teamMemberPackResponseTeamMemberId <- o .: ("team_member_id" :: Text)
+    teamMemberPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ TeamMemberPackResponse {
       teamMemberPackResponseUser = teamMemberPackResponseUser,
       teamMemberPackResponseUserId = teamMemberPackResponseUserId,
       teamMemberPackResponseTeamMember = teamMemberPackResponseTeamMember,
       teamMemberPackResponseTeamMemberId = teamMemberPackResponseTeamMemberId,
       teamMemberPackResponsePermissions = teamMemberPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON TeamMemberPackResponses where
   toJSON TeamMemberPackResponses{..} = object $
-    [ "tag" .= "TeamMemberPackResponses"
+    [ "tag" .= ("TeamMemberPackResponses" :: Text)
     , "team_member_pack_responses" .= teamMemberPackResponses
     ]
 
 
 instance FromJSON TeamMemberPackResponses where
   parseJSON (Object o) = do
-    teamMemberPackResponses <- o .: "team_member_pack_responses"
-    return $ TeamMemberPackResponses {
+    teamMemberPackResponses <- o .: ("team_member_pack_responses" :: Text)
+    pure $ TeamMemberPackResponses {
       teamMemberPackResponses = teamMemberPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserPackResponse where
   toJSON UserPackResponse{..} = object $
-    [ "tag" .= "UserPackResponse"
+    [ "tag" .= ("UserPackResponse" :: Text)
     , "user" .= userPackResponseUser
     , "user_id" .= userPackResponseUserId
     , "stat" .= userPackResponseStat
@@ -5906,40 +6149,40 @@ instance ToJSON UserPackResponse where
 
 instance FromJSON UserPackResponse where
   parseJSON (Object o) = do
-    userPackResponseUser <- o .: "user"
-    userPackResponseUserId <- o .: "user_id"
-    userPackResponseStat <- o .: "stat"
-    userPackResponseProfile <- o .: "profile"
-    userPackResponseProfileId <- o .: "profile_id"
-    return $ UserPackResponse {
+    userPackResponseUser <- o .: ("user" :: Text)
+    userPackResponseUserId <- o .: ("user_id" :: Text)
+    userPackResponseStat <- o .: ("stat" :: Text)
+    userPackResponseProfile <- o .: ("profile" :: Text)
+    userPackResponseProfileId <- o .: ("profile_id" :: Text)
+    pure $ UserPackResponse {
       userPackResponseUser = userPackResponseUser,
       userPackResponseUserId = userPackResponseUserId,
       userPackResponseStat = userPackResponseStat,
       userPackResponseProfile = userPackResponseProfile,
       userPackResponseProfileId = userPackResponseProfileId
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserPackResponses where
   toJSON UserPackResponses{..} = object $
-    [ "tag" .= "UserPackResponses"
+    [ "tag" .= ("UserPackResponses" :: Text)
     , "user_pack_responses" .= userPackResponses
     ]
 
 
 instance FromJSON UserPackResponses where
   parseJSON (Object o) = do
-    userPackResponses <- o .: "user_pack_responses"
-    return $ UserPackResponses {
+    userPackResponses <- o .: ("user_pack_responses" :: Text)
+    pure $ UserPackResponses {
       userPackResponses = userPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserSanitizedPackResponse where
   toJSON UserSanitizedPackResponse{..} = object $
-    [ "tag" .= "UserSanitizedPackResponse"
+    [ "tag" .= ("UserSanitizedPackResponse" :: Text)
     , "user" .= userSanitizedPackResponseUser
     , "user_id" .= userSanitizedPackResponseUserId
     , "profile" .= userSanitizedPackResponseProfile
@@ -5952,14 +6195,14 @@ instance ToJSON UserSanitizedPackResponse where
 
 instance FromJSON UserSanitizedPackResponse where
   parseJSON (Object o) = do
-    userSanitizedPackResponseUser <- o .: "user"
-    userSanitizedPackResponseUserId <- o .: "user_id"
-    userSanitizedPackResponseProfile <- o .: "profile"
-    userSanitizedPackResponseProfileId <- o .: "profile_id"
-    userSanitizedPackResponseStat <- o .: "stat"
-    userSanitizedPackResponseLike <- o .: "like"
-    userSanitizedPackResponseStar <- o .: "star"
-    return $ UserSanitizedPackResponse {
+    userSanitizedPackResponseUser <- o .: ("user" :: Text)
+    userSanitizedPackResponseUserId <- o .: ("user_id" :: Text)
+    userSanitizedPackResponseProfile <- o .: ("profile" :: Text)
+    userSanitizedPackResponseProfileId <- o .: ("profile_id" :: Text)
+    userSanitizedPackResponseStat <- o .: ("stat" :: Text)
+    userSanitizedPackResponseLike <- o .: ("like" :: Text)
+    userSanitizedPackResponseStar <- o .: ("star" :: Text)
+    pure $ UserSanitizedPackResponse {
       userSanitizedPackResponseUser = userSanitizedPackResponseUser,
       userSanitizedPackResponseUserId = userSanitizedPackResponseUserId,
       userSanitizedPackResponseProfile = userSanitizedPackResponseProfile,
@@ -5968,28 +6211,28 @@ instance FromJSON UserSanitizedPackResponse where
       userSanitizedPackResponseLike = userSanitizedPackResponseLike,
       userSanitizedPackResponseStar = userSanitizedPackResponseStar
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON UserSanitizedPackResponses where
   toJSON UserSanitizedPackResponses{..} = object $
-    [ "tag" .= "UserSanitizedPackResponses"
+    [ "tag" .= ("UserSanitizedPackResponses" :: Text)
     , "user_sanitized_pack_responses" .= userSanitizedPackResponses
     ]
 
 
 instance FromJSON UserSanitizedPackResponses where
   parseJSON (Object o) = do
-    userSanitizedPackResponses <- o .: "user_sanitized_pack_responses"
-    return $ UserSanitizedPackResponses {
+    userSanitizedPackResponses <- o .: ("user_sanitized_pack_responses" :: Text)
+    pure $ UserSanitizedPackResponses {
       userSanitizedPackResponses = userSanitizedPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupPackResponse where
   toJSON GlobalGroupPackResponse{..} = object $
-    [ "tag" .= "GlobalGroupPackResponse"
+    [ "tag" .= ("GlobalGroupPackResponse" :: Text)
     , "user" .= globalGroupPackResponseUser
     , "user_id" .= globalGroupPackResponseUserId
     , "global_group" .= globalGroupPackResponseGlobalGroup
@@ -6001,13 +6244,13 @@ instance ToJSON GlobalGroupPackResponse where
 
 instance FromJSON GlobalGroupPackResponse where
   parseJSON (Object o) = do
-    globalGroupPackResponseUser <- o .: "user"
-    globalGroupPackResponseUserId <- o .: "user_id"
-    globalGroupPackResponseGlobalGroup <- o .: "global_group"
-    globalGroupPackResponseGlobalGroupId <- o .: "global_group_id"
-    globalGroupPackResponseStat <- o .: "stat"
-    globalGroupPackResponsePermissions <- o .: "permissions"
-    return $ GlobalGroupPackResponse {
+    globalGroupPackResponseUser <- o .: ("user" :: Text)
+    globalGroupPackResponseUserId <- o .: ("user_id" :: Text)
+    globalGroupPackResponseGlobalGroup <- o .: ("global_group" :: Text)
+    globalGroupPackResponseGlobalGroupId <- o .: ("global_group_id" :: Text)
+    globalGroupPackResponseStat <- o .: ("stat" :: Text)
+    globalGroupPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ GlobalGroupPackResponse {
       globalGroupPackResponseUser = globalGroupPackResponseUser,
       globalGroupPackResponseUserId = globalGroupPackResponseUserId,
       globalGroupPackResponseGlobalGroup = globalGroupPackResponseGlobalGroup,
@@ -6015,28 +6258,28 @@ instance FromJSON GlobalGroupPackResponse where
       globalGroupPackResponseStat = globalGroupPackResponseStat,
       globalGroupPackResponsePermissions = globalGroupPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GlobalGroupPackResponses where
   toJSON GlobalGroupPackResponses{..} = object $
-    [ "tag" .= "GlobalGroupPackResponses"
+    [ "tag" .= ("GlobalGroupPackResponses" :: Text)
     , "global_group_pack_responses" .= globalGroupPackResponses
     ]
 
 
 instance FromJSON GlobalGroupPackResponses where
   parseJSON (Object o) = do
-    globalGroupPackResponses <- o .: "global_group_pack_responses"
-    return $ GlobalGroupPackResponses {
+    globalGroupPackResponses <- o .: ("global_group_pack_responses" :: Text)
+    pure $ GlobalGroupPackResponses {
       globalGroupPackResponses = globalGroupPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupPackResponse where
   toJSON GroupPackResponse{..} = object $
-    [ "tag" .= "GroupPackResponse"
+    [ "tag" .= ("GroupPackResponse" :: Text)
     , "user" .= groupPackResponseUser
     , "user_id" .= groupPackResponseUserId
     , "group" .= groupPackResponseGroup
@@ -6050,15 +6293,15 @@ instance ToJSON GroupPackResponse where
 
 instance FromJSON GroupPackResponse where
   parseJSON (Object o) = do
-    groupPackResponseUser <- o .: "user"
-    groupPackResponseUserId <- o .: "user_id"
-    groupPackResponseGroup <- o .: "group"
-    groupPackResponseGroupId <- o .: "group_id"
-    groupPackResponseOrganization <- o .: "organization"
-    groupPackResponseOrganizationId <- o .: "organization_id"
-    groupPackResponseStat <- o .: "stat"
-    groupPackResponsePermissions <- o .: "permissions"
-    return $ GroupPackResponse {
+    groupPackResponseUser <- o .: ("user" :: Text)
+    groupPackResponseUserId <- o .: ("user_id" :: Text)
+    groupPackResponseGroup <- o .: ("group" :: Text)
+    groupPackResponseGroupId <- o .: ("group_id" :: Text)
+    groupPackResponseOrganization <- o .: ("organization" :: Text)
+    groupPackResponseOrganizationId <- o .: ("organization_id" :: Text)
+    groupPackResponseStat <- o .: ("stat" :: Text)
+    groupPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ GroupPackResponse {
       groupPackResponseUser = groupPackResponseUser,
       groupPackResponseUserId = groupPackResponseUserId,
       groupPackResponseGroup = groupPackResponseGroup,
@@ -6068,28 +6311,28 @@ instance FromJSON GroupPackResponse where
       groupPackResponseStat = groupPackResponseStat,
       groupPackResponsePermissions = groupPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupPackResponses where
   toJSON GroupPackResponses{..} = object $
-    [ "tag" .= "GroupPackResponses"
+    [ "tag" .= ("GroupPackResponses" :: Text)
     , "group_pack_responses" .= groupPackResponses
     ]
 
 
 instance FromJSON GroupPackResponses where
   parseJSON (Object o) = do
-    groupPackResponses <- o .: "group_pack_responses"
-    return $ GroupPackResponses {
+    groupPackResponses <- o .: ("group_pack_responses" :: Text)
+    pure $ GroupPackResponses {
       groupPackResponses = groupPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberPackResponse where
   toJSON GroupMemberPackResponse{..} = object $
-    [ "tag" .= "GroupMemberPackResponse"
+    [ "tag" .= ("GroupMemberPackResponse" :: Text)
     , "user" .= groupMemberPackResponseUser
     , "user_id" .= groupMemberPackResponseUserId
     , "group_member" .= groupMemberPackResponseGroupMember
@@ -6100,40 +6343,40 @@ instance ToJSON GroupMemberPackResponse where
 
 instance FromJSON GroupMemberPackResponse where
   parseJSON (Object o) = do
-    groupMemberPackResponseUser <- o .: "user"
-    groupMemberPackResponseUserId <- o .: "user_id"
-    groupMemberPackResponseGroupMember <- o .: "group_member"
-    groupMemberPackResponseGroupMemberId <- o .: "group_member_id"
-    groupMemberPackResponseIsOwner <- o .: "is_owner"
-    return $ GroupMemberPackResponse {
+    groupMemberPackResponseUser <- o .: ("user" :: Text)
+    groupMemberPackResponseUserId <- o .: ("user_id" :: Text)
+    groupMemberPackResponseGroupMember <- o .: ("group_member" :: Text)
+    groupMemberPackResponseGroupMemberId <- o .: ("group_member_id" :: Text)
+    groupMemberPackResponseIsOwner <- o .: ("is_owner" :: Text)
+    pure $ GroupMemberPackResponse {
       groupMemberPackResponseUser = groupMemberPackResponseUser,
       groupMemberPackResponseUserId = groupMemberPackResponseUserId,
       groupMemberPackResponseGroupMember = groupMemberPackResponseGroupMember,
       groupMemberPackResponseGroupMemberId = groupMemberPackResponseGroupMemberId,
       groupMemberPackResponseIsOwner = groupMemberPackResponseIsOwner
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON GroupMemberPackResponses where
   toJSON GroupMemberPackResponses{..} = object $
-    [ "tag" .= "GroupMemberPackResponses"
+    [ "tag" .= ("GroupMemberPackResponses" :: Text)
     , "group_member_pack_responses" .= groupMemberPackResponses
     ]
 
 
 instance FromJSON GroupMemberPackResponses where
   parseJSON (Object o) = do
-    groupMemberPackResponses <- o .: "group_member_pack_responses"
-    return $ GroupMemberPackResponses {
+    groupMemberPackResponses <- o .: ("group_member_pack_responses" :: Text)
+    pure $ GroupMemberPackResponses {
       groupMemberPackResponses = groupMemberPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumPackResponse where
   toJSON ForumPackResponse{..} = object $
-    [ "tag" .= "ForumPackResponse"
+    [ "tag" .= ("ForumPackResponse" :: Text)
     , "forum" .= forumPackResponseForum
     , "forum_id" .= forumPackResponseForumId
     , "stat" .= forumPackResponseStat
@@ -6146,14 +6389,14 @@ instance ToJSON ForumPackResponse where
 
 instance FromJSON ForumPackResponse where
   parseJSON (Object o) = do
-    forumPackResponseForum <- o .: "forum"
-    forumPackResponseForumId <- o .: "forum_id"
-    forumPackResponseStat <- o .: "stat"
-    forumPackResponseLike <- o .: "like"
-    forumPackResponseStar <- o .: "star"
-    forumPackResponseWithOrganization <- o .: "with_organization"
-    forumPackResponsePermissions <- o .: "permissions"
-    return $ ForumPackResponse {
+    forumPackResponseForum <- o .: ("forum" :: Text)
+    forumPackResponseForumId <- o .: ("forum_id" :: Text)
+    forumPackResponseStat <- o .: ("stat" :: Text)
+    forumPackResponseLike <- o .: ("like" :: Text)
+    forumPackResponseStar <- o .: ("star" :: Text)
+    forumPackResponseWithOrganization <- o .: ("with_organization" :: Text)
+    forumPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ ForumPackResponse {
       forumPackResponseForum = forumPackResponseForum,
       forumPackResponseForumId = forumPackResponseForumId,
       forumPackResponseStat = forumPackResponseStat,
@@ -6162,28 +6405,28 @@ instance FromJSON ForumPackResponse where
       forumPackResponseWithOrganization = forumPackResponseWithOrganization,
       forumPackResponsePermissions = forumPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ForumPackResponses where
   toJSON ForumPackResponses{..} = object $
-    [ "tag" .= "ForumPackResponses"
+    [ "tag" .= ("ForumPackResponses" :: Text)
     , "forum_pack_responses" .= forumPackResponses
     ]
 
 
 instance FromJSON ForumPackResponses where
   parseJSON (Object o) = do
-    forumPackResponses <- o .: "forum_pack_responses"
-    return $ ForumPackResponses {
+    forumPackResponses <- o .: ("forum_pack_responses" :: Text)
+    pure $ ForumPackResponses {
       forumPackResponses = forumPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardPackResponse where
   toJSON BoardPackResponse{..} = object $
-    [ "tag" .= "BoardPackResponse"
+    [ "tag" .= ("BoardPackResponse" :: Text)
     , "board" .= boardPackResponseBoard
     , "board_id" .= boardPackResponseBoardId
     , "stat" .= boardPackResponseStat
@@ -6200,18 +6443,18 @@ instance ToJSON BoardPackResponse where
 
 instance FromJSON BoardPackResponse where
   parseJSON (Object o) = do
-    boardPackResponseBoard <- o .: "board"
-    boardPackResponseBoardId <- o .: "board_id"
-    boardPackResponseStat <- o .: "stat"
-    boardPackResponseLike <- o .: "like"
-    boardPackResponseStar <- o .: "star"
-    boardPackResponseLatestThread <- o .: "latest_thread"
-    boardPackResponseLatestThreadPost <- o .: "latest_thread_post"
-    boardPackResponseLatestThreadPostUser <- o .: "latest_thread_post_user"
-    boardPackResponseWithOrganization <- o .: "with_organization"
-    boardPackResponseWithForum <- o .: "with_forum"
-    boardPackResponsePermissions <- o .: "permissions"
-    return $ BoardPackResponse {
+    boardPackResponseBoard <- o .: ("board" :: Text)
+    boardPackResponseBoardId <- o .: ("board_id" :: Text)
+    boardPackResponseStat <- o .: ("stat" :: Text)
+    boardPackResponseLike <- o .: ("like" :: Text)
+    boardPackResponseStar <- o .: ("star" :: Text)
+    boardPackResponseLatestThread <- o .: ("latest_thread" :: Text)
+    boardPackResponseLatestThreadPost <- o .: ("latest_thread_post" :: Text)
+    boardPackResponseLatestThreadPostUser <- o .: ("latest_thread_post_user" :: Text)
+    boardPackResponseWithOrganization <- o .: ("with_organization" :: Text)
+    boardPackResponseWithForum <- o .: ("with_forum" :: Text)
+    boardPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ BoardPackResponse {
       boardPackResponseBoard = boardPackResponseBoard,
       boardPackResponseBoardId = boardPackResponseBoardId,
       boardPackResponseStat = boardPackResponseStat,
@@ -6224,28 +6467,28 @@ instance FromJSON BoardPackResponse where
       boardPackResponseWithForum = boardPackResponseWithForum,
       boardPackResponsePermissions = boardPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON BoardPackResponses where
   toJSON BoardPackResponses{..} = object $
-    [ "tag" .= "BoardPackResponses"
+    [ "tag" .= ("BoardPackResponses" :: Text)
     , "board_pack_responses" .= boardPackResponses
     ]
 
 
 instance FromJSON BoardPackResponses where
   parseJSON (Object o) = do
-    boardPackResponses <- o .: "board_pack_responses"
-    return $ BoardPackResponses {
+    boardPackResponses <- o .: ("board_pack_responses" :: Text)
+    pure $ BoardPackResponses {
       boardPackResponses = boardPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPackResponse where
   toJSON ThreadPackResponse{..} = object $
-    [ "tag" .= "ThreadPackResponse"
+    [ "tag" .= ("ThreadPackResponse" :: Text)
     , "thread" .= threadPackResponseThread
     , "thread_id" .= threadPackResponseThreadId
     , "user" .= threadPackResponseUser
@@ -6264,20 +6507,20 @@ instance ToJSON ThreadPackResponse where
 
 instance FromJSON ThreadPackResponse where
   parseJSON (Object o) = do
-    threadPackResponseThread <- o .: "thread"
-    threadPackResponseThreadId <- o .: "thread_id"
-    threadPackResponseUser <- o .: "user"
-    threadPackResponseUserId <- o .: "user_id"
-    threadPackResponseStat <- o .: "stat"
-    threadPackResponseLike <- o .: "like"
-    threadPackResponseStar <- o .: "star"
-    threadPackResponseLatestThreadPost <- o .: "latest_thread_post"
-    threadPackResponseLatestThreadPostUser <- o .: "latest_thread_post_user"
-    threadPackResponseWithOrganization <- o .: "with_organization"
-    threadPackResponseWithForum <- o .: "with_forum"
-    threadPackResponseWithBoard <- o .: "with_board"
-    threadPackResponsePermissions <- o .: "permissions"
-    return $ ThreadPackResponse {
+    threadPackResponseThread <- o .: ("thread" :: Text)
+    threadPackResponseThreadId <- o .: ("thread_id" :: Text)
+    threadPackResponseUser <- o .: ("user" :: Text)
+    threadPackResponseUserId <- o .: ("user_id" :: Text)
+    threadPackResponseStat <- o .: ("stat" :: Text)
+    threadPackResponseLike <- o .: ("like" :: Text)
+    threadPackResponseStar <- o .: ("star" :: Text)
+    threadPackResponseLatestThreadPost <- o .: ("latest_thread_post" :: Text)
+    threadPackResponseLatestThreadPostUser <- o .: ("latest_thread_post_user" :: Text)
+    threadPackResponseWithOrganization <- o .: ("with_organization" :: Text)
+    threadPackResponseWithForum <- o .: ("with_forum" :: Text)
+    threadPackResponseWithBoard <- o .: ("with_board" :: Text)
+    threadPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ ThreadPackResponse {
       threadPackResponseThread = threadPackResponseThread,
       threadPackResponseThreadId = threadPackResponseThreadId,
       threadPackResponseUser = threadPackResponseUser,
@@ -6292,28 +6535,28 @@ instance FromJSON ThreadPackResponse where
       threadPackResponseWithBoard = threadPackResponseWithBoard,
       threadPackResponsePermissions = threadPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPackResponses where
   toJSON ThreadPackResponses{..} = object $
-    [ "tag" .= "ThreadPackResponses"
+    [ "tag" .= ("ThreadPackResponses" :: Text)
     , "thread_pack_responses" .= threadPackResponses
     ]
 
 
 instance FromJSON ThreadPackResponses where
   parseJSON (Object o) = do
-    threadPackResponses <- o .: "thread_pack_responses"
-    return $ ThreadPackResponses {
+    threadPackResponses <- o .: ("thread_pack_responses" :: Text)
+    pure $ ThreadPackResponses {
       threadPackResponses = threadPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostPackResponse where
   toJSON ThreadPostPackResponse{..} = object $
-    [ "tag" .= "ThreadPostPackResponse"
+    [ "tag" .= ("ThreadPostPackResponse" :: Text)
     , "thread_post" .= threadPostPackResponseThreadPost
     , "thread_post_id" .= threadPostPackResponseThreadPostId
     , "user" .= threadPostPackResponseUser
@@ -6331,19 +6574,19 @@ instance ToJSON ThreadPostPackResponse where
 
 instance FromJSON ThreadPostPackResponse where
   parseJSON (Object o) = do
-    threadPostPackResponseThreadPost <- o .: "thread_post"
-    threadPostPackResponseThreadPostId <- o .: "thread_post_id"
-    threadPostPackResponseUser <- o .: "user"
-    threadPostPackResponseUserId <- o .: "user_id"
-    threadPostPackResponseStat <- o .: "stat"
-    threadPostPackResponseLike <- o .: "like"
-    threadPostPackResponseStar <- o .: "star"
-    threadPostPackResponseWithOrganization <- o .: "with_organization"
-    threadPostPackResponseWithForum <- o .: "with_forum"
-    threadPostPackResponseWithBoard <- o .: "with_board"
-    threadPostPackResponseWithThread <- o .: "with_thread"
-    threadPostPackResponsePermissions <- o .: "permissions"
-    return $ ThreadPostPackResponse {
+    threadPostPackResponseThreadPost <- o .: ("thread_post" :: Text)
+    threadPostPackResponseThreadPostId <- o .: ("thread_post_id" :: Text)
+    threadPostPackResponseUser <- o .: ("user" :: Text)
+    threadPostPackResponseUserId <- o .: ("user_id" :: Text)
+    threadPostPackResponseStat <- o .: ("stat" :: Text)
+    threadPostPackResponseLike <- o .: ("like" :: Text)
+    threadPostPackResponseStar <- o .: ("star" :: Text)
+    threadPostPackResponseWithOrganization <- o .: ("with_organization" :: Text)
+    threadPostPackResponseWithForum <- o .: ("with_forum" :: Text)
+    threadPostPackResponseWithBoard <- o .: ("with_board" :: Text)
+    threadPostPackResponseWithThread <- o .: ("with_thread" :: Text)
+    threadPostPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ ThreadPostPackResponse {
       threadPostPackResponseThreadPost = threadPostPackResponseThreadPost,
       threadPostPackResponseThreadPostId = threadPostPackResponseThreadPostId,
       threadPostPackResponseUser = threadPostPackResponseUser,
@@ -6357,28 +6600,28 @@ instance FromJSON ThreadPostPackResponse where
       threadPostPackResponseWithThread = threadPostPackResponseWithThread,
       threadPostPackResponsePermissions = threadPostPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ThreadPostPackResponses where
   toJSON ThreadPostPackResponses{..} = object $
-    [ "tag" .= "ThreadPostPackResponses"
+    [ "tag" .= ("ThreadPostPackResponses" :: Text)
     , "thread_post_pack_responses" .= threadPostPackResponses
     ]
 
 
 instance FromJSON ThreadPostPackResponses where
   parseJSON (Object o) = do
-    threadPostPackResponses <- o .: "thread_post_pack_responses"
-    return $ ThreadPostPackResponses {
+    threadPostPackResponses <- o .: ("thread_post_pack_responses" :: Text)
+    pure $ ThreadPostPackResponses {
       threadPostPackResponses = threadPostPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourcePackResponse where
   toJSON ResourcePackResponse{..} = object $
-    [ "tag" .= "ResourcePackResponse"
+    [ "tag" .= ("ResourcePackResponse" :: Text)
     , "resource" .= resourcePackResponseResource
     , "resource_id" .= resourcePackResponseResourceId
     , "user" .= resourcePackResponseUser
@@ -6392,15 +6635,15 @@ instance ToJSON ResourcePackResponse where
 
 instance FromJSON ResourcePackResponse where
   parseJSON (Object o) = do
-    resourcePackResponseResource <- o .: "resource"
-    resourcePackResponseResourceId <- o .: "resource_id"
-    resourcePackResponseUser <- o .: "user"
-    resourcePackResponseUserId <- o .: "user_id"
-    resourcePackResponseStat <- o .: "stat"
-    resourcePackResponseLike <- o .: "like"
-    resourcePackResponseStar <- o .: "star"
-    resourcePackResponsePermissions <- o .: "permissions"
-    return $ ResourcePackResponse {
+    resourcePackResponseResource <- o .: ("resource" :: Text)
+    resourcePackResponseResourceId <- o .: ("resource_id" :: Text)
+    resourcePackResponseUser <- o .: ("user" :: Text)
+    resourcePackResponseUserId <- o .: ("user_id" :: Text)
+    resourcePackResponseStat <- o .: ("stat" :: Text)
+    resourcePackResponseLike <- o .: ("like" :: Text)
+    resourcePackResponseStar <- o .: ("star" :: Text)
+    resourcePackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ ResourcePackResponse {
       resourcePackResponseResource = resourcePackResponseResource,
       resourcePackResponseResourceId = resourcePackResponseResourceId,
       resourcePackResponseUser = resourcePackResponseUser,
@@ -6410,28 +6653,28 @@ instance FromJSON ResourcePackResponse where
       resourcePackResponseStar = resourcePackResponseStar,
       resourcePackResponsePermissions = resourcePackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON ResourcePackResponses where
   toJSON ResourcePackResponses{..} = object $
-    [ "tag" .= "ResourcePackResponses"
+    [ "tag" .= ("ResourcePackResponses" :: Text)
     , "resource_pack_responses" .= resourcePackResponses
     ]
 
 
 instance FromJSON ResourcePackResponses where
   parseJSON (Object o) = do
-    resourcePackResponses <- o .: "resource_pack_responses"
-    return $ ResourcePackResponses {
+    resourcePackResponses <- o .: ("resource_pack_responses" :: Text)
+    pure $ ResourcePackResponses {
       resourcePackResponses = resourcePackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronPackResponse where
   toJSON LeuronPackResponse{..} = object $
-    [ "tag" .= "LeuronPackResponse"
+    [ "tag" .= ("LeuronPackResponse" :: Text)
     , "leuron" .= leuronPackResponseLeuron
     , "leuron_id" .= leuronPackResponseLeuronId
     , "user" .= leuronPackResponseUser
@@ -6446,16 +6689,16 @@ instance ToJSON LeuronPackResponse where
 
 instance FromJSON LeuronPackResponse where
   parseJSON (Object o) = do
-    leuronPackResponseLeuron <- o .: "leuron"
-    leuronPackResponseLeuronId <- o .: "leuron_id"
-    leuronPackResponseUser <- o .: "user"
-    leuronPackResponseUserId <- o .: "user_id"
-    leuronPackResponseTraining <- o .: "training"
-    leuronPackResponseStat <- o .: "stat"
-    leuronPackResponseLike <- o .: "like"
-    leuronPackResponseStar <- o .: "star"
-    leuronPackResponsePermissions <- o .: "permissions"
-    return $ LeuronPackResponse {
+    leuronPackResponseLeuron <- o .: ("leuron" :: Text)
+    leuronPackResponseLeuronId <- o .: ("leuron_id" :: Text)
+    leuronPackResponseUser <- o .: ("user" :: Text)
+    leuronPackResponseUserId <- o .: ("user_id" :: Text)
+    leuronPackResponseTraining <- o .: ("training" :: Text)
+    leuronPackResponseStat <- o .: ("stat" :: Text)
+    leuronPackResponseLike <- o .: ("like" :: Text)
+    leuronPackResponseStar <- o .: ("star" :: Text)
+    leuronPackResponsePermissions <- o .: ("permissions" :: Text)
+    pure $ LeuronPackResponse {
       leuronPackResponseLeuron = leuronPackResponseLeuron,
       leuronPackResponseLeuronId = leuronPackResponseLeuronId,
       leuronPackResponseUser = leuronPackResponseUser,
@@ -6466,28 +6709,28 @@ instance FromJSON LeuronPackResponse where
       leuronPackResponseStar = leuronPackResponseStar,
       leuronPackResponsePermissions = leuronPackResponsePermissions
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON LeuronPackResponses where
   toJSON LeuronPackResponses{..} = object $
-    [ "tag" .= "LeuronPackResponses"
+    [ "tag" .= ("LeuronPackResponses" :: Text)
     , "leuron_pack_responses" .= leuronPackResponses
     ]
 
 
 instance FromJSON LeuronPackResponses where
   parseJSON (Object o) = do
-    leuronPackResponses <- o .: "leuron_pack_responses"
-    return $ LeuronPackResponses {
+    leuronPackResponses <- o .: ("leuron_pack_responses" :: Text)
+    pure $ LeuronPackResponses {
       leuronPackResponses = leuronPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmInPackResponse where
   toJSON PmInPackResponse{..} = object $
-    [ "tag" .= "PmInPackResponse"
+    [ "tag" .= ("PmInPackResponse" :: Text)
     , "pm_in" .= pmInPackResponsePmIn
     , "pm_in_id" .= pmInPackResponsePmInId
     , "user" .= pmInPackResponseUser
@@ -6497,38 +6740,38 @@ instance ToJSON PmInPackResponse where
 
 instance FromJSON PmInPackResponse where
   parseJSON (Object o) = do
-    pmInPackResponsePmIn <- o .: "pm_in"
-    pmInPackResponsePmInId <- o .: "pm_in_id"
-    pmInPackResponseUser <- o .: "user"
-    pmInPackResponseUserId <- o .: "user_id"
-    return $ PmInPackResponse {
+    pmInPackResponsePmIn <- o .: ("pm_in" :: Text)
+    pmInPackResponsePmInId <- o .: ("pm_in_id" :: Text)
+    pmInPackResponseUser <- o .: ("user" :: Text)
+    pmInPackResponseUserId <- o .: ("user_id" :: Text)
+    pure $ PmInPackResponse {
       pmInPackResponsePmIn = pmInPackResponsePmIn,
       pmInPackResponsePmInId = pmInPackResponsePmInId,
       pmInPackResponseUser = pmInPackResponseUser,
       pmInPackResponseUserId = pmInPackResponseUserId
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmInPackResponses where
   toJSON PmInPackResponses{..} = object $
-    [ "tag" .= "PmInPackResponses"
+    [ "tag" .= ("PmInPackResponses" :: Text)
     , "pm_in_pack_responses" .= pmInPackResponses
     ]
 
 
 instance FromJSON PmInPackResponses where
   parseJSON (Object o) = do
-    pmInPackResponses <- o .: "pm_in_pack_responses"
-    return $ PmInPackResponses {
+    pmInPackResponses <- o .: ("pm_in_pack_responses" :: Text)
+    pure $ PmInPackResponses {
       pmInPackResponses = pmInPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmOutPackResponse where
   toJSON PmOutPackResponse{..} = object $
-    [ "tag" .= "PmOutPackResponse"
+    [ "tag" .= ("PmOutPackResponse" :: Text)
     , "pm_out" .= pmOutPackResponsePmOut
     , "pm_out_id" .= pmOutPackResponsePmOutId
     , "user" .= pmOutPackResponseUser
@@ -6538,32 +6781,32 @@ instance ToJSON PmOutPackResponse where
 
 instance FromJSON PmOutPackResponse where
   parseJSON (Object o) = do
-    pmOutPackResponsePmOut <- o .: "pm_out"
-    pmOutPackResponsePmOutId <- o .: "pm_out_id"
-    pmOutPackResponseUser <- o .: "user"
-    pmOutPackResponseUserId <- o .: "user_id"
-    return $ PmOutPackResponse {
+    pmOutPackResponsePmOut <- o .: ("pm_out" :: Text)
+    pmOutPackResponsePmOutId <- o .: ("pm_out_id" :: Text)
+    pmOutPackResponseUser <- o .: ("user" :: Text)
+    pmOutPackResponseUserId <- o .: ("user_id" :: Text)
+    pure $ PmOutPackResponse {
       pmOutPackResponsePmOut = pmOutPackResponsePmOut,
       pmOutPackResponsePmOutId = pmOutPackResponsePmOutId,
       pmOutPackResponseUser = pmOutPackResponseUser,
       pmOutPackResponseUserId = pmOutPackResponseUserId
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 
 instance ToJSON PmOutPackResponses where
   toJSON PmOutPackResponses{..} = object $
-    [ "tag" .= "PmOutPackResponses"
+    [ "tag" .= ("PmOutPackResponses" :: Text)
     , "pm_out_pack_responses" .= pmOutPackResponses
     ]
 
 
 instance FromJSON PmOutPackResponses where
   parseJSON (Object o) = do
-    pmOutPackResponses <- o .: "pm_out_pack_responses"
-    return $ PmOutPackResponses {
+    pmOutPackResponses <- o .: ("pm_out_pack_responses" :: Text)
+    pure $ PmOutPackResponses {
       pmOutPackResponses = pmOutPackResponses
     }
-  parseJSON x = fail $ "Could not parse object: " ++ show x
+  parseJSON x = fail $ "Could not parse object: " <> show x
 
 -- footer
