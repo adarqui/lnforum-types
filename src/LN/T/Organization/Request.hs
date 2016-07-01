@@ -4,6 +4,7 @@
 module LN.T.Organization.Request (
   OrganizationRequest (..),
   defaultOrganizationRequest,
+  testOrganizationRequest,
 ) where
 
 
@@ -41,4 +42,15 @@ defaultOrganizationRequest = OrganizationRequest {
   organizationRequestTags        = [],
   organizationRequestVisibility  = Public,
   organizationRequestGuard       = 0
+}
+
+
+
+testOrganizationRequest :: OrganizationRequest
+testOrganizationRequest = defaultOrganizationRequest {
+  organizationRequestDisplayName = "test",
+  organizationRequestDescription = Just "test",
+  organizationRequestCompany     = "test",
+  organizationRequestLocation    = "test",
+  organizationRequestEmail       = "test@test.com"
 }

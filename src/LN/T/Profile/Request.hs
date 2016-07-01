@@ -1,4 +1,5 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Profile.Request (
   ProfileRequest (..),
@@ -8,8 +9,8 @@ module LN.T.Profile.Request (
 
 
 import           LN.T.Prelude
-import           LN.T.Time
 import           LN.T.Profile
+import           LN.T.Time
 
 
 
@@ -28,11 +29,20 @@ data ProfileRequest = ProfileRequest {
 
 defaultProfileRequest :: ProfileRequest
 defaultProfileRequest = ProfileRequest {
-  profileRequestGender = defaultProfileGender,
+  profileRequestGender    = defaultProfileGender,
   profileRequestBirthdate = defaultUTCTime,
   profileRequestWebsite   = Nothing,
   profileRequestLocation  = Nothing,
   profileRequestSignature = Nothing,
   profileRequestDebug     = False,
   profileRequestGuard     = 0
+}
+
+
+
+testProfileRequest :: ProfileRequest
+testProfileRequest = defaultProfileRequest {
+  profileRequestWebsite   = Just "https://www.adarq.org",
+  profileRequestLocation  = Just "FL",
+  profileRequestSignature = Just "go get it."
 }

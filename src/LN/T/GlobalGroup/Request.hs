@@ -4,6 +4,7 @@
 module LN.T.GlobalGroup.Request (
   GlobalGroupRequest (..),
   defaultGlobalGroupRequest,
+  testGlobalGroupRequest,
 ) where
 
 
@@ -35,4 +36,12 @@ defaultGlobalGroupRequest = GlobalGroupRequest {
   globalGroupRequestTags        = [],
   globalGroupRequestVisibility  = Public,
   globalGroupRequestGuard       = 0
+}
+
+
+
+testGlobalGroupRequest :: GlobalGroupRequest
+testGlobalGroupRequest = defaultGlobalGroupRequest {
+  globalGroupRequestDisplayName = "test",
+  globalGroupRequestDescription = Just "test"
 }

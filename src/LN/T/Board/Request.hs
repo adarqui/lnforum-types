@@ -4,6 +4,7 @@
 module LN.T.Board.Request (
   BoardRequest (..),
   defaultBoardRequest,
+  testBoardRequest
 ) where
 
 
@@ -37,4 +38,12 @@ defaultBoardRequest = BoardRequest {
   boardRequestIcon               = Nothing,
   boardRequestTags               = [],
   boardRequestGuard              = 0
+}
+
+
+
+testBoardRequest :: BoardRequest
+testBoardRequest = testBoardRequest {
+  boardRequestDisplayName = "test",
+  boardRequestDescription = Just "test"
 }

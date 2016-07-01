@@ -1,8 +1,10 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Bucket.Request (
   BucketRequest (..),
   defaultBucketRequest,
+  testBucketRequest
 ) where
 
 
@@ -25,15 +27,23 @@ data BucketRequest = BucketRequest {
 
 
 
-defaultBucketRequest :: Text -> BucketRequest
-defaultBucketRequest name = BucketRequest {
-  bucketRequestDisplayName  = name,
-  bucketRequestDescription = Nothing,
-  bucketRequestScoreLo     = -1000,
-  bucketRequestScoreHi     = 3,
-  bucketRequestLeurons     = [],
-  bucketRequestResources   = [],
-  bucketRequestCategories  = [],
-  bucketRequestFilters     = [],
-  bucketRequestGuard       = 0
+defaultBucketRequest :: BucketRequest
+defaultBucketRequest = BucketRequest {
+  bucketRequestDisplayName  = "",
+  bucketRequestDescription  = Nothing,
+  bucketRequestScoreLo      = -1000,
+  bucketRequestScoreHi      = 3,
+  bucketRequestLeurons      = [],
+  bucketRequestResources    = [],
+  bucketRequestCategories   = [],
+  bucketRequestFilters      = [],
+  bucketRequestGuard        = 0
+}
+
+
+
+testBucketRequest :: BucketRequest
+testBucketRequest = defaultBucketRequest {
+  bucketRequestDisplayName  = "test",
+  bucketRequestDescription  = Just "test"
 }

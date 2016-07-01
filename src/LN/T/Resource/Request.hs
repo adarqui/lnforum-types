@@ -4,6 +4,7 @@
 module LN.T.Resource.Request (
   ResourceRequest (..),
   defaultResourceRequest,
+  testResourceRequest,
 ) where
 
 
@@ -37,7 +38,7 @@ defaultResourceRequest :: ResourceRequest
 defaultResourceRequest = ResourceRequest {
   resourceRequestDisplayName   = "",
   resourceRequestDescription   = "",
-  resourceRequestSource        = URL "not found",
+  resourceRequestSource        = SourceNone,
   resourceRequestAuthor        = Nothing,
   resourceRequestPrerequisites = [],
   resourceRequestCategories    = [],
@@ -48,4 +49,14 @@ defaultResourceRequest = ResourceRequest {
   resourceRequestIcon          = Nothing,
   resourceRequestTags          = [],
   resourceRequestGuard         = 0
+}
+
+
+
+testResourceRequest :: ResourceRequest
+testResourceRequest = defaultResourceRequest {
+  resourceRequestDisplayName   = "test",
+  resourceRequestDescription   = "test",
+  resourceRequestSource        = URL "https://www.adarq.org",
+  resourceRequestAuthor        = Just ["test"]
 }

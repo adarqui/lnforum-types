@@ -31,8 +31,8 @@ data ForumRequest = ForumRequest {
 
 defaultForumRequest :: ForumRequest
 defaultForumRequest = ForumRequest {
-  forumRequestDisplayName          = "",
-  forumRequestDescription          = Nothing,
+  forumRequestDisplayName          = "default",
+  forumRequestDescription          = Just "default",
   forumRequestThreadsPerBoard      = 20,
   forumRequestThreadPostsPerThread = 20,
   forumRequestRecentThreadsLimit   = 10,

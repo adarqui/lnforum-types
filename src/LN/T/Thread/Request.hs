@@ -4,6 +4,7 @@
 module LN.T.Thread.Request (
   ThreadRequest (..),
   defaultThreadRequest,
+  testThreadRequest,
 ) where
 
 
@@ -35,4 +36,12 @@ defaultThreadRequest = ThreadRequest {
   threadRequestIcon        = Nothing,
   threadRequestTags        = [],
   threadRequestGuard       = 0
+}
+
+
+
+testThreadRequest :: ThreadRequest
+testThreadRequest = defaultThreadRequest {
+  threadRequestDisplayName = "test",
+  threadRequestDescription = Just "test"
 }
