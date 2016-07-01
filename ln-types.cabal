@@ -168,6 +168,7 @@ library
                        LN.T.Workout.Stat
   build-depends:       base
                      , aeson
+                     , data-default
                      , text
                      , transformers
                      , time

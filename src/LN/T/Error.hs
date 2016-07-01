@@ -7,6 +7,7 @@ module LN.T.Error (
 
 
 import           LN.T.Prelude
+import           Data.Default (Default, def)
 
 
 
@@ -22,3 +23,8 @@ data ApplicationError
   | Error_Unexpected
   | Error_Unknown
   deriving (Eq, Ord, Show, Read, Generic, Typeable)
+
+
+
+instance Default ApplicationError where
+  def = Error_Unknown
