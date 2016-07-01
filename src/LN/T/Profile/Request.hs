@@ -4,6 +4,7 @@
 module LN.T.Profile.Request (
   ProfileRequest (..),
   defaultProfileRequest,
+  testProfileRequest
 ) where
 
 
