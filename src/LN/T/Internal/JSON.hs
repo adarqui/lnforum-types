@@ -675,6 +675,10 @@ instance ToJSON ApplicationError where
     [ "tag" .= ("Error_PermissionDenied" :: Text)
     , "contents" .= ([] :: [Text])
     ]
+  toJSON (Error_AlreadyExists ) = object $
+    [ "tag" .= ("Error_AlreadyExists" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
   toJSON (Error_Visibility ) = object $
     [ "tag" .= ("Error_Visibility" :: Text)
     , "contents" .= ([] :: [Text])
@@ -717,6 +721,9 @@ instance FromJSON ApplicationError where
 
       ("Error_PermissionDenied" :: Text) -> do
         pure Error_PermissionDenied
+
+      ("Error_AlreadyExists" :: Text) -> do
+        pure Error_AlreadyExists
 
       ("Error_Visibility" :: Text) -> do
         pure Error_Visibility

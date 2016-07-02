@@ -15,6 +15,7 @@ data ApplicationError
   = Error_Empty
   | Error_NotFound
   | Error_PermissionDenied
+  | Error_AlreadyExists
   | Error_Visibility
   | Error_Membership
   | Error_Validation Text
