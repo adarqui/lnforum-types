@@ -20,10 +20,10 @@ data OrganizationStatResponse = OrganizationStatResponse {
   organizationStatResponseThreads        :: Int64,
   organizationStatResponseThreadPosts    :: Int64,
   organizationStatResponseViews          :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data OrganizationStatResponses = OrganizationStatResponses {
   organizationStatResponses :: [OrganizationStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

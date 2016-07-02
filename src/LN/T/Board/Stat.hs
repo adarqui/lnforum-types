@@ -16,10 +16,10 @@ data BoardStatResponse = BoardStatResponse {
   boardStatResponseThreads     :: Int64,
   boardStatResponseThreadPosts :: Int64,
   boardStatResponseViews       :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data BoardStatResponses = BoardStatResponses {
   boardStatResponses :: [BoardStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

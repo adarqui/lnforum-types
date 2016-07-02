@@ -84,7 +84,7 @@ data Param
   | WithBoard              Bool
   | WithThread             Bool
   | WithResource           Bool
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

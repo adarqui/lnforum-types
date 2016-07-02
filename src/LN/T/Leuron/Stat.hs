@@ -18,10 +18,10 @@ data LeuronStatResponse = LeuronStatResponse {
   leuronStatResponseDislikes :: Int64,
   leuronStatResponseStars    :: Int64,
   leuronStatResponseViews    :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data LeuronStatResponses = LeuronStatResponses {
   leuronStatResponses :: [LeuronStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

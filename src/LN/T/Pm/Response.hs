@@ -23,10 +23,10 @@ data PmResponse = PmResponse {
   pmResponseCreatedAt  :: Maybe UTCTime,
   pmResponseModifiedAt :: Maybe UTCTime,
   pmResponseActivityAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data PmResponses = PmResponses {
   pmResponses :: [PmResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

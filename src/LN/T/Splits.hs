@@ -16,14 +16,14 @@ import           LN.T.Prelude
 data Splits
   = SplitAt Char Text Text
   | SplitNone
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 
 data TySplits
   = TySplitA
   | TySplitNone
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

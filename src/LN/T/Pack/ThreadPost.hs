@@ -34,10 +34,10 @@ data ThreadPostPackResponse = ThreadPostPackResponse {
   threadPostPackResponseWithBoard        :: Maybe BoardResponse,
   threadPostPackResponseWithThread       :: Maybe ThreadResponse,
   threadPostPackResponsePermissions      :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ThreadPostPackResponses = ThreadPostPackResponses {
   threadPostPackResponses :: [ThreadPostPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

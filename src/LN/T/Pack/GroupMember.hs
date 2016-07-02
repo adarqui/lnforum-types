@@ -19,10 +19,10 @@ data GroupMemberPackResponse = GroupMemberPackResponse {
   groupMemberPackResponseGroupMember   :: GroupMemberResponse,
   groupMemberPackResponseGroupMemberId :: Int64,
   groupMemberPackResponseIsOwner       :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data GroupMemberPackResponses = GroupMemberPackResponses {
   groupMemberPackResponses :: [GroupMemberPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

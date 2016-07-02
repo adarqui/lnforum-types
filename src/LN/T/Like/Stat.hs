@@ -17,10 +17,10 @@ data LikeStatResponse = LikeStatResponse {
   likeStatResponseLike    :: Int64,
   likeStatResponseNeutral :: Int64,
   likeStatResponseDislike :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data LikeStatResponses = LikeStatResponses {
   likeStatResponses :: [LikeStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

@@ -15,10 +15,10 @@ data ThreadStatResponse = ThreadStatResponse {
   threadStatResponseThreadId    :: Int64,
   threadStatResponseThreadPosts :: Int64,
   threadStatResponseViews       :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ThreadStatResponses = ThreadStatResponses {
   threadStatResponses :: [ThreadStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

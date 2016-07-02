@@ -13,10 +13,10 @@ import           LN.T.Prelude
 
 data GroupStatResponse = GroupStatResponse {
   groupStatResponseMembers :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data GroupStatResponses = GroupStatResponses {
   groupStatResponses :: [GroupStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

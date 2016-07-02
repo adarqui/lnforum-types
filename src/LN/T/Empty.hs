@@ -15,7 +15,7 @@ import           LN.T.Prelude
 
 data EmptyRequest = EmptyRequest {
   emptyRequestValue :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -32,10 +32,10 @@ data EmptyResponse = EmptyResponse {
   emptyResponseValue      :: Bool,
   emptyResponseCreatedAt  :: Maybe UTCTime,
   emptyResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data EmptyResponses = EmptyResponses {
   emptyResponses :: [EmptyResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

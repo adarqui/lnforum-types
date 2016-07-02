@@ -18,10 +18,10 @@ data PmInPackResponse = PmInPackResponse {
   pmInPackResponsePmInId :: Int64,
   pmInPackResponseUser   :: UserSanitizedResponse,
   pmInPackResponseUserId :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data PmInPackResponses = PmInPackResponses {
   pmInPackResponses :: [PmInPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

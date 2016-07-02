@@ -28,10 +28,10 @@ data LeuronPackResponse = LeuronPackResponse {
   leuronPackResponseLike        :: Maybe LikeResponse,
   leuronPackResponseStar        :: Maybe StarResponse,
   leuronPackResponsePermissions :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data LeuronPackResponses = LeuronPackResponses {
   leuronPackResponses :: [LeuronPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

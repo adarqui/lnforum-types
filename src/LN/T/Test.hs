@@ -16,7 +16,7 @@ import           LN.T.Prelude
 
 data TestRequest = TestRequest {
   testRequestMsg :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -33,10 +33,10 @@ data TestResponse = TestResponse {
   testResponseMsg        :: Text,
   testResponseCreatedAt  :: Maybe UTCTime,
   testResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data TestResponses = TestResponses {
   testResponses :: [TestResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

@@ -20,10 +20,10 @@ data LeuronTrainingResponse = LeuronTrainingResponse {
   leuronTrainingResponseGuard      :: Int,
   leuronTrainingResponseCreatedAt  :: Maybe UTCTime,
   leuronTrainingResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data LeuronTrainingResponses = LeuronTrainingResponses {
   leuronTrainingResponses :: [LeuronTrainingResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

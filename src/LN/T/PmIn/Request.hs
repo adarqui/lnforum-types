@@ -16,7 +16,7 @@ data PmInRequest = PmInRequest {
   pmInRequestIsRead    :: Bool,
   pmInRequestIsStarred :: Bool,
   pmInRequestGuard     :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

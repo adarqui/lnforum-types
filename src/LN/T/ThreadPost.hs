@@ -18,7 +18,7 @@ data PostData
   | PostDataCode     Text Text
   | PostDataOther    Text Text
   | PostDataEmpty
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 
@@ -29,4 +29,4 @@ data TyPostData
   | TyPostDataCode
   | TyPostDataOther
   | TyPostDataEmpty
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)

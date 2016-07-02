@@ -13,7 +13,7 @@ import           LN.T.Prelude
 
 data GroupRequest = GroupRequest {
   groupRequestGuard :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

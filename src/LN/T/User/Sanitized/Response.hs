@@ -20,10 +20,10 @@ data UserSanitizedResponse = UserSanitizedResponse {
   userSanitizedResponseGuard       :: Int,
   userSanitizedResponseCreatedAt   :: Maybe UTCTime,
   userSanitizedResponseActivityAt  :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data UserSanitizedResponses = UserSanitizedResponses {
   userSanitizedResponses :: [UserSanitizedResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

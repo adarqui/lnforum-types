@@ -23,7 +23,7 @@ data BucketRequest = BucketRequest {
   bucketRequestCategories  :: [Text],
   bucketRequestFilters     :: [Int64],
   bucketRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

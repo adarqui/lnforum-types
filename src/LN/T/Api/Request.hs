@@ -16,7 +16,7 @@ import           LN.T.Prelude
 data ApiRequest = ApiRequest {
   apiRequestComment :: Maybe Text,
   apiRequestGuard   :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

@@ -29,10 +29,10 @@ data TeamResponse = TeamResponse {
   teamResponseModifiedBy   :: Maybe Int64,
   teamResponseModifiedAt   :: Maybe UTCTime,
   teamResponseActivityAt   :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data TeamResponses = TeamResponses {
   teamResponses :: [TeamResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

@@ -16,7 +16,7 @@ data Substitutions
   | SubsOneOf [Text]
   | SubsAllOf [Text]
   | SubsBoth Substitutions Substitutions
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 
@@ -25,4 +25,4 @@ data TySubstitutions
   | TySubsOneOf
   | TySubsAllOf
   | TySubsBoth
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)

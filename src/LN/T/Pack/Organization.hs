@@ -28,10 +28,10 @@ data OrganizationPackResponse = OrganizationPackResponse {
   organizationPackResponseStar           :: Maybe StarResponse,
   organizationPackResponsePermissions    :: Permissions,
   organizationPackResponseTeams          :: [SystemTeam]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data OrganizationPackResponses = OrganizationPackResponses {
   organizationPackResponses :: [OrganizationPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

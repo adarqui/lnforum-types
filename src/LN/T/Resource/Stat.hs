@@ -19,10 +19,10 @@ data ResourceStatResponse = ResourceStatResponse {
   resourceStatResponseDislikes   :: Int64,
   resourceStatResponseStars      :: Int64,
   resourceStatResponseViews      :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ResourceStatResponses = ResourceStatResponses {
   resourceStatResponses :: [ResourceStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

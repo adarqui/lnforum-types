@@ -20,10 +20,10 @@ data WorkoutResponse = WorkoutResponse {
   workoutResponseDescription :: Maybe Text,
   workoutResponseCreatedAt   :: Maybe UTCTime,
   workoutResponseModifiedAt  :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data WorkoutResponses = WorkoutResponses {
   workoutResponses :: [WorkoutResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

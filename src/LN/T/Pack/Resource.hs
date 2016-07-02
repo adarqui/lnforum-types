@@ -26,10 +26,10 @@ data ResourcePackResponse = ResourcePackResponse {
   resourcePackResponseLike        :: Maybe LikeResponse,
   resourcePackResponseStar        :: Maybe StarResponse,
   resourcePackResponsePermissions :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ResourcePackResponses = ResourcePackResponses {
   resourcePackResponses :: [ResourcePackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

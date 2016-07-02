@@ -14,4 +14,4 @@ data UserSettingsRequest = UserSettingsRequest {
   userSettingsRequestShowEmail     :: Bool,
   userSettingsRequestShowOnline    :: Bool,
   userSettingsRequestPMEmailNotify :: Bool
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

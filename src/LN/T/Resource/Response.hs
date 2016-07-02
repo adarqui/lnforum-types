@@ -35,10 +35,10 @@ data ResourceResponse = ResourceResponse {
   resourceResponseCreatedAt     :: Maybe UTCTime,
   resourceResponseModifiedAt    :: Maybe UTCTime,
   resourceResponseActivityAt    :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ResourceResponses = ResourceResponses {
   resourceResponses :: [ResourceResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

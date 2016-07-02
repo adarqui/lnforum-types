@@ -24,10 +24,10 @@ data UserSanitizedPackResponse = UserSanitizedPackResponse {
   userSanitizedPackResponseStat      :: UserSanitizedStatResponse,
   userSanitizedPackResponseLike      :: Maybe LikeResponse,
   userSanitizedPackResponseStar      :: Maybe StarResponse
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data UserSanitizedPackResponses = UserSanitizedPackResponses {
   userSanitizedPackResponses :: [UserSanitizedPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

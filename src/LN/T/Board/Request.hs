@@ -23,7 +23,7 @@ data BoardRequest = BoardRequest {
   boardRequestIcon               :: Maybe Text,
   boardRequestTags               :: [Text],
   boardRequestGuard              :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

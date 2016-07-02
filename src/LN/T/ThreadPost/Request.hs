@@ -18,7 +18,7 @@ data ThreadPostRequest = ThreadPostRequest {
   threadPostRequestTags        :: [Text],
   threadPostRequestPrivateTags :: [Text],
   threadPostRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

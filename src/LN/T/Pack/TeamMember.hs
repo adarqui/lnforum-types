@@ -20,10 +20,10 @@ data TeamMemberPackResponse = TeamMemberPackResponse {
   teamMemberPackResponseTeamMember   :: TeamMemberResponse,
   teamMemberPackResponseTeamMemberId :: Int64,
   teamMemberPackResponsePermissions  :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data TeamMemberPackResponses = TeamMemberPackResponses {
   teamMemberPackResponses :: [TeamMemberPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

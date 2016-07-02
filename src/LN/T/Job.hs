@@ -21,7 +21,7 @@ data Job
   = Job_Nop               ()                       ()
   | Job_Ping              ()                       UTCTime
   | Job_CreateUserProfile (UserId, ProfileRequest) ProfileResponse
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

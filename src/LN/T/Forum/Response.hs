@@ -33,10 +33,10 @@ data ForumResponse = ForumResponse {
   forumResponseModifiedBy           :: Maybe Int64,
   forumResponseModifiedAt           :: Maybe UTCTime,
   forumResponseActivityAt           :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ForumResponses = ForumResponses {
   forumResponses :: [ForumResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

@@ -15,7 +15,7 @@ import           LN.T.Prelude
 data LeuronTrainingRequest = LeuronTrainingRequest {
   leuronTrainingRequestSummary :: LeuronTrainingSummary,
   leuronTrainingRequestGuard   :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

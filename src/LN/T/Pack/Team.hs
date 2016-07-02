@@ -23,10 +23,10 @@ data TeamPackResponse = TeamPackResponse {
   teamPackResponseTeamId      :: Int64,
   teamPackResponseStat        :: TeamStatResponse,
   teamPackResponsePermissions :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data TeamPackResponses = TeamPackResponses {
   teamPackResponses :: [TeamPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

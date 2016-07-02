@@ -22,10 +22,10 @@ data StarResponse = StarResponse {
   starResponseGuard      :: Int,
   starResponseCreatedAt  :: Maybe UTCTime,
   starResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data StarResponses = StarResponses {
   starResponses :: [StarResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

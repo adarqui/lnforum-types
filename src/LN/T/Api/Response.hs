@@ -19,10 +19,10 @@ data ApiResponse = ApiResponse {
   apiResponseGuard      :: Int,
   apiResponseCreatedAt  :: Maybe UTCTime,
   apiResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ApiResponses = ApiResponses {
   apiResponses :: [ApiResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

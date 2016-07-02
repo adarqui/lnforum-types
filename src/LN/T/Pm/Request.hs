@@ -16,7 +16,7 @@ data PmRequest = PmRequest {
   pmRequestSubject :: Text,
   pmRequestBody    :: Text,
   pmRequestGuard   :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

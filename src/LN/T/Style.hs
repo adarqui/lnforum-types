@@ -27,10 +27,10 @@ stylesName = "styles"
 data StyleResponse = StyleResponse {
   styleResponseId   :: Int64,
   styleResponseIcon :: Maybe Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data StyleResponses = StyleResponses {
   styleResponses :: [StyleResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

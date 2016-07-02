@@ -23,7 +23,7 @@ data GlobalGroupRequest = GlobalGroupRequest {
   globalGroupRequestTags        :: [Text],
   globalGroupRequestVisibility  :: Visibility,
   globalGroupRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

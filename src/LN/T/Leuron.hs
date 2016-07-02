@@ -43,7 +43,7 @@ import           LN.T.Substitutions as A
 
 data Fact = Fact {
   factText :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -51,49 +51,49 @@ data Fact = Fact {
 data FactList = FactList {
   factListFact :: Text,
   factListList :: [Text]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data Card = Card {
   cardFront :: Text,
   cardBack  :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data DCard = DCard {
   dcardFront :: Text,
   dcardBack  :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data DCardX = DCardX {
   dcardxFront :: [Text],
   dcardxBack  :: [Text]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data Acronym = Acronym {
   acronymAbbreviation :: Text,
   acronymMeaning      :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data Synonym = Synonym {
   synonymA :: Text,
   synonymB :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data Antonym = Antonym {
   antonymA :: Text,
   antonymB :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -102,7 +102,7 @@ type TemplateValue = (Text, [Text])
 data Template = Template {
   template       :: Text,
   templateValues :: [TemplateValue]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -110,7 +110,7 @@ data ImageAssociation = ImageAssociation {
   imageUrl    :: [Text],
   assocBy     :: [Text],
   assocResult :: [Text]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -118,7 +118,7 @@ data Script = Script {
   scriptTitle :: Text,
   scriptDesc  :: Text,
   scriptUrl   :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -132,7 +132,7 @@ type LinearDemoNode = (LDContent, LDHint)
 data LinearDemo = LinearDemo {
   linearDemoLabel   :: Text,
   linearDemoContent :: [LinearDemoNode]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -140,14 +140,14 @@ data Table = Table {
   tableTitle   :: Text,
   tableColumns :: [Text],
   tableRows    :: [[Maybe Text]]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data QA = QA {
   qaQuestion :: Text,
   qaAnswer   :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -168,7 +168,7 @@ data LeuronData
   | LnQA QA
   | LnExamples
   | LnEmpty
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 
@@ -189,7 +189,7 @@ data TyLeuron
   | TyLnQA
   | TyLnExamples
   | TyLnEmpty
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

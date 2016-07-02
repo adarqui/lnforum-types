@@ -25,10 +25,10 @@ data GroupPackResponse = GroupPackResponse {
   groupPackResponseOrganizationId :: Int64,
   groupPackResponseStat           :: GroupStatResponse,
   groupPackResponsePermissions    :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data GroupPackResponses = GroupPackResponses {
   groupPackResponses :: [GroupPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

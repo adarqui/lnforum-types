@@ -18,7 +18,7 @@ import           LN.T.Visibility
 data ReminderRequest = ReminderRequest {
   reminderRequestData  :: Text,
   reminderRequestGuard :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -35,7 +35,7 @@ data ReminderFolderRequest = ReminderFolderRequest {
   reminderFolderRequestDescription :: Maybe Text,
   reminderFolderRequestVisibility  :: Visibility,
   reminderFolderRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

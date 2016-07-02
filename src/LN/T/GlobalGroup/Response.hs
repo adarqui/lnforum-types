@@ -29,10 +29,10 @@ data GlobalGroupResponse = GlobalGroupResponse {
   globalGroupResponseModifiedBy  :: Maybe Int64,
   globalGroupResponseModifiedAt  :: Maybe UTCTime,
   globalGroupResponseActivityAt  :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data GlobalGroupResponses = GlobalGroupResponses {
   globalGroupResponses :: [GlobalGroupResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

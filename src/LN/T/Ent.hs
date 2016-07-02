@@ -33,4 +33,4 @@ data Ent
   | Ent_Like
   | Ent_Star
   | Ent_None
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)

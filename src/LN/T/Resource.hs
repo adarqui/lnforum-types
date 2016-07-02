@@ -22,7 +22,7 @@ data ResourceType
   | Song Text Text
   | Paper Text
   -}
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 
@@ -32,4 +32,4 @@ data TyResourceType
   | TyISBN
   | TyURL
   | TySourceNone
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)

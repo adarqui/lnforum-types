@@ -12,10 +12,10 @@ import           LN.T.Prelude
 
 
 data TeamMemberStatResponse = TeamMemberStatResponse {
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data TeamMemberStatResponses = TeamMemberStatResponses {
   teamMemberStatResponses :: [TeamMemberStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

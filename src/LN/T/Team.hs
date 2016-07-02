@@ -11,4 +11,4 @@ import           LN.T.Prelude
 data SystemTeam
   = Team_Owners
   | Team_Members
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)

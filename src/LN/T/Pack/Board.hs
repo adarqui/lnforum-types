@@ -33,10 +33,10 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseWithOrganization     :: Maybe OrganizationResponse,
   boardPackResponseWithForum            :: Maybe ForumResponse,
   boardPackResponsePermissions          :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data BoardPackResponses = BoardPackResponses {
   boardPackResponses :: [BoardPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

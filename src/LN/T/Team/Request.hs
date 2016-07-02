@@ -19,7 +19,7 @@ data TeamRequest = TeamRequest {
   teamRequestTags        :: [Text],
   teamRequestVisibility  :: Visibility,
   teamRequestGuard       :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

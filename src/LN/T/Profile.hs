@@ -16,7 +16,7 @@ data ProfileX = ProfileX {
   profileLogin :: Text,
   profileName  :: Text,
   profileEmail :: Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -24,7 +24,7 @@ data ProfileGender
   = GenderMale
   | GenderFemale
   | GenderUnknown
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

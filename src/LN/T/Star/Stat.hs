@@ -14,10 +14,10 @@ data StarStatResponse = StarStatResponse {
   starStatResponseEnt    :: Ent,
   starStatResponseEntId  :: Int64,
   starStatResponseStars  :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data StarStatResponses = StarStatResponses {
   starStatResponses :: [StarStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

@@ -14,4 +14,4 @@ data Size
   | Medium
   | Large
   | XLarge
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)

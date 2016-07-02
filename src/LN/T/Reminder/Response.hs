@@ -24,13 +24,13 @@ data ReminderResponse = ReminderResponse {
   reminderResponseCreatedAt      :: Maybe UTCTime,
   reminderResponseModifiedAt     :: Maybe UTCTime,
   reminderResponseActivityAt     :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ReminderResponses = ReminderResponses {
   reminderResponses :: [ReminderResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
@@ -47,10 +47,10 @@ data ReminderFolderResponse = ReminderFolderResponse {
   reminderFolderResponseCreatedAt      :: Maybe UTCTime,
   reminderFolderResponseModifiedAt     :: Maybe UTCTime,
   reminderFolderResponseActivityAt     :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ReminderFolderResponses = ReminderFolderResponses {
   reminderFolderResponses :: [ReminderFolderResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

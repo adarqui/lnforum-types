@@ -16,7 +16,7 @@ data LikeRequest = LikeRequest {
   likeRequestOpt    :: LikeOpt,
   likeRequestReason :: Maybe Text,
   likeRequestGuard  :: Int
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

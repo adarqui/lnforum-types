@@ -25,10 +25,10 @@ data ForumPackResponse = ForumPackResponse {
   forumPackResponseStar             :: Maybe StarResponse,
   forumPackResponseWithOrganization :: Maybe OrganizationResponse,
   forumPackResponsePermissions      :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ForumPackResponses = ForumPackResponses {
   forumPackResponses :: [ForumPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

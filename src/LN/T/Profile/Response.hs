@@ -28,10 +28,10 @@ data ProfileResponse = ProfileResponse {
   profileResponseGuard      :: Int,
   profileResponseCreatedAt  :: Maybe UTCTime,
   profileResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ProfileResponses = ProfileResponses {
   profileResponses :: [ProfileResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

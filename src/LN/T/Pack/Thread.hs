@@ -35,10 +35,10 @@ data ThreadPackResponse = ThreadPackResponse {
   threadPackResponseWithForum            :: Maybe ForumResponse,
   threadPackResponseWithBoard            :: Maybe BoardResponse,
   threadPackResponsePermissions              :: Permissions
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data ThreadPackResponses = ThreadPackResponses {
   threadPackResponses :: [ThreadPackResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

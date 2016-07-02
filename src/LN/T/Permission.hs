@@ -17,7 +17,7 @@ data Permission
   | Perm_Update
   | Perm_Delete
   | Perm_Execute
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

@@ -22,10 +22,10 @@ data GroupResponse = GroupResponse {
   groupResponseModifiedBy     :: Maybe Int64,
   groupResponseModifiedAt     :: Maybe UTCTime,
   groupResponseActivityAt     :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data GroupResponses = GroupResponses {
   groupResponses :: [GroupResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

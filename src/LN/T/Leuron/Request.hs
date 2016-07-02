@@ -31,7 +31,7 @@ data LeuronRequest = LeuronRequest {
   leuronRequestStyle         :: Maybe [Text],
   leuronRequestGuard         :: Int
 --  leuronRequestSpecificTo    :: Maybe Text,
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 

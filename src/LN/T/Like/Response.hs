@@ -25,10 +25,10 @@ data LikeResponse = LikeResponse {
   likeResponseGuard      :: Int,
   likeResponseCreatedAt  :: Maybe UTCTime,
   likeResponseModifiedAt :: Maybe UTCTime
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data LikeResponses = LikeResponses {
   likeResponses :: [LikeResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

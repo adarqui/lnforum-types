@@ -13,10 +13,10 @@ import           LN.T.Prelude
 
 data LeuronTrainingStatResponse = LeuronTrainingStatResponse {
   leuronTrainingStatResponseLeuronTrainingId :: Int64
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
 data LeuronTrainingStatResponses = LeuronTrainingStatResponses {
   leuronTrainingStatResponses :: [LeuronTrainingStatResponse]
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)

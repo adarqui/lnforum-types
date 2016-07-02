@@ -22,7 +22,7 @@ data ApplicationError
   | Error_InvalidArguments Text
   | Error_Unexpected
   | Error_Unknown
-  deriving (Eq, Ord, Show, Read, Generic, Typeable)
+  deriving (Generic, Typeable)
 
 
 

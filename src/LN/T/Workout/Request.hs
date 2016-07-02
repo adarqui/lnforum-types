@@ -16,7 +16,7 @@ data WorkoutRequest = WorkoutRequest {
   workoutRequestData        :: WorkoutData,
   workoutRequestTitle       :: Maybe Text,
   workoutRequestDescription :: Maybe Text
-} deriving (Eq, Ord, Show, Read, Generic, Typeable)
+} deriving (Generic, Typeable)
 
 
 
