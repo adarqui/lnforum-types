@@ -663,8 +663,8 @@ instance FromJSON Ent where
 
 
 instance ToJSON ApplicationError where
-  toJSON (Error_Empty ) = object $
-    [ "tag" .= ("Error_Empty" :: Text)
+  toJSON (Error_Unknown ) = object $
+    [ "tag" .= ("Error_Unknown" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (Error_NotFound ) = object $
@@ -687,9 +687,9 @@ instance ToJSON ApplicationError where
     [ "tag" .= ("Error_Membership" :: Text)
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (Error_Validation x0) = object $
+  toJSON (Error_Validation x0 x1) = object $
     [ "tag" .= ("Error_Validation" :: Text)
-    , "contents" .= [toJSON x0]
+    , "contents" .= [toJSON x0, toJSON x1]
     ]
   toJSON (Error_NotImplemented ) = object $
     [ "tag" .= ("Error_NotImplemented" :: Text)
@@ -703,18 +703,14 @@ instance ToJSON ApplicationError where
     [ "tag" .= ("Error_Unexpected" :: Text)
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (Error_Unknown ) = object $
-    [ "tag" .= ("Error_Unknown" :: Text)
-    , "contents" .= ([] :: [Text])
-    ]
 
 
 instance FromJSON ApplicationError where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
     case tag of
-      ("Error_Empty" :: Text) -> do
-        pure Error_Empty
+      ("Error_Unknown" :: Text) -> do
+        pure Error_Unknown
 
       ("Error_NotFound" :: Text) -> do
         pure Error_NotFound
@@ -734,7 +730,7 @@ instance FromJSON ApplicationError where
       ("Error_Validation" :: Text) -> do
         r <- o .: "contents"
         case r of
-          [x0] -> Error_Validation <$> parseJSON x0
+          [x0, x1] -> Error_Validation <$> parseJSON x0 <*> parseJSON x1
           _ -> fail "FromJON Typemismatch: Error_Validation"
 
       ("Error_NotImplemented" :: Text) -> do
@@ -749,10 +745,82 @@ instance FromJSON ApplicationError where
       ("Error_Unexpected" :: Text) -> do
         pure Error_Unexpected
 
-      ("Error_Unknown" :: Text) -> do
-        pure Error_Unknown
-
       _ -> fail "Could not parse ApplicationError"
+
+  parseJSON x = fail $ "Could not parse object: " <> show x
+
+
+instance ToJSON ValidationError where
+  toJSON (Validate_Unknown ) = object $
+    [ "tag" .= ("Validate_Unknown" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_InvalidCharacters ) = object $
+    [ "tag" .= ("Validate_InvalidCharacters" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_InvalidEmail ) = object $
+    [ "tag" .= ("Validate_InvalidEmail" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_InvalidDate ) = object $
+    [ "tag" .= ("Validate_InvalidDate" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_CannotBeEmpty ) = object $
+    [ "tag" .= ("Validate_CannotBeEmpty" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_TooLong ) = object $
+    [ "tag" .= ("Validate_TooLong" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_TooShort ) = object $
+    [ "tag" .= ("Validate_TooShort" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_GreaterThanMaximum ) = object $
+    [ "tag" .= ("Validate_GreaterThanMaximum" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+  toJSON (Validate_SmallerThanMinimum ) = object $
+    [ "tag" .= ("Validate_SmallerThanMinimum" :: Text)
+    , "contents" .= ([] :: [Text])
+    ]
+
+
+instance FromJSON ValidationError where
+  parseJSON (Object o) = do
+    tag <- o .: ("tag" :: Text)
+    case tag of
+      ("Validate_Unknown" :: Text) -> do
+        pure Validate_Unknown
+
+      ("Validate_InvalidCharacters" :: Text) -> do
+        pure Validate_InvalidCharacters
+
+      ("Validate_InvalidEmail" :: Text) -> do
+        pure Validate_InvalidEmail
+
+      ("Validate_InvalidDate" :: Text) -> do
+        pure Validate_InvalidDate
+
+      ("Validate_CannotBeEmpty" :: Text) -> do
+        pure Validate_CannotBeEmpty
+
+      ("Validate_TooLong" :: Text) -> do
+        pure Validate_TooLong
+
+      ("Validate_TooShort" :: Text) -> do
+        pure Validate_TooShort
+
+      ("Validate_GreaterThanMaximum" :: Text) -> do
+        pure Validate_GreaterThanMaximum
+
+      ("Validate_SmallerThanMinimum" :: Text) -> do
+        pure Validate_SmallerThanMinimum
+
+      _ -> fail "Could not parse ValidationError"
 
   parseJSON x = fail $ "Could not parse object: " <> show x
 
