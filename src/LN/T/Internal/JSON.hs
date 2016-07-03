@@ -52,6 +52,11 @@ instance Eq ACL where
   (==) ACL_Deny ACL_Deny = True
   (==) _ _ = False
 
+instance Show ACL where
+  show (ACL_Grant x0) = "acl_grant: " <> show x0
+  show ACL_Deny = "deny"
+
+
 instance FromJSON ApiRequest where
   parseJSON (Object o) = do
     apiRequestComment <- o .: ("comment" :: Text)
@@ -73,6 +78,9 @@ instance ToJSON ApiRequest where
 
 instance Eq ApiRequest where
   (==) a b = apiRequestComment a == apiRequestComment b && apiRequestGuard a == apiRequestGuard b
+
+instance Show ApiRequest where
+    show rec = "apiRequestComment: " <> show (apiRequestComment rec) <> ", " <> "apiRequestGuard: " <> show (apiRequestGuard rec)
 
 instance FromJSON ApiResponse where
   parseJSON (Object o) = do
@@ -111,6 +119,9 @@ instance ToJSON ApiResponse where
 instance Eq ApiResponse where
   (==) a b = apiResponseId a == apiResponseId b && apiResponseUserId a == apiResponseUserId b && apiResponseKey a == apiResponseKey b && apiResponseComment a == apiResponseComment b && apiResponseGuard a == apiResponseGuard b && apiResponseCreatedAt a == apiResponseCreatedAt b && apiResponseModifiedAt a == apiResponseModifiedAt b
 
+instance Show ApiResponse where
+    show rec = "apiResponseId: " <> show (apiResponseId rec) <> ", " <> "apiResponseUserId: " <> show (apiResponseUserId rec) <> ", " <> "apiResponseKey: " <> show (apiResponseKey rec) <> ", " <> "apiResponseComment: " <> show (apiResponseComment rec) <> ", " <> "apiResponseGuard: " <> show (apiResponseGuard rec) <> ", " <> "apiResponseCreatedAt: " <> show (apiResponseCreatedAt rec) <> ", " <> "apiResponseModifiedAt: " <> show (apiResponseModifiedAt rec)
+
 instance FromJSON ApiResponses where
   parseJSON (Object o) = do
     apiResponses <- o .: ("api_responses" :: Text)
@@ -129,6 +140,9 @@ instance ToJSON ApiResponses where
 
 instance Eq ApiResponses where
   (==) a b = apiResponses a == apiResponses b
+
+instance Show ApiResponses where
+    show rec = "apiResponses: " <> show (apiResponses rec)
 
 instance FromJSON BoardRequest where
   parseJSON (Object o) = do
@@ -172,6 +186,9 @@ instance ToJSON BoardRequest where
 
 instance Eq BoardRequest where
   (==) a b = boardRequestDisplayName a == boardRequestDisplayName b && boardRequestDescription a == boardRequestDescription b && boardRequestIsAnonymous a == boardRequestIsAnonymous b && boardRequestCanCreateSubBoards a == boardRequestCanCreateSubBoards b && boardRequestCanCreateThreads a == boardRequestCanCreateThreads b && boardRequestSuggestedTags a == boardRequestSuggestedTags b && boardRequestIcon a == boardRequestIcon b && boardRequestTags a == boardRequestTags b && boardRequestGuard a == boardRequestGuard b
+
+instance Show BoardRequest where
+    show rec = "boardRequestDisplayName: " <> show (boardRequestDisplayName rec) <> ", " <> "boardRequestDescription: " <> show (boardRequestDescription rec) <> ", " <> "boardRequestIsAnonymous: " <> show (boardRequestIsAnonymous rec) <> ", " <> "boardRequestCanCreateSubBoards: " <> show (boardRequestCanCreateSubBoards rec) <> ", " <> "boardRequestCanCreateThreads: " <> show (boardRequestCanCreateThreads rec) <> ", " <> "boardRequestSuggestedTags: " <> show (boardRequestSuggestedTags rec) <> ", " <> "boardRequestIcon: " <> show (boardRequestIcon rec) <> ", " <> "boardRequestTags: " <> show (boardRequestTags rec) <> ", " <> "boardRequestGuard: " <> show (boardRequestGuard rec)
 
 instance FromJSON BoardResponse where
   parseJSON (Object o) = do
@@ -249,6 +266,9 @@ instance ToJSON BoardResponse where
 instance Eq BoardResponse where
   (==) a b = boardResponseId a == boardResponseId b && boardResponseUserId a == boardResponseUserId b && boardResponseOrgId a == boardResponseOrgId b && boardResponseForumId a == boardResponseForumId b && boardResponseParentId a == boardResponseParentId b && boardResponseName a == boardResponseName b && boardResponseDisplayName a == boardResponseDisplayName b && boardResponseDescription a == boardResponseDescription b && boardResponseIsAnonymous a == boardResponseIsAnonymous b && boardResponseCanCreateSubBoards a == boardResponseCanCreateSubBoards b && boardResponseCanCreateThreads a == boardResponseCanCreateThreads b && boardResponseSuggestedTags a == boardResponseSuggestedTags b && boardResponseIcon a == boardResponseIcon b && boardResponseTags a == boardResponseTags b && boardResponseActive a == boardResponseActive b && boardResponseGuard a == boardResponseGuard b && boardResponseCreatedAt a == boardResponseCreatedAt b && boardResponseModifiedBy a == boardResponseModifiedBy b && boardResponseModifiedAt a == boardResponseModifiedAt b && boardResponseActivityAt a == boardResponseActivityAt b
 
+instance Show BoardResponse where
+    show rec = "boardResponseId: " <> show (boardResponseId rec) <> ", " <> "boardResponseUserId: " <> show (boardResponseUserId rec) <> ", " <> "boardResponseOrgId: " <> show (boardResponseOrgId rec) <> ", " <> "boardResponseForumId: " <> show (boardResponseForumId rec) <> ", " <> "boardResponseParentId: " <> show (boardResponseParentId rec) <> ", " <> "boardResponseName: " <> show (boardResponseName rec) <> ", " <> "boardResponseDisplayName: " <> show (boardResponseDisplayName rec) <> ", " <> "boardResponseDescription: " <> show (boardResponseDescription rec) <> ", " <> "boardResponseIsAnonymous: " <> show (boardResponseIsAnonymous rec) <> ", " <> "boardResponseCanCreateSubBoards: " <> show (boardResponseCanCreateSubBoards rec) <> ", " <> "boardResponseCanCreateThreads: " <> show (boardResponseCanCreateThreads rec) <> ", " <> "boardResponseSuggestedTags: " <> show (boardResponseSuggestedTags rec) <> ", " <> "boardResponseIcon: " <> show (boardResponseIcon rec) <> ", " <> "boardResponseTags: " <> show (boardResponseTags rec) <> ", " <> "boardResponseActive: " <> show (boardResponseActive rec) <> ", " <> "boardResponseGuard: " <> show (boardResponseGuard rec) <> ", " <> "boardResponseCreatedAt: " <> show (boardResponseCreatedAt rec) <> ", " <> "boardResponseModifiedBy: " <> show (boardResponseModifiedBy rec) <> ", " <> "boardResponseModifiedAt: " <> show (boardResponseModifiedAt rec) <> ", " <> "boardResponseActivityAt: " <> show (boardResponseActivityAt rec)
+
 instance FromJSON BoardResponses where
   parseJSON (Object o) = do
     boardResponses <- o .: ("board_responses" :: Text)
@@ -267,6 +287,9 @@ instance ToJSON BoardResponses where
 
 instance Eq BoardResponses where
   (==) a b = boardResponses a == boardResponses b
+
+instance Show BoardResponses where
+    show rec = "boardResponses: " <> show (boardResponses rec)
 
 instance FromJSON BoardStatResponse where
   parseJSON (Object o) = do
@@ -296,6 +319,9 @@ instance ToJSON BoardStatResponse where
 instance Eq BoardStatResponse where
   (==) a b = boardStatResponseBoardId a == boardStatResponseBoardId b && boardStatResponseThreads a == boardStatResponseThreads b && boardStatResponseThreadPosts a == boardStatResponseThreadPosts b && boardStatResponseViews a == boardStatResponseViews b
 
+instance Show BoardStatResponse where
+    show rec = "boardStatResponseBoardId: " <> show (boardStatResponseBoardId rec) <> ", " <> "boardStatResponseThreads: " <> show (boardStatResponseThreads rec) <> ", " <> "boardStatResponseThreadPosts: " <> show (boardStatResponseThreadPosts rec) <> ", " <> "boardStatResponseViews: " <> show (boardStatResponseViews rec)
+
 instance FromJSON BoardStatResponses where
   parseJSON (Object o) = do
     boardStatResponses <- o .: ("board_stat_responses" :: Text)
@@ -314,6 +340,9 @@ instance ToJSON BoardStatResponses where
 
 instance Eq BoardStatResponses where
   (==) a b = boardStatResponses a == boardStatResponses b
+
+instance Show BoardStatResponses where
+    show rec = "boardStatResponses: " <> show (boardStatResponses rec)
 
 instance FromJSON BucketRequest where
   parseJSON (Object o) = do
@@ -357,6 +386,9 @@ instance ToJSON BucketRequest where
 
 instance Eq BucketRequest where
   (==) a b = bucketRequestDisplayName a == bucketRequestDisplayName b && bucketRequestDescription a == bucketRequestDescription b && bucketRequestScoreLo a == bucketRequestScoreLo b && bucketRequestScoreHi a == bucketRequestScoreHi b && bucketRequestLeurons a == bucketRequestLeurons b && bucketRequestResources a == bucketRequestResources b && bucketRequestCategories a == bucketRequestCategories b && bucketRequestFilters a == bucketRequestFilters b && bucketRequestGuard a == bucketRequestGuard b
+
+instance Show BucketRequest where
+    show rec = "bucketRequestDisplayName: " <> show (bucketRequestDisplayName rec) <> ", " <> "bucketRequestDescription: " <> show (bucketRequestDescription rec) <> ", " <> "bucketRequestScoreLo: " <> show (bucketRequestScoreLo rec) <> ", " <> "bucketRequestScoreHi: " <> show (bucketRequestScoreHi rec) <> ", " <> "bucketRequestLeurons: " <> show (bucketRequestLeurons rec) <> ", " <> "bucketRequestResources: " <> show (bucketRequestResources rec) <> ", " <> "bucketRequestCategories: " <> show (bucketRequestCategories rec) <> ", " <> "bucketRequestFilters: " <> show (bucketRequestFilters rec) <> ", " <> "bucketRequestGuard: " <> show (bucketRequestGuard rec)
 
 instance FromJSON BucketResponse where
   parseJSON (Object o) = do
@@ -422,6 +454,9 @@ instance ToJSON BucketResponse where
 instance Eq BucketResponse where
   (==) a b = bucketResponseId a == bucketResponseId b && bucketResponseUserId a == bucketResponseUserId b && bucketResponseName a == bucketResponseName b && bucketResponseDisplayName a == bucketResponseDisplayName b && bucketResponseDescription a == bucketResponseDescription b && bucketResponseScoreLo a == bucketResponseScoreLo b && bucketResponseScoreHi a == bucketResponseScoreHi b && bucketResponseLeurons a == bucketResponseLeurons b && bucketResponseResources a == bucketResponseResources b && bucketResponseCategories a == bucketResponseCategories b && bucketResponseFilters a == bucketResponseFilters b && bucketResponseActive a == bucketResponseActive b && bucketResponseGuard a == bucketResponseGuard b && bucketResponseCreatedAt a == bucketResponseCreatedAt b && bucketResponseModifiedAt a == bucketResponseModifiedAt b && bucketResponseActivityAt a == bucketResponseActivityAt b
 
+instance Show BucketResponse where
+    show rec = "bucketResponseId: " <> show (bucketResponseId rec) <> ", " <> "bucketResponseUserId: " <> show (bucketResponseUserId rec) <> ", " <> "bucketResponseName: " <> show (bucketResponseName rec) <> ", " <> "bucketResponseDisplayName: " <> show (bucketResponseDisplayName rec) <> ", " <> "bucketResponseDescription: " <> show (bucketResponseDescription rec) <> ", " <> "bucketResponseScoreLo: " <> show (bucketResponseScoreLo rec) <> ", " <> "bucketResponseScoreHi: " <> show (bucketResponseScoreHi rec) <> ", " <> "bucketResponseLeurons: " <> show (bucketResponseLeurons rec) <> ", " <> "bucketResponseResources: " <> show (bucketResponseResources rec) <> ", " <> "bucketResponseCategories: " <> show (bucketResponseCategories rec) <> ", " <> "bucketResponseFilters: " <> show (bucketResponseFilters rec) <> ", " <> "bucketResponseActive: " <> show (bucketResponseActive rec) <> ", " <> "bucketResponseGuard: " <> show (bucketResponseGuard rec) <> ", " <> "bucketResponseCreatedAt: " <> show (bucketResponseCreatedAt rec) <> ", " <> "bucketResponseModifiedAt: " <> show (bucketResponseModifiedAt rec) <> ", " <> "bucketResponseActivityAt: " <> show (bucketResponseActivityAt rec)
+
 instance FromJSON BucketResponses where
   parseJSON (Object o) = do
     bucketResponses <- o .: ("bucket_responses" :: Text)
@@ -440,6 +475,9 @@ instance ToJSON BucketResponses where
 
 instance Eq BucketResponses where
   (==) a b = bucketResponses a == bucketResponses b
+
+instance Show BucketResponses where
+    show rec = "bucketResponses: " <> show (bucketResponses rec)
 
 instance FromJSON CountResponse where
   parseJSON (Object o) = do
@@ -463,6 +501,9 @@ instance ToJSON CountResponse where
 instance Eq CountResponse where
   (==) a b = countResponseId a == countResponseId b && countResponseN a == countResponseN b
 
+instance Show CountResponse where
+    show rec = "countResponseId: " <> show (countResponseId rec) <> ", " <> "countResponseN: " <> show (countResponseN rec)
+
 instance FromJSON CountResponses where
   parseJSON (Object o) = do
     countResponses <- o .: ("count_responses" :: Text)
@@ -482,6 +523,9 @@ instance ToJSON CountResponses where
 instance Eq CountResponses where
   (==) a b = countResponses a == countResponses b
 
+instance Show CountResponses where
+    show rec = "countResponses: " <> show (countResponses rec)
+
 instance FromJSON EmptyRequest where
   parseJSON (Object o) = do
     emptyRequestValue <- o .: ("value" :: Text)
@@ -500,6 +544,9 @@ instance ToJSON EmptyRequest where
 
 instance Eq EmptyRequest where
   (==) a b = emptyRequestValue a == emptyRequestValue b
+
+instance Show EmptyRequest where
+    show rec = "emptyRequestValue: " <> show (emptyRequestValue rec)
 
 instance FromJSON EmptyResponse where
   parseJSON (Object o) = do
@@ -532,6 +579,9 @@ instance ToJSON EmptyResponse where
 instance Eq EmptyResponse where
   (==) a b = emptyResponseId a == emptyResponseId b && emptyResponseUserId a == emptyResponseUserId b && emptyResponseValue a == emptyResponseValue b && emptyResponseCreatedAt a == emptyResponseCreatedAt b && emptyResponseModifiedAt a == emptyResponseModifiedAt b
 
+instance Show EmptyResponse where
+    show rec = "emptyResponseId: " <> show (emptyResponseId rec) <> ", " <> "emptyResponseUserId: " <> show (emptyResponseUserId rec) <> ", " <> "emptyResponseValue: " <> show (emptyResponseValue rec) <> ", " <> "emptyResponseCreatedAt: " <> show (emptyResponseCreatedAt rec) <> ", " <> "emptyResponseModifiedAt: " <> show (emptyResponseModifiedAt rec)
+
 instance FromJSON EmptyResponses where
   parseJSON (Object o) = do
     emptyResponses <- o .: ("empty_responses" :: Text)
@@ -550,6 +600,9 @@ instance ToJSON EmptyResponses where
 
 instance Eq EmptyResponses where
   (==) a b = emptyResponses a == emptyResponses b
+
+instance Show EmptyResponses where
+    show rec = "emptyResponses: " <> show (emptyResponses rec)
 
 instance FromJSON Ent where
   parseJSON (Object o) = do
@@ -742,6 +795,31 @@ instance Eq Ent where
   (==) Ent_None Ent_None = True
   (==) _ _ = False
 
+instance Show Ent where
+  show Ent_Organization = "organization"
+  show Ent_Team = "team"
+  show Ent_TeamMember = "team_member"
+  show Ent_GlobalGroup = "global_group"
+  show Ent_Group = "group"
+  show Ent_GroupMember = "group_member"
+  show Ent_User = "user"
+  show Ent_UserSanitized = "user_sanitized"
+  show Ent_Forum = "forum"
+  show Ent_Board = "board"
+  show Ent_Thread = "thread"
+  show Ent_ThreadPost = "thread_post"
+  show Ent_Blog = "blog"
+  show Ent_BlogPost = "blog_post"
+  show Ent_BlogComment = "blog_comment"
+  show Ent_Resource = "resource"
+  show Ent_Leuron = "leuron"
+  show Ent_Comment = "comment"
+  show Ent_Api = "api"
+  show Ent_Like = "like"
+  show Ent_Star = "star"
+  show Ent_None = "none"
+
+
 instance FromJSON ApplicationError where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -843,6 +921,19 @@ instance Eq ApplicationError where
   (==) Error_Unexpected Error_Unexpected = True
   (==) _ _ = False
 
+instance Show ApplicationError where
+  show Error_Unknown = "error_unknown"
+  show Error_NotFound = "error_not_found"
+  show Error_PermissionDenied = "error_permission_denied"
+  show Error_AlreadyExists = "error_already_exists"
+  show Error_Visibility = "error_visibility"
+  show Error_Membership = "error_membership"
+  show (Error_Validation x0) = "error_validation: " <> show x0
+  show Error_NotImplemented = "error_not_implemented"
+  show (Error_InvalidArguments x0) = "error_invalid_arguments: " <> show x0
+  show Error_Unexpected = "error_unexpected"
+
+
 instance FromJSON ValidationError where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -867,6 +958,10 @@ instance ToJSON ValidationError where
 
 instance Eq ValidationError where
   (==) (Validate x0a x1a) (Validate x0b x1b) = x0a == x0b && x1a == x1b
+
+
+instance Show ValidationError where
+  show (Validate x0 x1) = "validate: " <> show x0 <> " " <> show x1
 
 
 instance FromJSON ValidationErrorCode where
@@ -967,6 +1062,19 @@ instance Eq ValidationErrorCode where
   (==) (Validate_Reason x0a) (Validate_Reason x0b) = x0a == x0b
   (==) _ _ = False
 
+instance Show ValidationErrorCode where
+  show Validate_Unknown = "validate_unknown"
+  show Validate_InvalidCharacters = "validate_invalid_characters"
+  show Validate_InvalidEmail = "validate_invalid_email"
+  show Validate_InvalidDate = "validate_invalid_date"
+  show Validate_CannotBeEmpty = "validate_cannot_be_empty"
+  show Validate_TooLong = "validate_too_long"
+  show Validate_TooShort = "validate_too_short"
+  show Validate_GreaterThanMaximum = "validate_greater_than_maximum"
+  show Validate_SmallerThanMinimum = "validate_smaller_than_minimum"
+  show (Validate_Reason x0) = "validate_reason: " <> show x0
+
+
 instance FromJSON ForumRequest where
   parseJSON (Object o) = do
     forumRequestDisplayName <- o .: ("display_name" :: Text)
@@ -1015,6 +1123,9 @@ instance ToJSON ForumRequest where
 
 instance Eq ForumRequest where
   (==) a b = forumRequestDisplayName a == forumRequestDisplayName b && forumRequestDescription a == forumRequestDescription b && forumRequestThreadsPerBoard a == forumRequestThreadsPerBoard b && forumRequestThreadPostsPerThread a == forumRequestThreadPostsPerThread b && forumRequestRecentThreadsLimit a == forumRequestRecentThreadsLimit b && forumRequestRecentPostsLimit a == forumRequestRecentPostsLimit b && forumRequestMotwLimit a == forumRequestMotwLimit b && forumRequestIcon a == forumRequestIcon b && forumRequestTags a == forumRequestTags b && forumRequestVisibility a == forumRequestVisibility b && forumRequestGuard a == forumRequestGuard b
+
+instance Show ForumRequest where
+    show rec = "forumRequestDisplayName: " <> show (forumRequestDisplayName rec) <> ", " <> "forumRequestDescription: " <> show (forumRequestDescription rec) <> ", " <> "forumRequestThreadsPerBoard: " <> show (forumRequestThreadsPerBoard rec) <> ", " <> "forumRequestThreadPostsPerThread: " <> show (forumRequestThreadPostsPerThread rec) <> ", " <> "forumRequestRecentThreadsLimit: " <> show (forumRequestRecentThreadsLimit rec) <> ", " <> "forumRequestRecentPostsLimit: " <> show (forumRequestRecentPostsLimit rec) <> ", " <> "forumRequestMotwLimit: " <> show (forumRequestMotwLimit rec) <> ", " <> "forumRequestIcon: " <> show (forumRequestIcon rec) <> ", " <> "forumRequestTags: " <> show (forumRequestTags rec) <> ", " <> "forumRequestVisibility: " <> show (forumRequestVisibility rec) <> ", " <> "forumRequestGuard: " <> show (forumRequestGuard rec)
 
 instance FromJSON ForumResponse where
   parseJSON (Object o) = do
@@ -1092,6 +1203,9 @@ instance ToJSON ForumResponse where
 instance Eq ForumResponse where
   (==) a b = forumResponseId a == forumResponseId b && forumResponseUserId a == forumResponseUserId b && forumResponseOrgId a == forumResponseOrgId b && forumResponseName a == forumResponseName b && forumResponseDisplayName a == forumResponseDisplayName b && forumResponseDescription a == forumResponseDescription b && forumResponseThreadsPerBoard a == forumResponseThreadsPerBoard b && forumResponseThreadPostsPerThread a == forumResponseThreadPostsPerThread b && forumResponseRecentThreadsLimit a == forumResponseRecentThreadsLimit b && forumResponseRecentPostsLimit a == forumResponseRecentPostsLimit b && forumResponseMotwLimit a == forumResponseMotwLimit b && forumResponseIcon a == forumResponseIcon b && forumResponseTags a == forumResponseTags b && forumResponseVisibility a == forumResponseVisibility b && forumResponseActive a == forumResponseActive b && forumResponseGuard a == forumResponseGuard b && forumResponseCreatedAt a == forumResponseCreatedAt b && forumResponseModifiedBy a == forumResponseModifiedBy b && forumResponseModifiedAt a == forumResponseModifiedAt b && forumResponseActivityAt a == forumResponseActivityAt b
 
+instance Show ForumResponse where
+    show rec = "forumResponseId: " <> show (forumResponseId rec) <> ", " <> "forumResponseUserId: " <> show (forumResponseUserId rec) <> ", " <> "forumResponseOrgId: " <> show (forumResponseOrgId rec) <> ", " <> "forumResponseName: " <> show (forumResponseName rec) <> ", " <> "forumResponseDisplayName: " <> show (forumResponseDisplayName rec) <> ", " <> "forumResponseDescription: " <> show (forumResponseDescription rec) <> ", " <> "forumResponseThreadsPerBoard: " <> show (forumResponseThreadsPerBoard rec) <> ", " <> "forumResponseThreadPostsPerThread: " <> show (forumResponseThreadPostsPerThread rec) <> ", " <> "forumResponseRecentThreadsLimit: " <> show (forumResponseRecentThreadsLimit rec) <> ", " <> "forumResponseRecentPostsLimit: " <> show (forumResponseRecentPostsLimit rec) <> ", " <> "forumResponseMotwLimit: " <> show (forumResponseMotwLimit rec) <> ", " <> "forumResponseIcon: " <> show (forumResponseIcon rec) <> ", " <> "forumResponseTags: " <> show (forumResponseTags rec) <> ", " <> "forumResponseVisibility: " <> show (forumResponseVisibility rec) <> ", " <> "forumResponseActive: " <> show (forumResponseActive rec) <> ", " <> "forumResponseGuard: " <> show (forumResponseGuard rec) <> ", " <> "forumResponseCreatedAt: " <> show (forumResponseCreatedAt rec) <> ", " <> "forumResponseModifiedBy: " <> show (forumResponseModifiedBy rec) <> ", " <> "forumResponseModifiedAt: " <> show (forumResponseModifiedAt rec) <> ", " <> "forumResponseActivityAt: " <> show (forumResponseActivityAt rec)
+
 instance FromJSON ForumResponses where
   parseJSON (Object o) = do
     forumResponses <- o .: ("forum_responses" :: Text)
@@ -1110,6 +1224,9 @@ instance ToJSON ForumResponses where
 
 instance Eq ForumResponses where
   (==) a b = forumResponses a == forumResponses b
+
+instance Show ForumResponses where
+    show rec = "forumResponses: " <> show (forumResponses rec)
 
 instance FromJSON ForumStatResponse where
   parseJSON (Object o) = do
@@ -1142,6 +1259,9 @@ instance ToJSON ForumStatResponse where
 instance Eq ForumStatResponse where
   (==) a b = forumStatResponseForumId a == forumStatResponseForumId b && forumStatResponseBoards a == forumStatResponseBoards b && forumStatResponseThreads a == forumStatResponseThreads b && forumStatResponseThreadPosts a == forumStatResponseThreadPosts b && forumStatResponseViews a == forumStatResponseViews b
 
+instance Show ForumStatResponse where
+    show rec = "forumStatResponseForumId: " <> show (forumStatResponseForumId rec) <> ", " <> "forumStatResponseBoards: " <> show (forumStatResponseBoards rec) <> ", " <> "forumStatResponseThreads: " <> show (forumStatResponseThreads rec) <> ", " <> "forumStatResponseThreadPosts: " <> show (forumStatResponseThreadPosts rec) <> ", " <> "forumStatResponseViews: " <> show (forumStatResponseViews rec)
+
 instance FromJSON ForumStatResponses where
   parseJSON (Object o) = do
     forumStatResponses <- o .: ("forum_stat_responses" :: Text)
@@ -1160,6 +1280,9 @@ instance ToJSON ForumStatResponses where
 
 instance Eq ForumStatResponses where
   (==) a b = forumStatResponses a == forumStatResponses b
+
+instance Show ForumStatResponses where
+    show rec = "forumStatResponses: " <> show (forumStatResponses rec)
 
 instance FromJSON GlobalGroupRequest where
   parseJSON (Object o) = do
@@ -1197,6 +1320,9 @@ instance ToJSON GlobalGroupRequest where
 
 instance Eq GlobalGroupRequest where
   (==) a b = globalGroupRequestDisplayName a == globalGroupRequestDisplayName b && globalGroupRequestDescription a == globalGroupRequestDescription b && globalGroupRequestMembership a == globalGroupRequestMembership b && globalGroupRequestIcon a == globalGroupRequestIcon b && globalGroupRequestTags a == globalGroupRequestTags b && globalGroupRequestVisibility a == globalGroupRequestVisibility b && globalGroupRequestGuard a == globalGroupRequestGuard b
+
+instance Show GlobalGroupRequest where
+    show rec = "globalGroupRequestDisplayName: " <> show (globalGroupRequestDisplayName rec) <> ", " <> "globalGroupRequestDescription: " <> show (globalGroupRequestDescription rec) <> ", " <> "globalGroupRequestMembership: " <> show (globalGroupRequestMembership rec) <> ", " <> "globalGroupRequestIcon: " <> show (globalGroupRequestIcon rec) <> ", " <> "globalGroupRequestTags: " <> show (globalGroupRequestTags rec) <> ", " <> "globalGroupRequestVisibility: " <> show (globalGroupRequestVisibility rec) <> ", " <> "globalGroupRequestGuard: " <> show (globalGroupRequestGuard rec)
 
 instance FromJSON GlobalGroupResponse where
   parseJSON (Object o) = do
@@ -1259,6 +1385,9 @@ instance ToJSON GlobalGroupResponse where
 instance Eq GlobalGroupResponse where
   (==) a b = globalGroupResponseId a == globalGroupResponseId b && globalGroupResponseUserId a == globalGroupResponseUserId b && globalGroupResponseName a == globalGroupResponseName b && globalGroupResponseDisplayName a == globalGroupResponseDisplayName b && globalGroupResponseDescription a == globalGroupResponseDescription b && globalGroupResponseMembership a == globalGroupResponseMembership b && globalGroupResponseIcon a == globalGroupResponseIcon b && globalGroupResponseTags a == globalGroupResponseTags b && globalGroupResponseVisibility a == globalGroupResponseVisibility b && globalGroupResponseActive a == globalGroupResponseActive b && globalGroupResponseGuard a == globalGroupResponseGuard b && globalGroupResponseCreatedAt a == globalGroupResponseCreatedAt b && globalGroupResponseModifiedBy a == globalGroupResponseModifiedBy b && globalGroupResponseModifiedAt a == globalGroupResponseModifiedAt b && globalGroupResponseActivityAt a == globalGroupResponseActivityAt b
 
+instance Show GlobalGroupResponse where
+    show rec = "globalGroupResponseId: " <> show (globalGroupResponseId rec) <> ", " <> "globalGroupResponseUserId: " <> show (globalGroupResponseUserId rec) <> ", " <> "globalGroupResponseName: " <> show (globalGroupResponseName rec) <> ", " <> "globalGroupResponseDisplayName: " <> show (globalGroupResponseDisplayName rec) <> ", " <> "globalGroupResponseDescription: " <> show (globalGroupResponseDescription rec) <> ", " <> "globalGroupResponseMembership: " <> show (globalGroupResponseMembership rec) <> ", " <> "globalGroupResponseIcon: " <> show (globalGroupResponseIcon rec) <> ", " <> "globalGroupResponseTags: " <> show (globalGroupResponseTags rec) <> ", " <> "globalGroupResponseVisibility: " <> show (globalGroupResponseVisibility rec) <> ", " <> "globalGroupResponseActive: " <> show (globalGroupResponseActive rec) <> ", " <> "globalGroupResponseGuard: " <> show (globalGroupResponseGuard rec) <> ", " <> "globalGroupResponseCreatedAt: " <> show (globalGroupResponseCreatedAt rec) <> ", " <> "globalGroupResponseModifiedBy: " <> show (globalGroupResponseModifiedBy rec) <> ", " <> "globalGroupResponseModifiedAt: " <> show (globalGroupResponseModifiedAt rec) <> ", " <> "globalGroupResponseActivityAt: " <> show (globalGroupResponseActivityAt rec)
+
 instance FromJSON GlobalGroupResponses where
   parseJSON (Object o) = do
     globalGroupResponses <- o .: ("global_group_responses" :: Text)
@@ -1277,6 +1406,9 @@ instance ToJSON GlobalGroupResponses where
 
 instance Eq GlobalGroupResponses where
   (==) a b = globalGroupResponses a == globalGroupResponses b
+
+instance Show GlobalGroupResponses where
+    show rec = "globalGroupResponses: " <> show (globalGroupResponses rec)
 
 instance FromJSON GlobalGroupStatResponse where
   parseJSON (Object o) = do
@@ -1297,6 +1429,9 @@ instance ToJSON GlobalGroupStatResponse where
 instance Eq GlobalGroupStatResponse where
   (==) a b = globalGroupStatResponseGroups a == globalGroupStatResponseGroups b
 
+instance Show GlobalGroupStatResponse where
+    show rec = "globalGroupStatResponseGroups: " <> show (globalGroupStatResponseGroups rec)
+
 instance FromJSON GlobalGroupStatResponses where
   parseJSON (Object o) = do
     globalGroupStatResponses <- o .: ("global_group_stat_responses" :: Text)
@@ -1316,6 +1451,9 @@ instance ToJSON GlobalGroupStatResponses where
 instance Eq GlobalGroupStatResponses where
   (==) a b = globalGroupStatResponses a == globalGroupStatResponses b
 
+instance Show GlobalGroupStatResponses where
+    show rec = "globalGroupStatResponses: " <> show (globalGroupStatResponses rec)
+
 instance FromJSON GroupRequest where
   parseJSON (Object o) = do
     groupRequestGuard <- o .: ("guard" :: Text)
@@ -1334,6 +1472,9 @@ instance ToJSON GroupRequest where
 
 instance Eq GroupRequest where
   (==) a b = groupRequestGuard a == groupRequestGuard b
+
+instance Show GroupRequest where
+    show rec = "groupRequestGuard: " <> show (groupRequestGuard rec)
 
 instance FromJSON GroupResponse where
   parseJSON (Object o) = do
@@ -1381,6 +1522,9 @@ instance ToJSON GroupResponse where
 instance Eq GroupResponse where
   (==) a b = groupResponseId a == groupResponseId b && groupResponseUserId a == groupResponseUserId b && groupResponseGlobalGroupId a == groupResponseGlobalGroupId b && groupResponseOrganizationId a == groupResponseOrganizationId b && groupResponseActive a == groupResponseActive b && groupResponseGuard a == groupResponseGuard b && groupResponseCreatedAt a == groupResponseCreatedAt b && groupResponseModifiedBy a == groupResponseModifiedBy b && groupResponseModifiedAt a == groupResponseModifiedAt b && groupResponseActivityAt a == groupResponseActivityAt b
 
+instance Show GroupResponse where
+    show rec = "groupResponseId: " <> show (groupResponseId rec) <> ", " <> "groupResponseUserId: " <> show (groupResponseUserId rec) <> ", " <> "groupResponseGlobalGroupId: " <> show (groupResponseGlobalGroupId rec) <> ", " <> "groupResponseOrganizationId: " <> show (groupResponseOrganizationId rec) <> ", " <> "groupResponseActive: " <> show (groupResponseActive rec) <> ", " <> "groupResponseGuard: " <> show (groupResponseGuard rec) <> ", " <> "groupResponseCreatedAt: " <> show (groupResponseCreatedAt rec) <> ", " <> "groupResponseModifiedBy: " <> show (groupResponseModifiedBy rec) <> ", " <> "groupResponseModifiedAt: " <> show (groupResponseModifiedAt rec) <> ", " <> "groupResponseActivityAt: " <> show (groupResponseActivityAt rec)
+
 instance FromJSON GroupResponses where
   parseJSON (Object o) = do
     groupResponses <- o .: ("group_responses" :: Text)
@@ -1399,6 +1543,9 @@ instance ToJSON GroupResponses where
 
 instance Eq GroupResponses where
   (==) a b = groupResponses a == groupResponses b
+
+instance Show GroupResponses where
+    show rec = "groupResponses: " <> show (groupResponses rec)
 
 instance FromJSON GroupStatResponse where
   parseJSON (Object o) = do
@@ -1419,6 +1566,9 @@ instance ToJSON GroupStatResponse where
 instance Eq GroupStatResponse where
   (==) a b = groupStatResponseMembers a == groupStatResponseMembers b
 
+instance Show GroupStatResponse where
+    show rec = "groupStatResponseMembers: " <> show (groupStatResponseMembers rec)
+
 instance FromJSON GroupStatResponses where
   parseJSON (Object o) = do
     groupStatResponses <- o .: ("group_stat_responses" :: Text)
@@ -1438,6 +1588,9 @@ instance ToJSON GroupStatResponses where
 instance Eq GroupStatResponses where
   (==) a b = groupStatResponses a == groupStatResponses b
 
+instance Show GroupStatResponses where
+    show rec = "groupStatResponses: " <> show (groupStatResponses rec)
+
 instance FromJSON GroupMemberRequest where
   parseJSON (Object o) = do
     groupMemberRequestGuard <- o .: ("guard" :: Text)
@@ -1456,6 +1609,9 @@ instance ToJSON GroupMemberRequest where
 
 instance Eq GroupMemberRequest where
   (==) a b = groupMemberRequestGuard a == groupMemberRequestGuard b
+
+instance Show GroupMemberRequest where
+    show rec = "groupMemberRequestGuard: " <> show (groupMemberRequestGuard rec)
 
 instance FromJSON GroupMemberResponse where
   parseJSON (Object o) = do
@@ -1494,6 +1650,9 @@ instance ToJSON GroupMemberResponse where
 instance Eq GroupMemberResponse where
   (==) a b = groupMemberResponseId a == groupMemberResponseId b && groupMemberResponseUserId a == groupMemberResponseUserId b && groupMemberResponseGlobalGroupId a == groupMemberResponseGlobalGroupId b && groupMemberResponseCreatedAt a == groupMemberResponseCreatedAt b && groupMemberResponseModifiedBy a == groupMemberResponseModifiedBy b && groupMemberResponseModifiedAt a == groupMemberResponseModifiedAt b && groupMemberResponseActivityAt a == groupMemberResponseActivityAt b
 
+instance Show GroupMemberResponse where
+    show rec = "groupMemberResponseId: " <> show (groupMemberResponseId rec) <> ", " <> "groupMemberResponseUserId: " <> show (groupMemberResponseUserId rec) <> ", " <> "groupMemberResponseGlobalGroupId: " <> show (groupMemberResponseGlobalGroupId rec) <> ", " <> "groupMemberResponseCreatedAt: " <> show (groupMemberResponseCreatedAt rec) <> ", " <> "groupMemberResponseModifiedBy: " <> show (groupMemberResponseModifiedBy rec) <> ", " <> "groupMemberResponseModifiedAt: " <> show (groupMemberResponseModifiedAt rec) <> ", " <> "groupMemberResponseActivityAt: " <> show (groupMemberResponseActivityAt rec)
+
 instance FromJSON GroupMemberResponses where
   parseJSON (Object o) = do
     groupMemberResponses <- o .: ("group_member_responses" :: Text)
@@ -1512,6 +1671,9 @@ instance ToJSON GroupMemberResponses where
 
 instance Eq GroupMemberResponses where
   (==) a b = groupMemberResponses a == groupMemberResponses b
+
+instance Show GroupMemberResponses where
+    show rec = "groupMemberResponses: " <> show (groupMemberResponses rec)
 
 instance FromJSON GroupMemberStatResponse where
   parseJSON (Object o) = do
@@ -1536,6 +1698,10 @@ instance Eq GroupMemberStatResponse where
   (==) GroupMemberStatResponse GroupMemberStatResponse = True
 
 
+instance Show GroupMemberStatResponse where
+  show GroupMemberStatResponse = "group_member_stat_response"
+
+
 instance FromJSON GroupMemberStatResponses where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -1557,6 +1723,10 @@ instance ToJSON GroupMemberStatResponses where
 
 instance Eq GroupMemberStatResponses where
   (==) GroupMemberStatResponses GroupMemberStatResponses = True
+
+
+instance Show GroupMemberStatResponses where
+  show GroupMemberStatResponses = "group_member_stat_responses"
 
 
 instance FromJSON LeuronRequest where
@@ -1613,6 +1783,9 @@ instance ToJSON LeuronRequest where
 
 instance Eq LeuronRequest where
   (==) a b = leuronRequestData a == leuronRequestData b && leuronRequestTitle a == leuronRequestTitle b && leuronRequestDescription a == leuronRequestDescription b && leuronRequestSection a == leuronRequestSection b && leuronRequestPage a == leuronRequestPage b && leuronRequestExamples a == leuronRequestExamples b && leuronRequestStrengths a == leuronRequestStrengths b && leuronRequestCategories a == leuronRequestCategories b && leuronRequestSplits a == leuronRequestSplits b && leuronRequestSubstitutions a == leuronRequestSubstitutions b && leuronRequestTags a == leuronRequestTags b && leuronRequestStyle a == leuronRequestStyle b && leuronRequestGuard a == leuronRequestGuard b
+
+instance Show LeuronRequest where
+    show rec = "leuronRequestData: " <> show (leuronRequestData rec) <> ", " <> "leuronRequestTitle: " <> show (leuronRequestTitle rec) <> ", " <> "leuronRequestDescription: " <> show (leuronRequestDescription rec) <> ", " <> "leuronRequestSection: " <> show (leuronRequestSection rec) <> ", " <> "leuronRequestPage: " <> show (leuronRequestPage rec) <> ", " <> "leuronRequestExamples: " <> show (leuronRequestExamples rec) <> ", " <> "leuronRequestStrengths: " <> show (leuronRequestStrengths rec) <> ", " <> "leuronRequestCategories: " <> show (leuronRequestCategories rec) <> ", " <> "leuronRequestSplits: " <> show (leuronRequestSplits rec) <> ", " <> "leuronRequestSubstitutions: " <> show (leuronRequestSubstitutions rec) <> ", " <> "leuronRequestTags: " <> show (leuronRequestTags rec) <> ", " <> "leuronRequestStyle: " <> show (leuronRequestStyle rec) <> ", " <> "leuronRequestGuard: " <> show (leuronRequestGuard rec)
 
 instance FromJSON LeuronResponse where
   parseJSON (Object o) = do
@@ -1690,6 +1863,9 @@ instance ToJSON LeuronResponse where
 instance Eq LeuronResponse where
   (==) a b = leuronResponseId a == leuronResponseId b && leuronResponseUserId a == leuronResponseUserId b && leuronResponseResourceId a == leuronResponseResourceId b && leuronResponseData a == leuronResponseData b && leuronResponseTitle a == leuronResponseTitle b && leuronResponseDescription a == leuronResponseDescription b && leuronResponseSection a == leuronResponseSection b && leuronResponsePage a == leuronResponsePage b && leuronResponseExamples a == leuronResponseExamples b && leuronResponseStrengths a == leuronResponseStrengths b && leuronResponseCategories a == leuronResponseCategories b && leuronResponseSplits a == leuronResponseSplits b && leuronResponseSubstitutions a == leuronResponseSubstitutions b && leuronResponseTags a == leuronResponseTags b && leuronResponseStyle a == leuronResponseStyle b && leuronResponseActive a == leuronResponseActive b && leuronResponseGuard a == leuronResponseGuard b && leuronResponseCreatedAt a == leuronResponseCreatedAt b && leuronResponseModifiedAt a == leuronResponseModifiedAt b && leuronResponseActivityAt a == leuronResponseActivityAt b
 
+instance Show LeuronResponse where
+    show rec = "leuronResponseId: " <> show (leuronResponseId rec) <> ", " <> "leuronResponseUserId: " <> show (leuronResponseUserId rec) <> ", " <> "leuronResponseResourceId: " <> show (leuronResponseResourceId rec) <> ", " <> "leuronResponseData: " <> show (leuronResponseData rec) <> ", " <> "leuronResponseTitle: " <> show (leuronResponseTitle rec) <> ", " <> "leuronResponseDescription: " <> show (leuronResponseDescription rec) <> ", " <> "leuronResponseSection: " <> show (leuronResponseSection rec) <> ", " <> "leuronResponsePage: " <> show (leuronResponsePage rec) <> ", " <> "leuronResponseExamples: " <> show (leuronResponseExamples rec) <> ", " <> "leuronResponseStrengths: " <> show (leuronResponseStrengths rec) <> ", " <> "leuronResponseCategories: " <> show (leuronResponseCategories rec) <> ", " <> "leuronResponseSplits: " <> show (leuronResponseSplits rec) <> ", " <> "leuronResponseSubstitutions: " <> show (leuronResponseSubstitutions rec) <> ", " <> "leuronResponseTags: " <> show (leuronResponseTags rec) <> ", " <> "leuronResponseStyle: " <> show (leuronResponseStyle rec) <> ", " <> "leuronResponseActive: " <> show (leuronResponseActive rec) <> ", " <> "leuronResponseGuard: " <> show (leuronResponseGuard rec) <> ", " <> "leuronResponseCreatedAt: " <> show (leuronResponseCreatedAt rec) <> ", " <> "leuronResponseModifiedAt: " <> show (leuronResponseModifiedAt rec) <> ", " <> "leuronResponseActivityAt: " <> show (leuronResponseActivityAt rec)
+
 instance FromJSON LeuronResponses where
   parseJSON (Object o) = do
     leuronResponses <- o .: ("leuron_responses" :: Text)
@@ -1708,6 +1884,9 @@ instance ToJSON LeuronResponses where
 
 instance Eq LeuronResponses where
   (==) a b = leuronResponses a == leuronResponses b
+
+instance Show LeuronResponses where
+    show rec = "leuronResponses: " <> show (leuronResponses rec)
 
 instance FromJSON LeuronStatResponse where
   parseJSON (Object o) = do
@@ -1743,6 +1922,9 @@ instance ToJSON LeuronStatResponse where
 instance Eq LeuronStatResponse where
   (==) a b = leuronStatResponseLeuronId a == leuronStatResponseLeuronId b && leuronStatResponseLikes a == leuronStatResponseLikes b && leuronStatResponseNeutral a == leuronStatResponseNeutral b && leuronStatResponseDislikes a == leuronStatResponseDislikes b && leuronStatResponseStars a == leuronStatResponseStars b && leuronStatResponseViews a == leuronStatResponseViews b
 
+instance Show LeuronStatResponse where
+    show rec = "leuronStatResponseLeuronId: " <> show (leuronStatResponseLeuronId rec) <> ", " <> "leuronStatResponseLikes: " <> show (leuronStatResponseLikes rec) <> ", " <> "leuronStatResponseNeutral: " <> show (leuronStatResponseNeutral rec) <> ", " <> "leuronStatResponseDislikes: " <> show (leuronStatResponseDislikes rec) <> ", " <> "leuronStatResponseStars: " <> show (leuronStatResponseStars rec) <> ", " <> "leuronStatResponseViews: " <> show (leuronStatResponseViews rec)
+
 instance FromJSON LeuronStatResponses where
   parseJSON (Object o) = do
     leuronStatResponses <- o .: ("leuron_stat_responses" :: Text)
@@ -1761,6 +1943,9 @@ instance ToJSON LeuronStatResponses where
 
 instance Eq LeuronStatResponses where
   (==) a b = leuronStatResponses a == leuronStatResponses b
+
+instance Show LeuronStatResponses where
+    show rec = "leuronStatResponses: " <> show (leuronStatResponses rec)
 
 instance FromJSON LeuronTrainingSummary where
   parseJSON (Object o) = do
@@ -1833,6 +2018,16 @@ instance Eq LeuronTrainingSummary where
   (==) LTS_Protest LTS_Protest = True
   (==) _ _ = False
 
+instance Show LeuronTrainingSummary where
+  show LTS_View = "lts_view"
+  show LTS_Skip = "lts_skip"
+  show LTS_Know = "lts_know"
+  show LTS_DontKnow = "lts_dont_know"
+  show LTS_DontUnderstand = "lts_dont_understand"
+  show LTS_DontCare = "lts_dont_care"
+  show LTS_Protest = "lts_protest"
+
+
 instance FromJSON LeuronTrainingRequest where
   parseJSON (Object o) = do
     leuronTrainingRequestSummary <- o .: ("summary" :: Text)
@@ -1854,6 +2049,9 @@ instance ToJSON LeuronTrainingRequest where
 
 instance Eq LeuronTrainingRequest where
   (==) a b = leuronTrainingRequestSummary a == leuronTrainingRequestSummary b && leuronTrainingRequestGuard a == leuronTrainingRequestGuard b
+
+instance Show LeuronTrainingRequest where
+    show rec = "leuronTrainingRequestSummary: " <> show (leuronTrainingRequestSummary rec) <> ", " <> "leuronTrainingRequestGuard: " <> show (leuronTrainingRequestGuard rec)
 
 instance FromJSON LeuronTrainingResponse where
   parseJSON (Object o) = do
@@ -1892,6 +2090,9 @@ instance ToJSON LeuronTrainingResponse where
 instance Eq LeuronTrainingResponse where
   (==) a b = leuronTrainingResponseId a == leuronTrainingResponseId b && leuronTrainingResponseUserId a == leuronTrainingResponseUserId b && leuronTrainingResponseLeuronId a == leuronTrainingResponseLeuronId b && leuronTrainingResponseSummary a == leuronTrainingResponseSummary b && leuronTrainingResponseGuard a == leuronTrainingResponseGuard b && leuronTrainingResponseCreatedAt a == leuronTrainingResponseCreatedAt b && leuronTrainingResponseModifiedAt a == leuronTrainingResponseModifiedAt b
 
+instance Show LeuronTrainingResponse where
+    show rec = "leuronTrainingResponseId: " <> show (leuronTrainingResponseId rec) <> ", " <> "leuronTrainingResponseUserId: " <> show (leuronTrainingResponseUserId rec) <> ", " <> "leuronTrainingResponseLeuronId: " <> show (leuronTrainingResponseLeuronId rec) <> ", " <> "leuronTrainingResponseSummary: " <> show (leuronTrainingResponseSummary rec) <> ", " <> "leuronTrainingResponseGuard: " <> show (leuronTrainingResponseGuard rec) <> ", " <> "leuronTrainingResponseCreatedAt: " <> show (leuronTrainingResponseCreatedAt rec) <> ", " <> "leuronTrainingResponseModifiedAt: " <> show (leuronTrainingResponseModifiedAt rec)
+
 instance FromJSON LeuronTrainingResponses where
   parseJSON (Object o) = do
     leuronTrainingResponses <- o .: ("leuron_training_responses" :: Text)
@@ -1910,6 +2111,9 @@ instance ToJSON LeuronTrainingResponses where
 
 instance Eq LeuronTrainingResponses where
   (==) a b = leuronTrainingResponses a == leuronTrainingResponses b
+
+instance Show LeuronTrainingResponses where
+    show rec = "leuronTrainingResponses: " <> show (leuronTrainingResponses rec)
 
 instance FromJSON LeuronTrainingStatResponse where
   parseJSON (Object o) = do
@@ -1930,6 +2134,9 @@ instance ToJSON LeuronTrainingStatResponse where
 instance Eq LeuronTrainingStatResponse where
   (==) a b = leuronTrainingStatResponseLeuronTrainingId a == leuronTrainingStatResponseLeuronTrainingId b
 
+instance Show LeuronTrainingStatResponse where
+    show rec = "leuronTrainingStatResponseLeuronTrainingId: " <> show (leuronTrainingStatResponseLeuronTrainingId rec)
+
 instance FromJSON LeuronTrainingStatResponses where
   parseJSON (Object o) = do
     leuronTrainingStatResponses <- o .: ("leuron_training_stat_responses" :: Text)
@@ -1948,6 +2155,9 @@ instance ToJSON LeuronTrainingStatResponses where
 
 instance Eq LeuronTrainingStatResponses where
   (==) a b = leuronTrainingStatResponses a == leuronTrainingStatResponses b
+
+instance Show LeuronTrainingStatResponses where
+    show rec = "leuronTrainingStatResponses: " <> show (leuronTrainingStatResponses rec)
 
 instance FromJSON LikeOpt where
   parseJSON (Object o) = do
@@ -1988,6 +2198,12 @@ instance Eq LikeOpt where
   (==) Dislike Dislike = True
   (==) _ _ = False
 
+instance Show LikeOpt where
+  show Like = "like"
+  show Neutral = "neutral"
+  show Dislike = "dislike"
+
+
 instance FromJSON LikeRequest where
   parseJSON (Object o) = do
     likeRequestOpt <- o .: ("opt" :: Text)
@@ -2012,6 +2228,9 @@ instance ToJSON LikeRequest where
 
 instance Eq LikeRequest where
   (==) a b = likeRequestOpt a == likeRequestOpt b && likeRequestReason a == likeRequestReason b && likeRequestGuard a == likeRequestGuard b
+
+instance Show LikeRequest where
+    show rec = "likeRequestOpt: " <> show (likeRequestOpt rec) <> ", " <> "likeRequestReason: " <> show (likeRequestReason rec) <> ", " <> "likeRequestGuard: " <> show (likeRequestGuard rec)
 
 instance FromJSON LikeResponse where
   parseJSON (Object o) = do
@@ -2062,6 +2281,9 @@ instance ToJSON LikeResponse where
 instance Eq LikeResponse where
   (==) a b = likeResponseId a == likeResponseId b && likeResponseEnt a == likeResponseEnt b && likeResponseEntId a == likeResponseEntId b && likeResponseUserId a == likeResponseUserId b && likeResponseOpt a == likeResponseOpt b && likeResponseScore a == likeResponseScore b && likeResponseReason a == likeResponseReason b && likeResponseActive a == likeResponseActive b && likeResponseGuard a == likeResponseGuard b && likeResponseCreatedAt a == likeResponseCreatedAt b && likeResponseModifiedAt a == likeResponseModifiedAt b
 
+instance Show LikeResponse where
+    show rec = "likeResponseId: " <> show (likeResponseId rec) <> ", " <> "likeResponseEnt: " <> show (likeResponseEnt rec) <> ", " <> "likeResponseEntId: " <> show (likeResponseEntId rec) <> ", " <> "likeResponseUserId: " <> show (likeResponseUserId rec) <> ", " <> "likeResponseOpt: " <> show (likeResponseOpt rec) <> ", " <> "likeResponseScore: " <> show (likeResponseScore rec) <> ", " <> "likeResponseReason: " <> show (likeResponseReason rec) <> ", " <> "likeResponseActive: " <> show (likeResponseActive rec) <> ", " <> "likeResponseGuard: " <> show (likeResponseGuard rec) <> ", " <> "likeResponseCreatedAt: " <> show (likeResponseCreatedAt rec) <> ", " <> "likeResponseModifiedAt: " <> show (likeResponseModifiedAt rec)
+
 instance FromJSON LikeResponses where
   parseJSON (Object o) = do
     likeResponses <- o .: ("like_responses" :: Text)
@@ -2080,6 +2302,9 @@ instance ToJSON LikeResponses where
 
 instance Eq LikeResponses where
   (==) a b = likeResponses a == likeResponses b
+
+instance Show LikeResponses where
+    show rec = "likeResponses: " <> show (likeResponses rec)
 
 instance FromJSON LikeStatResponse where
   parseJSON (Object o) = do
@@ -2115,6 +2340,9 @@ instance ToJSON LikeStatResponse where
 instance Eq LikeStatResponse where
   (==) a b = likeStatResponseEnt a == likeStatResponseEnt b && likeStatResponseEntId a == likeStatResponseEntId b && likeStatResponseScore a == likeStatResponseScore b && likeStatResponseLike a == likeStatResponseLike b && likeStatResponseNeutral a == likeStatResponseNeutral b && likeStatResponseDislike a == likeStatResponseDislike b
 
+instance Show LikeStatResponse where
+    show rec = "likeStatResponseEnt: " <> show (likeStatResponseEnt rec) <> ", " <> "likeStatResponseEntId: " <> show (likeStatResponseEntId rec) <> ", " <> "likeStatResponseScore: " <> show (likeStatResponseScore rec) <> ", " <> "likeStatResponseLike: " <> show (likeStatResponseLike rec) <> ", " <> "likeStatResponseNeutral: " <> show (likeStatResponseNeutral rec) <> ", " <> "likeStatResponseDislike: " <> show (likeStatResponseDislike rec)
+
 instance FromJSON LikeStatResponses where
   parseJSON (Object o) = do
     likeStatResponses <- o .: ("like_stat_responses" :: Text)
@@ -2133,6 +2361,9 @@ instance ToJSON LikeStatResponses where
 
 instance Eq LikeStatResponses where
   (==) a b = likeStatResponses a == likeStatResponses b
+
+instance Show LikeStatResponses where
+    show rec = "likeStatResponses: " <> show (likeStatResponses rec)
 
 instance FromJSON LeuronData where
   parseJSON (Object o) = do
@@ -2319,6 +2550,25 @@ instance Eq LeuronData where
   (==) LnEmpty LnEmpty = True
   (==) _ _ = False
 
+instance Show LeuronData where
+  show (LnFact x0) = "ln_fact: " <> show x0
+  show (LnFactList x0) = "ln_fact_list: " <> show x0
+  show (LnCard x0) = "ln_card: " <> show x0
+  show (LnDCard x0) = "ln_dcard: " <> show x0
+  show (LnDCardX x0) = "ln_dcard_x: " <> show x0
+  show (LnAcronym x0) = "ln_acronym: " <> show x0
+  show (LnSynonym x0) = "ln_synonym: " <> show x0
+  show (LnAntonym x0) = "ln_antonym: " <> show x0
+  show (LnTemplate x0) = "ln_template: " <> show x0
+  show (LnImageAssociation x0) = "ln_image_association: " <> show x0
+  show (LnLinearDemo x0) = "ln_linear_demo: " <> show x0
+  show (LnTable x0) = "ln_table: " <> show x0
+  show (LnScript x0) = "ln_script: " <> show x0
+  show (LnQA x0) = "ln_qa: " <> show x0
+  show LnExamples = "ln_examples"
+  show LnEmpty = "ln_empty"
+
+
 instance FromJSON TyLeuron where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -2462,6 +2712,25 @@ instance Eq TyLeuron where
   (==) TyLnEmpty TyLnEmpty = True
   (==) _ _ = False
 
+instance Show TyLeuron where
+  show TyLnFact = "ty_ln_fact"
+  show TyLnFactList = "ty_ln_fact_list"
+  show TyLnCard = "ty_ln_card"
+  show TyLnDCard = "ty_ln_dcard"
+  show TyLnDCardX = "ty_ln_dcard_x"
+  show TyLnAcronym = "ty_ln_acronym"
+  show TyLnSynonym = "ty_ln_synonym"
+  show TyLnAntonym = "ty_ln_antonym"
+  show TyLnTemplate = "ty_ln_template"
+  show TyLnImageAssociation = "ty_ln_image_association"
+  show TyLnLinearDemo = "ty_ln_linear_demo"
+  show TyLnTable = "ty_ln_table"
+  show TyLnScript = "ty_ln_script"
+  show TyLnQA = "ty_ln_qa"
+  show TyLnExamples = "ty_ln_examples"
+  show TyLnEmpty = "ty_ln_empty"
+
+
 instance FromJSON Fact where
   parseJSON (Object o) = do
     factText <- o .: ("text" :: Text)
@@ -2480,6 +2749,9 @@ instance ToJSON Fact where
 
 instance Eq Fact where
   (==) a b = factText a == factText b
+
+instance Show Fact where
+    show rec = "factText: " <> show (factText rec)
 
 instance FromJSON FactList where
   parseJSON (Object o) = do
@@ -2503,6 +2775,9 @@ instance ToJSON FactList where
 instance Eq FactList where
   (==) a b = factListFact a == factListFact b && factListList a == factListList b
 
+instance Show FactList where
+    show rec = "factListFact: " <> show (factListFact rec) <> ", " <> "factListList: " <> show (factListList rec)
+
 instance FromJSON Card where
   parseJSON (Object o) = do
     cardFront <- o .: ("front" :: Text)
@@ -2524,6 +2799,9 @@ instance ToJSON Card where
 
 instance Eq Card where
   (==) a b = cardFront a == cardFront b && cardBack a == cardBack b
+
+instance Show Card where
+    show rec = "cardFront: " <> show (cardFront rec) <> ", " <> "cardBack: " <> show (cardBack rec)
 
 instance FromJSON DCard where
   parseJSON (Object o) = do
@@ -2547,6 +2825,9 @@ instance ToJSON DCard where
 instance Eq DCard where
   (==) a b = dcardFront a == dcardFront b && dcardBack a == dcardBack b
 
+instance Show DCard where
+    show rec = "dcardFront: " <> show (dcardFront rec) <> ", " <> "dcardBack: " <> show (dcardBack rec)
+
 instance FromJSON DCardX where
   parseJSON (Object o) = do
     dcardxFront <- o .: ("front" :: Text)
@@ -2568,6 +2849,9 @@ instance ToJSON DCardX where
 
 instance Eq DCardX where
   (==) a b = dcardxFront a == dcardxFront b && dcardxBack a == dcardxBack b
+
+instance Show DCardX where
+    show rec = "dcardxFront: " <> show (dcardxFront rec) <> ", " <> "dcardxBack: " <> show (dcardxBack rec)
 
 instance FromJSON Acronym where
   parseJSON (Object o) = do
@@ -2591,6 +2875,9 @@ instance ToJSON Acronym where
 instance Eq Acronym where
   (==) a b = acronymAbbreviation a == acronymAbbreviation b && acronymMeaning a == acronymMeaning b
 
+instance Show Acronym where
+    show rec = "acronymAbbreviation: " <> show (acronymAbbreviation rec) <> ", " <> "acronymMeaning: " <> show (acronymMeaning rec)
+
 instance FromJSON Synonym where
   parseJSON (Object o) = do
     synonymA <- o .: ("a" :: Text)
@@ -2612,6 +2899,9 @@ instance ToJSON Synonym where
 
 instance Eq Synonym where
   (==) a b = synonymA a == synonymA b && synonymB a == synonymB b
+
+instance Show Synonym where
+    show rec = "synonymA: " <> show (synonymA rec) <> ", " <> "synonymB: " <> show (synonymB rec)
 
 instance FromJSON Antonym where
   parseJSON (Object o) = do
@@ -2635,6 +2925,9 @@ instance ToJSON Antonym where
 instance Eq Antonym where
   (==) a b = antonymA a == antonymA b && antonymB a == antonymB b
 
+instance Show Antonym where
+    show rec = "antonymA: " <> show (antonymA rec) <> ", " <> "antonymB: " <> show (antonymB rec)
+
 instance FromJSON Template where
   parseJSON (Object o) = do
     template <- o .: ("template" :: Text)
@@ -2656,6 +2949,9 @@ instance ToJSON Template where
 
 instance Eq Template where
   (==) a b = template a == template b && templateValues a == templateValues b
+
+instance Show Template where
+    show rec = "template: " <> show (template rec) <> ", " <> "templateValues: " <> show (templateValues rec)
 
 instance FromJSON ImageAssociation where
   parseJSON (Object o) = do
@@ -2682,6 +2978,9 @@ instance ToJSON ImageAssociation where
 instance Eq ImageAssociation where
   (==) a b = imageUrl a == imageUrl b && assocBy a == assocBy b && assocResult a == assocResult b
 
+instance Show ImageAssociation where
+    show rec = "imageUrl: " <> show (imageUrl rec) <> ", " <> "assocBy: " <> show (assocBy rec) <> ", " <> "assocResult: " <> show (assocResult rec)
+
 instance FromJSON Script where
   parseJSON (Object o) = do
     scriptTitle <- o .: ("title" :: Text)
@@ -2707,6 +3006,9 @@ instance ToJSON Script where
 instance Eq Script where
   (==) a b = scriptTitle a == scriptTitle b && scriptDesc a == scriptDesc b && scriptUrl a == scriptUrl b
 
+instance Show Script where
+    show rec = "scriptTitle: " <> show (scriptTitle rec) <> ", " <> "scriptDesc: " <> show (scriptDesc rec) <> ", " <> "scriptUrl: " <> show (scriptUrl rec)
+
 instance FromJSON LinearDemo where
   parseJSON (Object o) = do
     linearDemoLabel <- o .: ("label" :: Text)
@@ -2729,6 +3031,9 @@ instance ToJSON LinearDemo where
 instance Eq LinearDemo where
   (==) a b = linearDemoLabel a == linearDemoLabel b && linearDemoContent a == linearDemoContent b
 
+instance Show LinearDemo where
+    show rec = "linearDemoLabel: " <> show (linearDemoLabel rec) <> ", " <> "linearDemoContent: " <> show (linearDemoContent rec)
+
 instance FromJSON QA where
   parseJSON (Object o) = do
     qaQuestion <- o .: ("question" :: Text)
@@ -2750,6 +3055,9 @@ instance ToJSON QA where
 
 instance Eq QA where
   (==) a b = qaQuestion a == qaQuestion b && qaAnswer a == qaAnswer b
+
+instance Show QA where
+    show rec = "qaQuestion: " <> show (qaQuestion rec) <> ", " <> "qaAnswer: " <> show (qaAnswer rec)
 
 instance FromJSON Table where
   parseJSON (Object o) = do
@@ -2775,6 +3083,9 @@ instance ToJSON Table where
 
 instance Eq Table where
   (==) a b = tableTitle a == tableTitle b && tableColumns a == tableColumns b && tableRows a == tableRows b
+
+instance Show Table where
+    show rec = "tableTitle: " <> show (tableTitle rec) <> ", " <> "tableColumns: " <> show (tableColumns rec) <> ", " <> "tableRows: " <> show (tableRows rec)
 
 instance FromJSON Membership where
   parseJSON (Object o) = do
@@ -2823,6 +3134,13 @@ instance Eq Membership where
   (==) Membership_Locked Membership_Locked = True
   (==) _ _ = False
 
+instance Show Membership where
+  show Membership_InviteOnly = "invite_only"
+  show Membership_RequestInvite = "request_invite"
+  show Membership_Join = "join"
+  show Membership_Locked = "locked"
+
+
 instance FromJSON OrganizationRequest where
   parseJSON (Object o) = do
     organizationRequestDisplayName <- o .: ("display_name" :: Text)
@@ -2868,6 +3186,9 @@ instance ToJSON OrganizationRequest where
 
 instance Eq OrganizationRequest where
   (==) a b = organizationRequestDisplayName a == organizationRequestDisplayName b && organizationRequestDescription a == organizationRequestDescription b && organizationRequestCompany a == organizationRequestCompany b && organizationRequestLocation a == organizationRequestLocation b && organizationRequestEmail a == organizationRequestEmail b && organizationRequestMembership a == organizationRequestMembership b && organizationRequestTags a == organizationRequestTags b && organizationRequestIcon a == organizationRequestIcon b && organizationRequestVisibility a == organizationRequestVisibility b && organizationRequestGuard a == organizationRequestGuard b
+
+instance Show OrganizationRequest where
+    show rec = "organizationRequestDisplayName: " <> show (organizationRequestDisplayName rec) <> ", " <> "organizationRequestDescription: " <> show (organizationRequestDescription rec) <> ", " <> "organizationRequestCompany: " <> show (organizationRequestCompany rec) <> ", " <> "organizationRequestLocation: " <> show (organizationRequestLocation rec) <> ", " <> "organizationRequestEmail: " <> show (organizationRequestEmail rec) <> ", " <> "organizationRequestMembership: " <> show (organizationRequestMembership rec) <> ", " <> "organizationRequestTags: " <> show (organizationRequestTags rec) <> ", " <> "organizationRequestIcon: " <> show (organizationRequestIcon rec) <> ", " <> "organizationRequestVisibility: " <> show (organizationRequestVisibility rec) <> ", " <> "organizationRequestGuard: " <> show (organizationRequestGuard rec)
 
 instance FromJSON OrganizationResponse where
   parseJSON (Object o) = do
@@ -2942,6 +3263,9 @@ instance ToJSON OrganizationResponse where
 instance Eq OrganizationResponse where
   (==) a b = organizationResponseId a == organizationResponseId b && organizationResponseUserId a == organizationResponseUserId b && organizationResponseName a == organizationResponseName b && organizationResponseDisplayName a == organizationResponseDisplayName b && organizationResponseDescription a == organizationResponseDescription b && organizationResponseCompany a == organizationResponseCompany b && organizationResponseLocation a == organizationResponseLocation b && organizationResponseEmail a == organizationResponseEmail b && organizationResponseEmailMD5 a == organizationResponseEmailMD5 b && organizationResponseMembership a == organizationResponseMembership b && organizationResponseIcon a == organizationResponseIcon b && organizationResponseTags a == organizationResponseTags b && organizationResponseVisibility a == organizationResponseVisibility b && organizationResponseActive a == organizationResponseActive b && organizationResponseGuard a == organizationResponseGuard b && organizationResponseCreatedAt a == organizationResponseCreatedAt b && organizationResponseModifiedBy a == organizationResponseModifiedBy b && organizationResponseModifiedAt a == organizationResponseModifiedAt b && organizationResponseActivityAt a == organizationResponseActivityAt b
 
+instance Show OrganizationResponse where
+    show rec = "organizationResponseId: " <> show (organizationResponseId rec) <> ", " <> "organizationResponseUserId: " <> show (organizationResponseUserId rec) <> ", " <> "organizationResponseName: " <> show (organizationResponseName rec) <> ", " <> "organizationResponseDisplayName: " <> show (organizationResponseDisplayName rec) <> ", " <> "organizationResponseDescription: " <> show (organizationResponseDescription rec) <> ", " <> "organizationResponseCompany: " <> show (organizationResponseCompany rec) <> ", " <> "organizationResponseLocation: " <> show (organizationResponseLocation rec) <> ", " <> "organizationResponseEmail: " <> show (organizationResponseEmail rec) <> ", " <> "organizationResponseEmailMD5: " <> show (organizationResponseEmailMD5 rec) <> ", " <> "organizationResponseMembership: " <> show (organizationResponseMembership rec) <> ", " <> "organizationResponseIcon: " <> show (organizationResponseIcon rec) <> ", " <> "organizationResponseTags: " <> show (organizationResponseTags rec) <> ", " <> "organizationResponseVisibility: " <> show (organizationResponseVisibility rec) <> ", " <> "organizationResponseActive: " <> show (organizationResponseActive rec) <> ", " <> "organizationResponseGuard: " <> show (organizationResponseGuard rec) <> ", " <> "organizationResponseCreatedAt: " <> show (organizationResponseCreatedAt rec) <> ", " <> "organizationResponseModifiedBy: " <> show (organizationResponseModifiedBy rec) <> ", " <> "organizationResponseModifiedAt: " <> show (organizationResponseModifiedAt rec) <> ", " <> "organizationResponseActivityAt: " <> show (organizationResponseActivityAt rec)
+
 instance FromJSON OrganizationResponses where
   parseJSON (Object o) = do
     organizationResponses <- o .: ("organization_responses" :: Text)
@@ -2960,6 +3284,9 @@ instance ToJSON OrganizationResponses where
 
 instance Eq OrganizationResponses where
   (==) a b = organizationResponses a == organizationResponses b
+
+instance Show OrganizationResponses where
+    show rec = "organizationResponses: " <> show (organizationResponses rec)
 
 instance FromJSON OrganizationStatResponse where
   parseJSON (Object o) = do
@@ -3001,6 +3328,9 @@ instance ToJSON OrganizationStatResponse where
 instance Eq OrganizationStatResponse where
   (==) a b = organizationStatResponseOrganizationId a == organizationStatResponseOrganizationId b && organizationStatResponseTeams a == organizationStatResponseTeams b && organizationStatResponseMembers a == organizationStatResponseMembers b && organizationStatResponseForums a == organizationStatResponseForums b && organizationStatResponseBoards a == organizationStatResponseBoards b && organizationStatResponseThreads a == organizationStatResponseThreads b && organizationStatResponseThreadPosts a == organizationStatResponseThreadPosts b && organizationStatResponseViews a == organizationStatResponseViews b
 
+instance Show OrganizationStatResponse where
+    show rec = "organizationStatResponseOrganizationId: " <> show (organizationStatResponseOrganizationId rec) <> ", " <> "organizationStatResponseTeams: " <> show (organizationStatResponseTeams rec) <> ", " <> "organizationStatResponseMembers: " <> show (organizationStatResponseMembers rec) <> ", " <> "organizationStatResponseForums: " <> show (organizationStatResponseForums rec) <> ", " <> "organizationStatResponseBoards: " <> show (organizationStatResponseBoards rec) <> ", " <> "organizationStatResponseThreads: " <> show (organizationStatResponseThreads rec) <> ", " <> "organizationStatResponseThreadPosts: " <> show (organizationStatResponseThreadPosts rec) <> ", " <> "organizationStatResponseViews: " <> show (organizationStatResponseViews rec)
+
 instance FromJSON OrganizationStatResponses where
   parseJSON (Object o) = do
     organizationStatResponses <- o .: ("organization_stat_responses" :: Text)
@@ -3019,6 +3349,9 @@ instance ToJSON OrganizationStatResponses where
 
 instance Eq OrganizationStatResponses where
   (==) a b = organizationStatResponses a == organizationStatResponses b
+
+instance Show OrganizationStatResponses where
+    show rec = "organizationStatResponses: " <> show (organizationStatResponses rec)
 
 instance FromJSON Param where
   parseJSON (Object o) = do
@@ -4771,6 +5104,14 @@ instance Eq Permission where
   (==) Perm_Execute Perm_Execute = True
   (==) _ _ = False
 
+instance Show Permission where
+  show Perm_Create = "perm_create"
+  show Perm_Read = "perm_read"
+  show Perm_Update = "perm_update"
+  show Perm_Delete = "perm_delete"
+  show Perm_Execute = "perm_execute"
+
+
 instance FromJSON PmRequest where
   parseJSON (Object o) = do
     pmRequestSubject <- o .: ("subject" :: Text)
@@ -4795,6 +5136,9 @@ instance ToJSON PmRequest where
 
 instance Eq PmRequest where
   (==) a b = pmRequestSubject a == pmRequestSubject b && pmRequestBody a == pmRequestBody b && pmRequestGuard a == pmRequestGuard b
+
+instance Show PmRequest where
+    show rec = "pmRequestSubject: " <> show (pmRequestSubject rec) <> ", " <> "pmRequestBody: " <> show (pmRequestBody rec) <> ", " <> "pmRequestGuard: " <> show (pmRequestGuard rec)
 
 instance FromJSON PmResponse where
   parseJSON (Object o) = do
@@ -4842,6 +5186,9 @@ instance ToJSON PmResponse where
 instance Eq PmResponse where
   (==) a b = pmResponseId a == pmResponseId b && pmResponseUserId a == pmResponseUserId b && pmResponseToUserId a == pmResponseToUserId b && pmResponseSubject a == pmResponseSubject b && pmResponseBody a == pmResponseBody b && pmResponseActive a == pmResponseActive b && pmResponseGuard a == pmResponseGuard b && pmResponseCreatedAt a == pmResponseCreatedAt b && pmResponseModifiedAt a == pmResponseModifiedAt b && pmResponseActivityAt a == pmResponseActivityAt b
 
+instance Show PmResponse where
+    show rec = "pmResponseId: " <> show (pmResponseId rec) <> ", " <> "pmResponseUserId: " <> show (pmResponseUserId rec) <> ", " <> "pmResponseToUserId: " <> show (pmResponseToUserId rec) <> ", " <> "pmResponseSubject: " <> show (pmResponseSubject rec) <> ", " <> "pmResponseBody: " <> show (pmResponseBody rec) <> ", " <> "pmResponseActive: " <> show (pmResponseActive rec) <> ", " <> "pmResponseGuard: " <> show (pmResponseGuard rec) <> ", " <> "pmResponseCreatedAt: " <> show (pmResponseCreatedAt rec) <> ", " <> "pmResponseModifiedAt: " <> show (pmResponseModifiedAt rec) <> ", " <> "pmResponseActivityAt: " <> show (pmResponseActivityAt rec)
+
 instance FromJSON PmResponses where
   parseJSON (Object o) = do
     pmResponses <- o .: ("pm_responses" :: Text)
@@ -4860,6 +5207,9 @@ instance ToJSON PmResponses where
 
 instance Eq PmResponses where
   (==) a b = pmResponses a == pmResponses b
+
+instance Show PmResponses where
+    show rec = "pmResponses: " <> show (pmResponses rec)
 
 instance FromJSON PmInRequest where
   parseJSON (Object o) = do
@@ -4888,6 +5238,9 @@ instance ToJSON PmInRequest where
 
 instance Eq PmInRequest where
   (==) a b = pmInRequestLabel a == pmInRequestLabel b && pmInRequestIsRead a == pmInRequestIsRead b && pmInRequestIsStarred a == pmInRequestIsStarred b && pmInRequestGuard a == pmInRequestGuard b
+
+instance Show PmInRequest where
+    show rec = "pmInRequestLabel: " <> show (pmInRequestLabel rec) <> ", " <> "pmInRequestIsRead: " <> show (pmInRequestIsRead rec) <> ", " <> "pmInRequestIsStarred: " <> show (pmInRequestIsStarred rec) <> ", " <> "pmInRequestGuard: " <> show (pmInRequestGuard rec)
 
 instance FromJSON PmInResponse where
   parseJSON (Object o) = do
@@ -4941,6 +5294,9 @@ instance ToJSON PmInResponse where
 instance Eq PmInResponse where
   (==) a b = pmInResponseId a == pmInResponseId b && pmInResponsePmId a == pmInResponsePmId b && pmInResponseUserId a == pmInResponseUserId b && pmInResponseLabel a == pmInResponseLabel b && pmInResponseIsRead a == pmInResponseIsRead b && pmInResponseIsStarred a == pmInResponseIsStarred b && pmInResponseIsNew a == pmInResponseIsNew b && pmInResponseIsSaved a == pmInResponseIsSaved b && pmInResponseActive a == pmInResponseActive b && pmInResponseGuard a == pmInResponseGuard b && pmInResponseCreatedAt a == pmInResponseCreatedAt b && pmInResponseModifiedAt a == pmInResponseModifiedAt b
 
+instance Show PmInResponse where
+    show rec = "pmInResponseId: " <> show (pmInResponseId rec) <> ", " <> "pmInResponsePmId: " <> show (pmInResponsePmId rec) <> ", " <> "pmInResponseUserId: " <> show (pmInResponseUserId rec) <> ", " <> "pmInResponseLabel: " <> show (pmInResponseLabel rec) <> ", " <> "pmInResponseIsRead: " <> show (pmInResponseIsRead rec) <> ", " <> "pmInResponseIsStarred: " <> show (pmInResponseIsStarred rec) <> ", " <> "pmInResponseIsNew: " <> show (pmInResponseIsNew rec) <> ", " <> "pmInResponseIsSaved: " <> show (pmInResponseIsSaved rec) <> ", " <> "pmInResponseActive: " <> show (pmInResponseActive rec) <> ", " <> "pmInResponseGuard: " <> show (pmInResponseGuard rec) <> ", " <> "pmInResponseCreatedAt: " <> show (pmInResponseCreatedAt rec) <> ", " <> "pmInResponseModifiedAt: " <> show (pmInResponseModifiedAt rec)
+
 instance FromJSON PmInResponses where
   parseJSON (Object o) = do
     pmInResponses <- o .: ("pm_in_responses" :: Text)
@@ -4959,6 +5315,9 @@ instance ToJSON PmInResponses where
 
 instance Eq PmInResponses where
   (==) a b = pmInResponses a == pmInResponses b
+
+instance Show PmInResponses where
+    show rec = "pmInResponses: " <> show (pmInResponses rec)
 
 instance FromJSON PmOutRequest where
   parseJSON (Object o) = do
@@ -4981,6 +5340,9 @@ instance ToJSON PmOutRequest where
 
 instance Eq PmOutRequest where
   (==) a b = pmOutRequestLabel a == pmOutRequestLabel b && pmOutRequestGuard a == pmOutRequestGuard b
+
+instance Show PmOutRequest where
+    show rec = "pmOutRequestLabel: " <> show (pmOutRequestLabel rec) <> ", " <> "pmOutRequestGuard: " <> show (pmOutRequestGuard rec)
 
 instance FromJSON PmOutResponse where
   parseJSON (Object o) = do
@@ -5025,6 +5387,9 @@ instance ToJSON PmOutResponse where
 instance Eq PmOutResponse where
   (==) a b = pmOutResponseId a == pmOutResponseId b && pmOutResponsePmId a == pmOutResponsePmId b && pmOutResponseUserId a == pmOutResponseUserId b && pmOutResponseLabel a == pmOutResponseLabel b && pmOutResponseIsSaved a == pmOutResponseIsSaved b && pmOutResponseActive a == pmOutResponseActive b && pmOutResponseGuard a == pmOutResponseGuard b && pmOutResponseCreatedAt a == pmOutResponseCreatedAt b && pmOutResponseModifiedAt a == pmOutResponseModifiedAt b
 
+instance Show PmOutResponse where
+    show rec = "pmOutResponseId: " <> show (pmOutResponseId rec) <> ", " <> "pmOutResponsePmId: " <> show (pmOutResponsePmId rec) <> ", " <> "pmOutResponseUserId: " <> show (pmOutResponseUserId rec) <> ", " <> "pmOutResponseLabel: " <> show (pmOutResponseLabel rec) <> ", " <> "pmOutResponseIsSaved: " <> show (pmOutResponseIsSaved rec) <> ", " <> "pmOutResponseActive: " <> show (pmOutResponseActive rec) <> ", " <> "pmOutResponseGuard: " <> show (pmOutResponseGuard rec) <> ", " <> "pmOutResponseCreatedAt: " <> show (pmOutResponseCreatedAt rec) <> ", " <> "pmOutResponseModifiedAt: " <> show (pmOutResponseModifiedAt rec)
+
 instance FromJSON PmOutResponses where
   parseJSON (Object o) = do
     pmOutResponses <- o .: ("pm_out_responses" :: Text)
@@ -5043,6 +5408,9 @@ instance ToJSON PmOutResponses where
 
 instance Eq PmOutResponses where
   (==) a b = pmOutResponses a == pmOutResponses b
+
+instance Show PmOutResponses where
+    show rec = "pmOutResponses: " <> show (pmOutResponses rec)
 
 instance FromJSON ProfileX where
   parseJSON (Object o) = do
@@ -5068,6 +5436,9 @@ instance ToJSON ProfileX where
 
 instance Eq ProfileX where
   (==) a b = profileLogin a == profileLogin b && profileName a == profileName b && profileEmail a == profileEmail b
+
+instance Show ProfileX where
+    show rec = "profileLogin: " <> show (profileLogin rec) <> ", " <> "profileName: " <> show (profileName rec) <> ", " <> "profileEmail: " <> show (profileEmail rec)
 
 instance FromJSON ProfileGender where
   parseJSON (Object o) = do
@@ -5108,6 +5479,12 @@ instance Eq ProfileGender where
   (==) GenderUnknown GenderUnknown = True
   (==) _ _ = False
 
+instance Show ProfileGender where
+  show GenderMale = "gender_male"
+  show GenderFemale = "gender_female"
+  show GenderUnknown = "gender_unknown"
+
+
 instance FromJSON ProfileRequest where
   parseJSON (Object o) = do
     profileRequestGender <- o .: ("gender" :: Text)
@@ -5144,6 +5521,9 @@ instance ToJSON ProfileRequest where
 
 instance Eq ProfileRequest where
   (==) a b = profileRequestGender a == profileRequestGender b && profileRequestBirthdate a == profileRequestBirthdate b && profileRequestWebsite a == profileRequestWebsite b && profileRequestLocation a == profileRequestLocation b && profileRequestSignature a == profileRequestSignature b && profileRequestDebug a == profileRequestDebug b && profileRequestGuard a == profileRequestGuard b
+
+instance Show ProfileRequest where
+    show rec = "profileRequestGender: " <> show (profileRequestGender rec) <> ", " <> "profileRequestBirthdate: " <> show (profileRequestBirthdate rec) <> ", " <> "profileRequestWebsite: " <> show (profileRequestWebsite rec) <> ", " <> "profileRequestLocation: " <> show (profileRequestLocation rec) <> ", " <> "profileRequestSignature: " <> show (profileRequestSignature rec) <> ", " <> "profileRequestDebug: " <> show (profileRequestDebug rec) <> ", " <> "profileRequestGuard: " <> show (profileRequestGuard rec)
 
 instance FromJSON ProfileResponse where
   parseJSON (Object o) = do
@@ -5203,6 +5583,9 @@ instance ToJSON ProfileResponse where
 instance Eq ProfileResponse where
   (==) a b = profileResponseId a == profileResponseId b && profileResponseEnt a == profileResponseEnt b && profileResponseEntId a == profileResponseEntId b && profileResponseGender a == profileResponseGender b && profileResponseBirthdate a == profileResponseBirthdate b && profileResponseWebsite a == profileResponseWebsite b && profileResponseLocation a == profileResponseLocation b && profileResponseSignature a == profileResponseSignature b && profileResponseDebug a == profileResponseDebug b && profileResponseKarmaGood a == profileResponseKarmaGood b && profileResponseKarmaBad a == profileResponseKarmaBad b && profileResponseGuard a == profileResponseGuard b && profileResponseCreatedAt a == profileResponseCreatedAt b && profileResponseModifiedAt a == profileResponseModifiedAt b
 
+instance Show ProfileResponse where
+    show rec = "profileResponseId: " <> show (profileResponseId rec) <> ", " <> "profileResponseEnt: " <> show (profileResponseEnt rec) <> ", " <> "profileResponseEntId: " <> show (profileResponseEntId rec) <> ", " <> "profileResponseGender: " <> show (profileResponseGender rec) <> ", " <> "profileResponseBirthdate: " <> show (profileResponseBirthdate rec) <> ", " <> "profileResponseWebsite: " <> show (profileResponseWebsite rec) <> ", " <> "profileResponseLocation: " <> show (profileResponseLocation rec) <> ", " <> "profileResponseSignature: " <> show (profileResponseSignature rec) <> ", " <> "profileResponseDebug: " <> show (profileResponseDebug rec) <> ", " <> "profileResponseKarmaGood: " <> show (profileResponseKarmaGood rec) <> ", " <> "profileResponseKarmaBad: " <> show (profileResponseKarmaBad rec) <> ", " <> "profileResponseGuard: " <> show (profileResponseGuard rec) <> ", " <> "profileResponseCreatedAt: " <> show (profileResponseCreatedAt rec) <> ", " <> "profileResponseModifiedAt: " <> show (profileResponseModifiedAt rec)
+
 instance FromJSON ProfileResponses where
   parseJSON (Object o) = do
     profileResponses <- o .: ("profile_responses" :: Text)
@@ -5221,6 +5604,9 @@ instance ToJSON ProfileResponses where
 
 instance Eq ProfileResponses where
   (==) a b = profileResponses a == profileResponses b
+
+instance Show ProfileResponses where
+    show rec = "profileResponses: " <> show (profileResponses rec)
 
 instance FromJSON ReminderRequest where
   parseJSON (Object o) = do
@@ -5243,6 +5629,9 @@ instance ToJSON ReminderRequest where
 
 instance Eq ReminderRequest where
   (==) a b = reminderRequestData a == reminderRequestData b && reminderRequestGuard a == reminderRequestGuard b
+
+instance Show ReminderRequest where
+    show rec = "reminderRequestData: " <> show (reminderRequestData rec) <> ", " <> "reminderRequestGuard: " <> show (reminderRequestGuard rec)
 
 instance FromJSON ReminderResponse where
   parseJSON (Object o) = do
@@ -5287,6 +5676,9 @@ instance ToJSON ReminderResponse where
 instance Eq ReminderResponse where
   (==) a b = reminderResponseId a == reminderResponseId b && reminderResponseUserId a == reminderResponseUserId b && reminderResponseParentFolderId a == reminderResponseParentFolderId b && reminderResponseData a == reminderResponseData b && reminderResponseActive a == reminderResponseActive b && reminderResponseGuard a == reminderResponseGuard b && reminderResponseCreatedAt a == reminderResponseCreatedAt b && reminderResponseModifiedAt a == reminderResponseModifiedAt b && reminderResponseActivityAt a == reminderResponseActivityAt b
 
+instance Show ReminderResponse where
+    show rec = "reminderResponseId: " <> show (reminderResponseId rec) <> ", " <> "reminderResponseUserId: " <> show (reminderResponseUserId rec) <> ", " <> "reminderResponseParentFolderId: " <> show (reminderResponseParentFolderId rec) <> ", " <> "reminderResponseData: " <> show (reminderResponseData rec) <> ", " <> "reminderResponseActive: " <> show (reminderResponseActive rec) <> ", " <> "reminderResponseGuard: " <> show (reminderResponseGuard rec) <> ", " <> "reminderResponseCreatedAt: " <> show (reminderResponseCreatedAt rec) <> ", " <> "reminderResponseModifiedAt: " <> show (reminderResponseModifiedAt rec) <> ", " <> "reminderResponseActivityAt: " <> show (reminderResponseActivityAt rec)
+
 instance FromJSON ReminderResponses where
   parseJSON (Object o) = do
     reminderResponses <- o .: ("reminder_responses" :: Text)
@@ -5305,6 +5697,9 @@ instance ToJSON ReminderResponses where
 
 instance Eq ReminderResponses where
   (==) a b = reminderResponses a == reminderResponses b
+
+instance Show ReminderResponses where
+    show rec = "reminderResponses: " <> show (reminderResponses rec)
 
 instance FromJSON ReminderFolderRequest where
   parseJSON (Object o) = do
@@ -5333,6 +5728,9 @@ instance ToJSON ReminderFolderRequest where
 
 instance Eq ReminderFolderRequest where
   (==) a b = reminderFolderRequestDisplayName a == reminderFolderRequestDisplayName b && reminderFolderRequestDescription a == reminderFolderRequestDescription b && reminderFolderRequestVisibility a == reminderFolderRequestVisibility b && reminderFolderRequestGuard a == reminderFolderRequestGuard b
+
+instance Show ReminderFolderRequest where
+    show rec = "reminderFolderRequestDisplayName: " <> show (reminderFolderRequestDisplayName rec) <> ", " <> "reminderFolderRequestDescription: " <> show (reminderFolderRequestDescription rec) <> ", " <> "reminderFolderRequestVisibility: " <> show (reminderFolderRequestVisibility rec) <> ", " <> "reminderFolderRequestGuard: " <> show (reminderFolderRequestGuard rec)
 
 instance FromJSON ReminderFolderResponse where
   parseJSON (Object o) = do
@@ -5386,6 +5784,9 @@ instance ToJSON ReminderFolderResponse where
 instance Eq ReminderFolderResponse where
   (==) a b = reminderFolderResponseId a == reminderFolderResponseId b && reminderFolderResponseUserId a == reminderFolderResponseUserId b && reminderFolderResponseParentFolderId a == reminderFolderResponseParentFolderId b && reminderFolderResponseName a == reminderFolderResponseName b && reminderFolderResponseDisplayName a == reminderFolderResponseDisplayName b && reminderFolderResponseVisibility a == reminderFolderResponseVisibility b && reminderFolderResponseDescription a == reminderFolderResponseDescription b && reminderFolderResponseActive a == reminderFolderResponseActive b && reminderFolderResponseGuard a == reminderFolderResponseGuard b && reminderFolderResponseCreatedAt a == reminderFolderResponseCreatedAt b && reminderFolderResponseModifiedAt a == reminderFolderResponseModifiedAt b && reminderFolderResponseActivityAt a == reminderFolderResponseActivityAt b
 
+instance Show ReminderFolderResponse where
+    show rec = "reminderFolderResponseId: " <> show (reminderFolderResponseId rec) <> ", " <> "reminderFolderResponseUserId: " <> show (reminderFolderResponseUserId rec) <> ", " <> "reminderFolderResponseParentFolderId: " <> show (reminderFolderResponseParentFolderId rec) <> ", " <> "reminderFolderResponseName: " <> show (reminderFolderResponseName rec) <> ", " <> "reminderFolderResponseDisplayName: " <> show (reminderFolderResponseDisplayName rec) <> ", " <> "reminderFolderResponseVisibility: " <> show (reminderFolderResponseVisibility rec) <> ", " <> "reminderFolderResponseDescription: " <> show (reminderFolderResponseDescription rec) <> ", " <> "reminderFolderResponseActive: " <> show (reminderFolderResponseActive rec) <> ", " <> "reminderFolderResponseGuard: " <> show (reminderFolderResponseGuard rec) <> ", " <> "reminderFolderResponseCreatedAt: " <> show (reminderFolderResponseCreatedAt rec) <> ", " <> "reminderFolderResponseModifiedAt: " <> show (reminderFolderResponseModifiedAt rec) <> ", " <> "reminderFolderResponseActivityAt: " <> show (reminderFolderResponseActivityAt rec)
+
 instance FromJSON ReminderFolderResponses where
   parseJSON (Object o) = do
     reminderFolderResponses <- o .: ("reminder_folder_responses" :: Text)
@@ -5404,6 +5805,9 @@ instance ToJSON ReminderFolderResponses where
 
 instance Eq ReminderFolderResponses where
   (==) a b = reminderFolderResponses a == reminderFolderResponses b
+
+instance Show ReminderFolderResponses where
+    show rec = "reminderFolderResponses: " <> show (reminderFolderResponses rec)
 
 instance FromJSON ResourceType where
   parseJSON (Object o) = do
@@ -5472,6 +5876,14 @@ instance Eq ResourceType where
   (==) SourceNone SourceNone = True
   (==) _ _ = False
 
+instance Show ResourceType where
+  show (ISBN13 x0) = "isbn13: " <> show x0
+  show (ISBN10 x0) = "isbn10: " <> show x0
+  show (ISBN x0) = "isbn: " <> show x0
+  show (URL x0) = "url: " <> show x0
+  show SourceNone = "source_none"
+
+
 instance FromJSON TyResourceType where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -5527,6 +5939,14 @@ instance Eq TyResourceType where
   (==) TySourceNone TySourceNone = True
   (==) _ _ = False
 
+instance Show TyResourceType where
+  show TyISBN13 = "ty_isbn13"
+  show TyISBN10 = "ty_isbn10"
+  show TyISBN = "ty_isbn"
+  show TyURL = "ty_url"
+  show TySourceNone = "ty_source_none"
+
+
 instance FromJSON ResourceRequest where
   parseJSON (Object o) = do
     resourceRequestDisplayName <- o .: ("display_name" :: Text)
@@ -5581,6 +6001,9 @@ instance ToJSON ResourceRequest where
 
 instance Eq ResourceRequest where
   (==) a b = resourceRequestDisplayName a == resourceRequestDisplayName b && resourceRequestDescription a == resourceRequestDescription b && resourceRequestSource a == resourceRequestSource b && resourceRequestAuthor a == resourceRequestAuthor b && resourceRequestPrerequisites a == resourceRequestPrerequisites b && resourceRequestCategories a == resourceRequestCategories b && resourceRequestVisibility a == resourceRequestVisibility b && resourceRequestCounter a == resourceRequestCounter b && resourceRequestVersion a == resourceRequestVersion b && resourceRequestUrls a == resourceRequestUrls b && resourceRequestIcon a == resourceRequestIcon b && resourceRequestTags a == resourceRequestTags b && resourceRequestGuard a == resourceRequestGuard b
+
+instance Show ResourceRequest where
+    show rec = "resourceRequestDisplayName: " <> show (resourceRequestDisplayName rec) <> ", " <> "resourceRequestDescription: " <> show (resourceRequestDescription rec) <> ", " <> "resourceRequestSource: " <> show (resourceRequestSource rec) <> ", " <> "resourceRequestAuthor: " <> show (resourceRequestAuthor rec) <> ", " <> "resourceRequestPrerequisites: " <> show (resourceRequestPrerequisites rec) <> ", " <> "resourceRequestCategories: " <> show (resourceRequestCategories rec) <> ", " <> "resourceRequestVisibility: " <> show (resourceRequestVisibility rec) <> ", " <> "resourceRequestCounter: " <> show (resourceRequestCounter rec) <> ", " <> "resourceRequestVersion: " <> show (resourceRequestVersion rec) <> ", " <> "resourceRequestUrls: " <> show (resourceRequestUrls rec) <> ", " <> "resourceRequestIcon: " <> show (resourceRequestIcon rec) <> ", " <> "resourceRequestTags: " <> show (resourceRequestTags rec) <> ", " <> "resourceRequestGuard: " <> show (resourceRequestGuard rec)
 
 instance FromJSON ResourceResponse where
   parseJSON (Object o) = do
@@ -5658,6 +6081,9 @@ instance ToJSON ResourceResponse where
 instance Eq ResourceResponse where
   (==) a b = resourceResponseId a == resourceResponseId b && resourceResponseUserId a == resourceResponseUserId b && resourceResponseName a == resourceResponseName b && resourceResponseDisplayName a == resourceResponseDisplayName b && resourceResponseDescription a == resourceResponseDescription b && resourceResponseSource a == resourceResponseSource b && resourceResponseAuthor a == resourceResponseAuthor b && resourceResponsePrerequisites a == resourceResponsePrerequisites b && resourceResponseCategories a == resourceResponseCategories b && resourceResponseVisibility a == resourceResponseVisibility b && resourceResponseCounter a == resourceResponseCounter b && resourceResponseVersion a == resourceResponseVersion b && resourceResponseUrls a == resourceResponseUrls b && resourceResponseIcon a == resourceResponseIcon b && resourceResponseTags a == resourceResponseTags b && resourceResponseActive a == resourceResponseActive b && resourceResponseGuard a == resourceResponseGuard b && resourceResponseCreatedAt a == resourceResponseCreatedAt b && resourceResponseModifiedAt a == resourceResponseModifiedAt b && resourceResponseActivityAt a == resourceResponseActivityAt b
 
+instance Show ResourceResponse where
+    show rec = "resourceResponseId: " <> show (resourceResponseId rec) <> ", " <> "resourceResponseUserId: " <> show (resourceResponseUserId rec) <> ", " <> "resourceResponseName: " <> show (resourceResponseName rec) <> ", " <> "resourceResponseDisplayName: " <> show (resourceResponseDisplayName rec) <> ", " <> "resourceResponseDescription: " <> show (resourceResponseDescription rec) <> ", " <> "resourceResponseSource: " <> show (resourceResponseSource rec) <> ", " <> "resourceResponseAuthor: " <> show (resourceResponseAuthor rec) <> ", " <> "resourceResponsePrerequisites: " <> show (resourceResponsePrerequisites rec) <> ", " <> "resourceResponseCategories: " <> show (resourceResponseCategories rec) <> ", " <> "resourceResponseVisibility: " <> show (resourceResponseVisibility rec) <> ", " <> "resourceResponseCounter: " <> show (resourceResponseCounter rec) <> ", " <> "resourceResponseVersion: " <> show (resourceResponseVersion rec) <> ", " <> "resourceResponseUrls: " <> show (resourceResponseUrls rec) <> ", " <> "resourceResponseIcon: " <> show (resourceResponseIcon rec) <> ", " <> "resourceResponseTags: " <> show (resourceResponseTags rec) <> ", " <> "resourceResponseActive: " <> show (resourceResponseActive rec) <> ", " <> "resourceResponseGuard: " <> show (resourceResponseGuard rec) <> ", " <> "resourceResponseCreatedAt: " <> show (resourceResponseCreatedAt rec) <> ", " <> "resourceResponseModifiedAt: " <> show (resourceResponseModifiedAt rec) <> ", " <> "resourceResponseActivityAt: " <> show (resourceResponseActivityAt rec)
+
 instance FromJSON ResourceResponses where
   parseJSON (Object o) = do
     resourceResponses <- o .: ("resource_responses" :: Text)
@@ -5676,6 +6102,9 @@ instance ToJSON ResourceResponses where
 
 instance Eq ResourceResponses where
   (==) a b = resourceResponses a == resourceResponses b
+
+instance Show ResourceResponses where
+    show rec = "resourceResponses: " <> show (resourceResponses rec)
 
 instance FromJSON ResourceStatResponse where
   parseJSON (Object o) = do
@@ -5714,6 +6143,9 @@ instance ToJSON ResourceStatResponse where
 instance Eq ResourceStatResponse where
   (==) a b = resourceStatResponseResourceId a == resourceStatResponseResourceId b && resourceStatResponseLeurons a == resourceStatResponseLeurons b && resourceStatResponseLikes a == resourceStatResponseLikes b && resourceStatResponseNeutral a == resourceStatResponseNeutral b && resourceStatResponseDislikes a == resourceStatResponseDislikes b && resourceStatResponseStars a == resourceStatResponseStars b && resourceStatResponseViews a == resourceStatResponseViews b
 
+instance Show ResourceStatResponse where
+    show rec = "resourceStatResponseResourceId: " <> show (resourceStatResponseResourceId rec) <> ", " <> "resourceStatResponseLeurons: " <> show (resourceStatResponseLeurons rec) <> ", " <> "resourceStatResponseLikes: " <> show (resourceStatResponseLikes rec) <> ", " <> "resourceStatResponseNeutral: " <> show (resourceStatResponseNeutral rec) <> ", " <> "resourceStatResponseDislikes: " <> show (resourceStatResponseDislikes rec) <> ", " <> "resourceStatResponseStars: " <> show (resourceStatResponseStars rec) <> ", " <> "resourceStatResponseViews: " <> show (resourceStatResponseViews rec)
+
 instance FromJSON ResourceStatResponses where
   parseJSON (Object o) = do
     resourceStatResponses <- o .: ("resource_stat_responses" :: Text)
@@ -5732,6 +6164,9 @@ instance ToJSON ResourceStatResponses where
 
 instance Eq ResourceStatResponses where
   (==) a b = resourceStatResponses a == resourceStatResponses b
+
+instance Show ResourceStatResponses where
+    show rec = "resourceStatResponses: " <> show (resourceStatResponses rec)
 
 instance FromJSON Size where
   parseJSON (Object o) = do
@@ -5788,6 +6223,14 @@ instance Eq Size where
   (==) XLarge XLarge = True
   (==) _ _ = False
 
+instance Show Size where
+  show XSmall = "xsmall"
+  show Small = "small"
+  show Medium = "medium"
+  show Large = "large"
+  show XLarge = "xlarge"
+
+
 instance FromJSON Splits where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -5822,6 +6265,11 @@ instance Eq Splits where
   (==) SplitNone SplitNone = True
   (==) _ _ = False
 
+instance Show Splits where
+  show (SplitAt x0 x1 x2) = "split_at: " <> show x0 <> " " <> show x1 <> " " <> show x2
+  show SplitNone = "split_none"
+
+
 instance FromJSON TySplits where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -5852,6 +6300,11 @@ instance Eq TySplits where
   (==) TySplitA TySplitA = True
   (==) TySplitNone TySplitNone = True
   (==) _ _ = False
+
+instance Show TySplits where
+  show TySplitA = "ty_split_a"
+  show TySplitNone = "ty_split_none"
+
 
 instance FromJSON Substitutions where
   parseJSON (Object o) = do
@@ -5912,6 +6365,13 @@ instance Eq Substitutions where
   (==) (SubsBoth x0a x1a) (SubsBoth x0b x1b) = x0a == x0b && x1a == x1b
   (==) _ _ = False
 
+instance Show Substitutions where
+  show (SubsExpr x0 x1) = "subs_expr: " <> show x0 <> " " <> show x1
+  show (SubsOneOf x0) = "subs_one_of: " <> show x0
+  show (SubsAllOf x0) = "subs_all_of: " <> show x0
+  show (SubsBoth x0 x1) = "subs_both: " <> show x0 <> " " <> show x1
+
+
 instance FromJSON TySubstitutions where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -5959,6 +6419,13 @@ instance Eq TySubstitutions where
   (==) TySubsBoth TySubsBoth = True
   (==) _ _ = False
 
+instance Show TySubstitutions where
+  show TySubsExpr = "ty_subs_expr"
+  show TySubsOneOf = "ty_subs_one_of"
+  show TySubsAllOf = "ty_subs_all_of"
+  show TySubsBoth = "ty_subs_both"
+
+
 instance FromJSON StarRequest where
   parseJSON (Object o) = do
     starRequestReason <- o .: ("reason" :: Text)
@@ -5980,6 +6447,9 @@ instance ToJSON StarRequest where
 
 instance Eq StarRequest where
   (==) a b = starRequestReason a == starRequestReason b && starRequestGuard a == starRequestGuard b
+
+instance Show StarRequest where
+    show rec = "starRequestReason: " <> show (starRequestReason rec) <> ", " <> "starRequestGuard: " <> show (starRequestGuard rec)
 
 instance FromJSON StarResponse where
   parseJSON (Object o) = do
@@ -6024,6 +6494,9 @@ instance ToJSON StarResponse where
 instance Eq StarResponse where
   (==) a b = starResponseId a == starResponseId b && starResponseEnt a == starResponseEnt b && starResponseEntId a == starResponseEntId b && starResponseUserId a == starResponseUserId b && starResponseReason a == starResponseReason b && starResponseActive a == starResponseActive b && starResponseGuard a == starResponseGuard b && starResponseCreatedAt a == starResponseCreatedAt b && starResponseModifiedAt a == starResponseModifiedAt b
 
+instance Show StarResponse where
+    show rec = "starResponseId: " <> show (starResponseId rec) <> ", " <> "starResponseEnt: " <> show (starResponseEnt rec) <> ", " <> "starResponseEntId: " <> show (starResponseEntId rec) <> ", " <> "starResponseUserId: " <> show (starResponseUserId rec) <> ", " <> "starResponseReason: " <> show (starResponseReason rec) <> ", " <> "starResponseActive: " <> show (starResponseActive rec) <> ", " <> "starResponseGuard: " <> show (starResponseGuard rec) <> ", " <> "starResponseCreatedAt: " <> show (starResponseCreatedAt rec) <> ", " <> "starResponseModifiedAt: " <> show (starResponseModifiedAt rec)
+
 instance FromJSON StarResponses where
   parseJSON (Object o) = do
     starResponses <- o .: ("star_responses" :: Text)
@@ -6042,6 +6515,9 @@ instance ToJSON StarResponses where
 
 instance Eq StarResponses where
   (==) a b = starResponses a == starResponses b
+
+instance Show StarResponses where
+    show rec = "starResponses: " <> show (starResponses rec)
 
 instance FromJSON StarStatResponse where
   parseJSON (Object o) = do
@@ -6068,6 +6544,9 @@ instance ToJSON StarStatResponse where
 instance Eq StarStatResponse where
   (==) a b = starStatResponseEnt a == starStatResponseEnt b && starStatResponseEntId a == starStatResponseEntId b && starStatResponseStars a == starStatResponseStars b
 
+instance Show StarStatResponse where
+    show rec = "starStatResponseEnt: " <> show (starStatResponseEnt rec) <> ", " <> "starStatResponseEntId: " <> show (starStatResponseEntId rec) <> ", " <> "starStatResponseStars: " <> show (starStatResponseStars rec)
+
 instance FromJSON StarStatResponses where
   parseJSON (Object o) = do
     starStatResponses <- o .: ("star_stat_responses" :: Text)
@@ -6086,6 +6565,9 @@ instance ToJSON StarStatResponses where
 
 instance Eq StarStatResponses where
   (==) a b = starStatResponses a == starStatResponses b
+
+instance Show StarStatResponses where
+    show rec = "starStatResponses: " <> show (starStatResponses rec)
 
 instance FromJSON SystemTeam where
   parseJSON (Object o) = do
@@ -6118,6 +6600,11 @@ instance Eq SystemTeam where
   (==) Team_Members Team_Members = True
   (==) _ _ = False
 
+instance Show SystemTeam where
+  show Team_Owners = "team_owners"
+  show Team_Members = "team_members"
+
+
 instance FromJSON TeamRequest where
   parseJSON (Object o) = do
     teamRequestMembership <- o .: ("membership" :: Text)
@@ -6148,6 +6635,9 @@ instance ToJSON TeamRequest where
 
 instance Eq TeamRequest where
   (==) a b = teamRequestMembership a == teamRequestMembership b && teamRequestIcon a == teamRequestIcon b && teamRequestTags a == teamRequestTags b && teamRequestVisibility a == teamRequestVisibility b && teamRequestGuard a == teamRequestGuard b
+
+instance Show TeamRequest where
+    show rec = "teamRequestMembership: " <> show (teamRequestMembership rec) <> ", " <> "teamRequestIcon: " <> show (teamRequestIcon rec) <> ", " <> "teamRequestTags: " <> show (teamRequestTags rec) <> ", " <> "teamRequestVisibility: " <> show (teamRequestVisibility rec) <> ", " <> "teamRequestGuard: " <> show (teamRequestGuard rec)
 
 instance FromJSON TeamResponse where
   parseJSON (Object o) = do
@@ -6207,6 +6697,9 @@ instance ToJSON TeamResponse where
 instance Eq TeamResponse where
   (==) a b = teamResponseId a == teamResponseId b && teamResponseUserId a == teamResponseUserId b && teamResponseOrgId a == teamResponseOrgId b && teamResponseSystem a == teamResponseSystem b && teamResponseMembership a == teamResponseMembership b && teamResponseIcon a == teamResponseIcon b && teamResponseTags a == teamResponseTags b && teamResponseVisibility a == teamResponseVisibility b && teamResponseActive a == teamResponseActive b && teamResponseGuard a == teamResponseGuard b && teamResponseCreatedAt a == teamResponseCreatedAt b && teamResponseModifiedBy a == teamResponseModifiedBy b && teamResponseModifiedAt a == teamResponseModifiedAt b && teamResponseActivityAt a == teamResponseActivityAt b
 
+instance Show TeamResponse where
+    show rec = "teamResponseId: " <> show (teamResponseId rec) <> ", " <> "teamResponseUserId: " <> show (teamResponseUserId rec) <> ", " <> "teamResponseOrgId: " <> show (teamResponseOrgId rec) <> ", " <> "teamResponseSystem: " <> show (teamResponseSystem rec) <> ", " <> "teamResponseMembership: " <> show (teamResponseMembership rec) <> ", " <> "teamResponseIcon: " <> show (teamResponseIcon rec) <> ", " <> "teamResponseTags: " <> show (teamResponseTags rec) <> ", " <> "teamResponseVisibility: " <> show (teamResponseVisibility rec) <> ", " <> "teamResponseActive: " <> show (teamResponseActive rec) <> ", " <> "teamResponseGuard: " <> show (teamResponseGuard rec) <> ", " <> "teamResponseCreatedAt: " <> show (teamResponseCreatedAt rec) <> ", " <> "teamResponseModifiedBy: " <> show (teamResponseModifiedBy rec) <> ", " <> "teamResponseModifiedAt: " <> show (teamResponseModifiedAt rec) <> ", " <> "teamResponseActivityAt: " <> show (teamResponseActivityAt rec)
+
 instance FromJSON TeamResponses where
   parseJSON (Object o) = do
     teamResponses <- o .: ("team_responses" :: Text)
@@ -6225,6 +6718,9 @@ instance ToJSON TeamResponses where
 
 instance Eq TeamResponses where
   (==) a b = teamResponses a == teamResponses b
+
+instance Show TeamResponses where
+    show rec = "teamResponses: " <> show (teamResponses rec)
 
 instance FromJSON TeamStatResponse where
   parseJSON (Object o) = do
@@ -6245,6 +6741,9 @@ instance ToJSON TeamStatResponse where
 instance Eq TeamStatResponse where
   (==) a b = teamStatResponseMembers a == teamStatResponseMembers b
 
+instance Show TeamStatResponse where
+    show rec = "teamStatResponseMembers: " <> show (teamStatResponseMembers rec)
+
 instance FromJSON TeamStatResponses where
   parseJSON (Object o) = do
     teamStatResponses <- o .: ("team_stat_responses" :: Text)
@@ -6264,6 +6763,9 @@ instance ToJSON TeamStatResponses where
 instance Eq TeamStatResponses where
   (==) a b = teamStatResponses a == teamStatResponses b
 
+instance Show TeamStatResponses where
+    show rec = "teamStatResponses: " <> show (teamStatResponses rec)
+
 instance FromJSON TeamMemberRequest where
   parseJSON (Object o) = do
     teamMemberRequestGuard <- o .: ("guard" :: Text)
@@ -6282,6 +6784,9 @@ instance ToJSON TeamMemberRequest where
 
 instance Eq TeamMemberRequest where
   (==) a b = teamMemberRequestGuard a == teamMemberRequestGuard b
+
+instance Show TeamMemberRequest where
+    show rec = "teamMemberRequestGuard: " <> show (teamMemberRequestGuard rec)
 
 instance FromJSON TeamMemberResponse where
   parseJSON (Object o) = do
@@ -6341,6 +6846,9 @@ instance ToJSON TeamMemberResponse where
 instance Eq TeamMemberResponse where
   (==) a b = teamMemberResponseId a == teamMemberResponseId b && teamMemberResponseUserId a == teamMemberResponseUserId b && teamMemberResponseOrgId a == teamMemberResponseOrgId b && teamMemberResponseTeamId a == teamMemberResponseTeamId b && teamMemberResponseIsAccepted a == teamMemberResponseIsAccepted b && teamMemberResponseAcceptedAt a == teamMemberResponseAcceptedAt b && teamMemberResponseIsBlocked a == teamMemberResponseIsBlocked b && teamMemberResponseBlockedAt a == teamMemberResponseBlockedAt b && teamMemberResponseActive a == teamMemberResponseActive b && teamMemberResponseGuard a == teamMemberResponseGuard b && teamMemberResponseCreatedAt a == teamMemberResponseCreatedAt b && teamMemberResponseModifiedBy a == teamMemberResponseModifiedBy b && teamMemberResponseModifiedAt a == teamMemberResponseModifiedAt b && teamMemberResponseActivityAt a == teamMemberResponseActivityAt b
 
+instance Show TeamMemberResponse where
+    show rec = "teamMemberResponseId: " <> show (teamMemberResponseId rec) <> ", " <> "teamMemberResponseUserId: " <> show (teamMemberResponseUserId rec) <> ", " <> "teamMemberResponseOrgId: " <> show (teamMemberResponseOrgId rec) <> ", " <> "teamMemberResponseTeamId: " <> show (teamMemberResponseTeamId rec) <> ", " <> "teamMemberResponseIsAccepted: " <> show (teamMemberResponseIsAccepted rec) <> ", " <> "teamMemberResponseAcceptedAt: " <> show (teamMemberResponseAcceptedAt rec) <> ", " <> "teamMemberResponseIsBlocked: " <> show (teamMemberResponseIsBlocked rec) <> ", " <> "teamMemberResponseBlockedAt: " <> show (teamMemberResponseBlockedAt rec) <> ", " <> "teamMemberResponseActive: " <> show (teamMemberResponseActive rec) <> ", " <> "teamMemberResponseGuard: " <> show (teamMemberResponseGuard rec) <> ", " <> "teamMemberResponseCreatedAt: " <> show (teamMemberResponseCreatedAt rec) <> ", " <> "teamMemberResponseModifiedBy: " <> show (teamMemberResponseModifiedBy rec) <> ", " <> "teamMemberResponseModifiedAt: " <> show (teamMemberResponseModifiedAt rec) <> ", " <> "teamMemberResponseActivityAt: " <> show (teamMemberResponseActivityAt rec)
+
 instance FromJSON TeamMemberResponses where
   parseJSON (Object o) = do
     teamMemberResponses <- o .: ("team_member_responses" :: Text)
@@ -6359,6 +6867,9 @@ instance ToJSON TeamMemberResponses where
 
 instance Eq TeamMemberResponses where
   (==) a b = teamMemberResponses a == teamMemberResponses b
+
+instance Show TeamMemberResponses where
+    show rec = "teamMemberResponses: " <> show (teamMemberResponses rec)
 
 instance FromJSON TeamMemberStatResponse where
   parseJSON (Object o) = do
@@ -6383,6 +6894,10 @@ instance Eq TeamMemberStatResponse where
   (==) TeamMemberStatResponse TeamMemberStatResponse = True
 
 
+instance Show TeamMemberStatResponse where
+  show TeamMemberStatResponse = "team_member_stat_response"
+
+
 instance FromJSON TeamMemberStatResponses where
   parseJSON (Object o) = do
     teamMemberStatResponses <- o .: ("team_member_stat_responses" :: Text)
@@ -6402,6 +6917,9 @@ instance ToJSON TeamMemberStatResponses where
 instance Eq TeamMemberStatResponses where
   (==) a b = teamMemberStatResponses a == teamMemberStatResponses b
 
+instance Show TeamMemberStatResponses where
+    show rec = "teamMemberStatResponses: " <> show (teamMemberStatResponses rec)
+
 instance FromJSON TestRequest where
   parseJSON (Object o) = do
     testRequestMsg <- o .: ("msg" :: Text)
@@ -6420,6 +6938,9 @@ instance ToJSON TestRequest where
 
 instance Eq TestRequest where
   (==) a b = testRequestMsg a == testRequestMsg b
+
+instance Show TestRequest where
+    show rec = "testRequestMsg: " <> show (testRequestMsg rec)
 
 instance FromJSON TestResponse where
   parseJSON (Object o) = do
@@ -6452,6 +6973,9 @@ instance ToJSON TestResponse where
 instance Eq TestResponse where
   (==) a b = testResponseId a == testResponseId b && testResponseUserId a == testResponseUserId b && testResponseMsg a == testResponseMsg b && testResponseCreatedAt a == testResponseCreatedAt b && testResponseModifiedAt a == testResponseModifiedAt b
 
+instance Show TestResponse where
+    show rec = "testResponseId: " <> show (testResponseId rec) <> ", " <> "testResponseUserId: " <> show (testResponseUserId rec) <> ", " <> "testResponseMsg: " <> show (testResponseMsg rec) <> ", " <> "testResponseCreatedAt: " <> show (testResponseCreatedAt rec) <> ", " <> "testResponseModifiedAt: " <> show (testResponseModifiedAt rec)
+
 instance FromJSON TestResponses where
   parseJSON (Object o) = do
     testResponses <- o .: ("test_responses" :: Text)
@@ -6470,6 +6994,9 @@ instance ToJSON TestResponses where
 
 instance Eq TestResponses where
   (==) a b = testResponses a == testResponses b
+
+instance Show TestResponses where
+    show rec = "testResponses: " <> show (testResponses rec)
 
 instance FromJSON ThreadRequest where
   parseJSON (Object o) = do
@@ -6510,6 +7037,9 @@ instance ToJSON ThreadRequest where
 
 instance Eq ThreadRequest where
   (==) a b = threadRequestDisplayName a == threadRequestDisplayName b && threadRequestDescription a == threadRequestDescription b && threadRequestSticky a == threadRequestSticky b && threadRequestLocked a == threadRequestLocked b && threadRequestPoll a == threadRequestPoll b && threadRequestIcon a == threadRequestIcon b && threadRequestTags a == threadRequestTags b && threadRequestGuard a == threadRequestGuard b
+
+instance Show ThreadRequest where
+    show rec = "threadRequestDisplayName: " <> show (threadRequestDisplayName rec) <> ", " <> "threadRequestDescription: " <> show (threadRequestDescription rec) <> ", " <> "threadRequestSticky: " <> show (threadRequestSticky rec) <> ", " <> "threadRequestLocked: " <> show (threadRequestLocked rec) <> ", " <> "threadRequestPoll: " <> show (threadRequestPoll rec) <> ", " <> "threadRequestIcon: " <> show (threadRequestIcon rec) <> ", " <> "threadRequestTags: " <> show (threadRequestTags rec) <> ", " <> "threadRequestGuard: " <> show (threadRequestGuard rec)
 
 instance FromJSON ThreadResponse where
   parseJSON (Object o) = do
@@ -6584,6 +7114,9 @@ instance ToJSON ThreadResponse where
 instance Eq ThreadResponse where
   (==) a b = threadResponseId a == threadResponseId b && threadResponseUserId a == threadResponseUserId b && threadResponseOrgId a == threadResponseOrgId b && threadResponseForumId a == threadResponseForumId b && threadResponseBoardId a == threadResponseBoardId b && threadResponseName a == threadResponseName b && threadResponseDisplayName a == threadResponseDisplayName b && threadResponseDescription a == threadResponseDescription b && threadResponseSticky a == threadResponseSticky b && threadResponseLocked a == threadResponseLocked b && threadResponsePoll a == threadResponsePoll b && threadResponseIcon a == threadResponseIcon b && threadResponseTags a == threadResponseTags b && threadResponseActive a == threadResponseActive b && threadResponseGuard a == threadResponseGuard b && threadResponseCreatedAt a == threadResponseCreatedAt b && threadResponseModifiedBy a == threadResponseModifiedBy b && threadResponseModifiedAt a == threadResponseModifiedAt b && threadResponseActivityAt a == threadResponseActivityAt b
 
+instance Show ThreadResponse where
+    show rec = "threadResponseId: " <> show (threadResponseId rec) <> ", " <> "threadResponseUserId: " <> show (threadResponseUserId rec) <> ", " <> "threadResponseOrgId: " <> show (threadResponseOrgId rec) <> ", " <> "threadResponseForumId: " <> show (threadResponseForumId rec) <> ", " <> "threadResponseBoardId: " <> show (threadResponseBoardId rec) <> ", " <> "threadResponseName: " <> show (threadResponseName rec) <> ", " <> "threadResponseDisplayName: " <> show (threadResponseDisplayName rec) <> ", " <> "threadResponseDescription: " <> show (threadResponseDescription rec) <> ", " <> "threadResponseSticky: " <> show (threadResponseSticky rec) <> ", " <> "threadResponseLocked: " <> show (threadResponseLocked rec) <> ", " <> "threadResponsePoll: " <> show (threadResponsePoll rec) <> ", " <> "threadResponseIcon: " <> show (threadResponseIcon rec) <> ", " <> "threadResponseTags: " <> show (threadResponseTags rec) <> ", " <> "threadResponseActive: " <> show (threadResponseActive rec) <> ", " <> "threadResponseGuard: " <> show (threadResponseGuard rec) <> ", " <> "threadResponseCreatedAt: " <> show (threadResponseCreatedAt rec) <> ", " <> "threadResponseModifiedBy: " <> show (threadResponseModifiedBy rec) <> ", " <> "threadResponseModifiedAt: " <> show (threadResponseModifiedAt rec) <> ", " <> "threadResponseActivityAt: " <> show (threadResponseActivityAt rec)
+
 instance FromJSON ThreadResponses where
   parseJSON (Object o) = do
     threadResponses <- o .: ("thread_responses" :: Text)
@@ -6602,6 +7135,9 @@ instance ToJSON ThreadResponses where
 
 instance Eq ThreadResponses where
   (==) a b = threadResponses a == threadResponses b
+
+instance Show ThreadResponses where
+    show rec = "threadResponses: " <> show (threadResponses rec)
 
 instance FromJSON ThreadStatResponse where
   parseJSON (Object o) = do
@@ -6628,6 +7164,9 @@ instance ToJSON ThreadStatResponse where
 instance Eq ThreadStatResponse where
   (==) a b = threadStatResponseThreadId a == threadStatResponseThreadId b && threadStatResponseThreadPosts a == threadStatResponseThreadPosts b && threadStatResponseViews a == threadStatResponseViews b
 
+instance Show ThreadStatResponse where
+    show rec = "threadStatResponseThreadId: " <> show (threadStatResponseThreadId rec) <> ", " <> "threadStatResponseThreadPosts: " <> show (threadStatResponseThreadPosts rec) <> ", " <> "threadStatResponseViews: " <> show (threadStatResponseViews rec)
+
 instance FromJSON ThreadStatResponses where
   parseJSON (Object o) = do
     threadStatResponses <- o .: ("thread_stat_responses" :: Text)
@@ -6646,6 +7185,9 @@ instance ToJSON ThreadStatResponses where
 
 instance Eq ThreadStatResponses where
   (==) a b = threadStatResponses a == threadStatResponses b
+
+instance Show ThreadStatResponses where
+    show rec = "threadStatResponses: " <> show (threadStatResponses rec)
 
 instance FromJSON PostData where
   parseJSON (Object o) = do
@@ -6725,6 +7267,15 @@ instance Eq PostData where
   (==) PostDataEmpty PostDataEmpty = True
   (==) _ _ = False
 
+instance Show PostData where
+  show (PostDataRaw x0) = "post_data_raw: " <> show x0
+  show (PostDataMarkdown x0) = "post_data_markdown: " <> show x0
+  show (PostDataBBCode x0) = "post_data_bbcode: " <> show x0
+  show (PostDataCode x0 x1) = "post_data_code: " <> show x0 <> " " <> show x1
+  show (PostDataOther x0 x1) = "post_data_other: " <> show x0 <> " " <> show x1
+  show PostDataEmpty = "empty"
+
+
 instance FromJSON ThreadPostRequest where
   parseJSON (Object o) = do
     threadPostRequestTitle <- o .: ("title" :: Text)
@@ -6755,6 +7306,9 @@ instance ToJSON ThreadPostRequest where
 
 instance Eq ThreadPostRequest where
   (==) a b = threadPostRequestTitle a == threadPostRequestTitle b && threadPostRequestBody a == threadPostRequestBody b && threadPostRequestTags a == threadPostRequestTags b && threadPostRequestPrivateTags a == threadPostRequestPrivateTags b && threadPostRequestGuard a == threadPostRequestGuard b
+
+instance Show ThreadPostRequest where
+    show rec = "threadPostRequestTitle: " <> show (threadPostRequestTitle rec) <> ", " <> "threadPostRequestBody: " <> show (threadPostRequestBody rec) <> ", " <> "threadPostRequestTags: " <> show (threadPostRequestTags rec) <> ", " <> "threadPostRequestPrivateTags: " <> show (threadPostRequestPrivateTags rec) <> ", " <> "threadPostRequestGuard: " <> show (threadPostRequestGuard rec)
 
 instance FromJSON ThreadPostResponse where
   parseJSON (Object o) = do
@@ -6823,6 +7377,9 @@ instance ToJSON ThreadPostResponse where
 instance Eq ThreadPostResponse where
   (==) a b = threadPostResponseId a == threadPostResponseId b && threadPostResponseUserId a == threadPostResponseUserId b && threadPostResponseOrgId a == threadPostResponseOrgId b && threadPostResponseForumId a == threadPostResponseForumId b && threadPostResponseBoardId a == threadPostResponseBoardId b && threadPostResponseThreadId a == threadPostResponseThreadId b && threadPostResponseParentId a == threadPostResponseParentId b && threadPostResponseTitle a == threadPostResponseTitle b && threadPostResponseBody a == threadPostResponseBody b && threadPostResponseTags a == threadPostResponseTags b && threadPostResponsePrivateTags a == threadPostResponsePrivateTags b && threadPostResponseActive a == threadPostResponseActive b && threadPostResponseGuard a == threadPostResponseGuard b && threadPostResponseCreatedAt a == threadPostResponseCreatedAt b && threadPostResponseModifiedBy a == threadPostResponseModifiedBy b && threadPostResponseModifiedAt a == threadPostResponseModifiedAt b && threadPostResponseActivityAt a == threadPostResponseActivityAt b
 
+instance Show ThreadPostResponse where
+    show rec = "threadPostResponseId: " <> show (threadPostResponseId rec) <> ", " <> "threadPostResponseUserId: " <> show (threadPostResponseUserId rec) <> ", " <> "threadPostResponseOrgId: " <> show (threadPostResponseOrgId rec) <> ", " <> "threadPostResponseForumId: " <> show (threadPostResponseForumId rec) <> ", " <> "threadPostResponseBoardId: " <> show (threadPostResponseBoardId rec) <> ", " <> "threadPostResponseThreadId: " <> show (threadPostResponseThreadId rec) <> ", " <> "threadPostResponseParentId: " <> show (threadPostResponseParentId rec) <> ", " <> "threadPostResponseTitle: " <> show (threadPostResponseTitle rec) <> ", " <> "threadPostResponseBody: " <> show (threadPostResponseBody rec) <> ", " <> "threadPostResponseTags: " <> show (threadPostResponseTags rec) <> ", " <> "threadPostResponsePrivateTags: " <> show (threadPostResponsePrivateTags rec) <> ", " <> "threadPostResponseActive: " <> show (threadPostResponseActive rec) <> ", " <> "threadPostResponseGuard: " <> show (threadPostResponseGuard rec) <> ", " <> "threadPostResponseCreatedAt: " <> show (threadPostResponseCreatedAt rec) <> ", " <> "threadPostResponseModifiedBy: " <> show (threadPostResponseModifiedBy rec) <> ", " <> "threadPostResponseModifiedAt: " <> show (threadPostResponseModifiedAt rec) <> ", " <> "threadPostResponseActivityAt: " <> show (threadPostResponseActivityAt rec)
+
 instance FromJSON ThreadPostResponses where
   parseJSON (Object o) = do
     threadPostResponses <- o .: ("thread_post_responses" :: Text)
@@ -6841,6 +7398,9 @@ instance ToJSON ThreadPostResponses where
 
 instance Eq ThreadPostResponses where
   (==) a b = threadPostResponses a == threadPostResponses b
+
+instance Show ThreadPostResponses where
+    show rec = "threadPostResponses: " <> show (threadPostResponses rec)
 
 instance FromJSON ThreadPostStatResponse where
   parseJSON (Object o) = do
@@ -6876,6 +7436,9 @@ instance ToJSON ThreadPostStatResponse where
 instance Eq ThreadPostStatResponse where
   (==) a b = threadPostStatResponseThreadPostId a == threadPostStatResponseThreadPostId b && threadPostStatResponseLikes a == threadPostStatResponseLikes b && threadPostStatResponseNeutral a == threadPostStatResponseNeutral b && threadPostStatResponseDislikes a == threadPostStatResponseDislikes b && threadPostStatResponseStars a == threadPostStatResponseStars b && threadPostStatResponseViews a == threadPostStatResponseViews b
 
+instance Show ThreadPostStatResponse where
+    show rec = "threadPostStatResponseThreadPostId: " <> show (threadPostStatResponseThreadPostId rec) <> ", " <> "threadPostStatResponseLikes: " <> show (threadPostStatResponseLikes rec) <> ", " <> "threadPostStatResponseNeutral: " <> show (threadPostStatResponseNeutral rec) <> ", " <> "threadPostStatResponseDislikes: " <> show (threadPostStatResponseDislikes rec) <> ", " <> "threadPostStatResponseStars: " <> show (threadPostStatResponseStars rec) <> ", " <> "threadPostStatResponseViews: " <> show (threadPostStatResponseViews rec)
+
 instance FromJSON ThreadPostStatResponses where
   parseJSON (Object o) = do
     threadPostStatResponses <- o .: ("thread_post_stat_responses" :: Text)
@@ -6894,6 +7457,9 @@ instance ToJSON ThreadPostStatResponses where
 
 instance Eq ThreadPostStatResponses where
   (==) a b = threadPostStatResponses a == threadPostStatResponses b
+
+instance Show ThreadPostStatResponses where
+    show rec = "threadPostStatResponses: " <> show (threadPostStatResponses rec)
 
 instance FromJSON UserRequest where
   parseJSON (Object o) = do
@@ -6928,6 +7494,9 @@ instance ToJSON UserRequest where
 
 instance Eq UserRequest where
   (==) a b = userRequestDisplayNick a == userRequestDisplayNick b && userRequestName a == userRequestName b && userRequestEmail a == userRequestEmail b && userRequestPlugin a == userRequestPlugin b && userRequestIdent a == userRequestIdent b && userRequestAcceptTOS a == userRequestAcceptTOS b
+
+instance Show UserRequest where
+    show rec = "userRequestDisplayNick: " <> show (userRequestDisplayNick rec) <> ", " <> "userRequestName: " <> show (userRequestName rec) <> ", " <> "userRequestEmail: " <> show (userRequestEmail rec) <> ", " <> "userRequestPlugin: " <> show (userRequestPlugin rec) <> ", " <> "userRequestIdent: " <> show (userRequestIdent rec) <> ", " <> "userRequestAcceptTOS: " <> show (userRequestAcceptTOS rec)
 
 instance FromJSON UserResponse where
   parseJSON (Object o) = do
@@ -6990,6 +7559,9 @@ instance ToJSON UserResponse where
 instance Eq UserResponse where
   (==) a b = userResponseId a == userResponseId b && userResponseNick a == userResponseNick b && userResponseDisplayNick a == userResponseDisplayNick b && userResponseName a == userResponseName b && userResponseEmail a == userResponseEmail b && userResponseEmailMD5 a == userResponseEmailMD5 b && userResponsePlugin a == userResponsePlugin b && userResponseIdent a == userResponseIdent b && userResponseAcceptTOS a == userResponseAcceptTOS b && userResponseActive a == userResponseActive b && userResponseGuard a == userResponseGuard b && userResponseCreatedAt a == userResponseCreatedAt b && userResponseModifiedAt a == userResponseModifiedAt b && userResponseDeactivatedAt a == userResponseDeactivatedAt b && userResponseActivityAt a == userResponseActivityAt b
 
+instance Show UserResponse where
+    show rec = "userResponseId: " <> show (userResponseId rec) <> ", " <> "userResponseNick: " <> show (userResponseNick rec) <> ", " <> "userResponseDisplayNick: " <> show (userResponseDisplayNick rec) <> ", " <> "userResponseName: " <> show (userResponseName rec) <> ", " <> "userResponseEmail: " <> show (userResponseEmail rec) <> ", " <> "userResponseEmailMD5: " <> show (userResponseEmailMD5 rec) <> ", " <> "userResponsePlugin: " <> show (userResponsePlugin rec) <> ", " <> "userResponseIdent: " <> show (userResponseIdent rec) <> ", " <> "userResponseAcceptTOS: " <> show (userResponseAcceptTOS rec) <> ", " <> "userResponseActive: " <> show (userResponseActive rec) <> ", " <> "userResponseGuard: " <> show (userResponseGuard rec) <> ", " <> "userResponseCreatedAt: " <> show (userResponseCreatedAt rec) <> ", " <> "userResponseModifiedAt: " <> show (userResponseModifiedAt rec) <> ", " <> "userResponseDeactivatedAt: " <> show (userResponseDeactivatedAt rec) <> ", " <> "userResponseActivityAt: " <> show (userResponseActivityAt rec)
+
 instance FromJSON UserResponses where
   parseJSON (Object o) = do
     userResponses <- o .: ("user_responses" :: Text)
@@ -7008,6 +7580,9 @@ instance ToJSON UserResponses where
 
 instance Eq UserResponses where
   (==) a b = userResponses a == userResponses b
+
+instance Show UserResponses where
+    show rec = "userResponses: " <> show (userResponses rec)
 
 instance FromJSON UserSanitizedResponse where
   parseJSON (Object o) = do
@@ -7049,6 +7624,9 @@ instance ToJSON UserSanitizedResponse where
 instance Eq UserSanitizedResponse where
   (==) a b = userSanitizedResponseId a == userSanitizedResponseId b && userSanitizedResponseNick a == userSanitizedResponseNick b && userSanitizedResponseDisplayNick a == userSanitizedResponseDisplayNick b && userSanitizedResponseEmailMD5 a == userSanitizedResponseEmailMD5 b && userSanitizedResponseActive a == userSanitizedResponseActive b && userSanitizedResponseGuard a == userSanitizedResponseGuard b && userSanitizedResponseCreatedAt a == userSanitizedResponseCreatedAt b && userSanitizedResponseActivityAt a == userSanitizedResponseActivityAt b
 
+instance Show UserSanitizedResponse where
+    show rec = "userSanitizedResponseId: " <> show (userSanitizedResponseId rec) <> ", " <> "userSanitizedResponseNick: " <> show (userSanitizedResponseNick rec) <> ", " <> "userSanitizedResponseDisplayNick: " <> show (userSanitizedResponseDisplayNick rec) <> ", " <> "userSanitizedResponseEmailMD5: " <> show (userSanitizedResponseEmailMD5 rec) <> ", " <> "userSanitizedResponseActive: " <> show (userSanitizedResponseActive rec) <> ", " <> "userSanitizedResponseGuard: " <> show (userSanitizedResponseGuard rec) <> ", " <> "userSanitizedResponseCreatedAt: " <> show (userSanitizedResponseCreatedAt rec) <> ", " <> "userSanitizedResponseActivityAt: " <> show (userSanitizedResponseActivityAt rec)
+
 instance FromJSON UserSanitizedResponses where
   parseJSON (Object o) = do
     userSanitizedResponses <- o .: ("user_sanitized_responses" :: Text)
@@ -7067,6 +7645,9 @@ instance ToJSON UserSanitizedResponses where
 
 instance Eq UserSanitizedResponses where
   (==) a b = userSanitizedResponses a == userSanitizedResponses b
+
+instance Show UserSanitizedResponses where
+    show rec = "userSanitizedResponses: " <> show (userSanitizedResponses rec)
 
 instance FromJSON UserSanitizedStatResponse where
   parseJSON (Object o) = do
@@ -7105,6 +7686,9 @@ instance ToJSON UserSanitizedStatResponse where
 instance Eq UserSanitizedStatResponse where
   (==) a b = userSanitizedStatResponseUserId a == userSanitizedStatResponseUserId b && userSanitizedStatResponseThreads a == userSanitizedStatResponseThreads b && userSanitizedStatResponseThreadPosts a == userSanitizedStatResponseThreadPosts b && userSanitizedStatResponseRespect a == userSanitizedStatResponseRespect b && userSanitizedStatResponseResources a == userSanitizedStatResponseResources b && userSanitizedStatResponseLeurons a == userSanitizedStatResponseLeurons b && userSanitizedStatResponseWorkouts a == userSanitizedStatResponseWorkouts b
 
+instance Show UserSanitizedStatResponse where
+    show rec = "userSanitizedStatResponseUserId: " <> show (userSanitizedStatResponseUserId rec) <> ", " <> "userSanitizedStatResponseThreads: " <> show (userSanitizedStatResponseThreads rec) <> ", " <> "userSanitizedStatResponseThreadPosts: " <> show (userSanitizedStatResponseThreadPosts rec) <> ", " <> "userSanitizedStatResponseRespect: " <> show (userSanitizedStatResponseRespect rec) <> ", " <> "userSanitizedStatResponseResources: " <> show (userSanitizedStatResponseResources rec) <> ", " <> "userSanitizedStatResponseLeurons: " <> show (userSanitizedStatResponseLeurons rec) <> ", " <> "userSanitizedStatResponseWorkouts: " <> show (userSanitizedStatResponseWorkouts rec)
+
 instance FromJSON UserSanitizedStatResponses where
   parseJSON (Object o) = do
     userSanitizedStatResponses <- o .: ("user_sanitized_stat_responses" :: Text)
@@ -7123,6 +7707,9 @@ instance ToJSON UserSanitizedStatResponses where
 
 instance Eq UserSanitizedStatResponses where
   (==) a b = userSanitizedStatResponses a == userSanitizedStatResponses b
+
+instance Show UserSanitizedStatResponses where
+    show rec = "userSanitizedStatResponses: " <> show (userSanitizedStatResponses rec)
 
 instance FromJSON Visibility where
   parseJSON (Object o) = do
@@ -7154,6 +7741,11 @@ instance Eq Visibility where
   (==) Public Public = True
   (==) Private Private = True
   (==) _ _ = False
+
+instance Show Visibility where
+  show Public = "public"
+  show Private = "private"
+
 
 instance FromJSON OrganizationPackResponse where
   parseJSON (Object o) = do
@@ -7198,6 +7790,9 @@ instance ToJSON OrganizationPackResponse where
 instance Eq OrganizationPackResponse where
   (==) a b = organizationPackResponseUser a == organizationPackResponseUser b && organizationPackResponseUserId a == organizationPackResponseUserId b && organizationPackResponseOrganization a == organizationPackResponseOrganization b && organizationPackResponseOrganizationId a == organizationPackResponseOrganizationId b && organizationPackResponseStat a == organizationPackResponseStat b && organizationPackResponseLike a == organizationPackResponseLike b && organizationPackResponseStar a == organizationPackResponseStar b && organizationPackResponsePermissions a == organizationPackResponsePermissions b && organizationPackResponseTeams a == organizationPackResponseTeams b
 
+instance Show OrganizationPackResponse where
+    show rec = "organizationPackResponseUser: " <> show (organizationPackResponseUser rec) <> ", " <> "organizationPackResponseUserId: " <> show (organizationPackResponseUserId rec) <> ", " <> "organizationPackResponseOrganization: " <> show (organizationPackResponseOrganization rec) <> ", " <> "organizationPackResponseOrganizationId: " <> show (organizationPackResponseOrganizationId rec) <> ", " <> "organizationPackResponseStat: " <> show (organizationPackResponseStat rec) <> ", " <> "organizationPackResponseLike: " <> show (organizationPackResponseLike rec) <> ", " <> "organizationPackResponseStar: " <> show (organizationPackResponseStar rec) <> ", " <> "organizationPackResponsePermissions: " <> show (organizationPackResponsePermissions rec) <> ", " <> "organizationPackResponseTeams: " <> show (organizationPackResponseTeams rec)
+
 instance FromJSON OrganizationPackResponses where
   parseJSON (Object o) = do
     organizationPackResponses <- o .: ("organization_pack_responses" :: Text)
@@ -7216,6 +7811,9 @@ instance ToJSON OrganizationPackResponses where
 
 instance Eq OrganizationPackResponses where
   (==) a b = organizationPackResponses a == organizationPackResponses b
+
+instance Show OrganizationPackResponses where
+    show rec = "organizationPackResponses: " <> show (organizationPackResponses rec)
 
 instance FromJSON TeamPackResponse where
   parseJSON (Object o) = do
@@ -7251,6 +7849,9 @@ instance ToJSON TeamPackResponse where
 instance Eq TeamPackResponse where
   (==) a b = teamPackResponseUser a == teamPackResponseUser b && teamPackResponseUserId a == teamPackResponseUserId b && teamPackResponseTeam a == teamPackResponseTeam b && teamPackResponseTeamId a == teamPackResponseTeamId b && teamPackResponseStat a == teamPackResponseStat b && teamPackResponsePermissions a == teamPackResponsePermissions b
 
+instance Show TeamPackResponse where
+    show rec = "teamPackResponseUser: " <> show (teamPackResponseUser rec) <> ", " <> "teamPackResponseUserId: " <> show (teamPackResponseUserId rec) <> ", " <> "teamPackResponseTeam: " <> show (teamPackResponseTeam rec) <> ", " <> "teamPackResponseTeamId: " <> show (teamPackResponseTeamId rec) <> ", " <> "teamPackResponseStat: " <> show (teamPackResponseStat rec) <> ", " <> "teamPackResponsePermissions: " <> show (teamPackResponsePermissions rec)
+
 instance FromJSON TeamPackResponses where
   parseJSON (Object o) = do
     teamPackResponses <- o .: ("team_pack_responses" :: Text)
@@ -7269,6 +7870,9 @@ instance ToJSON TeamPackResponses where
 
 instance Eq TeamPackResponses where
   (==) a b = teamPackResponses a == teamPackResponses b
+
+instance Show TeamPackResponses where
+    show rec = "teamPackResponses: " <> show (teamPackResponses rec)
 
 instance FromJSON TeamMemberPackResponse where
   parseJSON (Object o) = do
@@ -7301,6 +7905,9 @@ instance ToJSON TeamMemberPackResponse where
 instance Eq TeamMemberPackResponse where
   (==) a b = teamMemberPackResponseUser a == teamMemberPackResponseUser b && teamMemberPackResponseUserId a == teamMemberPackResponseUserId b && teamMemberPackResponseTeamMember a == teamMemberPackResponseTeamMember b && teamMemberPackResponseTeamMemberId a == teamMemberPackResponseTeamMemberId b && teamMemberPackResponsePermissions a == teamMemberPackResponsePermissions b
 
+instance Show TeamMemberPackResponse where
+    show rec = "teamMemberPackResponseUser: " <> show (teamMemberPackResponseUser rec) <> ", " <> "teamMemberPackResponseUserId: " <> show (teamMemberPackResponseUserId rec) <> ", " <> "teamMemberPackResponseTeamMember: " <> show (teamMemberPackResponseTeamMember rec) <> ", " <> "teamMemberPackResponseTeamMemberId: " <> show (teamMemberPackResponseTeamMemberId rec) <> ", " <> "teamMemberPackResponsePermissions: " <> show (teamMemberPackResponsePermissions rec)
+
 instance FromJSON TeamMemberPackResponses where
   parseJSON (Object o) = do
     teamMemberPackResponses <- o .: ("team_member_pack_responses" :: Text)
@@ -7319,6 +7926,9 @@ instance ToJSON TeamMemberPackResponses where
 
 instance Eq TeamMemberPackResponses where
   (==) a b = teamMemberPackResponses a == teamMemberPackResponses b
+
+instance Show TeamMemberPackResponses where
+    show rec = "teamMemberPackResponses: " <> show (teamMemberPackResponses rec)
 
 instance FromJSON UserPackResponse where
   parseJSON (Object o) = do
@@ -7351,6 +7961,9 @@ instance ToJSON UserPackResponse where
 instance Eq UserPackResponse where
   (==) a b = userPackResponseUser a == userPackResponseUser b && userPackResponseUserId a == userPackResponseUserId b && userPackResponseStat a == userPackResponseStat b && userPackResponseProfile a == userPackResponseProfile b && userPackResponseProfileId a == userPackResponseProfileId b
 
+instance Show UserPackResponse where
+    show rec = "userPackResponseUser: " <> show (userPackResponseUser rec) <> ", " <> "userPackResponseUserId: " <> show (userPackResponseUserId rec) <> ", " <> "userPackResponseStat: " <> show (userPackResponseStat rec) <> ", " <> "userPackResponseProfile: " <> show (userPackResponseProfile rec) <> ", " <> "userPackResponseProfileId: " <> show (userPackResponseProfileId rec)
+
 instance FromJSON UserPackResponses where
   parseJSON (Object o) = do
     userPackResponses <- o .: ("user_pack_responses" :: Text)
@@ -7369,6 +7982,9 @@ instance ToJSON UserPackResponses where
 
 instance Eq UserPackResponses where
   (==) a b = userPackResponses a == userPackResponses b
+
+instance Show UserPackResponses where
+    show rec = "userPackResponses: " <> show (userPackResponses rec)
 
 instance FromJSON UserSanitizedPackResponse where
   parseJSON (Object o) = do
@@ -7407,6 +8023,9 @@ instance ToJSON UserSanitizedPackResponse where
 instance Eq UserSanitizedPackResponse where
   (==) a b = userSanitizedPackResponseUser a == userSanitizedPackResponseUser b && userSanitizedPackResponseUserId a == userSanitizedPackResponseUserId b && userSanitizedPackResponseProfile a == userSanitizedPackResponseProfile b && userSanitizedPackResponseProfileId a == userSanitizedPackResponseProfileId b && userSanitizedPackResponseStat a == userSanitizedPackResponseStat b && userSanitizedPackResponseLike a == userSanitizedPackResponseLike b && userSanitizedPackResponseStar a == userSanitizedPackResponseStar b
 
+instance Show UserSanitizedPackResponse where
+    show rec = "userSanitizedPackResponseUser: " <> show (userSanitizedPackResponseUser rec) <> ", " <> "userSanitizedPackResponseUserId: " <> show (userSanitizedPackResponseUserId rec) <> ", " <> "userSanitizedPackResponseProfile: " <> show (userSanitizedPackResponseProfile rec) <> ", " <> "userSanitizedPackResponseProfileId: " <> show (userSanitizedPackResponseProfileId rec) <> ", " <> "userSanitizedPackResponseStat: " <> show (userSanitizedPackResponseStat rec) <> ", " <> "userSanitizedPackResponseLike: " <> show (userSanitizedPackResponseLike rec) <> ", " <> "userSanitizedPackResponseStar: " <> show (userSanitizedPackResponseStar rec)
+
 instance FromJSON UserSanitizedPackResponses where
   parseJSON (Object o) = do
     userSanitizedPackResponses <- o .: ("user_sanitized_pack_responses" :: Text)
@@ -7425,6 +8044,9 @@ instance ToJSON UserSanitizedPackResponses where
 
 instance Eq UserSanitizedPackResponses where
   (==) a b = userSanitizedPackResponses a == userSanitizedPackResponses b
+
+instance Show UserSanitizedPackResponses where
+    show rec = "userSanitizedPackResponses: " <> show (userSanitizedPackResponses rec)
 
 instance FromJSON GlobalGroupPackResponse where
   parseJSON (Object o) = do
@@ -7460,6 +8082,9 @@ instance ToJSON GlobalGroupPackResponse where
 instance Eq GlobalGroupPackResponse where
   (==) a b = globalGroupPackResponseUser a == globalGroupPackResponseUser b && globalGroupPackResponseUserId a == globalGroupPackResponseUserId b && globalGroupPackResponseGlobalGroup a == globalGroupPackResponseGlobalGroup b && globalGroupPackResponseGlobalGroupId a == globalGroupPackResponseGlobalGroupId b && globalGroupPackResponseStat a == globalGroupPackResponseStat b && globalGroupPackResponsePermissions a == globalGroupPackResponsePermissions b
 
+instance Show GlobalGroupPackResponse where
+    show rec = "globalGroupPackResponseUser: " <> show (globalGroupPackResponseUser rec) <> ", " <> "globalGroupPackResponseUserId: " <> show (globalGroupPackResponseUserId rec) <> ", " <> "globalGroupPackResponseGlobalGroup: " <> show (globalGroupPackResponseGlobalGroup rec) <> ", " <> "globalGroupPackResponseGlobalGroupId: " <> show (globalGroupPackResponseGlobalGroupId rec) <> ", " <> "globalGroupPackResponseStat: " <> show (globalGroupPackResponseStat rec) <> ", " <> "globalGroupPackResponsePermissions: " <> show (globalGroupPackResponsePermissions rec)
+
 instance FromJSON GlobalGroupPackResponses where
   parseJSON (Object o) = do
     globalGroupPackResponses <- o .: ("global_group_pack_responses" :: Text)
@@ -7478,6 +8103,9 @@ instance ToJSON GlobalGroupPackResponses where
 
 instance Eq GlobalGroupPackResponses where
   (==) a b = globalGroupPackResponses a == globalGroupPackResponses b
+
+instance Show GlobalGroupPackResponses where
+    show rec = "globalGroupPackResponses: " <> show (globalGroupPackResponses rec)
 
 instance FromJSON GroupPackResponse where
   parseJSON (Object o) = do
@@ -7519,6 +8147,9 @@ instance ToJSON GroupPackResponse where
 instance Eq GroupPackResponse where
   (==) a b = groupPackResponseUser a == groupPackResponseUser b && groupPackResponseUserId a == groupPackResponseUserId b && groupPackResponseGroup a == groupPackResponseGroup b && groupPackResponseGroupId a == groupPackResponseGroupId b && groupPackResponseOrganization a == groupPackResponseOrganization b && groupPackResponseOrganizationId a == groupPackResponseOrganizationId b && groupPackResponseStat a == groupPackResponseStat b && groupPackResponsePermissions a == groupPackResponsePermissions b
 
+instance Show GroupPackResponse where
+    show rec = "groupPackResponseUser: " <> show (groupPackResponseUser rec) <> ", " <> "groupPackResponseUserId: " <> show (groupPackResponseUserId rec) <> ", " <> "groupPackResponseGroup: " <> show (groupPackResponseGroup rec) <> ", " <> "groupPackResponseGroupId: " <> show (groupPackResponseGroupId rec) <> ", " <> "groupPackResponseOrganization: " <> show (groupPackResponseOrganization rec) <> ", " <> "groupPackResponseOrganizationId: " <> show (groupPackResponseOrganizationId rec) <> ", " <> "groupPackResponseStat: " <> show (groupPackResponseStat rec) <> ", " <> "groupPackResponsePermissions: " <> show (groupPackResponsePermissions rec)
+
 instance FromJSON GroupPackResponses where
   parseJSON (Object o) = do
     groupPackResponses <- o .: ("group_pack_responses" :: Text)
@@ -7537,6 +8168,9 @@ instance ToJSON GroupPackResponses where
 
 instance Eq GroupPackResponses where
   (==) a b = groupPackResponses a == groupPackResponses b
+
+instance Show GroupPackResponses where
+    show rec = "groupPackResponses: " <> show (groupPackResponses rec)
 
 instance FromJSON GroupMemberPackResponse where
   parseJSON (Object o) = do
@@ -7569,6 +8203,9 @@ instance ToJSON GroupMemberPackResponse where
 instance Eq GroupMemberPackResponse where
   (==) a b = groupMemberPackResponseUser a == groupMemberPackResponseUser b && groupMemberPackResponseUserId a == groupMemberPackResponseUserId b && groupMemberPackResponseGroupMember a == groupMemberPackResponseGroupMember b && groupMemberPackResponseGroupMemberId a == groupMemberPackResponseGroupMemberId b && groupMemberPackResponseIsOwner a == groupMemberPackResponseIsOwner b
 
+instance Show GroupMemberPackResponse where
+    show rec = "groupMemberPackResponseUser: " <> show (groupMemberPackResponseUser rec) <> ", " <> "groupMemberPackResponseUserId: " <> show (groupMemberPackResponseUserId rec) <> ", " <> "groupMemberPackResponseGroupMember: " <> show (groupMemberPackResponseGroupMember rec) <> ", " <> "groupMemberPackResponseGroupMemberId: " <> show (groupMemberPackResponseGroupMemberId rec) <> ", " <> "groupMemberPackResponseIsOwner: " <> show (groupMemberPackResponseIsOwner rec)
+
 instance FromJSON GroupMemberPackResponses where
   parseJSON (Object o) = do
     groupMemberPackResponses <- o .: ("group_member_pack_responses" :: Text)
@@ -7587,6 +8224,9 @@ instance ToJSON GroupMemberPackResponses where
 
 instance Eq GroupMemberPackResponses where
   (==) a b = groupMemberPackResponses a == groupMemberPackResponses b
+
+instance Show GroupMemberPackResponses where
+    show rec = "groupMemberPackResponses: " <> show (groupMemberPackResponses rec)
 
 instance FromJSON ForumPackResponse where
   parseJSON (Object o) = do
@@ -7625,6 +8265,9 @@ instance ToJSON ForumPackResponse where
 instance Eq ForumPackResponse where
   (==) a b = forumPackResponseForum a == forumPackResponseForum b && forumPackResponseForumId a == forumPackResponseForumId b && forumPackResponseStat a == forumPackResponseStat b && forumPackResponseLike a == forumPackResponseLike b && forumPackResponseStar a == forumPackResponseStar b && forumPackResponseWithOrganization a == forumPackResponseWithOrganization b && forumPackResponsePermissions a == forumPackResponsePermissions b
 
+instance Show ForumPackResponse where
+    show rec = "forumPackResponseForum: " <> show (forumPackResponseForum rec) <> ", " <> "forumPackResponseForumId: " <> show (forumPackResponseForumId rec) <> ", " <> "forumPackResponseStat: " <> show (forumPackResponseStat rec) <> ", " <> "forumPackResponseLike: " <> show (forumPackResponseLike rec) <> ", " <> "forumPackResponseStar: " <> show (forumPackResponseStar rec) <> ", " <> "forumPackResponseWithOrganization: " <> show (forumPackResponseWithOrganization rec) <> ", " <> "forumPackResponsePermissions: " <> show (forumPackResponsePermissions rec)
+
 instance FromJSON ForumPackResponses where
   parseJSON (Object o) = do
     forumPackResponses <- o .: ("forum_pack_responses" :: Text)
@@ -7643,6 +8286,9 @@ instance ToJSON ForumPackResponses where
 
 instance Eq ForumPackResponses where
   (==) a b = forumPackResponses a == forumPackResponses b
+
+instance Show ForumPackResponses where
+    show rec = "forumPackResponses: " <> show (forumPackResponses rec)
 
 instance FromJSON BoardPackResponse where
   parseJSON (Object o) = do
@@ -7693,6 +8339,9 @@ instance ToJSON BoardPackResponse where
 instance Eq BoardPackResponse where
   (==) a b = boardPackResponseBoard a == boardPackResponseBoard b && boardPackResponseBoardId a == boardPackResponseBoardId b && boardPackResponseStat a == boardPackResponseStat b && boardPackResponseLike a == boardPackResponseLike b && boardPackResponseStar a == boardPackResponseStar b && boardPackResponseLatestThread a == boardPackResponseLatestThread b && boardPackResponseLatestThreadPost a == boardPackResponseLatestThreadPost b && boardPackResponseLatestThreadPostUser a == boardPackResponseLatestThreadPostUser b && boardPackResponseWithOrganization a == boardPackResponseWithOrganization b && boardPackResponseWithForum a == boardPackResponseWithForum b && boardPackResponsePermissions a == boardPackResponsePermissions b
 
+instance Show BoardPackResponse where
+    show rec = "boardPackResponseBoard: " <> show (boardPackResponseBoard rec) <> ", " <> "boardPackResponseBoardId: " <> show (boardPackResponseBoardId rec) <> ", " <> "boardPackResponseStat: " <> show (boardPackResponseStat rec) <> ", " <> "boardPackResponseLike: " <> show (boardPackResponseLike rec) <> ", " <> "boardPackResponseStar: " <> show (boardPackResponseStar rec) <> ", " <> "boardPackResponseLatestThread: " <> show (boardPackResponseLatestThread rec) <> ", " <> "boardPackResponseLatestThreadPost: " <> show (boardPackResponseLatestThreadPost rec) <> ", " <> "boardPackResponseLatestThreadPostUser: " <> show (boardPackResponseLatestThreadPostUser rec) <> ", " <> "boardPackResponseWithOrganization: " <> show (boardPackResponseWithOrganization rec) <> ", " <> "boardPackResponseWithForum: " <> show (boardPackResponseWithForum rec) <> ", " <> "boardPackResponsePermissions: " <> show (boardPackResponsePermissions rec)
+
 instance FromJSON BoardPackResponses where
   parseJSON (Object o) = do
     boardPackResponses <- o .: ("board_pack_responses" :: Text)
@@ -7711,6 +8360,9 @@ instance ToJSON BoardPackResponses where
 
 instance Eq BoardPackResponses where
   (==) a b = boardPackResponses a == boardPackResponses b
+
+instance Show BoardPackResponses where
+    show rec = "boardPackResponses: " <> show (boardPackResponses rec)
 
 instance FromJSON ThreadPackResponse where
   parseJSON (Object o) = do
@@ -7767,6 +8419,9 @@ instance ToJSON ThreadPackResponse where
 instance Eq ThreadPackResponse where
   (==) a b = threadPackResponseThread a == threadPackResponseThread b && threadPackResponseThreadId a == threadPackResponseThreadId b && threadPackResponseUser a == threadPackResponseUser b && threadPackResponseUserId a == threadPackResponseUserId b && threadPackResponseStat a == threadPackResponseStat b && threadPackResponseLike a == threadPackResponseLike b && threadPackResponseStar a == threadPackResponseStar b && threadPackResponseLatestThreadPost a == threadPackResponseLatestThreadPost b && threadPackResponseLatestThreadPostUser a == threadPackResponseLatestThreadPostUser b && threadPackResponseWithOrganization a == threadPackResponseWithOrganization b && threadPackResponseWithForum a == threadPackResponseWithForum b && threadPackResponseWithBoard a == threadPackResponseWithBoard b && threadPackResponsePermissions a == threadPackResponsePermissions b
 
+instance Show ThreadPackResponse where
+    show rec = "threadPackResponseThread: " <> show (threadPackResponseThread rec) <> ", " <> "threadPackResponseThreadId: " <> show (threadPackResponseThreadId rec) <> ", " <> "threadPackResponseUser: " <> show (threadPackResponseUser rec) <> ", " <> "threadPackResponseUserId: " <> show (threadPackResponseUserId rec) <> ", " <> "threadPackResponseStat: " <> show (threadPackResponseStat rec) <> ", " <> "threadPackResponseLike: " <> show (threadPackResponseLike rec) <> ", " <> "threadPackResponseStar: " <> show (threadPackResponseStar rec) <> ", " <> "threadPackResponseLatestThreadPost: " <> show (threadPackResponseLatestThreadPost rec) <> ", " <> "threadPackResponseLatestThreadPostUser: " <> show (threadPackResponseLatestThreadPostUser rec) <> ", " <> "threadPackResponseWithOrganization: " <> show (threadPackResponseWithOrganization rec) <> ", " <> "threadPackResponseWithForum: " <> show (threadPackResponseWithForum rec) <> ", " <> "threadPackResponseWithBoard: " <> show (threadPackResponseWithBoard rec) <> ", " <> "threadPackResponsePermissions: " <> show (threadPackResponsePermissions rec)
+
 instance FromJSON ThreadPackResponses where
   parseJSON (Object o) = do
     threadPackResponses <- o .: ("thread_pack_responses" :: Text)
@@ -7785,6 +8440,9 @@ instance ToJSON ThreadPackResponses where
 
 instance Eq ThreadPackResponses where
   (==) a b = threadPackResponses a == threadPackResponses b
+
+instance Show ThreadPackResponses where
+    show rec = "threadPackResponses: " <> show (threadPackResponses rec)
 
 instance FromJSON ThreadPostPackResponse where
   parseJSON (Object o) = do
@@ -7838,6 +8496,9 @@ instance ToJSON ThreadPostPackResponse where
 instance Eq ThreadPostPackResponse where
   (==) a b = threadPostPackResponseThreadPost a == threadPostPackResponseThreadPost b && threadPostPackResponseThreadPostId a == threadPostPackResponseThreadPostId b && threadPostPackResponseUser a == threadPostPackResponseUser b && threadPostPackResponseUserId a == threadPostPackResponseUserId b && threadPostPackResponseStat a == threadPostPackResponseStat b && threadPostPackResponseLike a == threadPostPackResponseLike b && threadPostPackResponseStar a == threadPostPackResponseStar b && threadPostPackResponseWithOrganization a == threadPostPackResponseWithOrganization b && threadPostPackResponseWithForum a == threadPostPackResponseWithForum b && threadPostPackResponseWithBoard a == threadPostPackResponseWithBoard b && threadPostPackResponseWithThread a == threadPostPackResponseWithThread b && threadPostPackResponsePermissions a == threadPostPackResponsePermissions b
 
+instance Show ThreadPostPackResponse where
+    show rec = "threadPostPackResponseThreadPost: " <> show (threadPostPackResponseThreadPost rec) <> ", " <> "threadPostPackResponseThreadPostId: " <> show (threadPostPackResponseThreadPostId rec) <> ", " <> "threadPostPackResponseUser: " <> show (threadPostPackResponseUser rec) <> ", " <> "threadPostPackResponseUserId: " <> show (threadPostPackResponseUserId rec) <> ", " <> "threadPostPackResponseStat: " <> show (threadPostPackResponseStat rec) <> ", " <> "threadPostPackResponseLike: " <> show (threadPostPackResponseLike rec) <> ", " <> "threadPostPackResponseStar: " <> show (threadPostPackResponseStar rec) <> ", " <> "threadPostPackResponseWithOrganization: " <> show (threadPostPackResponseWithOrganization rec) <> ", " <> "threadPostPackResponseWithForum: " <> show (threadPostPackResponseWithForum rec) <> ", " <> "threadPostPackResponseWithBoard: " <> show (threadPostPackResponseWithBoard rec) <> ", " <> "threadPostPackResponseWithThread: " <> show (threadPostPackResponseWithThread rec) <> ", " <> "threadPostPackResponsePermissions: " <> show (threadPostPackResponsePermissions rec)
+
 instance FromJSON ThreadPostPackResponses where
   parseJSON (Object o) = do
     threadPostPackResponses <- o .: ("thread_post_pack_responses" :: Text)
@@ -7856,6 +8517,9 @@ instance ToJSON ThreadPostPackResponses where
 
 instance Eq ThreadPostPackResponses where
   (==) a b = threadPostPackResponses a == threadPostPackResponses b
+
+instance Show ThreadPostPackResponses where
+    show rec = "threadPostPackResponses: " <> show (threadPostPackResponses rec)
 
 instance FromJSON ResourcePackResponse where
   parseJSON (Object o) = do
@@ -7897,6 +8561,9 @@ instance ToJSON ResourcePackResponse where
 instance Eq ResourcePackResponse where
   (==) a b = resourcePackResponseResource a == resourcePackResponseResource b && resourcePackResponseResourceId a == resourcePackResponseResourceId b && resourcePackResponseUser a == resourcePackResponseUser b && resourcePackResponseUserId a == resourcePackResponseUserId b && resourcePackResponseStat a == resourcePackResponseStat b && resourcePackResponseLike a == resourcePackResponseLike b && resourcePackResponseStar a == resourcePackResponseStar b && resourcePackResponsePermissions a == resourcePackResponsePermissions b
 
+instance Show ResourcePackResponse where
+    show rec = "resourcePackResponseResource: " <> show (resourcePackResponseResource rec) <> ", " <> "resourcePackResponseResourceId: " <> show (resourcePackResponseResourceId rec) <> ", " <> "resourcePackResponseUser: " <> show (resourcePackResponseUser rec) <> ", " <> "resourcePackResponseUserId: " <> show (resourcePackResponseUserId rec) <> ", " <> "resourcePackResponseStat: " <> show (resourcePackResponseStat rec) <> ", " <> "resourcePackResponseLike: " <> show (resourcePackResponseLike rec) <> ", " <> "resourcePackResponseStar: " <> show (resourcePackResponseStar rec) <> ", " <> "resourcePackResponsePermissions: " <> show (resourcePackResponsePermissions rec)
+
 instance FromJSON ResourcePackResponses where
   parseJSON (Object o) = do
     resourcePackResponses <- o .: ("resource_pack_responses" :: Text)
@@ -7915,6 +8582,9 @@ instance ToJSON ResourcePackResponses where
 
 instance Eq ResourcePackResponses where
   (==) a b = resourcePackResponses a == resourcePackResponses b
+
+instance Show ResourcePackResponses where
+    show rec = "resourcePackResponses: " <> show (resourcePackResponses rec)
 
 instance FromJSON LeuronPackResponse where
   parseJSON (Object o) = do
@@ -7959,6 +8629,9 @@ instance ToJSON LeuronPackResponse where
 instance Eq LeuronPackResponse where
   (==) a b = leuronPackResponseLeuron a == leuronPackResponseLeuron b && leuronPackResponseLeuronId a == leuronPackResponseLeuronId b && leuronPackResponseUser a == leuronPackResponseUser b && leuronPackResponseUserId a == leuronPackResponseUserId b && leuronPackResponseTraining a == leuronPackResponseTraining b && leuronPackResponseStat a == leuronPackResponseStat b && leuronPackResponseLike a == leuronPackResponseLike b && leuronPackResponseStar a == leuronPackResponseStar b && leuronPackResponsePermissions a == leuronPackResponsePermissions b
 
+instance Show LeuronPackResponse where
+    show rec = "leuronPackResponseLeuron: " <> show (leuronPackResponseLeuron rec) <> ", " <> "leuronPackResponseLeuronId: " <> show (leuronPackResponseLeuronId rec) <> ", " <> "leuronPackResponseUser: " <> show (leuronPackResponseUser rec) <> ", " <> "leuronPackResponseUserId: " <> show (leuronPackResponseUserId rec) <> ", " <> "leuronPackResponseTraining: " <> show (leuronPackResponseTraining rec) <> ", " <> "leuronPackResponseStat: " <> show (leuronPackResponseStat rec) <> ", " <> "leuronPackResponseLike: " <> show (leuronPackResponseLike rec) <> ", " <> "leuronPackResponseStar: " <> show (leuronPackResponseStar rec) <> ", " <> "leuronPackResponsePermissions: " <> show (leuronPackResponsePermissions rec)
+
 instance FromJSON LeuronPackResponses where
   parseJSON (Object o) = do
     leuronPackResponses <- o .: ("leuron_pack_responses" :: Text)
@@ -7977,6 +8650,9 @@ instance ToJSON LeuronPackResponses where
 
 instance Eq LeuronPackResponses where
   (==) a b = leuronPackResponses a == leuronPackResponses b
+
+instance Show LeuronPackResponses where
+    show rec = "leuronPackResponses: " <> show (leuronPackResponses rec)
 
 instance FromJSON PmInPackResponse where
   parseJSON (Object o) = do
@@ -8006,6 +8682,9 @@ instance ToJSON PmInPackResponse where
 instance Eq PmInPackResponse where
   (==) a b = pmInPackResponsePmIn a == pmInPackResponsePmIn b && pmInPackResponsePmInId a == pmInPackResponsePmInId b && pmInPackResponseUser a == pmInPackResponseUser b && pmInPackResponseUserId a == pmInPackResponseUserId b
 
+instance Show PmInPackResponse where
+    show rec = "pmInPackResponsePmIn: " <> show (pmInPackResponsePmIn rec) <> ", " <> "pmInPackResponsePmInId: " <> show (pmInPackResponsePmInId rec) <> ", " <> "pmInPackResponseUser: " <> show (pmInPackResponseUser rec) <> ", " <> "pmInPackResponseUserId: " <> show (pmInPackResponseUserId rec)
+
 instance FromJSON PmInPackResponses where
   parseJSON (Object o) = do
     pmInPackResponses <- o .: ("pm_in_pack_responses" :: Text)
@@ -8024,6 +8703,9 @@ instance ToJSON PmInPackResponses where
 
 instance Eq PmInPackResponses where
   (==) a b = pmInPackResponses a == pmInPackResponses b
+
+instance Show PmInPackResponses where
+    show rec = "pmInPackResponses: " <> show (pmInPackResponses rec)
 
 instance FromJSON PmOutPackResponse where
   parseJSON (Object o) = do
@@ -8053,6 +8735,9 @@ instance ToJSON PmOutPackResponse where
 instance Eq PmOutPackResponse where
   (==) a b = pmOutPackResponsePmOut a == pmOutPackResponsePmOut b && pmOutPackResponsePmOutId a == pmOutPackResponsePmOutId b && pmOutPackResponseUser a == pmOutPackResponseUser b && pmOutPackResponseUserId a == pmOutPackResponseUserId b
 
+instance Show PmOutPackResponse where
+    show rec = "pmOutPackResponsePmOut: " <> show (pmOutPackResponsePmOut rec) <> ", " <> "pmOutPackResponsePmOutId: " <> show (pmOutPackResponsePmOutId rec) <> ", " <> "pmOutPackResponseUser: " <> show (pmOutPackResponseUser rec) <> ", " <> "pmOutPackResponseUserId: " <> show (pmOutPackResponseUserId rec)
+
 instance FromJSON PmOutPackResponses where
   parseJSON (Object o) = do
     pmOutPackResponses <- o .: ("pm_out_pack_responses" :: Text)
@@ -8071,4 +8756,7 @@ instance ToJSON PmOutPackResponses where
 
 instance Eq PmOutPackResponses where
   (==) a b = pmOutPackResponses a == pmOutPackResponses b
+
+instance Show PmOutPackResponses where
+    show rec = "pmOutPackResponses: " <> show (pmOutPackResponses rec)
 -- footer
