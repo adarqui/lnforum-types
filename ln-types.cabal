@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.95
+version:             0.1.0.96
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3
@@ -122,7 +122,6 @@ library
                        LN.T.Resource.Response
                        LN.T.Resource.Stat
                        LN.T.Schema
-                       LN.T.SharedTypes
                        LN.T.Size
                        LN.T.Splits
                        LN.T.Style
