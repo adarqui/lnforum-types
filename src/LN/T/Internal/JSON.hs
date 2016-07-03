@@ -820,6 +820,32 @@ instance Show Ent where
   show Ent_None = "none"
 
 
+instance Read Ent where
+  readsPrec _ "organization" = [(Ent_Organization, "")]
+  readsPrec _ "team" = [(Ent_Team, "")]
+  readsPrec _ "team_member" = [(Ent_TeamMember, "")]
+  readsPrec _ "global_group" = [(Ent_GlobalGroup, "")]
+  readsPrec _ "group" = [(Ent_Group, "")]
+  readsPrec _ "group_member" = [(Ent_GroupMember, "")]
+  readsPrec _ "user" = [(Ent_User, "")]
+  readsPrec _ "user_sanitized" = [(Ent_UserSanitized, "")]
+  readsPrec _ "forum" = [(Ent_Forum, "")]
+  readsPrec _ "board" = [(Ent_Board, "")]
+  readsPrec _ "thread" = [(Ent_Thread, "")]
+  readsPrec _ "thread_post" = [(Ent_ThreadPost, "")]
+  readsPrec _ "blog" = [(Ent_Blog, "")]
+  readsPrec _ "blog_post" = [(Ent_BlogPost, "")]
+  readsPrec _ "blog_comment" = [(Ent_BlogComment, "")]
+  readsPrec _ "resource" = [(Ent_Resource, "")]
+  readsPrec _ "leuron" = [(Ent_Leuron, "")]
+  readsPrec _ "comment" = [(Ent_Comment, "")]
+  readsPrec _ "api" = [(Ent_Api, "")]
+  readsPrec _ "like" = [(Ent_Like, "")]
+  readsPrec _ "star" = [(Ent_Star, "")]
+  readsPrec _ "none" = [(Ent_None, "")]
+  readsPrec _ _ = []
+
+
 instance FromJSON ApplicationError where
   parseJSON (Object o) = do
     tag <- o .: ("tag" :: Text)
@@ -2028,6 +2054,17 @@ instance Show LeuronTrainingSummary where
   show LTS_Protest = "lts_protest"
 
 
+instance Read LeuronTrainingSummary where
+  readsPrec _ "lts_view" = [(LTS_View, "")]
+  readsPrec _ "lts_skip" = [(LTS_Skip, "")]
+  readsPrec _ "lts_know" = [(LTS_Know, "")]
+  readsPrec _ "lts_dont_know" = [(LTS_DontKnow, "")]
+  readsPrec _ "lts_dont_understand" = [(LTS_DontUnderstand, "")]
+  readsPrec _ "lts_dont_care" = [(LTS_DontCare, "")]
+  readsPrec _ "lts_protest" = [(LTS_Protest, "")]
+  readsPrec _ _ = []
+
+
 instance FromJSON LeuronTrainingRequest where
   parseJSON (Object o) = do
     leuronTrainingRequestSummary <- o .: ("summary" :: Text)
@@ -2202,6 +2239,13 @@ instance Show LikeOpt where
   show Like = "like"
   show Neutral = "neutral"
   show Dislike = "dislike"
+
+
+instance Read LikeOpt where
+  readsPrec _ "like" = [(Like, "")]
+  readsPrec _ "neutral" = [(Neutral, "")]
+  readsPrec _ "dislike" = [(Dislike, "")]
+  readsPrec _ _ = []
 
 
 instance FromJSON LikeRequest where
@@ -3139,6 +3183,14 @@ instance Show Membership where
   show Membership_RequestInvite = "request_invite"
   show Membership_Join = "join"
   show Membership_Locked = "locked"
+
+
+instance Read Membership where
+  readsPrec _ "invite_only" = [(Membership_InviteOnly, "")]
+  readsPrec _ "request_invite" = [(Membership_RequestInvite, "")]
+  readsPrec _ "join" = [(Membership_Join, "")]
+  readsPrec _ "locked" = [(Membership_Locked, "")]
+  readsPrec _ _ = []
 
 
 instance FromJSON OrganizationRequest where
@@ -5485,6 +5537,13 @@ instance Show ProfileGender where
   show GenderUnknown = "gender_unknown"
 
 
+instance Read ProfileGender where
+  readsPrec _ "gender_male" = [(GenderMale, "")]
+  readsPrec _ "gender_female" = [(GenderFemale, "")]
+  readsPrec _ "gender_unknown" = [(GenderUnknown, "")]
+  readsPrec _ _ = []
+
+
 instance FromJSON ProfileRequest where
   parseJSON (Object o) = do
     profileRequestGender <- o .: ("gender" :: Text)
@@ -6603,6 +6662,12 @@ instance Eq SystemTeam where
 instance Show SystemTeam where
   show Team_Owners = "team_owners"
   show Team_Members = "team_members"
+
+
+instance Read SystemTeam where
+  readsPrec _ "team_owners" = [(Team_Owners, "")]
+  readsPrec _ "team_members" = [(Team_Members, "")]
+  readsPrec _ _ = []
 
 
 instance FromJSON TeamRequest where
@@ -7745,6 +7810,12 @@ instance Eq Visibility where
 instance Show Visibility where
   show Public = "public"
   show Private = "private"
+
+
+instance Read Visibility where
+  readsPrec _ "public" = [(Public, "")]
+  readsPrec _ "private" = [(Private, "")]
+  readsPrec _ _ = []
 
 
 instance FromJSON OrganizationPackResponse where
