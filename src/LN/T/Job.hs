@@ -29,5 +29,5 @@ data Queue
   = QNop
   | QPing
   | QCreateUserProfile
-  | QCreateUserApiEntry
+  | QCreateUserApi
   deriving (Eq, Ord, Enum, Show, Read, Generic, Typeable)
