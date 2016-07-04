@@ -3493,17 +3493,17 @@ instance FromJSON Param where
           [x0] -> ByUsersIds <$> parseJSON x0
           _ -> fail "FromJON Typemismatch: ByUsersIds"
 
-      ("ByUserNick" :: Text) -> do
+      ("ByUserName" :: Text) -> do
         r <- o .: "contents"
         case r of
-          [x0] -> ByUserNick <$> parseJSON x0
-          _ -> fail "FromJON Typemismatch: ByUserNick"
+          [x0] -> ByUserName <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByUserName"
 
-      ("ByUsersNicks" :: Text) -> do
+      ("ByUsersNames" :: Text) -> do
         r <- o .: "contents"
         case r of
-          [x0] -> ByUsersNicks <$> parseJSON x0
-          _ -> fail "FromJON Typemismatch: ByUsersNicks"
+          [x0] -> ByUsersNames <$> parseJSON x0
+          _ -> fail "FromJON Typemismatch: ByUsersNames"
 
       ("ByGlobalGroupId" :: Text) -> do
         r <- o .: "contents"
@@ -3849,12 +3849,12 @@ instance ToJSON Param where
     [ "tag" .= ("ByUsersIds" :: Text)
     , "contents" .= [toJSON x0]
     ]
-  toJSON (ByUserNick x0) = object $
-    [ "tag" .= ("ByUserNick" :: Text)
+  toJSON (ByUserName x0) = object $
+    [ "tag" .= ("ByUserName" :: Text)
     , "contents" .= [toJSON x0]
     ]
-  toJSON (ByUsersNicks x0) = object $
-    [ "tag" .= ("ByUsersNicks" :: Text)
+  toJSON (ByUsersNames x0) = object $
+    [ "tag" .= ("ByUsersNames" :: Text)
     , "contents" .= [toJSON x0]
     ]
   toJSON (ByGlobalGroupId x0) = object $
@@ -4062,8 +4062,8 @@ instance Eq Param where
   (==) (ByTeamMembersIds x0a) (ByTeamMembersIds x0b) = x0a == x0b
   (==) (ByUserId x0a) (ByUserId x0b) = x0a == x0b
   (==) (ByUsersIds x0a) (ByUsersIds x0b) = x0a == x0b
-  (==) (ByUserNick x0a) (ByUserNick x0b) = x0a == x0b
-  (==) (ByUsersNicks x0a) (ByUsersNicks x0b) = x0a == x0b
+  (==) (ByUserName x0a) (ByUserName x0b) = x0a == x0b
+  (==) (ByUsersNames x0a) (ByUsersNames x0b) = x0a == x0b
   (==) (ByGlobalGroupId x0a) (ByGlobalGroupId x0b) = x0a == x0b
   (==) (ByGlobalGroupsIds x0a) (ByGlobalGroupsIds x0b) = x0a == x0b
   (==) (ByGroupId x0a) (ByGroupId x0b) = x0a == x0b
@@ -4128,8 +4128,8 @@ instance Show Param where
   show (ByTeamMembersIds x0) = "by_team_members_ids: " <> show x0
   show (ByUserId x0) = "by_user_id: " <> show x0
   show (ByUsersIds x0) = "by_users_ids: " <> show x0
-  show (ByUserNick x0) = "by_user_nick: " <> show x0
-  show (ByUsersNicks x0) = "by_users_nicks: " <> show x0
+  show (ByUserName x0) = "by_user_name: " <> show x0
+  show (ByUsersNames x0) = "by_users_names: " <> show x0
   show (ByGlobalGroupId x0) = "by_global_group_id: " <> show x0
   show (ByGlobalGroupsIds x0) = "by_global_groups_ids: " <> show x0
   show (ByGroupId x0) = "by_group_id: " <> show x0
@@ -4194,8 +4194,8 @@ instance QueryParam Param where
   qp (ByTeamMembersIds x0) = ("by_team_members_ids", (T.pack $ show x0))
   qp (ByUserId x0) = ("by_user_id", (T.pack $ show x0))
   qp (ByUsersIds x0) = ("by_users_ids", (T.pack $ show x0))
-  qp (ByUserNick x0) = ("by_user_nick", x0)
-  qp (ByUsersNicks x0) = ("by_users_nicks", (T.pack $ show x0))
+  qp (ByUserName x0) = ("by_user_name", x0)
+  qp (ByUsersNames x0) = ("by_users_names", (T.pack $ show x0))
   qp (ByGlobalGroupId x0) = ("by_global_group_id", (T.pack $ show x0))
   qp (ByGlobalGroupsIds x0) = ("by_global_groups_ids", (T.pack $ show x0))
   qp (ByGroupId x0) = ("by_group_id", (T.pack $ show x0))
@@ -4291,11 +4291,11 @@ instance FromJSON ParamTag where
       ("ParamTag_ByUsersIds" :: Text) -> do
         pure ParamTag_ByUsersIds
 
-      ("ParamTag_ByUserNick" :: Text) -> do
-        pure ParamTag_ByUserNick
+      ("ParamTag_ByUserName" :: Text) -> do
+        pure ParamTag_ByUserName
 
-      ("ParamTag_ByUsersNicks" :: Text) -> do
-        pure ParamTag_ByUsersNicks
+      ("ParamTag_ByUsersNames" :: Text) -> do
+        pure ParamTag_ByUsersNames
 
       ("ParamTag_ByGlobalGroupId" :: Text) -> do
         pure ParamTag_ByGlobalGroupId
@@ -4500,12 +4500,12 @@ instance ToJSON ParamTag where
     [ "tag" .= ("ParamTag_ByUsersIds" :: Text)
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (ParamTag_ByUserNick ) = object $
-    [ "tag" .= ("ParamTag_ByUserNick" :: Text)
+  toJSON (ParamTag_ByUserName ) = object $
+    [ "tag" .= ("ParamTag_ByUserName" :: Text)
     , "contents" .= ([] :: [Text])
     ]
-  toJSON (ParamTag_ByUsersNicks ) = object $
-    [ "tag" .= ("ParamTag_ByUsersNicks" :: Text)
+  toJSON (ParamTag_ByUsersNames ) = object $
+    [ "tag" .= ("ParamTag_ByUsersNames" :: Text)
     , "contents" .= ([] :: [Text])
     ]
   toJSON (ParamTag_ByGlobalGroupId ) = object $
@@ -4713,8 +4713,8 @@ instance Eq ParamTag where
   (==) ParamTag_ByTeamMembersIds ParamTag_ByTeamMembersIds = True
   (==) ParamTag_ByUserId ParamTag_ByUserId = True
   (==) ParamTag_ByUsersIds ParamTag_ByUsersIds = True
-  (==) ParamTag_ByUserNick ParamTag_ByUserNick = True
-  (==) ParamTag_ByUsersNicks ParamTag_ByUsersNicks = True
+  (==) ParamTag_ByUserName ParamTag_ByUserName = True
+  (==) ParamTag_ByUsersNames ParamTag_ByUsersNames = True
   (==) ParamTag_ByGlobalGroupId ParamTag_ByGlobalGroupId = True
   (==) ParamTag_ByGlobalGroupsIds ParamTag_ByGlobalGroupsIds = True
   (==) ParamTag_ByGroupId ParamTag_ByGroupId = True
@@ -4779,8 +4779,8 @@ instance Show ParamTag where
   show ParamTag_ByTeamMembersIds = "by_team_members_ids"
   show ParamTag_ByUserId = "by_user_id"
   show ParamTag_ByUsersIds = "by_users_ids"
-  show ParamTag_ByUserNick = "by_user_nick"
-  show ParamTag_ByUsersNicks = "by_users_nicks"
+  show ParamTag_ByUserName = "by_user_name"
+  show ParamTag_ByUsersNames = "by_users_names"
   show ParamTag_ByGlobalGroupId = "by_global_group_id"
   show ParamTag_ByGlobalGroupsIds = "by_global_groups_ids"
   show ParamTag_ByGroupId = "by_group_id"
@@ -4845,8 +4845,8 @@ instance Read ParamTag where
   readsPrec _ "by_team_members_ids" = [(ParamTag_ByTeamMembersIds, "")]
   readsPrec _ "by_user_id" = [(ParamTag_ByUserId, "")]
   readsPrec _ "by_users_ids" = [(ParamTag_ByUsersIds, "")]
-  readsPrec _ "by_user_nick" = [(ParamTag_ByUserNick, "")]
-  readsPrec _ "by_users_nicks" = [(ParamTag_ByUsersNicks, "")]
+  readsPrec _ "by_user_name" = [(ParamTag_ByUserName, "")]
+  readsPrec _ "by_users_names" = [(ParamTag_ByUsersNames, "")]
   readsPrec _ "by_global_group_id" = [(ParamTag_ByGlobalGroupId, "")]
   readsPrec _ "by_global_groups_ids" = [(ParamTag_ByGlobalGroupsIds, "")]
   readsPrec _ "by_group_id" = [(ParamTag_ByGroupId, "")]

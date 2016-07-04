@@ -32,8 +32,8 @@ data Param
   | ByTeamMembersIds       [Int64]
   | ByUserId               Int64
   | ByUsersIds             [Int64]
-  | ByUserNick             Text
-  | ByUsersNicks           [Text]
+  | ByUserName             Text
+  | ByUsersNames           [Text]
   | ByGlobalGroupId        Int64
   | ByGlobalGroupsIds      [Int64]
   | ByGroupId              Int64
@@ -100,8 +100,8 @@ data ParamTag
   | ParamTag_ByTeamMembersIds
   | ParamTag_ByUserId
   | ParamTag_ByUsersIds
-  | ParamTag_ByUserNick
-  | ParamTag_ByUsersNicks
+  | ParamTag_ByUserName
+  | ParamTag_ByUsersNames
   | ParamTag_ByGlobalGroupId
   | ParamTag_ByGlobalGroupsIds
   | ParamTag_ByGroupId
