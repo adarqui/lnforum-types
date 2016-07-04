@@ -13,8 +13,8 @@ import           LN.T.Prelude
 
 data UserSanitizedResponse = UserSanitizedResponse {
   userSanitizedResponseId          :: Int64,
-  userSanitizedResponseNick        :: Text,
-  userSanitizedResponseDisplayNick :: Text,
+  userSanitizedResponseName        :: Text,
+  userSanitizedResponseDisplayName :: Text,
   userSanitizedResponseEmailMD5    :: Text,
   userSanitizedResponseActive      :: Bool,
   userSanitizedResponseGuard       :: Int,

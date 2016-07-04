@@ -14,8 +14,8 @@ import           LN.T.Prelude
 
 
 data UserRequest = UserRequest {
-  userRequestDisplayNick :: Text,
-  userRequestName        :: Text,
+  userRequestDisplayName :: Text,
+  userRequestFullName    :: Text,
   userRequestEmail       :: Text,
   userRequestPlugin      :: Text,
   userRequestIdent       :: Text,
@@ -26,8 +26,8 @@ data UserRequest = UserRequest {
 
 defaultUserRequest :: UserRequest
 defaultUserRequest = UserRequest {
-  userRequestDisplayNick = "",
-  userRequestName        = "",
+  userRequestDisplayName = "",
+  userRequestFullName    = "",
   userRequestEmail       = "",
   userRequestPlugin      = "",
   userRequestIdent       = "",
@@ -38,8 +38,8 @@ defaultUserRequest = UserRequest {
 
 testUserRequest :: UserRequest
 testUserRequest = defaultUserRequest {
-  userRequestDisplayNick = "test",
-  userRequestName        = "test",
+  userRequestDisplayName = "test",
+  userRequestFullName    = "test",
   userRequestEmail       = "test@test.com",
   userRequestPlugin      = "test",
   userRequestIdent       = "test"

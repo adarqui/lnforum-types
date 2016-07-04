@@ -7528,15 +7528,15 @@ instance Show ThreadPostStatResponses where
 
 instance FromJSON UserRequest where
   parseJSON (Object o) = do
-    userRequestDisplayNick <- o .: ("display_nick" :: Text)
-    userRequestName <- o .: ("name" :: Text)
+    userRequestDisplayName <- o .: ("display_name" :: Text)
+    userRequestFullName <- o .: ("full_name" :: Text)
     userRequestEmail <- o .: ("email" :: Text)
     userRequestPlugin <- o .: ("plugin" :: Text)
     userRequestIdent <- o .: ("ident" :: Text)
     userRequestAcceptTOS <- o .: ("accept_tos" :: Text)
     pure $ UserRequest {
-      userRequestDisplayNick = userRequestDisplayNick,
-      userRequestName = userRequestName,
+      userRequestDisplayName = userRequestDisplayName,
+      userRequestFullName = userRequestFullName,
       userRequestEmail = userRequestEmail,
       userRequestPlugin = userRequestPlugin,
       userRequestIdent = userRequestIdent,
@@ -7548,8 +7548,8 @@ instance FromJSON UserRequest where
 instance ToJSON UserRequest where
   toJSON UserRequest{..} = object $
     [ "tag" .= ("UserRequest" :: Text)
-    , "display_nick" .= userRequestDisplayNick
-    , "name" .= userRequestName
+    , "display_name" .= userRequestDisplayName
+    , "full_name" .= userRequestFullName
     , "email" .= userRequestEmail
     , "plugin" .= userRequestPlugin
     , "ident" .= userRequestIdent
@@ -7558,17 +7558,17 @@ instance ToJSON UserRequest where
 
 
 instance Eq UserRequest where
-  (==) a b = userRequestDisplayNick a == userRequestDisplayNick b && userRequestName a == userRequestName b && userRequestEmail a == userRequestEmail b && userRequestPlugin a == userRequestPlugin b && userRequestIdent a == userRequestIdent b && userRequestAcceptTOS a == userRequestAcceptTOS b
+  (==) a b = userRequestDisplayName a == userRequestDisplayName b && userRequestFullName a == userRequestFullName b && userRequestEmail a == userRequestEmail b && userRequestPlugin a == userRequestPlugin b && userRequestIdent a == userRequestIdent b && userRequestAcceptTOS a == userRequestAcceptTOS b
 
 instance Show UserRequest where
-    show rec = "userRequestDisplayNick: " <> show (userRequestDisplayNick rec) <> ", " <> "userRequestName: " <> show (userRequestName rec) <> ", " <> "userRequestEmail: " <> show (userRequestEmail rec) <> ", " <> "userRequestPlugin: " <> show (userRequestPlugin rec) <> ", " <> "userRequestIdent: " <> show (userRequestIdent rec) <> ", " <> "userRequestAcceptTOS: " <> show (userRequestAcceptTOS rec)
+    show rec = "userRequestDisplayName: " <> show (userRequestDisplayName rec) <> ", " <> "userRequestFullName: " <> show (userRequestFullName rec) <> ", " <> "userRequestEmail: " <> show (userRequestEmail rec) <> ", " <> "userRequestPlugin: " <> show (userRequestPlugin rec) <> ", " <> "userRequestIdent: " <> show (userRequestIdent rec) <> ", " <> "userRequestAcceptTOS: " <> show (userRequestAcceptTOS rec)
 
 instance FromJSON UserResponse where
   parseJSON (Object o) = do
     userResponseId <- o .: ("id" :: Text)
-    userResponseNick <- o .: ("nick" :: Text)
-    userResponseDisplayNick <- o .: ("display_nick" :: Text)
     userResponseName <- o .: ("name" :: Text)
+    userResponseDisplayName <- o .: ("display_name" :: Text)
+    userResponseFullName <- o .: ("full_name" :: Text)
     userResponseEmail <- o .: ("email" :: Text)
     userResponseEmailMD5 <- o .: ("email_md5" :: Text)
     userResponsePlugin <- o .: ("plugin" :: Text)
@@ -7582,9 +7582,9 @@ instance FromJSON UserResponse where
     userResponseActivityAt <- o .: ("activity_at" :: Text)
     pure $ UserResponse {
       userResponseId = userResponseId,
-      userResponseNick = userResponseNick,
-      userResponseDisplayNick = userResponseDisplayNick,
       userResponseName = userResponseName,
+      userResponseDisplayName = userResponseDisplayName,
+      userResponseFullName = userResponseFullName,
       userResponseEmail = userResponseEmail,
       userResponseEmailMD5 = userResponseEmailMD5,
       userResponsePlugin = userResponsePlugin,
@@ -7604,9 +7604,9 @@ instance ToJSON UserResponse where
   toJSON UserResponse{..} = object $
     [ "tag" .= ("UserResponse" :: Text)
     , "id" .= userResponseId
-    , "nick" .= userResponseNick
-    , "display_nick" .= userResponseDisplayNick
     , "name" .= userResponseName
+    , "display_name" .= userResponseDisplayName
+    , "full_name" .= userResponseFullName
     , "email" .= userResponseEmail
     , "email_md5" .= userResponseEmailMD5
     , "plugin" .= userResponsePlugin
@@ -7622,10 +7622,10 @@ instance ToJSON UserResponse where
 
 
 instance Eq UserResponse where
-  (==) a b = userResponseId a == userResponseId b && userResponseNick a == userResponseNick b && userResponseDisplayNick a == userResponseDisplayNick b && userResponseName a == userResponseName b && userResponseEmail a == userResponseEmail b && userResponseEmailMD5 a == userResponseEmailMD5 b && userResponsePlugin a == userResponsePlugin b && userResponseIdent a == userResponseIdent b && userResponseAcceptTOS a == userResponseAcceptTOS b && userResponseActive a == userResponseActive b && userResponseGuard a == userResponseGuard b && userResponseCreatedAt a == userResponseCreatedAt b && userResponseModifiedAt a == userResponseModifiedAt b && userResponseDeactivatedAt a == userResponseDeactivatedAt b && userResponseActivityAt a == userResponseActivityAt b
+  (==) a b = userResponseId a == userResponseId b && userResponseName a == userResponseName b && userResponseDisplayName a == userResponseDisplayName b && userResponseFullName a == userResponseFullName b && userResponseEmail a == userResponseEmail b && userResponseEmailMD5 a == userResponseEmailMD5 b && userResponsePlugin a == userResponsePlugin b && userResponseIdent a == userResponseIdent b && userResponseAcceptTOS a == userResponseAcceptTOS b && userResponseActive a == userResponseActive b && userResponseGuard a == userResponseGuard b && userResponseCreatedAt a == userResponseCreatedAt b && userResponseModifiedAt a == userResponseModifiedAt b && userResponseDeactivatedAt a == userResponseDeactivatedAt b && userResponseActivityAt a == userResponseActivityAt b
 
 instance Show UserResponse where
-    show rec = "userResponseId: " <> show (userResponseId rec) <> ", " <> "userResponseNick: " <> show (userResponseNick rec) <> ", " <> "userResponseDisplayNick: " <> show (userResponseDisplayNick rec) <> ", " <> "userResponseName: " <> show (userResponseName rec) <> ", " <> "userResponseEmail: " <> show (userResponseEmail rec) <> ", " <> "userResponseEmailMD5: " <> show (userResponseEmailMD5 rec) <> ", " <> "userResponsePlugin: " <> show (userResponsePlugin rec) <> ", " <> "userResponseIdent: " <> show (userResponseIdent rec) <> ", " <> "userResponseAcceptTOS: " <> show (userResponseAcceptTOS rec) <> ", " <> "userResponseActive: " <> show (userResponseActive rec) <> ", " <> "userResponseGuard: " <> show (userResponseGuard rec) <> ", " <> "userResponseCreatedAt: " <> show (userResponseCreatedAt rec) <> ", " <> "userResponseModifiedAt: " <> show (userResponseModifiedAt rec) <> ", " <> "userResponseDeactivatedAt: " <> show (userResponseDeactivatedAt rec) <> ", " <> "userResponseActivityAt: " <> show (userResponseActivityAt rec)
+    show rec = "userResponseId: " <> show (userResponseId rec) <> ", " <> "userResponseName: " <> show (userResponseName rec) <> ", " <> "userResponseDisplayName: " <> show (userResponseDisplayName rec) <> ", " <> "userResponseFullName: " <> show (userResponseFullName rec) <> ", " <> "userResponseEmail: " <> show (userResponseEmail rec) <> ", " <> "userResponseEmailMD5: " <> show (userResponseEmailMD5 rec) <> ", " <> "userResponsePlugin: " <> show (userResponsePlugin rec) <> ", " <> "userResponseIdent: " <> show (userResponseIdent rec) <> ", " <> "userResponseAcceptTOS: " <> show (userResponseAcceptTOS rec) <> ", " <> "userResponseActive: " <> show (userResponseActive rec) <> ", " <> "userResponseGuard: " <> show (userResponseGuard rec) <> ", " <> "userResponseCreatedAt: " <> show (userResponseCreatedAt rec) <> ", " <> "userResponseModifiedAt: " <> show (userResponseModifiedAt rec) <> ", " <> "userResponseDeactivatedAt: " <> show (userResponseDeactivatedAt rec) <> ", " <> "userResponseActivityAt: " <> show (userResponseActivityAt rec)
 
 instance FromJSON UserResponses where
   parseJSON (Object o) = do
@@ -7652,8 +7652,8 @@ instance Show UserResponses where
 instance FromJSON UserSanitizedResponse where
   parseJSON (Object o) = do
     userSanitizedResponseId <- o .: ("id" :: Text)
-    userSanitizedResponseNick <- o .: ("nick" :: Text)
-    userSanitizedResponseDisplayNick <- o .: ("display_nick" :: Text)
+    userSanitizedResponseName <- o .: ("name" :: Text)
+    userSanitizedResponseDisplayName <- o .: ("display_name" :: Text)
     userSanitizedResponseEmailMD5 <- o .: ("email_md5" :: Text)
     userSanitizedResponseActive <- o .: ("active" :: Text)
     userSanitizedResponseGuard <- o .: ("guard" :: Text)
@@ -7661,8 +7661,8 @@ instance FromJSON UserSanitizedResponse where
     userSanitizedResponseActivityAt <- o .: ("activity_at" :: Text)
     pure $ UserSanitizedResponse {
       userSanitizedResponseId = userSanitizedResponseId,
-      userSanitizedResponseNick = userSanitizedResponseNick,
-      userSanitizedResponseDisplayNick = userSanitizedResponseDisplayNick,
+      userSanitizedResponseName = userSanitizedResponseName,
+      userSanitizedResponseDisplayName = userSanitizedResponseDisplayName,
       userSanitizedResponseEmailMD5 = userSanitizedResponseEmailMD5,
       userSanitizedResponseActive = userSanitizedResponseActive,
       userSanitizedResponseGuard = userSanitizedResponseGuard,
@@ -7676,8 +7676,8 @@ instance ToJSON UserSanitizedResponse where
   toJSON UserSanitizedResponse{..} = object $
     [ "tag" .= ("UserSanitizedResponse" :: Text)
     , "id" .= userSanitizedResponseId
-    , "nick" .= userSanitizedResponseNick
-    , "display_nick" .= userSanitizedResponseDisplayNick
+    , "name" .= userSanitizedResponseName
+    , "display_name" .= userSanitizedResponseDisplayName
     , "email_md5" .= userSanitizedResponseEmailMD5
     , "active" .= userSanitizedResponseActive
     , "guard" .= userSanitizedResponseGuard
@@ -7687,10 +7687,10 @@ instance ToJSON UserSanitizedResponse where
 
 
 instance Eq UserSanitizedResponse where
-  (==) a b = userSanitizedResponseId a == userSanitizedResponseId b && userSanitizedResponseNick a == userSanitizedResponseNick b && userSanitizedResponseDisplayNick a == userSanitizedResponseDisplayNick b && userSanitizedResponseEmailMD5 a == userSanitizedResponseEmailMD5 b && userSanitizedResponseActive a == userSanitizedResponseActive b && userSanitizedResponseGuard a == userSanitizedResponseGuard b && userSanitizedResponseCreatedAt a == userSanitizedResponseCreatedAt b && userSanitizedResponseActivityAt a == userSanitizedResponseActivityAt b
+  (==) a b = userSanitizedResponseId a == userSanitizedResponseId b && userSanitizedResponseName a == userSanitizedResponseName b && userSanitizedResponseDisplayName a == userSanitizedResponseDisplayName b && userSanitizedResponseEmailMD5 a == userSanitizedResponseEmailMD5 b && userSanitizedResponseActive a == userSanitizedResponseActive b && userSanitizedResponseGuard a == userSanitizedResponseGuard b && userSanitizedResponseCreatedAt a == userSanitizedResponseCreatedAt b && userSanitizedResponseActivityAt a == userSanitizedResponseActivityAt b
 
 instance Show UserSanitizedResponse where
-    show rec = "userSanitizedResponseId: " <> show (userSanitizedResponseId rec) <> ", " <> "userSanitizedResponseNick: " <> show (userSanitizedResponseNick rec) <> ", " <> "userSanitizedResponseDisplayNick: " <> show (userSanitizedResponseDisplayNick rec) <> ", " <> "userSanitizedResponseEmailMD5: " <> show (userSanitizedResponseEmailMD5 rec) <> ", " <> "userSanitizedResponseActive: " <> show (userSanitizedResponseActive rec) <> ", " <> "userSanitizedResponseGuard: " <> show (userSanitizedResponseGuard rec) <> ", " <> "userSanitizedResponseCreatedAt: " <> show (userSanitizedResponseCreatedAt rec) <> ", " <> "userSanitizedResponseActivityAt: " <> show (userSanitizedResponseActivityAt rec)
+    show rec = "userSanitizedResponseId: " <> show (userSanitizedResponseId rec) <> ", " <> "userSanitizedResponseName: " <> show (userSanitizedResponseName rec) <> ", " <> "userSanitizedResponseDisplayName: " <> show (userSanitizedResponseDisplayName rec) <> ", " <> "userSanitizedResponseEmailMD5: " <> show (userSanitizedResponseEmailMD5 rec) <> ", " <> "userSanitizedResponseActive: " <> show (userSanitizedResponseActive rec) <> ", " <> "userSanitizedResponseGuard: " <> show (userSanitizedResponseGuard rec) <> ", " <> "userSanitizedResponseCreatedAt: " <> show (userSanitizedResponseCreatedAt rec) <> ", " <> "userSanitizedResponseActivityAt: " <> show (userSanitizedResponseActivityAt rec)
 
 instance FromJSON UserSanitizedResponses where
   parseJSON (Object o) = do

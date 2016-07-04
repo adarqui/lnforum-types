@@ -13,9 +13,9 @@ import           LN.T.Prelude
 
 data UserResponse = UserResponse {
   userResponseId            :: Int64,
-  userResponseNick          :: Text,
-  userResponseDisplayNick   :: Text,
   userResponseName          :: Text,
+  userResponseDisplayName   :: Text,
+  userResponseFullName      :: Text,
   userResponseEmail         :: Text,
   userResponseEmailMD5      :: Text,
   userResponsePlugin        :: Text,
