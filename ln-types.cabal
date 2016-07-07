@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.99
+version:             0.1.0.100
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3
@@ -21,7 +21,6 @@ Flag library-only
 library
   exposed-modules:     LN.T
                        LN.T.Internal.Types
-                       LN.T.Internal.JSON
                        LN.T.ACL
                        LN.T.Api
                        LN.T.Api.Request

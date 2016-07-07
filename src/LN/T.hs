@@ -4,5 +4,4 @@ module LN.T (
 
 
 
-import           LN.T.Internal.JSON  as A ()
 import           LN.T.Internal.Types as A
