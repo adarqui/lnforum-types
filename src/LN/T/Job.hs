@@ -12,15 +12,11 @@ import           LN.T.Internal.Types
 
 
 
-type UserId = Int64
-
-
-
 -- type Job = (JobRequest, JobReply)
 data Job
   = Job_Nop               ()                       ()
   | Job_Ping              ()                       UTCTime
-  | Job_CreateUserProfile (UserId, ProfileRequest) ProfileResponse
+  | Job_CreateUserProfile (Int64 {-UserId-}, ProfileRequest) ProfileResponse
   deriving (Generic, Typeable)
 
 
