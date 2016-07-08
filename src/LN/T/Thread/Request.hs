@@ -1,10 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Thread.Request (
-  ThreadRequest (..),
-  defaultThreadRequest,
-  testThreadRequest,
+  ThreadRequest (..)
 ) where
 
 
@@ -23,25 +20,3 @@ data ThreadRequest = ThreadRequest {
   threadRequestTags        :: [Text],
   threadRequestGuard       :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultThreadRequest :: ThreadRequest
-defaultThreadRequest = ThreadRequest {
-  threadRequestDisplayName = "",
-  threadRequestDescription = Nothing,
-  threadRequestSticky      = False,
-  threadRequestLocked      = False,
-  threadRequestPoll        = Nothing,
-  threadRequestIcon        = Nothing,
-  threadRequestTags        = [],
-  threadRequestGuard       = 0
-}
-
-
-
-testThreadRequest :: ThreadRequest
-testThreadRequest = defaultThreadRequest {
-  threadRequestDisplayName = "test",
-  threadRequestDescription = Just "test"
-}

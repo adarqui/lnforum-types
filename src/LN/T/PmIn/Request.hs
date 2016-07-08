@@ -1,8 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.PmIn.Request (
-  PmInRequest (..),
-  defaultPmInRequest,
+  PmInRequest (..)
 ) where
 
 
@@ -17,13 +16,3 @@ data PmInRequest = PmInRequest {
   pmInRequestIsStarred :: Bool,
   pmInRequestGuard     :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultPmInRequest :: PmInRequest
-defaultPmInRequest = PmInRequest {
-  pmInRequestLabel     = Nothing,
-  pmInRequestIsRead    = False,
-  pmInRequestIsStarred = False,
-  pmInRequestGuard     = 0
-}

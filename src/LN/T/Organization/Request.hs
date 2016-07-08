@@ -2,9 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Organization.Request (
-  OrganizationRequest (..),
-  defaultOrganizationRequest,
-  testOrganizationRequest,
+  OrganizationRequest (..)
 ) where
 
 
@@ -27,30 +25,3 @@ data OrganizationRequest = OrganizationRequest {
   organizationRequestVisibility  :: Visibility,
   organizationRequestGuard       :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultOrganizationRequest :: OrganizationRequest
-defaultOrganizationRequest = OrganizationRequest {
-  organizationRequestDisplayName = "",
-  organizationRequestDescription = Nothing,
-  organizationRequestCompany     = "",
-  organizationRequestLocation    = "",
-  organizationRequestEmail       = "",
-  organizationRequestMembership  = Membership_Join,
-  organizationRequestIcon        = Nothing,
-  organizationRequestTags        = [],
-  organizationRequestVisibility  = Public,
-  organizationRequestGuard       = 0
-}
-
-
-
-testOrganizationRequest :: OrganizationRequest
-testOrganizationRequest = defaultOrganizationRequest {
-  organizationRequestDisplayName = "test",
-  organizationRequestDescription = Just "test",
-  organizationRequestCompany     = "test",
-  organizationRequestLocation    = "test",
-  organizationRequestEmail       = "test@test.com"
-}

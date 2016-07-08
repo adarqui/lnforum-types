@@ -1,9 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Leuron.Request (
-  LeuronRequest (..),
-  defaultLeuronRequest,
-  dle,
+  LeuronRequest (..)
 ) where
 
 
@@ -32,31 +30,3 @@ data LeuronRequest = LeuronRequest {
   leuronRequestGuard         :: Int
 --  leuronRequestSpecificTo    :: Maybe Text,
 } deriving (Generic, Typeable)
-
-
-
-defaultLeuronRequest :: LeuronRequest
-defaultLeuronRequest = LeuronRequest {
-  leuronRequestData          = LnEmpty,
-  leuronRequestTitle         = Nothing,
-  leuronRequestDescription   = Nothing,
--- leuronRequestGrammar      = Nothing,
-  leuronRequestSection       = Nothing,
-  leuronRequestPage          = Nothing,
--- leuronRequestOptions = Nothing,
-  leuronRequestExamples      = Nothing,
-  leuronRequestStrengths     = Nothing,
-  leuronRequestCategories    = [],
-  leuronRequestSplits        = Nothing,
-  leuronRequestSubstitutions = Nothing,
-  leuronRequestTags          = [],
-  leuronRequestStyle         = Nothing,
-  leuronRequestGuard         = 0
--- leuronRequestSpecificTo   = Nothing,
--- leuronRequestChildren     = Nothing
-}
-
-
-
-dle :: LeuronRequest
-dle = defaultLeuronRequest

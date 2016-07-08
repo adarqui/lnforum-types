@@ -1,9 +1,7 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Forum.Request (
-  ForumRequest (..),
-  defaultForumRequest,
+  ForumRequest (..)
 ) where
 
 
@@ -26,20 +24,3 @@ data ForumRequest = ForumRequest {
   forumRequestVisibility           :: Visibility,
   forumRequestGuard                :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultForumRequest :: ForumRequest
-defaultForumRequest = ForumRequest {
-  forumRequestDisplayName          = "default",
-  forumRequestDescription          = Just "default",
-  forumRequestThreadsPerBoard      = 20,
-  forumRequestThreadPostsPerThread = 20,
-  forumRequestRecentThreadsLimit   = 10,
-  forumRequestRecentPostsLimit     = 10,
-  forumRequestMotwLimit            = 10,
-  forumRequestIcon                 = Nothing,
-  forumRequestTags                 = [],
-  forumRequestVisibility           = Public,
-  forumRequestGuard                = 0
-}

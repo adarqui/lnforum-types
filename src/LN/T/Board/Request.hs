@@ -1,10 +1,7 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Board.Request (
-  BoardRequest (..),
-  defaultBoardRequest,
-  testBoardRequest
+  BoardRequest (..)
 ) where
 
 
@@ -24,26 +21,3 @@ data BoardRequest = BoardRequest {
   boardRequestTags               :: [Text],
   boardRequestGuard              :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultBoardRequest :: BoardRequest
-defaultBoardRequest = BoardRequest {
-  boardRequestDisplayName        = "",
-  boardRequestDescription        = Nothing,
-  boardRequestIsAnonymous        = False,
-  boardRequestCanCreateSubBoards = True,
-  boardRequestCanCreateThreads   = True,
-  boardRequestSuggestedTags      = [],
-  boardRequestIcon               = Nothing,
-  boardRequestTags               = [],
-  boardRequestGuard              = 0
-}
-
-
-
-testBoardRequest :: BoardRequest
-testBoardRequest = testBoardRequest {
-  boardRequestDisplayName = "test",
-  boardRequestDescription = Just "test"
-}

@@ -1,9 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Pm.Request (
-  PmRequest (..),
-  defaultPmRequest,
+  PmRequest (..)
 ) where
 
 
@@ -17,12 +15,3 @@ data PmRequest = PmRequest {
   pmRequestBody    :: Text,
   pmRequestGuard   :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultPmRequest :: PmRequest
-defaultPmRequest = PmRequest {
-  pmRequestSubject = "No Subject",
-  pmRequestBody    = "No Body",
-  pmRequestGuard   = 0
-}

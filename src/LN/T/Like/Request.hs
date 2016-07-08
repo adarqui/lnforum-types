@@ -1,8 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Like.Request (
-  LikeRequest (..),
-  defaultLikeRequest,
+  LikeRequest (..)
 ) where
 
 
@@ -17,12 +16,3 @@ data LikeRequest = LikeRequest {
   likeRequestReason :: Maybe Text,
   likeRequestGuard  :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultLikeRequest :: LikeRequest
-defaultLikeRequest = LikeRequest {
-  likeRequestOpt    = Like,
-  likeRequestReason = Nothing,
-  likeRequestGuard  = 0
-}

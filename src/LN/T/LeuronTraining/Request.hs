@@ -1,8 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.LeuronTraining.Request (
-  LeuronTrainingRequest (..),
-  defaultLeuronTrainingRequest,
+  LeuronTrainingRequest (..)
 ) where
 
 
@@ -16,8 +15,3 @@ data LeuronTrainingRequest = LeuronTrainingRequest {
   leuronTrainingRequestSummary :: LeuronTrainingSummary,
   leuronTrainingRequestGuard   :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultLeuronTrainingRequest :: LeuronTrainingRequest
-defaultLeuronTrainingRequest = LeuronTrainingRequest LTS_View 0

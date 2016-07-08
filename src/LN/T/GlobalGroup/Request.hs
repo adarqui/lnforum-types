@@ -1,10 +1,7 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.GlobalGroup.Request (
-  GlobalGroupRequest (..),
-  defaultGlobalGroupRequest,
-  testGlobalGroupRequest,
+  GlobalGroupRequest (..)
 ) where
 
 
@@ -24,24 +21,3 @@ data GlobalGroupRequest = GlobalGroupRequest {
   globalGroupRequestVisibility  :: Visibility,
   globalGroupRequestGuard       :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultGlobalGroupRequest :: GlobalGroupRequest
-defaultGlobalGroupRequest = GlobalGroupRequest {
-  globalGroupRequestDisplayName = "",
-  globalGroupRequestDescription = Nothing,
-  globalGroupRequestMembership  = Membership_Join,
-  globalGroupRequestIcon        = Nothing,
-  globalGroupRequestTags        = [],
-  globalGroupRequestVisibility  = Public,
-  globalGroupRequestGuard       = 0
-}
-
-
-
-testGlobalGroupRequest :: GlobalGroupRequest
-testGlobalGroupRequest = defaultGlobalGroupRequest {
-  globalGroupRequestDisplayName = "test",
-  globalGroupRequestDescription = Just "test"
-}

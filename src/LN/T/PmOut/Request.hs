@@ -1,8 +1,7 @@
 {-# LANGUAGE DeriveGeneric  #-}
 
 module LN.T.PmOut.Request (
-  PmOutRequest (..),
-  defaultPmOutRequest,
+  PmOutRequest (..)
 ) where
 
 
@@ -15,11 +14,3 @@ data PmOutRequest = PmOutRequest {
   pmOutRequestLabel :: Maybe Text,
   pmOutRequestGuard :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultPmOutRequest :: PmOutRequest
-defaultPmOutRequest = PmOutRequest {
-  pmOutRequestLabel = Nothing,
-  pmOutRequestGuard = 0
-}

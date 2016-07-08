@@ -1,10 +1,7 @@
 {-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module LN.T.Resource.Request (
-  ResourceRequest (..),
-  defaultResourceRequest,
-  testResourceRequest,
+  ResourceRequest (..)
 ) where
 
 
@@ -31,32 +28,3 @@ data ResourceRequest = ResourceRequest {
   resourceRequestTags          :: [Text],
   resourceRequestGuard         :: Int
  } deriving (Generic, Typeable)
-
-
-
-defaultResourceRequest :: ResourceRequest
-defaultResourceRequest = ResourceRequest {
-  resourceRequestDisplayName   = "",
-  resourceRequestDescription   = "",
-  resourceRequestSource        = SourceNone,
-  resourceRequestAuthor        = Nothing,
-  resourceRequestPrerequisites = [],
-  resourceRequestCategories    = [],
-  resourceRequestVisibility    = Public,
-  resourceRequestCounter       = 0,
-  resourceRequestVersion       = Nothing,
-  resourceRequestUrls          = Nothing,
-  resourceRequestIcon          = Nothing,
-  resourceRequestTags          = [],
-  resourceRequestGuard         = 0
-}
-
-
-
-testResourceRequest :: ResourceRequest
-testResourceRequest = defaultResourceRequest {
-  resourceRequestDisplayName   = "test",
-  resourceRequestDescription   = "test",
-  resourceRequestSource        = URL "https://www.adarq.org",
-  resourceRequestAuthor        = Just ["test"]
-}

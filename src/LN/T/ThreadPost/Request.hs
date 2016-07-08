@@ -1,8 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.ThreadPost.Request (
-  ThreadPostRequest (..),
-  defaultThreadPostRequest,
+  ThreadPostRequest (..)
 ) where
 
 
@@ -19,14 +18,3 @@ data ThreadPostRequest = ThreadPostRequest {
   threadPostRequestPrivateTags :: [Text],
   threadPostRequestGuard       :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultThreadPostRequest :: ThreadPostRequest
-defaultThreadPostRequest = ThreadPostRequest {
-  threadPostRequestTitle       = Nothing,
-  threadPostRequestBody        = PostDataEmpty,
-  threadPostRequestTags        = [],
-  threadPostRequestPrivateTags = [],
-  threadPostRequestGuard       = 0
-}

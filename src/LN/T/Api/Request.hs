@@ -1,10 +1,7 @@
-{-# LANGUAGE DeriveGeneric     #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Api.Request (
-  ApiRequest (..),
-  defaultApiRequest,
-  testApiRequest
+  ApiRequest (..)
 ) where
 
 
@@ -17,18 +14,3 @@ data ApiRequest = ApiRequest {
   apiRequestComment :: Maybe Text,
   apiRequestGuard   :: Int
 } deriving (Generic, Typeable)
-
-
-
-defaultApiRequest :: ApiRequest
-defaultApiRequest = ApiRequest {
-  apiRequestComment = Nothing,
-  apiRequestGuard   = 0
-}
-
-
-
-testApiRequest :: ApiRequest
-testApiRequest = defaultApiRequest {
-  apiRequestComment = Just "test"
-}
