@@ -1,7 +1,8 @@
-{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Reminder.Request (
-  ReminderRequest (..)
+  ReminderRequest (..),
+  ReminderFolderRequest (..)
 ) where
 
 
