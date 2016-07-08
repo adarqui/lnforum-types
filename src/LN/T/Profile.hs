@@ -2,8 +2,7 @@
 
 module LN.T.Profile (
   ProfileX (..),
-  ProfileGender (..),
-  defaultProfileGender,
+  ProfileGender (..)
 ) where
 
 
@@ -25,8 +24,3 @@ data ProfileGender
   | GenderFemale
   | GenderUnknown
   deriving (Generic, Typeable)
-
-
-
-defaultProfileGender :: ProfileGender
-defaultProfileGender = GenderUnknown
