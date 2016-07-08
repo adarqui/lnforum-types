@@ -32,7 +32,7 @@ import           LN.T.Group.Stat                     as A
 import           LN.T.GroupMember.Request            as A
 import           LN.T.GroupMember.Response           as A
 import           LN.T.GroupMember.Stat               as A
--- import           LN.T.Job                            as A
+--               LN.T.Job                            as A **WARNING** IMPORT CYCLE
 import           LN.T.Leuron                         as A
 import           LN.T.Leuron.Request                 as A
 import           LN.T.Leuron.Response                as A
