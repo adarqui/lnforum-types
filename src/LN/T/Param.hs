@@ -18,8 +18,8 @@ default (Text)
 
 
 data Param
-  = Limit                  Int
-  | Offset                 Int
+  = Limit                  Int64
+  | Offset                 Int64
   | SortOrder              SortOrderBy
   | Order                  OrderBy
   | ByOrganizationId       Int64
