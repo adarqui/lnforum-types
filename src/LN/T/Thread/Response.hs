@@ -23,8 +23,10 @@ data ThreadResponse = ThreadResponse {
   threadResponseSticky      :: Bool,
   threadResponseLocked      :: Bool,
   threadResponsePoll        :: Maybe Text,
+  -- Shared
   threadResponseIcon        :: Maybe Text,
   threadResponseTags        :: [Text],
+  -- Shared
   threadResponseActive      :: Bool,
   threadResponseGuard       :: Int,
   threadResponseCreatedAt   :: Maybe UTCTime,

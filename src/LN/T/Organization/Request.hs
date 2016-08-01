@@ -23,5 +23,7 @@ data OrganizationRequest = OrganizationRequest {
   organizationRequestTags        :: [Text],
   organizationRequestIcon        :: Maybe Text,
   organizationRequestVisibility  :: Visibility,
-  organizationRequestGuard       :: Int
+  organizationRequestGuard       :: Int,
+  -- State
+  organizationRequestStateTag    :: Maybe Text
 } deriving (Generic, Typeable)

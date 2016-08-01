@@ -21,7 +21,6 @@ data TeamResponse = TeamResponse {
   teamResponseSystem       :: SystemTeam,
   teamResponseMembership   :: Membership,
   teamResponseIcon         :: Maybe Text,
-  teamResponseTags         :: [Text],
   teamResponseVisibility   :: Visibility,
   teamResponseActive       :: Bool,
   teamResponseGuard        :: Int,

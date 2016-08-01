@@ -18,5 +18,7 @@ data ThreadRequest = ThreadRequest {
   threadRequestPoll        :: Maybe Text,
   threadRequestIcon        :: Maybe Text,
   threadRequestTags        :: [Text],
-  threadRequestGuard       :: Int
+  threadRequestGuard       :: Int,
+  -- State
+  threadRequestStateTag    :: Maybe Text
 } deriving (Generic, Typeable)

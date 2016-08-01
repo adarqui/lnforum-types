@@ -15,7 +15,6 @@ import           LN.T.Visibility
 data TeamRequest = TeamRequest {
   teamRequestMembership  :: Membership,
   teamRequestIcon        :: Maybe Text,
-  teamRequestTags        :: [Text],
   teamRequestVisibility  :: Visibility,
   teamRequestGuard       :: Int
 } deriving (Generic, Typeable)

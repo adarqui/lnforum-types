@@ -21,6 +21,7 @@ data UserResponse = UserResponse {
   userResponsePlugin        :: Text,
   userResponseIdent         :: Text,
   userResponseAcceptTOS     :: Maybe UTCTime,
+  -- Most All of this could become a shared type..
   userResponseActive        :: Bool,
   userResponseGuard         :: Int,
   userResponseCreatedAt     :: Maybe UTCTime,
@@ -31,6 +32,7 @@ data UserResponse = UserResponse {
 
 
 
+-- Is this needed?
 data UserResponses = UserResponses {
   userResponses :: [UserResponse]
 } deriving (Generic, Typeable)

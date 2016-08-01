@@ -24,8 +24,10 @@ data ThreadPostResponse = ThreadPostResponse {
   threadPostResponseBody        :: PostData,
   threadPostResponseTags        :: [Text],
   threadPostResponsePrivateTags :: [Text],
+  -- Shared
   threadPostResponseActive      :: Bool,
   threadPostResponseGuard       :: Int,
+  -- Shared
   threadPostResponseCreatedAt   :: Maybe UTCTime,
   threadPostResponseModifiedBy  :: Maybe Int64,
   threadPostResponseModifiedAt  :: Maybe UTCTime,

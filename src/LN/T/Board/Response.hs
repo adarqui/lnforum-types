@@ -24,8 +24,10 @@ data BoardResponse = BoardResponse {
   boardResponseCanCreateSubBoards :: Bool,
   boardResponseCanCreateThreads   :: Bool,
   boardResponseSuggestedTags      :: [Text],
+  -- Shared
   boardResponseIcon               :: Maybe Text,
   boardResponseTags               :: [Text],
+  -- Shared
   boardResponseActive             :: Bool,
   boardResponseGuard              :: Int,
   boardResponseCreatedAt          :: Maybe UTCTime,

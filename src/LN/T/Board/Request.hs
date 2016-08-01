@@ -19,5 +19,8 @@ data BoardRequest = BoardRequest {
   boardRequestSuggestedTags      :: [Text],
   boardRequestIcon               :: Maybe Text,
   boardRequestTags               :: [Text],
-  boardRequestGuard              :: Int
+  boardRequestGuard              :: Int,
+  -- State
+  boardRequestStateSuggestedTag  :: Maybe Text,
+  boardRequestStateTag           :: Maybe Text
 } deriving (Generic, Typeable)
