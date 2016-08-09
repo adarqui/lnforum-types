@@ -22,18 +22,21 @@ import           LN.T.User.Sanitized.Response
 
 
 data ThreadPostPackResponse = ThreadPostPackResponse {
-  threadPostPackResponseThreadPost       :: ThreadPostResponse,
-  threadPostPackResponseThreadPostId     :: Int64,
-  threadPostPackResponseUser             :: UserSanitizedResponse,
-  threadPostPackResponseUserId           :: Int64,
-  threadPostPackResponseStat             :: ThreadPostStatResponse,
-  threadPostPackResponseLike             :: Maybe LikeResponse,
-  threadPostPackResponseStar             :: Maybe StarResponse,
-  threadPostPackResponseWithOrganization :: Maybe OrganizationResponse,
-  threadPostPackResponseWithForum        :: Maybe ForumResponse,
-  threadPostPackResponseWithBoard        :: Maybe BoardResponse,
-  threadPostPackResponseWithThread       :: Maybe ThreadResponse,
-  threadPostPackResponsePermissions      :: Permissions
+  threadPostPackResponseThreadPost            :: ThreadPostResponse,
+  threadPostPackResponseThreadPostId          :: Int64,
+  threadPostPackResponseUser                  :: UserSanitizedResponse,
+  threadPostPackResponseUserId                :: Int64,
+  threadPostPackResponseStat                  :: ThreadPostStatResponse,
+  threadPostPackResponseLike                  :: Maybe LikeResponse,
+  threadPostPackResponseStar                  :: Maybe StarResponse,
+  threadPostPackResponseWithOrganization      :: Maybe OrganizationResponse,
+  threadPostPackResponseWithForum             :: Maybe ForumResponse,
+  threadPostPackResponseWithBoard             :: Maybe BoardResponse,
+  threadPostPackResponseWithThread            :: Maybe ThreadResponse,
+  threadPostPackResponseWithThreadPosts       :: Maybe ThreadPostResponses, -- ^ Returns a thread post range, relative to this post
+  threadPostPackResponseWithThreadPostsOffset :: Maybe Int64,               -- ^ The offset of our thread post
+  threadPostPackResponseWithThreadPostsLimit  :: Maybe Int64,               -- ^ The limit that was used
+  threadPostPackResponsePermissions           :: Permissions
 } deriving (Generic, Typeable)
 
 
