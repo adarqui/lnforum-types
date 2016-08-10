@@ -148,6 +148,7 @@ data ParamTag
   | ParamTag_WithForum
   | ParamTag_WithBoard
   | ParamTag_WithThread
+  | ParamTag_WithThreadPosts
   | ParamTag_WithResource
   deriving (Generic, Typeable)
 
