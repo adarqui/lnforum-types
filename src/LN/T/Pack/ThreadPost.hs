@@ -33,7 +33,7 @@ data ThreadPostPackResponse = ThreadPostPackResponse {
   threadPostPackResponseWithForum             :: Maybe ForumResponse,
   threadPostPackResponseWithBoard             :: Maybe BoardResponse,
   threadPostPackResponseWithThread            :: Maybe ThreadResponse,
-  threadPostPackResponseWithThreadPosts       :: Maybe ThreadPostResponses, -- ^ Returns a thread post range, relative to this post
+  threadPostPackResponseWithThreadPosts       :: Maybe [Int64],             -- ^ Returns a thread post range, relative to this post
   threadPostPackResponseWithThreadPostsOffset :: Maybe Int64,               -- ^ The offset of our thread post
   threadPostPackResponseWithThreadPostsLimit  :: Maybe Int64,               -- ^ The limit that was used
   threadPostPackResponsePermissions           :: Permissions
