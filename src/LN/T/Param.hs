@@ -80,6 +80,7 @@ data Param
   | WithForum              Bool
   | WithBoard              Bool
   | WithThread             Bool
+  | WithThreadPosts        Bool
   | WithResource           Bool
   deriving (Generic, Typeable)
 
