@@ -69,6 +69,7 @@ data Param
   | ByParentId             Int64
   | ByParentsIds           [Int64]
   | ByParentName           Text
+  | ByEmail                Text
   | BySelf                 Bool
   | Timestamp              UTCTime
   | UnixTimestamp          Int64
@@ -138,6 +139,7 @@ data ParamTag
   | ParamTag_ByParentId
   | ParamTag_ByParentsIds
   | ParamTag_ByParentName
+  | ParamTag_ByEmail
   | ParamTag_BySelf
   | ParamTag_Timestamp
   | ParamTag_UnixTimestamp
