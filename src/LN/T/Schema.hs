@@ -13,6 +13,8 @@ import           Data.Aeson
 import           Data.Aeson.Types
 import           Data.Monoid      ((<>))
 import           Data.String
+import           Prelude
+
 import           LN.T.Version
 
 

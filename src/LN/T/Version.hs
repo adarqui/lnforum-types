@@ -3,6 +3,9 @@ module LN.T.Version (
 ) where
 
 
+import           Prelude
+
+
 
 lnVersion :: Double
 lnVersion = 1.0

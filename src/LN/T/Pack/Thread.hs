@@ -34,7 +34,7 @@ data ThreadPackResponse = ThreadPackResponse {
   threadPackResponseWithOrganization     :: Maybe OrganizationResponse,
   threadPackResponseWithForum            :: Maybe ForumResponse,
   threadPackResponseWithBoard            :: Maybe BoardResponse,
-  threadPackResponsePermissions              :: Permissions
+  threadPackResponsePermissions          :: Permissions
 } deriving (Generic, Typeable)
 
 

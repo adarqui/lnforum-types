@@ -4,6 +4,10 @@ module LN.T.PatternSynonyms where
 
 
 
+import Prelude
+
+
+
 pattern N   = Nothing
 pattern J a = Just a
 pattern L a = Left a
