@@ -71,6 +71,7 @@ data Param
   | ByParentName           Text
   | ByEmail                Text
   | BySelf                 Bool
+  | View                   Bool
   | Timestamp              UTCTime
   | UnixTimestamp          Int64
   | CreatedAtTimestamp     UTCTime
@@ -141,6 +142,7 @@ data ParamTag
   | ParamTag_ByParentName
   | ParamTag_ByEmail
   | ParamTag_BySelf
+  | ParamTag_View
   | ParamTag_Timestamp
   | ParamTag_UnixTimestamp
   | ParamTag_CreatedAtTimestamp
