@@ -114,6 +114,9 @@ import           LN.T.User.Settings.Request          as A
 import           LN.T.User.Settings.Response         as A
 import           LN.T.Version                        as A
 import           LN.T.Visibility                     as A
+import           LN.T.View                           as A
+import           LN.T.View.Request                   as A
+import           LN.T.View.Response                  as A
 import           LN.T.Workout                        as A
 import           LN.T.Workout.Request                as A
 import           LN.T.Workout.Response               as A
