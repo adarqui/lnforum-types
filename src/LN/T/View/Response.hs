@@ -8,7 +8,6 @@ module LN.T.View.Response (
 
 
 import           LN.T.Ent
-import           LN.T.View
 import           LN.T.Prelude
 
 
