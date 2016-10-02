@@ -32,7 +32,8 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseLatestThreadPostUser :: Maybe UserSanitizedResponse,
   boardPackResponseWithOrganization     :: Maybe OrganizationResponse,
   boardPackResponseWithForum            :: Maybe ForumResponse,
-  boardPackResponsePermissions          :: Permissions
+  boardPackResponsePermissions          :: Permissions,
+  boardPackResponseThreadPermissions    :: Permissions
 } deriving (Generic, Typeable)
 
 
