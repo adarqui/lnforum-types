@@ -119,3 +119,4 @@ import           LN.T.View.Response                  as A
 import           LN.T.Workout                        as A
 import           LN.T.Workout.Request                as A
 import           LN.T.Workout.Response               as A
+import           LN.T.Templates                      as A
