@@ -63,6 +63,7 @@ import           LN.T.Pack.Thread                    as A
 import           LN.T.Pack.ThreadPost                as A
 import           LN.T.Pack.Resource                  as A
 import           LN.T.Pack.Leuron                    as A
+import           LN.T.Pack.Bucket                    as A
 import           LN.T.Pack.PmIn                      as A
 import           LN.T.Pack.PmOut                     as A
 import           LN.T.Param                          as A

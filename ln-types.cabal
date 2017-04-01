@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.110
+version:             0.1.0.111
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3
@@ -95,6 +95,7 @@ library
                        LN.T.Pack.ThreadPost
                        LN.T.Pack.Resource
                        LN.T.Pack.Leuron
+                       LN.T.Pack.Bucket
                        LN.T.Pack.PmIn
                        LN.T.Pack.PmOut
                        LN.T.Permission
