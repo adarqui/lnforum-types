@@ -125,6 +125,7 @@ library
                        LN.T.Resource.Response
                        LN.T.Resource.Stat
                        LN.T.Schema
+                       LN.T.Simple
                        LN.T.Size
                        LN.T.Splits
                        LN.T.Style

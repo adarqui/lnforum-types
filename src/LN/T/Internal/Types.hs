@@ -87,6 +87,7 @@ import           LN.T.Resource.Request               as A
 import           LN.T.Resource.Response              as A
 import           LN.T.Resource.Stat                  as A
 import           LN.T.Schema                         as A
+import           LN.T.Simple                         as A
 import           LN.T.Size                           as A
 import           LN.T.Splits                         as A ()
 import           LN.T.Substitutions                  as A ()
