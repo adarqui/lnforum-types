@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.112
+version:             0.1.0.113
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3
@@ -25,10 +25,6 @@ library
                        LN.T.Api
                        LN.T.Api.Request
                        LN.T.Api.Response
-                       LN.T.Board
-                       LN.T.Board.Request
-                       LN.T.Board.Response
-                       LN.T.Board.Stat
                        LN.T.Bucket
                        LN.T.Bucket.Request
                        LN.T.Bucket.Response
@@ -48,22 +44,6 @@ library
                        LN.T.Empty
                        LN.T.Ent
                        LN.T.Error
-                       LN.T.Forum
-                       LN.T.Forum.Request
-                       LN.T.Forum.Response
-                       LN.T.Forum.Stat
-                       LN.T.GlobalGroup
-                       LN.T.GlobalGroup.Request
-                       LN.T.GlobalGroup.Response
-                       LN.T.GlobalGroup.Stat
-                       LN.T.Group
-                       LN.T.Group.Request
-                       LN.T.Group.Response
-                       LN.T.Group.Stat
-                       LN.T.GroupMember
-                       LN.T.GroupMember.Request
-                       LN.T.GroupMember.Response
-                       LN.T.GroupMember.Stat
                        LN.T.Id
                        LN.T.Id.Request
                        LN.T.Id.Response
@@ -84,54 +64,19 @@ library
                        LN.T.Like.Response
                        LN.T.Like.Stat
                        LN.T.Me
-                       LN.T.Membership
-                       LN.T.Organization
-                       LN.T.Organization.Profile
-                       LN.T.Organization.Request
-                       LN.T.Organization.Response
-                       LN.T.Organization.Settings
-                       LN.T.Organization.Settings.Request
-                       LN.T.Organization.Settings.Response
-                       LN.T.Organization.Stat
                        LN.T.Param
                        LN.T.PatternSynonyms
-                       LN.T.Pack.Organization
-                       LN.T.Pack.Team
-                       LN.T.Pack.TeamMember
                        LN.T.Pack.User
                        LN.T.Pack.Me
                        LN.T.Pack.Sanitized.User
-                       LN.T.Pack.GlobalGroup
-                       LN.T.Pack.Group
-                       LN.T.Pack.GroupMember
-                       LN.T.Pack.Forum
-                       LN.T.Pack.Board
-                       LN.T.Pack.Thread
-                       LN.T.Pack.ThreadPost
                        LN.T.Pack.Resource
                        LN.T.Pack.Leuron
                        LN.T.Pack.Bucket
-                       LN.T.Pack.PmIn
-                       LN.T.Pack.PmOut
                        LN.T.Permission
---                       LN.T.Pack.Life
-                       LN.T.Pm
-                       LN.T.Pm.Request
-                       LN.T.Pm.Response
-                       LN.T.PmIn
-                       LN.T.PmIn.Request
-                       LN.T.PmIn.Response
-                       LN.T.PmOut
-                       LN.T.PmOut.Request
-                       LN.T.PmOut.Response
                        LN.T.Prelude
                        LN.T.Profile
                        LN.T.Profile.Request
                        LN.T.Profile.Response
-                       LN.T.Reminder
-                       LN.T.Reminder.Request
-                       LN.T.Reminder.Response
-                       LN.T.Reminder.Stat
                        LN.T.Resource
                        LN.T.Resource.Request
                        LN.T.Resource.Response
@@ -146,23 +91,7 @@ library
                        LN.T.Star.Request
                        LN.T.Star.Response
                        LN.T.Star.Stat
-                       LN.T.Team
-                       LN.T.Team.Request
-                       LN.T.Team.Response
-                       LN.T.Team.Stat
-                       LN.T.TeamMember
-                       LN.T.TeamMember.Request
-                       LN.T.TeamMember.Response
-                       LN.T.TeamMember.Stat
                        LN.T.Test
-                       LN.T.Thread
-                       LN.T.Thread.Request
-                       LN.T.Thread.Response
-                       LN.T.Thread.Stat
-                       LN.T.ThreadPost
-                       LN.T.ThreadPost.Request
-                       LN.T.ThreadPost.Response
-                       LN.T.ThreadPost.Stat
                        LN.T.TrainingNode
                        LN.T.TrainingNode.Response
                        LN.T.User
@@ -178,12 +107,6 @@ library
                        LN.T.User.Stat
                        LN.T.Version
                        LN.T.Visibility
-                       LN.T.View.Request
-                       LN.T.View.Response
-                       LN.T.Workout
-                       LN.T.Workout.Request
-                       LN.T.Workout.Response
-                       LN.T.Workout.Stat
                        LN.T.Templates
   build-depends:       base
                      , aeson
