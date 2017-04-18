@@ -109,6 +109,7 @@ import           LN.T.ThreadPost                     as A
 import           LN.T.ThreadPost.Request             as A
 import           LN.T.ThreadPost.Response            as A
 import           LN.T.ThreadPost.Stat                as A
+import           LN.T.Training                       as A
 import           LN.T.User                           as A
 import           LN.T.User.Request                   as A
 import           LN.T.User.Response                  as A
