@@ -92,8 +92,6 @@ library
                        LN.T.Star.Response
                        LN.T.Star.Stat
                        LN.T.Test
-                       LN.T.TrainingNode
-                       LN.T.TrainingNode.Response
                        LN.T.User
                        LN.T.User.Profile
                        LN.T.User.Request
