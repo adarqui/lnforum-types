@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric  #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Bucket.Response (
   BucketResponse (..),
@@ -8,26 +8,30 @@ module LN.T.Bucket.Response (
 
 
 import           LN.T.Prelude
+import           LN.T.Training
 
 
 
 data BucketResponse = BucketResponse {
-  bucketResponseId          :: Int64,
-  bucketResponseUserId      :: Int64,
-  bucketResponseName        :: Text,
-  bucketResponseDisplayName :: Text,
-  bucketResponseDescription :: Maybe Text,
-  bucketResponseScoreLo     :: Int,
-  bucketResponseScoreHi     :: Int,
-  bucketResponseLeurons     :: [Int64],
-  bucketResponseResources   :: [Int64],
-  bucketResponseCategories  :: [Text],
-  bucketResponseFilters     :: [Int64],
-  bucketResponseActive      :: Bool,
-  bucketResponseGuard       :: Int,
-  bucketResponseCreatedAt   :: Maybe UTCTime,
-  bucketResponseModifiedAt  :: Maybe UTCTime,
-  bucketResponseActivityAt  :: Maybe UTCTime
+  bucketResponseId           :: Int64,
+  bucketResponseUserId       :: Int64,
+  bucketResponseName         :: Text,
+  bucketResponseDisplayName  :: Text,
+  bucketResponseDescription  :: Maybe Text,
+  bucketResponseScoreLo      :: Int,
+  bucketResponseScoreHi      :: Int,
+  bucketResponseLeurons      :: [Int64],
+  bucketResponseResources    :: [Int64],
+  bucketResponseCategories   :: [Text],
+  bucketResponseFilters      :: [Int64],
+
+  bucketResponseTrainingNode :: TrainingNode,
+
+  bucketResponseActive       :: Bool,
+  bucketResponseGuard        :: Int,
+  bucketResponseCreatedAt    :: Maybe UTCTime,
+  bucketResponseModifiedAt   :: Maybe UTCTime,
+  bucketResponseActivityAt   :: Maybe UTCTime
 } deriving (Generic, Typeable)
 
 
