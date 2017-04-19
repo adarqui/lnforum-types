@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.113
+version:             0.1.0.114
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3
@@ -29,15 +29,12 @@ library
                        LN.T.Bucket.Request
                        LN.T.Bucket.Response
                        LN.T.Bucket.Stat
-                       LN.T.BucketTraining
-                       LN.T.BucketTraining.Request
-                       LN.T.BucketTraining.Response
-                       LN.T.BucketTrainingRound
-                       LN.T.BucketTrainingRound.Request
-                       LN.T.BucketTrainingRound.Response
-                       LN.T.BucketTrainingNode
-                       LN.T.BucketTrainingNode.Request
-                       LN.T.BucketTrainingNode.Response
+                       LN.T.BucketRound
+                       LN.T.BucketRound.Request
+                       LN.T.BucketRound.Response
+                       LN.T.BucketNode
+                       LN.T.BucketNode.Request
+                       LN.T.BucketNode.Response
                        LN.T.Count
                        LN.T.Count.Response
                        LN.T.DepList
@@ -56,9 +53,9 @@ library
                        LN.T.LeuronTraining.Request
                        LN.T.LeuronTraining.Response
                        LN.T.LeuronTraining.Stat
-                       LN.T.LeuronTrainingNode
-                       LN.T.LeuronTrainingNode.Request
-                       LN.T.LeuronTrainingNode.Response
+                       LN.T.LeuronNode
+                       LN.T.LeuronNode.Request
+                       LN.T.LeuronNode.Response
                        LN.T.Like
                        LN.T.Like.Request
                        LN.T.Like.Response
