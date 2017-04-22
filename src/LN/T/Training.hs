@@ -22,6 +22,7 @@ data TrainingStyle
 
 
 data TrainingNode = TrainingNode {
+
   numTotal          :: Int64,
   numKnow           :: Int64,
   numDontKnow       :: Int64,
@@ -36,6 +37,7 @@ data TrainingNode = TrainingNode {
   honorDontKnowAt   :: Maybe UTCTime,
   honorDontCareAt   :: Maybe UTCTime,
   honorProtestAt    :: Maybe UTCTime,
+
   booleanKnow       :: Int64,
   booleanDontKnow   :: Int64,
   booleanDontCare   :: Int64,
@@ -44,6 +46,7 @@ data TrainingNode = TrainingNode {
   booleanDontKnowAt :: Maybe UTCTime,
   booleanDontCareAt :: Maybe UTCTime,
   booleanProtestAt  :: Maybe UTCTime,
+
   matchKnow         :: Int64,
   matchDontKnow     :: Int64,
   matchDontCare     :: Int64,
@@ -52,6 +55,7 @@ data TrainingNode = TrainingNode {
   matchDontKnowAt   :: Maybe UTCTime,
   matchDontCareAt   :: Maybe UTCTime,
   matchProtestAt    :: Maybe UTCTime,
+
   subsKnow          :: Int64,
   subsDontKnow      :: Int64,
   subsDontCare      :: Int64,
@@ -60,6 +64,7 @@ data TrainingNode = TrainingNode {
   subsDontKnowAt    :: Maybe UTCTime,
   subsDontCareAt    :: Maybe UTCTime,
   subsProtestAt     :: Maybe UTCTime,
+
   splitsKnow        :: Int64,
   splitsDontKnow    :: Int64,
   splitsDontCare    :: Int64,
