@@ -1,5 +1,5 @@
 name:                ln-types
-version:             0.1.0.115
+version:             0.1.0.116
 synopsis:            Core haskell types for LN.
 description:         See README.md
 license:             BSD3

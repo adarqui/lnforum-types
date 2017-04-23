@@ -15,7 +15,6 @@ data BucketNodeResponse = BucketNodeResponse {
   bucketNodeResponseId                :: Int64,
   bucketNodeResponseUserId            :: Int64,
   bucketNodeResponseBucketId          :: Int64,
-  bucketNodeResponseBucketTrainingId  :: Int64,
   bucketNodeResponseLeuronId          :: Int64,
   bucketNodeResponseTimeLimit         :: Int64,
   bucketNodeResponseTimeLimitExceeded :: Int64,

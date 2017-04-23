@@ -7,12 +7,13 @@ module LN.T.BucketRound.Request (
 
 
 import           LN.T.Prelude
+import           LN.T.Training
 
 
 
 data BucketRoundRequest = BucketRoundRequest {
-  bucketRoundRequestStyles       :: [Text],
-  bucketRoundRequestThreshold    :: Int64,
-  bucketRoundRequestTimeLimit    :: Int64,
-  bucketRoundRequestRequestGuard :: Int
+  bucketRoundRequestTrainingStyles :: [TrainingStyle],
+  bucketRoundRequestThreshold      :: Int64,
+  bucketRoundRequestTimeLimit      :: Int64,
+  bucketRoundRequestGuard          :: Int
 } deriving (Generic, Typeable)
