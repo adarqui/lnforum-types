@@ -5,6 +5,7 @@ module LN.T.Leuron (
   module A,
   LeuronData (..),
   TyLeuron (..),
+  LeuronStatus (..),
   Fact (..),
   FactList (..),
   Card (..),
@@ -189,6 +190,15 @@ data TyLeuron
   | TyLnQA
   | TyLnExamples
   | TyLnEmpty
+  deriving (Generic, Typeable)
+
+
+
+data LeuronStatus
+  = LeuronKnow
+  | LeuronDontKnow
+  | LeuronDontCare
+  | LeuronProtest
   deriving (Generic, Typeable)
 
 

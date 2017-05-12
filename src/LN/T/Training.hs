@@ -12,9 +12,9 @@ import           LN.T.Prelude
 
 
 data TrainingStyle
-  = TS_Simple
+  = TS_Honor
   | TS_Boolean
-  | TS_Matching
+  | TS_Match
   | TS_Subs
   | TS_Splits
   deriving (Generic, Typeable)

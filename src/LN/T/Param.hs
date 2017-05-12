@@ -57,6 +57,7 @@ data Param
   | ByThreadPostStarId     Int64
   | ByThreadPostStarsIds   [Int64]
   | ByBucketId             Int64
+  | ByBucketRoundId        Int64
   | ByResourceId           Int64
   | ByResourcesIds         [Int64]
   | ByResourceName         Text
@@ -128,6 +129,7 @@ data ParamTag
   | ParamTag_ByThreadPostStarId
   | ParamTag_ByThreadPostStarsIds
   | ParamTag_ByBucketId
+  | ParamTag_ByBucketRoundId
   | ParamTag_ByResourceId
   | ParamTag_ByResourcesIds
   | ParamTag_ByResourceName
