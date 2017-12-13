@@ -7,7 +7,6 @@ module LN.T.Board.Response (
 
 
 
-import           LN.T.DepList
 import           LN.T.Prelude
 import           LN.T.Board
 import           LN.T.Visibility
@@ -22,8 +21,8 @@ data BoardResponse = BoardResponse {
   boardResponseDescription   :: Text,
   boardResponseSource        :: BoardType,
   boardResponseAuthor        :: Maybe [Text],
-  boardResponsePrerequisites :: DepList Text,
-  boardResponseCategories    :: DepList Text,
+  boardResponsePrerequisites :: [Text],
+  boardResponseCategories    :: [Text],
   boardResponseVisibility    :: Visibility,
   boardResponseCounter       :: Int,
   boardResponseVersion       :: Maybe Text,

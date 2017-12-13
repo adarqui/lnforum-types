@@ -1,4 +1,4 @@
-name:                ln-types
+name:                lnforum-types
 version:             0.1.0.117
 synopsis:            Core haskell types for LN.
 description:         See README.md

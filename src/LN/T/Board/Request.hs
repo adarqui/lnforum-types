@@ -6,7 +6,6 @@ module LN.T.Board.Request (
 
 
 
-import           LN.T.DepList
 import           LN.T.Prelude
 import           LN.T.Board
 import           LN.T.Visibility
@@ -18,8 +17,8 @@ data BoardRequest = BoardRequest {
   boardRequestDescription   :: Text,
   boardRequestSource        :: BoardType,
   boardRequestAuthor        :: Maybe [Text],
-  boardRequestPrerequisites :: DepList Text,
-  boardRequestCategories    :: DepList Text,
+  boardRequestPrerequisites :: [Text],
+  boardRequestCategories    :: [Text],
   boardRequestVisibility    :: Visibility,
   boardRequestCounter       :: Int,
   boardRequestVersion       :: Maybe Text,
