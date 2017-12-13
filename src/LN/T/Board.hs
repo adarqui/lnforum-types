@@ -1,8 +1,8 @@
 {-# LANGUAGE DeriveGeneric  #-}
 
-module LN.T.Resource (
-  ResourceType (..),
-  TyResourceType (..)
+module LN.T.Board (
+  BoardType (..),
+  TyBoardType (..)
 ) where
 
 
@@ -11,7 +11,7 @@ import           LN.T.Prelude
 
 
 
-data ResourceType
+data BoardType
   = ISBN13 Text
   | ISBN10 Text
   | ISBN Text
@@ -26,7 +26,7 @@ data ResourceType
 
 
 
-data TyResourceType
+data TyBoardType
   = TyISBN13
   | TyISBN10
   | TyISBN

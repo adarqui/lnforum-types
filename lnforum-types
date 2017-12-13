@@ -25,19 +25,8 @@ library
                        LN.T.Api
                        LN.T.Api.Request
                        LN.T.Api.Response
-                       LN.T.Bucket
-                       LN.T.Bucket.Request
-                       LN.T.Bucket.Response
-                       LN.T.Bucket.Stat
-                       LN.T.BucketRound
-                       LN.T.BucketRound.Request
-                       LN.T.BucketRound.Response
-                       LN.T.BucketNode
-                       LN.T.BucketNode.Request
-                       LN.T.BucketNode.Response
                        LN.T.Count
                        LN.T.Count.Response
-                       LN.T.DepList
                        LN.T.Empty
                        LN.T.Ent
                        LN.T.Error
@@ -45,17 +34,6 @@ library
                        LN.T.Id.Request
                        LN.T.Id.Response
                        LN.T.Job
-                       LN.T.Leuron
-                       LN.T.Leuron.Request
-                       LN.T.Leuron.Response
-                       LN.T.Leuron.Stat
-                       LN.T.LeuronTraining
-                       LN.T.LeuronTraining.Request
-                       LN.T.LeuronTraining.Response
-                       LN.T.LeuronTraining.Stat
-                       LN.T.LeuronNode
-                       LN.T.LeuronNode.Request
-                       LN.T.LeuronNode.Response
                        LN.T.Like
                        LN.T.Like.Request
                        LN.T.Like.Response
@@ -66,30 +44,23 @@ library
                        LN.T.Pack.User
                        LN.T.Pack.Me
                        LN.T.Pack.Sanitized.User
-                       LN.T.Pack.Resource
-                       LN.T.Pack.Leuron
-                       LN.T.Pack.Bucket
+                       LN.T.Pack.Board
                        LN.T.Permission
                        LN.T.Prelude
                        LN.T.Profile
                        LN.T.Profile.Request
                        LN.T.Profile.Response
-                       LN.T.Resource
-                       LN.T.Resource.Request
-                       LN.T.Resource.Response
-                       LN.T.Resource.Stat
+                       LN.T.Board
+                       LN.T.Board.Request
+                       LN.T.Board.Response
+                       LN.T.Board.Stat
                        LN.T.Schema
-                       LN.T.Simple
                        LN.T.Size
-                       LN.T.Splits
-                       LN.T.Style
-                       LN.T.Substitutions
                        LN.T.Star
                        LN.T.Star.Request
                        LN.T.Star.Response
                        LN.T.Star.Stat
                        LN.T.Test
-                       LN.T.Training
                        LN.T.User
                        LN.T.User.Profile
                        LN.T.User.Request
@@ -103,7 +74,6 @@ library
                        LN.T.User.Stat
                        LN.T.Version
                        LN.T.Visibility
-                       LN.T.Templates
   build-depends:       base
                      , aeson
                      , data-default
