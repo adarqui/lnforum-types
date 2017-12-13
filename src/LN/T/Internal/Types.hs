@@ -37,6 +37,7 @@ import           LN.T.Profile.Response        as A
 import           LN.T.Schema                  as A
 import           LN.T.Simple                  as A
 import           LN.T.Size                    as A
+import           LN.T.Star.Request            as A
 import           LN.T.Star.Response           as A
 import           LN.T.Star.Stat               as A
 import           LN.T.Test                    as A
