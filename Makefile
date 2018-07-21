@@ -1,4 +1,7 @@
 build:
+	stack build --fast
+
+build-watch:
 	stack build --file-watch
 
 docs:

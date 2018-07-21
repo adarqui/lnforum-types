@@ -74,6 +74,7 @@ library
                        LN.T.User.Stat
                        LN.T.Version
                        LN.T.Visibility
+                       LN.T.Simple
   build-depends:       base
                      , aeson
                      , data-default
