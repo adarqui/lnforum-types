@@ -56,13 +56,6 @@ data Param
   | ByThreadPostLikesIds   [Int64]
   | ByThreadPostStarId     Int64
   | ByThreadPostStarsIds   [Int64]
-  | ByBucketId             Int64
-  | ByBucketRoundId        Int64
-  | ByResourceId           Int64
-  | ByResourcesIds         [Int64]
-  | ByResourceName         Text
-  | ByLeuronId             Int64
-  | ByLeuronsIds           [Int64]
   | ByPmId                 Int64
   | ByPmsIds               [Int64]
   | ByReminderId           Int64
@@ -84,7 +77,6 @@ data Param
   | WithBoard              Bool
   | WithThread             Bool
   | WithThreadPosts        Bool
-  | WithResource           Bool
   deriving (Generic, Typeable)
 
 
@@ -128,13 +120,6 @@ data ParamTag
   | ParamTag_ByThreadPostLikesIds
   | ParamTag_ByThreadPostStarId
   | ParamTag_ByThreadPostStarsIds
-  | ParamTag_ByBucketId
-  | ParamTag_ByBucketRoundId
-  | ParamTag_ByResourceId
-  | ParamTag_ByResourcesIds
-  | ParamTag_ByResourceName
-  | ParamTag_ByLeuronId
-  | ParamTag_ByLeuronsIds
   | ParamTag_ByPmId
   | ParamTag_ByPmsIds
   | ParamTag_ByReminderId
@@ -156,7 +141,6 @@ data ParamTag
   | ParamTag_WithBoard
   | ParamTag_WithThread
   | ParamTag_WithThreadPosts
-  | ParamTag_WithResource
   deriving (Generic, Typeable)
 
 

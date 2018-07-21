@@ -13,7 +13,6 @@ import           LN.T.Prelude
 
 data BoardStatResponse = BoardStatResponse {
   boardStatResponseBoardId :: Int64,
-  boardStatResponseLeurons    :: Int64,
   boardStatResponseLikes      :: Int64,
   boardStatResponseNeutral    :: Int64,
   boardStatResponseDislikes   :: Int64,

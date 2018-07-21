@@ -17,8 +17,6 @@ data UserSanitizedStatResponse = UserSanitizedStatResponse {
   userSanitizedStatResponseThreads     :: Int64,
   userSanitizedStatResponseThreadPosts :: Int64,
   userSanitizedStatResponseRespect     :: Int64,
-  userSanitizedStatResponseResources   :: Int64,
-  userSanitizedStatResponseLeurons     :: Int64,
   userSanitizedStatResponseWorkouts    :: Int64
 -- userSanitizedStatResponseLikes :: Int64
 } deriving (Generic, Typeable)
