@@ -10,7 +10,6 @@ module LN.T.Pack.Sanitized.User (
 import           LN.T.Like.Response
 import           LN.T.Prelude
 import           LN.T.Profile.Response
-import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
 import           LN.T.User.Sanitized.Stat
 
@@ -22,8 +21,7 @@ data UserSanitizedPackResponse = UserSanitizedPackResponse {
   userSanitizedPackResponseProfile   :: ProfileResponse,
   userSanitizedPackResponseProfileId :: Int64,
   userSanitizedPackResponseStat      :: UserSanitizedStatResponse,
-  userSanitizedPackResponseLike      :: Maybe LikeResponse,
-  userSanitizedPackResponseStar      :: Maybe StarResponse
+  userSanitizedPackResponseLike      :: Maybe LikeResponse
 } deriving (Generic, Typeable)
 
 

@@ -16,7 +16,6 @@ data BoardStatResponse = BoardStatResponse {
   boardStatResponseLikes      :: Int64,
   boardStatResponseNeutral    :: Int64,
   boardStatResponseDislikes   :: Int64,
-  boardStatResponseStars      :: Int64,
   boardStatResponseViews      :: Int64
 } deriving (Generic, Typeable)
 

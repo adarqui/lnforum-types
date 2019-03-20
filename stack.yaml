@@ -1,6 +1,6 @@
-flags: {}
+resolver: lts-6.2
 packages:
 - .
 - ../haskell-api-helpers-shared
 extra-deps: []
-resolver: lts-8.5
+flags: {}

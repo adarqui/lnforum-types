@@ -12,7 +12,6 @@ import           LN.T.Permission
 import           LN.T.Prelude
 import           LN.T.Board.Response
 import           LN.T.Board.Stat
-import           LN.T.Star.Response
 import           LN.T.User.Sanitized.Response
 
 
@@ -24,7 +23,6 @@ data BoardPackResponse = BoardPackResponse {
   boardPackResponseUserId      :: Int64,
   boardPackResponseStat        :: BoardStatResponse,
   boardPackResponseLike        :: Maybe LikeResponse,
-  boardPackResponseStar        :: Maybe StarResponse,
   boardPackResponsePermissions :: Permissions
 } deriving (Generic, Typeable)
 

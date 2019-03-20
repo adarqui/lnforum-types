@@ -56,10 +56,6 @@ library
                        LN.T.Board.Stat
                        LN.T.Schema
                        LN.T.Size
-                       LN.T.Star
-                       LN.T.Star.Request
-                       LN.T.Star.Response
-                       LN.T.Star.Stat
                        LN.T.Test
                        LN.T.User
                        LN.T.User.Profile

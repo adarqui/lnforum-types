@@ -11,11 +11,7 @@ import           LN.T.Prelude
 
 
 data Ent
-  = Ent_Organization
-  | Ent_GlobalGroup
-  | Ent_Group
-  | Ent_GroupMember
-  | Ent_User
+  = Ent_User
   | Ent_UserSanitized
   | Ent_Forum
   | Ent_Board
@@ -23,6 +19,5 @@ data Ent
   | Ent_ThreadPost
   | Ent_Api
   | Ent_Like
-  | Ent_Star
   | Ent_None
   deriving (Generic, Typeable)

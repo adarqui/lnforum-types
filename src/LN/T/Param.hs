@@ -22,27 +22,10 @@ data Param
   | Offset                 Int64
   | SortOrder              SortOrderBy
   | Order                  OrderBy
-  | ByOrganizationId       Int64
-  | ByOrganizationsIds     [Int64]
-  | ByOrganizationName     Text
-  | ByTeamId               Int64
-  | ByTeamsIds             [Int64]
-  | ByTeamName             Text
-  | ByTeamMemberId         Int64
-  | ByTeamMembersIds       [Int64]
   | ByUserId               Int64
   | ByUsersIds             [Int64]
   | ByUserName             Text
   | ByUsersNames           [Text]
-  | ByGlobalGroupId        Int64
-  | ByGlobalGroupsIds      [Int64]
-  | ByGroupId              Int64
-  | ByGroupsIds            [Int64]
-  | ByGroupMemberId        Int64
-  | ByGroupMembersIds      [Int64]
-  | ByForumId              Int64
-  | ByForumsIds            [Int64]
-  | ByForumName            Text
   | ByBoardId              Int64
   | ByBoardsIds            [Int64]
   | ByBoardName            Text
@@ -54,8 +37,6 @@ data Param
   | ByThreadPostName       Text
   | ByThreadPostLikeId     Int64
   | ByThreadPostLikesIds   [Int64]
-  | ByThreadPostStarId     Int64
-  | ByThreadPostStarsIds   [Int64]
   | ByPmId                 Int64
   | ByPmsIds               [Int64]
   | ByReminderId           Int64
@@ -72,8 +53,6 @@ data Param
   | CreatedAtUnixTimestamp Int64
   | RealIP                 Text
   | IP                     Text
-  | WithOrganization       Bool
-  | WithForum              Bool
   | WithBoard              Bool
   | WithThread             Bool
   | WithThreadPosts        Bool
@@ -86,27 +65,10 @@ data ParamTag
   | ParamTag_Offset
   | ParamTag_SortOrder
   | ParamTag_Order
-  | ParamTag_ByOrganizationId
-  | ParamTag_ByOrganizationsIds
-  | ParamTag_ByOrganizationName
-  | ParamTag_ByTeamId
-  | ParamTag_ByTeamsIds
-  | ParamTag_ByTeamName
-  | ParamTag_ByTeamMemberId
-  | ParamTag_ByTeamMembersIds
   | ParamTag_ByUserId
   | ParamTag_ByUsersIds
   | ParamTag_ByUserName
   | ParamTag_ByUsersNames
-  | ParamTag_ByGlobalGroupId
-  | ParamTag_ByGlobalGroupsIds
-  | ParamTag_ByGroupId
-  | ParamTag_ByGroupsIds
-  | ParamTag_ByGroupMemberId
-  | ParamTag_ByGroupMembersIds
-  | ParamTag_ByForumId
-  | ParamTag_ByForumsIds
-  | ParamTag_ByForumName
   | ParamTag_ByBoardId
   | ParamTag_ByBoardsIds
   | ParamTag_ByBoardName
@@ -118,8 +80,6 @@ data ParamTag
   | ParamTag_ByThreadPostName
   | ParamTag_ByThreadPostLikeId
   | ParamTag_ByThreadPostLikesIds
-  | ParamTag_ByThreadPostStarId
-  | ParamTag_ByThreadPostStarsIds
   | ParamTag_ByPmId
   | ParamTag_ByPmsIds
   | ParamTag_ByReminderId
@@ -136,8 +96,6 @@ data ParamTag
   | ParamTag_CreatedAtUnixTimestamp
   | ParamTag_RealIP
   | ParamTag_IP
-  | ParamTag_WithOrganization
-  | ParamTag_WithForum
   | ParamTag_WithBoard
   | ParamTag_WithThread
   | ParamTag_WithThreadPosts
@@ -160,9 +118,6 @@ data OrderBy
   | OrderBy_ModifiedAt
   | OrderBy_ModifiedBy
   | OrderBy_ActivityAt
-  | OrderBy_OrganizationId
-  | OrderBy_TeamId
-  | OrderBy_ForumId
   | OrderBy_BoardId
   | OrderBy_ThreadId
   | OrderBy_Id
