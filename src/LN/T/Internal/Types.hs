@@ -27,6 +27,8 @@ import           LN.T.Like.Response           as A
 import           LN.T.Like.Stat               as A
 import           LN.T.Pack.Board              as A
 import           LN.T.Pack.Sanitized.User     as A
+import           LN.T.Pack.Thread             as A
+import           LN.T.Pack.ThreadPost         as A
 import           LN.T.Pack.User               as A
 import           LN.T.Param                   as A
 import           LN.T.PatternSynonyms         as A
