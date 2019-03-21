@@ -45,6 +45,8 @@ library
                        LN.T.Pack.Me
                        LN.T.Pack.Sanitized.User
                        LN.T.Pack.Board
+                       LN.T.Pack.Thread
+                       LN.T.Pack.ThreadPost
                        LN.T.Permission
                        LN.T.Prelude
                        LN.T.Profile
@@ -54,6 +56,14 @@ library
                        LN.T.Board.Request
                        LN.T.Board.Response
                        LN.T.Board.Stat
+                       LN.T.Thread
+                       LN.T.Thread.Request
+                       LN.T.Thread.Response
+                       LN.T.Thread.Stat
+                       LN.T.ThreadPost
+                       LN.T.ThreadPost.Request
+                       LN.T.ThreadPost.Response
+                       LN.T.ThreadPost.Stat
                        LN.T.Schema
                        LN.T.Size
                        LN.T.Test
