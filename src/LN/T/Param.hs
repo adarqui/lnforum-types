@@ -26,6 +26,7 @@ data Param
   | ByUsersIds             [Int64]
   | ByUserName             Text
   | ByUsersNames           [Text]
+  | ByForumId              Int64
   | ByBoardId              Int64
   | ByBoardsIds            [Int64]
   | ByBoardName            Text

@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE DeriveGeneric #-}
 
 module LN.T.Board.Request (
   BoardRequest (..)
@@ -6,24 +6,22 @@ module LN.T.Board.Request (
 
 
 
-import           LN.T.Prelude
 import           LN.T.Board
+import           LN.T.Prelude
 import           LN.T.Visibility
 
 
 
 data BoardRequest = BoardRequest {
-  boardRequestDisplayName   :: Text,
-  boardRequestDescription   :: Text,
-  boardRequestSource        :: BoardType,
-  boardRequestAuthor        :: Maybe [Text],
-  boardRequestPrerequisites :: [Text],
-  boardRequestCategories    :: [Text],
-  boardRequestVisibility    :: Visibility,
-  boardRequestCounter       :: Int,
-  boardRequestVersion       :: Maybe Text,
-  boardRequestUrls          :: Maybe [Text],
-  boardRequestIcon          :: Maybe Text,
-  boardRequestTags          :: [Text],
-  boardRequestGuard         :: Int
+  boardRequestDisplayName      :: Text,
+  boardRequestDescription      :: Maybe Text,
+  boardRequestBoardType        :: BoardType,
+  boardRequestActive           :: Bool,
+  boardRequestIsAnonymous      :: Bool,
+  boardRequestCanCreateBoards  :: Bool,
+  boardRequestCanCreateThreads :: Bool,
+  boardRequestVisibility       :: Visibility,
+  boardRequestIcon             :: Maybe Text,
+  boardRequestTags             :: [Text],
+  boardRequestGuard            :: Int
  } deriving (Generic, Typeable)

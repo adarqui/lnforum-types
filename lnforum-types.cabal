@@ -41,6 +41,7 @@ library
                        LN.T.Pack.User
                        LN.T.Pack.Me
                        LN.T.Pack.Sanitized.User
+                       LN.T.Pack.Forum
                        LN.T.Pack.Board
                        LN.T.Pack.Thread
                        LN.T.Pack.ThreadPost
@@ -49,6 +50,10 @@ library
                        LN.T.Profile
                        LN.T.Profile.Request
                        LN.T.Profile.Response
+                       LN.T.Forum
+                       LN.T.Forum.Request
+                       LN.T.Forum.Response
+                       LN.T.Forum.Stat
                        LN.T.Board
                        LN.T.Board.Request
                        LN.T.Board.Response

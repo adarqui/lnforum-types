@@ -12,24 +12,11 @@ import           LN.T.Prelude
 
 
 data BoardType
-  = ISBN13 Text
-  | ISBN10 Text
-  | ISBN Text
-  | URL Text
-  | SourceNone
-  {-
-  | Album Text Text
-  | Song Text Text
-  | Paper Text
-  -}
+  = FixMe
   deriving (Generic, Typeable)
 
 
 
 data TyBoardType
-  = TyISBN13
-  | TyISBN10
-  | TyISBN
-  | TyURL
-  | TySourceNone
+  = TyFixMe
   deriving (Generic, Typeable)

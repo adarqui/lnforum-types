@@ -7,33 +7,30 @@ module LN.T.Board.Response (
 
 
 
-import           LN.T.Prelude
 import           LN.T.Board
+import           LN.T.Prelude
 import           LN.T.Visibility
 
 
 
 data BoardResponse = BoardResponse {
-  boardResponseId            :: Int64,
-  boardResponseUserId        :: Int64,
-  boardResponseName          :: Text,
-  boardResponseDisplayName   :: Text,
-  boardResponseDescription   :: Text,
-  boardResponseSource        :: BoardType,
-  boardResponseAuthor        :: Maybe [Text],
-  boardResponsePrerequisites :: [Text],
-  boardResponseCategories    :: [Text],
-  boardResponseVisibility    :: Visibility,
-  boardResponseCounter       :: Int,
-  boardResponseVersion       :: Maybe Text,
-  boardResponseUrls          :: Maybe [Text],
-  boardResponseIcon          :: Maybe Text,
-  boardResponseTags          :: [Text],
-  boardResponseActive        :: Bool,
-  boardResponseGuard         :: Int,
-  boardResponseCreatedAt     :: Maybe UTCTime,
-  boardResponseModifiedAt    :: Maybe UTCTime,
-  boardResponseActivityAt    :: Maybe UTCTime
+  boardResponseId               :: Int64,
+  boardResponseUserId           :: Int64,
+  boardResponseName             :: Text,
+  boardResponseDisplayName      :: Text,
+  boardResponseDescription      :: Text,
+  boardResponseBoardType        :: BoardType,
+  boardResponseActive           :: Bool,
+  boardResponseIsAnonymous      :: Bool,
+  boardResponseCanCreateBoards  :: Bool,
+  boardResponseCanCreateThreads :: Bool,
+  boardResponseVisibility       :: Visibility,
+  boardResponseIcon             :: Maybe Text,
+  boardResponseTags             :: [Text],
+  boardResponseGuard            :: Int,
+  boardResponseCreatedAt        :: Maybe UTCTime,
+  boardResponseModifiedAt       :: Maybe UTCTime,
+  boardResponseActivityAt       :: Maybe UTCTime
 } deriving (Generic, Typeable)
 
 

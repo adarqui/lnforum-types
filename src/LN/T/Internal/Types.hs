@@ -19,11 +19,16 @@ import           LN.T.Board                   as A
 import           LN.T.Board.Request           as A
 import           LN.T.Board.Response          as A
 import           LN.T.Board.Stat              as A
+import           LN.T.Forum                   as A ()
+import           LN.T.Forum.Request           as A
+import           LN.T.Forum.Response          as A
+import           LN.T.Forum.Stat              as A
 import           LN.T.Like                    as A
 import           LN.T.Like.Request            as A
 import           LN.T.Like.Response           as A
 import           LN.T.Like.Stat               as A
 import           LN.T.Pack.Board              as A
+import           LN.T.Pack.Forum              as A
 import           LN.T.Pack.Sanitized.User     as A
 import           LN.T.Pack.Thread             as A
 import           LN.T.Pack.ThreadPost         as A
