@@ -8,11 +8,13 @@ module LN.T.Pack.Forum (
 
 import           LN.T.Forum.Response
 import           LN.T.Forum.Stat
+import           LN.T.Permission
 import           LN.T.Prelude
 
 
 
 data ForumPackResponse = ForumPackResponse {
-  forumPackResponseForum            :: ForumResponse,
-  forumPackResponseStat             :: ForumStatResponse
+  forumPackResponsePermissions :: Permissions,
+  forumPackResponseForum       :: ForumResponse,
+  forumPackResponseStat        :: ForumStatResponse
 } deriving (Generic, Typeable)

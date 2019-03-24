@@ -18,7 +18,7 @@ data BoardResponse = BoardResponse {
   boardResponseUserId           :: Int64,
   boardResponseName             :: Text,
   boardResponseDisplayName      :: Text,
-  boardResponseDescription      :: Text,
+  boardResponseDescription      :: Maybe Text,
   boardResponseBoardType        :: BoardType,
   boardResponseActive           :: Bool,
   boardResponseIsAnonymous      :: Bool,
