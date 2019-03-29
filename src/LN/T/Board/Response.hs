@@ -30,6 +30,7 @@ data BoardResponse = BoardResponse {
   boardResponseGuard            :: Int,
   boardResponseCreatedAt        :: Maybe UTCTime,
   boardResponseModifiedAt       :: Maybe UTCTime,
+  boardResponseModifiedBy       :: Maybe Int64,
   boardResponseActivityAt       :: Maybe UTCTime
 } deriving (Generic, Typeable)
 

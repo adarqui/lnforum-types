@@ -25,6 +25,7 @@ data ForumResponse = ForumResponse {
   forumResponseMotwLimit            :: Int,
   forumResponseIcon                 :: Maybe Text,
   forumResponseVisibility           :: Visibility,
+  forumResponseTags                 :: [Text],
   -- Shared
   forumResponseGuard                :: Int,
   forumResponseCreatedAt            :: Maybe UTCTime,

@@ -22,7 +22,5 @@ data ForumRequest = ForumRequest {
   forumRequestIcon                 :: Maybe Text,
   forumRequestTags                 :: [Text],
   forumRequestVisibility           :: Visibility,
-  forumRequestGuard                :: Int,
-  -- State
-  forumRequestStateTag             :: Maybe Text
+  forumRequestGuard                :: Int
 } deriving (Generic, Typeable)
