@@ -38,6 +38,7 @@ library
                        LN.T.Me
                        LN.T.Param
                        LN.T.PatternSynonyms
+                       LN.T.Pack.Boot
                        LN.T.Pack.User
                        LN.T.Pack.Me
                        LN.T.Pack.Sanitized.User

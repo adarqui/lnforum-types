@@ -27,6 +27,7 @@ import           LN.T.Like                    as A
 import           LN.T.Like.Request            as A
 import           LN.T.Like.Response           as A
 import           LN.T.Like.Stat               as A
+import           LN.T.Pack.Boot               as A
 import           LN.T.Pack.Board              as A
 import           LN.T.Pack.Forum              as A
 import           LN.T.Pack.Sanitized.User     as A
@@ -43,7 +44,6 @@ import           LN.T.Schema                  as A
 import           LN.T.Simple                  as A
 import           LN.T.Size                    as A
 import           LN.T.Test                    as A
--- import           LN.T.Thread                  as A
 import           LN.T.Thread.Request          as A
 import           LN.T.Thread.Response         as A
 import           LN.T.Thread.Stat             as A
