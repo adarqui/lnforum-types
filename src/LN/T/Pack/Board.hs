@@ -12,9 +12,9 @@ import           LN.T.Board.Stat
 import           LN.T.Like.Response
 import           LN.T.Permission
 import           LN.T.Prelude
+import           LN.T.Thread.Response
+import           LN.T.ThreadPost.Response
 import           LN.T.User.Sanitized.Response
-import LN.T.Thread.Response
-import LN.T.ThreadPost.Response
 
 
 
