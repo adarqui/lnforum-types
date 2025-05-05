@@ -7,7 +7,6 @@ module LN.T.Prelude (
 import           Control.Monad as A (mzero)
 import           Data.Aeson    as A
 import           Data.Int      as A (Int64)
-import           Data.Monoid   as A ((<>))
 import           Data.String   as A
 import           Data.Text     as A (Text)
 import           Data.Time     as A (UTCTime)

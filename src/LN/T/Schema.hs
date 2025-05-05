@@ -11,7 +11,6 @@ module LN.T.Schema (
 
 import           Data.Aeson
 import           Data.Aeson.Types
-import           Data.Monoid      ((<>))
 import           Data.String
 import           Prelude
 

@@ -1,14 +1,14 @@
+cabal-version:       2.2
 name:                lnforum-types
 version:             0.1.0.119
 synopsis:            Core haskell types for LN.
 description:         See README.md
-license:             BSD3
+license:             BSD-3-Clause
 license-file:        LICENSE
 author:              Andrew Darqui
 maintainer:          andrew.darqui@gmail.com
 category:            System
 build-type:          Simple
-cabal-version:       >=1.10
 
 Flag dev
     Description:   Turn on development settings, like auto-reload templates.
